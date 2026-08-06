@@ -3,65 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SayonMart Admin</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SayonMart</title>
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
-<h2>🛒 SayonMart Admin Panel</h2>
+<header>
+  <h2>SayonMart</h2>
+</header>
 
-<input type="text" id="name" placeholder="Product Name"><br><br>
+<div class="banner">
+  <img id="banner" src="https://picsum.photos/800/300?random=1" alt="Banner">
+</div>
 
-<input type="number" id="price" placeholder="Product Price"><br><br>
+<h3 class="title">Categories</h3>
 
-<input type="text" id="image" placeholder="Image URL"><br><br>
+<div class="categories">
+  <div>👕<br>Fashion</div>
+  <div>👟<br>Shoes</div>
+  <div>📱<br>Mobiles</div>
+  <div>⌚<br>Watches</div>
+</div>
 
-<button id="addProductBtn">➕ Add Product</button>
+<h3 class="title">Trending Products</h3>
 
-<br><br>
+<div class="search">
+  <input
+    type="text"
+    id="search"
+    placeholder="Search Product..."
+    onkeyup="searchProduct()">
+</div>
 
-<a href="index.html">
-  <button>🏠 Home</button>
-</a>
+<div class="products" id="products">
 
-<script type="module">
-import { db } from "./firebase.js";
-import {
-  collection,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  <div class="card">
+    <img src="https://picsum.photos/200?random=11" alt="Premium T-Shirt">
+    <h3>Premium T-Shirt</h3>
+    <p>₹499 (50% OFF)</p>
 
-document.getElementById("addProductBtn").addEventListener("click", async () => {
+    <button onclick="addWishlist()">❤️ Wishlist</button>
+    <button onclick="addToCart()">🛒 Add to Cart</button>
+  </div>
 
-  const name = document.getElementById("name").value.trim();
-  const price = document.getElementById("price").value.trim();
-  const image = document.getElementById("image").value.trim();
+  <div class="card">
+    <img src="https://picsum.photos/200?random=22" alt="Shoes">
+    <h3>Shoes</h3>
+    <p>₹999</p>
 
-  if (!name || !price || !image) {
-    alert("সব তথ্য পূরণ করুন");
-    return;
-  }
+    <button onclick="addWishlist()">❤️ Wishlist</button>
+    <button onclick="addToCart('Premium T-Shirt',499)">🛒 Add to Cart</button>
+  </div>
 
-  try {
-    await addDoc(collection(db, "products"), {
-      name,
-      price: Number(price),
-      image,
-      createdAt: new Date()
-    });
+</div>
 
-    alert("✅ Product সফলভাবে যোগ হয়েছে!");
+<div class="bottom-nav">
+  <a href="index.html">🏠<br>Home</a>
+  <a href="products.html">🛍️<br>Products</a>
+  <a href="cart.html">🛒<br>Cart</a>
+  <a href="profile.html">👤<br>Profile</a>
+</div>
 
-    document.getElementById("name").value = "";
-    document.getElementById("price").value = "";
-    document.getElementById("image").value = "";
+<button onclick="window.location.href='login.html'">
+  Login
+</button>
 
-  } catch (error) {
-    alert("Error: " + error.message);
-  }
-
-});
-</script>
-
+<script type="module" src="script.js"></script>
+<script type="module" src="firebase.js"></script>
 </body>
 </html>
