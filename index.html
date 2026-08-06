@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SayonMart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h2>SayonMart</h2>
+</header>
+
+<div class="banner">
+  <img id="banner" src="https://picsum.photos/800/300?random=1" alt="Banner">
+</div>
+
+<h3 class="title">Categories</h3>
+
+<div class="categories">
+  <div>👕<br>Fashion</div>
+  <div>👟<br>Shoes</div>
+  <div>📱<br>Mobiles</div>
+  <div>⌚<br>Watches</div>
+</div>
+
+<h3 class="title">Trending Products</h3>
+
+<div class="search">
+  <input
+    type="text"
+    id="search"
+    placeholder="Search Product..."
+    onkeyup="searchProduct()">
+</div>
+
+<div class="products" id="products">
+
+  <div class="card">
+    <img src="https://picsum.photos/200?random=11" alt="Premium T-Shirt">
+    <h3>Premium T-Shirt</h3>
+    <p>₹499 (50% OFF)</p>
+
+    <button onclick="addWishlist()">❤️ Wishlist</button>
+    <button onclick="addToCart()">🛒 Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://picsum.photos/200?random=22" alt="Shoes">
+    <h3>Shoes</h3>
+    <p>₹999</p>
+
+    <button onclick="addWishlist()">❤️ Wishlist</button>
+    <button onclick="addToCart('Premium T-Shirt',499)">🛒 Add to Cart</button>
+  </div>
+
+</div>
+
+<div class="bottom-nav">
+  <a href="index.html">🏠<br>Home</a>
+  <a href="products.html">🛍️<br>Products</a>
+  <a href="cart.html">🛒<br>Cart</a>
+  <a href="profile.html">👤<br>Profile</a>
+</div>
+
+<button onclick="window.location.href='login.html'">
+  Login
+</button>
+
+<script type="module" src="script.js"></script>
+<script <script type="module" src="firebase.js"></script>
+</body>
+</html>

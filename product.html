@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Product - SayonMart</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<h2>Premium T-Shirt</h2>
+</header>
+
+<div class="card">
+  <h3>দাম: ₹499</h3>
+
+  <p>আপনার লাভ (₹)</p>
+
+  <input type="number" id="profit" placeholder="যেমন 100">
+
+  <button onclick="calculateProfit()">দাম দেখুন</button>
+
+  <h3 id="finalPrice"></h3>
+</div>
+
+<script>
+function calculateProfit(){
+  let profit = Number(document.getElementById("profit").value);
+  let finalPrice = 499 + profit;
+
+  document.getElementById("finalPrice").innerHTML =
+    "বিক্রির দাম: ₹" + finalPrice;
+}
+</script>
+
+</body>
+</html>
+<h3>Supplier Price: ₹499</h3>
+
+<label>আপনার লাভ (₹)</label>
+
+<input type="number" id="profit" placeholder="যেমন 100">
+
+<button onclick="calculateProfit()">
+দাম হিসাব করুন
+</button>
+<button onclick="shareWhatsApp()">
+📤 WhatsApp Share
+</button>
+<h3 id="finalPrice"></h3>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Orders</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>📦 All Orders</h2>
+
+<div id="orders"></div>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const ordersDiv = document.getElementById("orders");
+
+const querySnapshot = await getDocs(collection(db, "orders"));
+
+querySnapshot.forEach((doc) => {
+  const order = doc.data();
+
+  ordersDiv.innerHTML += `
+    <div class="card">
+      <h3>${order.name}</h3>
+      <p>📞 ${order.phone}</p>
+      <p>📍 ${order.address}</p>
+      <p>📦 ${order.status}</p>
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>

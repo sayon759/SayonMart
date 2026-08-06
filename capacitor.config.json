@@ -1,0 +1,8 @@
+{
+  "appId": "com.sayonmart.app",
+  "appName": "SayonMart",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

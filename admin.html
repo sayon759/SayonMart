@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SayonMart Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>🛒 SayonMart Admin Panel</h2>
+
+<input type="text" id="name" placeholder="Product Name"><br><br>
+
+<input type="number" id="price" placeholder="Product Price"><br><br>
+
+<input type="text" id="image" placeholder="Image URL"><br><br>
+
+<button id="addProductBtn">➕ Add Product</button>
+
+<br><br>
+
+<a href="index.html">
+  <button>🏠 Home</button>
+</a>
+
+<script type="module">
+import { db } from "./firebase.js";
+import {
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+document.getElementById("addProductBtn").addEventListener("click", async () => {
+
+  const name = document.getElementById("name").value.trim();
+  const price = document.getElementById("price").value.trim();
+  const image = document.getElementById("image").value.trim();
+
+  if (!name || !price || !image) {
+    alert("সব তথ্য পূরণ করুন");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "products"), {
+      name,
+      price: Number(price),
+      image,
+      createdAt: new Date()
+    });
+
+    alert("✅ Product সফলভাবে যোগ হয়েছে!");
+
+    document.getElementById("name").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("image").value = "";
+
+  } catch (error) {
+    alert("Error: " + error.message);
+  }
+
+});
+</script>
+
+</body>
+</html>

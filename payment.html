@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SayonMart Payment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>💳 Payment</h2>
+
+<h3>UPI ID</h3>
+
+<p><b>YOURUPI@upi</b></p>
+
+<p>এই UPI ID-তে টাকা পাঠিয়ে নিচের বাটনে চাপুন।</p>
+
+<button onclick="paymentDone()">
+✅ Payment Completed
+</button>
+
+<script>
+  function paymentDone() {
+  alert("✅ Payment Successful!\nআপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে।");
+
+  localStorage.removeItem("cart");
+
+  window.location.href = "profile.html";
+  }
+</script>
+
+</body>
+</html>

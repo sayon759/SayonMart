@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SayonMart Cart</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<h2>🛒 My Cart</h2>
+</header>
+
+<div id="cartItems"></div>
+
+<h2 id="total">Total: ₹0</h2>
+
+<button onclick="window.location.href='payment.html'">
+✅ Checkout
+</>
+
+<br><br>
+
+<a href="index.html">
+<button>⬅ Back Home</button>
+</a>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let total = 0;
+let html = "";
+
+cart.forEach(item => {
+  html += `
+    <div class="card">
+      <h3>${item.name}</h3>
+      <p>₹${item.price}</p>
+    </div>
+  `;
+  total += item.price;
+});
+
+document.getElementById("cartItems").innerHTML = html;
+document.getElementById("total").innerHTML = "Total: ₹" + total;
+
+function checkout() {
+  alert("🎉 Order Placed Successfully!");
+  localStorage.removeItem("cart");
+  window.location.reload();
+}
+</script>
+
+</body>
+</html>

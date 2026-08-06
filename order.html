@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - SayonMart</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>📦 Checkout</h2>
+
+<input type="text" id="customerName" placeholder="Your Name"><br><br>
+
+<input type="text" id="customerPhone" placeholder="Phone Number"><br><br>
+
+<input type="text" id="customerAddress" placeholder="Delivery Address"><br><br>
+
+<button id="placeOrderBtn">Place Order</button>
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+document.getElementById("placeOrderBtn").addEventListener("click", async () => {
+
+  const name = document.getElementById("customerName").value;
+  const phone = document.getElementById("customerPhone").value;
+  const address = document.getElementById("customerAddress").value;
+
+  if (!name || !phone || !address) {
+    alert("সব তথ্য পূরণ করুন");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "orders"), {
+      name: name,
+      phone: phone,
+      address: address,
+      status: "Pending",
+      createdAt: new Date()
+    });
+
+    alert("🎉 Order সফলভাবে করা হয়েছে!");
+window.location.href = "payment.html";
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerPhone").value = "";
+    document.getElementById("customerAddress").value = "";
+
+  } catch (error) {
+    alert(error.message);
+  }
+
+});
+</script>
+</body>
+</html>
