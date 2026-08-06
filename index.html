@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>SayonMart</title>
+
   <link rel="stylesheet" href="style.css">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <meta name="theme-color" content="#4f46e5">
 </head>
 <body>
 
@@ -43,7 +50,7 @@
     <p>₹499 (50% OFF)</p>
 
     <button onclick="addWishlist()">❤️ Wishlist</button>
-    <button onclick="addToCart()">🛒 Add to Cart</button>
+    <button onclick="addToCart('Premium T-Shirt',499)">🛒 Add to Cart</button>
   </div>
 
   <div class="card">
@@ -52,7 +59,7 @@
     <p>₹999</p>
 
     <button onclick="addWishlist()">❤️ Wishlist</button>
-    <button onclick="addToCart('Premium T-Shirt',499)">🛒 Add to Cart</button>
+    <button onclick="addToCart('Shoes',999)">🛒 Add to Cart</button>
   </div>
 
 </div>
@@ -68,7 +75,8 @@
   Login
 </button>
 
+<script type="module" src="firebase.js"></script>
 <script type="module" src="script.js"></script>
-<script <script type="module" src="firebase.js"></script>
+
 </body>
 </html>
