@@ -1,74 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SayonMart</title>
-  <link rel="manifest" href="manifest.json">
+  <title>SayonMart Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-  <h2>SayonMart</h2>
+  <h2>🛠️ SayonMart Admin</h2>
 </header>
 
-<div class="banner">
-  <img id="banner" src="https://picsum.photos/800/300?random=1" alt="Banner">
-</div>
+<div class="admin-box">
 
-<h3 class="title">Categories</h3>
+  <h2>➕ Add New Product</h2>
 
-<div class="categories">
-  <div>👕<br>Fashion</div>
-  <div>👟<br>Shoes</div>
-  <div>📱<br>Mobiles</div>
-  <div>⌚<br>Watches</div>
-</div>
+  <input id="productName" type="text" placeholder="Product Name">
 
-<h3 class="title">Trending Products</h3>
+  <input id="productPrice" type="number" placeholder="Price ₹">
 
-<div class="search">
-  <input
-    type="text"
-    id="search"
-    placeholder="Search Product..."
-    onkeyup="searchProduct()">
-</div>
+  <input id="productImage" type="text"
+         placeholder="Product Image URL">
 
-<div class="products" id="products">
+  <select id="productCategory">
+    <option value="Fashion">👕 Fashion</option>
+    <option value="Shoes">👟 Shoes</option>
+    <option value="Mobiles">📱 Mobiles</option>
+    <option value="Watches">⌚ Watches</option>
+  </select>
 
-  <div class="card">
-    <img src="https://picsum.photos/200?random=11" alt="Premium T-Shirt">
-    <h3>Premium T-Shirt</h3>
-    <p>₹499 (50% OFF)</p>
+  <button onclick="addProduct()">
+    ➕ Add Product
+  </button>
 
-    <button onclick="addWishlist()">❤️ Wishlist</button>
-    <button onclick="addToCart()">🛒 Add to Cart</button>
-  </div>
+  <hr>
 
-  <div class="card">
-    <img src="https://picsum.photos/200?random=22" alt="Shoes">
-    <h3>Shoes</h3>
-    <p>₹999</p>
+  <h2>📦 Products</h2>
 
-    <button onclick="addWishlist()">❤️ Wishlist</button>
-    <button onclick="addToCart('Premium T-Shirt',499)">🛒 Add to Cart</button>
-  </div>
+  <div id="productList"></div>
+
+  <hr>
+
+  <button onclick="window.location.href='admin-orders.html'">
+    📦 View Orders
+  </button>
+
+  <button onclick="window.location.href='index.html'">
+    🏠 Back Home
+  </button>
 
 </div>
 
-<div class="bottom-nav">
-  <a href="index.html">🏠<br>Home</a>
-  <a href="products.html">🛍️<br>Products</a>
-  <a href="cart.html">🛒<br>Cart</a>
-  <a href="profile.html">👤<br>Profile</a>
-</div>
+<script type="module">
 
-<button onclick="window.location.href='login.html'">
-  Login
-</button>
+import { db } from "./firebase.js";
 
-<script type="module" src="script.js"></script>
-<script type="module" src="firebase.js"></script>
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const productList = document.getElementById("productList");
+
+
+// LOAD PRODUCTS
+async function loadProducts() {
+
+  productList.innerHTML = "";
+
+  const snapshot =
+    await getDocs(collection(db, "products"));
+
+  snapshot.forEach((item) => {
+
+    const product = item.data();
+
+    productList.innerHTML += `
+
+      <div class="card">
+
+        <img
+          src="${product.image}"
+          style="width:120px;height:120px;object-fit:cover;border-radius:10px;"
+        >
+
+        <h3>${product.name}</h3>
+
+        <p>💰 ₹${product.price}</p>
+
+        <p>📂 ${product.category}</p>
+
+        <button
+          onclick="deleteProduct('${item.id}')">
+          🗑️ Delete
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+// ADD PRODUCT
+window.addProduct = async function() {
+
+  const name =
+    document.getElementById("productName").value.trim();
+
+  const price =
+    document.getElementById("productPrice").value;
+
+  const image =
+    document.getElementById("productImage").value.trim();
+
+  const category =
+    document.getElementById("productCategory").value;
+
+
+  if (!name || !price || !image) {
+
+    alert("সব তথ্য পূরণ করো");
+
+    return;
+
+  }
+
+
+  await addDoc(collection(db, "products"), {
+
+    name: name,
+
+    price: Number(price),
+
+    image: image,
+
+    category: category,
+
+    createdAt: new Date()
+
+  });
+
+
+  alert("✅ Product Added");
+
+
+  document.getElementById("productName").value = "";
+
+  document.getElementById("productPrice").value = "";
+
+  document.getElementById("productImage").value = "";
+
+
+  loadProducts();
+
+};
+
+
+// DELETE PRODUCT
+window.deleteProduct = async function(id) {
+
+  if (!confirm("এই Product Delete করতে চাও?")) {
+
+    return;
+
+  }
+
+
+  await deleteDoc(doc(db, "products", id));
+
+
+  alert("🗑️ Product Deleted");
+
+
+  loadProducts();
+
+};
+
+
+loadProducts();
+
+</script>
+
 </body>
-</html>
+    </html>
