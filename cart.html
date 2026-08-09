@@ -1,56 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SayonMart Cart</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-<h2>🛒 My Cart</h2>
+  <h2>🛒 My Cart</h2>
 </header>
 
 <div id="cartItems"></div>
 
 <h2 id="total">Total: ₹0</h2>
 
-<button onclick="window.location.href='payment.html'">
-✅ Checkout
-</>
+<button onclick="checkout()">
+  ✅ Checkout
+</button>
 
 <br><br>
 
 <a href="index.html">
-<button>⬅ Back Home</button>
+  <button>⬅ Back Home</button>
 </a>
 
 <script>
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let total = 0;
-let html = "";
+function showCart() {
 
-cart.forEach(item => {
-  html += `
-    <div class="card">
-      <h3>${item.name}</h3>
-      <p>₹${item.price}</p>
-    </div>
-  `;
-  total += item.price;
-});
+  const cartItems = document.getElementById("cartItems");
 
-document.getElementById("cartItems").innerHTML = html;
-document.getElementById("total").innerHTML = "Total: ₹" + total;
+  let total = 0;
+  let html = "";
+
+  if (cart.length === 0) {
+
+    cartItems.innerHTML =
+      "<h3>🛒 Cart খালি</h3>";
+
+    document.getElementById("total").innerText =
+      "Total: ₹0";
+
+    return;
+  }
+
+  cart.forEach((item, index) => {
+
+    const quantity = item.quantity || 1;
+    const itemTotal = item.price * quantity;
+
+    total += itemTotal;
+
+    html += `
+      <div class="card">
+
+        <img
+          src="${item.image || ''}"
+          style="
+            width:120px;
+            height:120px;
+            object-fit:cover;
+            border-radius:10px;
+          "
+        >
+
+        <h3>${item.name}</h3>
+
+        <p>💰 ₹${item.price}</p>
+
+        <p>Quantity: ${quantity}</p>
+
+        <p>
+          Subtotal: ₹${itemTotal}
+        </p>
+
+        <button onclick="removeItem(${index})">
+          🗑️ Remove
+        </button>
+
+      </div>
+    `;
+  });
+
+  cartItems.innerHTML = html;
+
+  document.getElementById("total").innerText =
+    "Total: ₹" + total;
+}
+
+
+function removeItem(index) {
+
+  cart.splice(index, 1);
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+  showCart();
+}
+
 
 function checkout() {
-  alert("🎉 Order Placed Successfully!");
-  localStorage.removeItem("cart");
-  window.location.reload();
+
+  if (cart.length === 0) {
+
+    alert("🛒 আগে Product Cart-এ যোগ করো");
+
+    return;
+  }
+
+  window.location.href = "payment.html";
 }
+
+
+showCart();
+
 </script>
 
 </body>
-</html>
+</html>￼Enter
