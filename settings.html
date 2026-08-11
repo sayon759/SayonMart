@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SayonMart Settings</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+    }
+
+    header {
+      background: #000;
+      color: #FFD700;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .settings-box {
+      padding: 20px;
+    }
+
+    .setting {
+      background: #222;
+      margin: 12px 0;
+      padding: 18px;
+      border-radius: 12px;
+    }
+
+    .setting label {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #FFD700;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .back {
+      background: #333;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>⚙️ <span data-lang="settings">Settings</span></h2>
+</header>
+
+<div class="settings-box">
+
+  <!-- Language -->
+  <div class="setting">
+    <label>🌐 <span data-lang="language">Language</span></label>
+
+    <select id="language">
+      <option value="bn">বাংলা</option>
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+    </select>
+  </div>
+
+  <!-- Dark Mode -->
+  <div class="setting">
+    <label>🌙 <span data-lang="darkMode">Dark Mode</span></label>
+
+    <button onclick="toggleDarkMode()">
+      🌙 <span data-lang="changeTheme">Change Theme</span>
+    </button>
+  </div>
+
+  <!-- Notification -->
+  <div class="setting">
+    <label>🔔 <span data-lang="notification">Notifications</span></label>
+
+    <button onclick="toggleNotification()" id="notificationBtn">
+      🔔 ON
+    </button>
+  </div>
+
+  <!-- Profile -->
+  <div class="setting">
+    <label>👤 <span data-lang="profile">Profile</span></label>
+
+    <button onclick="location.href='profile.html'">
+      👤 <span data-lang="openProfile">Open Profile</span>
+    </button>
+  </div>
+
+  <!-- Logout -->
+  <div class="setting">
+    <label>🚪 <span data-lang="logout">Logout</span></label>
+
+    <button onclick="logout()">
+      🚪 <span data-lang="logout">Logout</span>
+    </button>
+  </div>
+
+  <!-- About -->
+  <div class="setting">
+    <label>ℹ️ <span data-lang="about">About SayonMart</span></label>
+
+    <p>SayonMart 🛍️</p>
+    <p>Online Shopping App</p>
+  </div>
+
+  <button class="back" onclick="location.href='index.html'">
+    🏠 <span data-lang="backHome">Back Home</span>
+  </button>
+
+</div>
+
+<script>
+const translations = {
+
+  bn: {
+    settings: "সেটিংস",
+    language: "ভাষা",
+    darkMode: "ডার্ক মোড",
+    changeTheme: "থিম পরিবর্তন",
+    notification: "নোটিফিকেশন",
+    profile: "প্রোফাইল",
+    openProfile: "প্রোফাইল খুলুন",
+    logout: "লগআউট",
+    about: "SayonMart সম্পর্কে",
+    backHome: "হোমে ফিরে যান"
+  },
+
+  en: {
+    settings: "Settings",
+    language: "Language",
+    darkMode: "Dark Mode",
+    changeTheme: "Change Theme",
+    notification: "Notifications",
+    profile: "Profile",
+    openProfile: "Open Profile",
+    logout: "Logout",
+    about: "About SayonMart",
+    backHome: "Back Home"
+  },
+
+  hi: {
+    settings: "सेटिंग्स",
+    language: "भाषा",
+    darkMode: "डार्क मोड",
+    changeTheme: "थीम बदलें",
+    notification: "सूचनाएं",
+    profile: "प्रोफ़ाइल",
+    openProfile: "प्रोफ़ाइल खोलें",
+    logout: "लॉगआउट",
+    about: "SayonMart के बारे में",
+    backHome: "होम पर जाएं"
+  }
+
+};
+
+
+function changeLanguage(lang) {
+
+  localStorage.setItem("language", lang);
+
+  document.querySelectorAll("[data-lang]").forEach(element => {
+
+    const key = element.getAttribute("data-lang");
+
+    if (translations[lang][key]) {
+      element.innerText = translations[lang][key];
+    }
+
+  });
+
+}
+
+
+document.getElementById("language").addEventListener("change", function() {
+  changeLanguage(this.value);
+});
+
+
+function toggleDarkMode() {
+
+  document.body.classList.toggle("light");
+
+  if (document.body.classList.contains("light")) {
+
+    document.body.style.background = "#f5f5f5";
+    document.body.style.color = "#111";
+
+    localStorage.setItem("theme", "light");
+
+  } else {
+
+    document.body.style.background = "#111";
+    document.body.style.color = "white";
+
+    localStorage.setItem("theme", "dark");
+
+  }
+
+}
+
+
+function toggleNotification() {
+
+  const btn = document.getElementById("notificationBtn");
+
+  if (btn.innerText.includes("ON")) {
+
+    btn.innerText = "🔕 OFF";
+    localStorage.setItem("notifications", "off");
+
+  } else {
+
+    btn.innerText = "🔔 ON";
+    localStorage.setItem("notifications", "on");
+
+  }
+
+}
+
+
+function logout() {
+
+  localStorage.removeItem("user");
+
+  alert("✅ Logout Successful");
+
+  location.href = "login.html";
+
+}
+
+
+// Load saved language
+const savedLanguage = localStorage.getItem("language") || "bn";
+
+document.getElementById("language").value = savedLanguage;
+
+changeLanguage(savedLanguage);
+
+
+// Load notification
+if (localStorage.getItem("notifications") === "off") {
+  document.getElementById("notificationBtn").innerText = "🔕 OFF";
+}
+
+</script>
+
+</body>
+</html>
