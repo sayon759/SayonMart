@@ -3,126 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SayonMart Cart</title>
+
 <link rel="stylesheet" href="style.css">
-</head>
 
-<body>
-
-<header>
-  <h2>🛒 My Cart</h2>
-</header>
-
-<div id="cartItems"></div>
-
-<h2 id="total">Total: ₹0</h2>
-
-<button onclick="checkout()">
-  ✅ Checkout
-</button>
-
-<br><br>
-
-<a href="index.html">
-  <button>⬅ Back Home</button>
-</a>
-
-<script>
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-function showCart() {
-
-  const cartItems = document.getElementById("cartItems");
-
-  let total = 0;
-  let html = "";
-
-  if (cart.length === 0) {
-
-    cartItems.innerHTML =
-      "<h3>🛒 Cart খালি</h3>";
-
-    document.getElementById("total").innerText =
-      "Total: ₹0";
-
-    return;
-  }
-
-  cart.forEach((item, index) => {
-
-    const quantity = item.quantity || 1;
-    const itemTotal = item.price * quantity;
-
-    total += itemTotal;
-
-    html += `
-      <div class="card">
-
-        <img
-          src="${item.image || ''}"
-          style="
-            width:120px;
-            height:120px;
-            object-fit:cover;
-            border-radius:10px;
-          "
-        >
-
-        <h3>${item.name}</h3>
-
-        <p>💰 ₹${item.price}</p>
-
-        <p>Quantity: ${quantity}</p>
-
-        <p>
-          Subtotal: ₹${itemTotal}
-        </p>
-
-        <button onclick="removeItem(${index})">
-          🗑️ Remove
-        </button>
-
-      </div>
-    `;
-  });
-
-  cartItems.innerHTML = html;
-
-  document.getElementById("total").innerText =
-    "Total: ₹" + total;
+<style>
+*{
+  box-sizing:border-box;
 }
 
-
-function removeItem(index) {
-
-  cart.splice(index, 1);
-
-  localStorage.setItem(
-    "cart",
-    JSON.stringify(cart)
-  );
-
-  showCart();
+body{
+  margin:0;
+  background:#050505;
+  color:white;
+  font-family:Arial,sans-serif;
+  padding-bottom:100px;
 }
 
-
-function checkout() {
-
-  if (cart.length === 0) {
-
-    alert("🛒 আগে Product Cart-এ যোগ করো");
-
-    return;
-  }
-
-  window.location.href = "payment.html";
+header{
+  background:#050505;
+  padding:20px;
+  text-align:center;
+  border-bottom:1px solid #292929;
 }
 
+header h2{
+  margin:0;
+  color:#ffd000;
+  font-size:27px;
+}
 
-showCart();
+.cart-container{
+  padding:18px;
+}
 
-</script>
+.cart-card{
+  background:#19191c;
+  border:1px solid #303035;
+  border-radius:18px;
+  padding:12px;
+  display:flex;
+  gap:12px;
+  margin-bottom:14px;
+  align-items:center;
+}
 
-</body>
-</html>￼Enter
+.cart-card img{
+  width:90px;
+  height:90px;
+  object-fit:cover;
+  border-radius:13px;
+  background:#111;
+}
+
+.cart-info{
+  flex:1;
+}
+
+.cart-info h3{
+  margin:0 0 7px;
+  font-size:16px;
+}
+
+.price{
+  color:#ffd000;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:10px;
+}
+
+.quantity button{
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:8px;
+  background:#ffd000;
+  color:#000;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.quantity span{
+  min-width:25px;
+  text-align:center;
+}
+
+.remove{
+  background:#333;
+  color:#fff;
+  border:0;
+  border-radius:8px;
+  padding:7px 9px;
+  margin-top:8px;
+}
+
+.total-box{
+  background:#19191c;
+  border:1px solid #303035;
+  border-radius:18px;
+  padding:18px;
+  margin-top:
