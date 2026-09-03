@@ -1,10 +1,150 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SayonMart Admin Panel</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SayonMart Admin</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#050505;
+  color:white;
+  font-family:Arial,sans-serif;
+  padding-bottom:30px;
+}
+
+header{
+  background:#080808;
+  padding:20px;
+  text-align:center;
+  border-bottom:1px solid #292929;
+}
+
+header h2{
+  margin:0;
+  color:#ffd000;
+}
+
+.admin{
+  padding:18px;
+  max-width:800px;
+  margin:auto;
+}
+
+.box{
+  background:#19191c;
+  border:1px solid #303035;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:18px;
+}
+
+.box h3{
+  margin-top:0;
+  color:#ffd000;
+}
+
+input,select{
+  width:100%;
+  padding:14px;
+  margin:7px 0;
+  border:1px solid #3a3a3e;
+  border-radius:11px;
+  background:#101012;
+  color:white;
+  font-size:15px;
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:11px 14px;
+  font-weight:bold;
+}
+
+.primary{
+  width:100%;
+  margin-top:8px;
+  background:#ffd000;
+  color:#000;
+}
+
+.secondary{
+  background:#333;
+  color:#fff;
+}
+
+.danger{
+  background:#c62828;
+  color:#fff;
+}
+
+.product{
+  background:#101012;
+  border:1px solid #303035;
+  border-radius:15px;
+  padding:12px;
+  margin-top:12px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.product img{
+  width:85px;
+  height:85px;
+  object-fit:cover;
+  border-radius:11px;
+  background:#222;
+}
+
+.product-info{
+  flex:1;
+}
+
+.product-info h4{
+  margin:0 0 6px;
+}
+
+.product-info p{
+  margin:4px 0;
+  color:#aaa;
+  font-size:13px;
+}
+
+.actions{
+  display:flex;
+  gap:6px;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+
+.status{
+  text-align:center;
+  margin-top:12px;
+  color:#ffd000;
+}
+
+.empty{
+  text-align:center;
+  color:#999;
+  padding:30px;
+}
+
+.preview{
+  width:100%;
+  height:160px;
+  object-fit:contain;
+  background:#111;
+  border-radius:12px;
+  margin-top:8px;
+  display:none;
+}
+</style>
 </head>
 
 <body>
@@ -13,45 +153,94 @@
   <h2>🛠️ SayonMart Admin</h2>
 </header>
 
-<div class="admin-box">
+<div class="admin">
 
-  <h2>➕ Add New Product</h2>
+<div class="box">
 
-  <input id="productName" type="text" placeholder="Product Name">
+<h3 id="title">➕ Add New Product</h3>
 
-  <input id="productPrice" type="number" placeholder="Price ₹">
+<input
+  id="name"
+  type="text"
+  placeholder="Product Name"
+>
 
-  <input id="productImage" type="text"
-         placeholder="Product Image URL">
+<input
+  id="price"
+  type="number"
+  min="0"
+  placeholder="Price ₹"
+>
 
-  <select id="productCategory">
-    <option value="Fashion">👕 Fashion</option>
-    <option value="Shoes">👟 Shoes</option>
-    <option value="Mobiles">📱 Mobiles</option>
-    <option value="Watches">⌚ Watches</option>
-  </select>
+<input
+  id="image"
+  type="url"
+  placeholder="Image URL"
+  oninput="preview()"
+>
 
-  <button onclick="addProduct()">
-    ➕ Add Product
-  </button>
+<img id="previewImg" class="preview">
 
-  <hr>
+<select id="category">
 
-  <h2>📦 Products</h2>
+<option value="Fashion">👕 Fashion</option>
+<option value="Shoes">👟 Shoes</option>
+<option value="Mobiles">📱 Mobiles</option>
+<option value="Watches">⌚ Watches</option>
+<option value="Electronics">🎧 Electronics</option>
+<option value="Other">📦 Other</option>
 
-  <div id="productList"></div>
+</select>
 
-  <hr>
+<button
+  id="saveBtn"
+  class="primary"
+  onclick="saveProduct()"
+>
+➕ Add Product
+</button>
 
-  <button onclick="window.location.href='admin-orders.html'">
-    📦 View Orders
-  </button>
+<button
+  id="cancelBtn"
+  class="secondary"
+  onclick="cancelEdit()"
+  style="display:none;width:100%;margin-top:8px"
+>
+✖ Cancel
+</button>
 
-  <button onclick="window.location.href='index.html'">
-    🏠 Back Home
-  </button>
+<div id="status" class="status"></div>
 
 </div>
+
+
+<div class="box">
+
+<h3>📦 Products</h3>
+
+<input
+  id="search"
+  type="text"
+  placeholder="🔍 Search Product..."
+  oninput="showProducts()"
+>
+
+<div id="productList">
+  <div class="empty">⏳ Loading...</div>
+</div>
+
+</div>
+
+
+<button
+  class="primary"
+  onclick="location.href='index.html'"
+>
+🏠 Back Home
+</button>
+
+</div>
+
 
 <script type="module">
 
@@ -61,129 +250,405 @@ import {
   collection,
   addDoc,
   getDocs,
+  updateDoc,
   deleteDoc,
-  doc
+  doc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-const productList = document.getElementById("productList");
+let products = [];
+let editingId = null;
 
 
-// LOAD PRODUCTS
-async function loadProducts() {
+/* Load Products */
 
-  productList.innerHTML = "";
+async function loadProducts(){
 
-  const snapshot =
-    await getDocs(collection(db, "products"));
+  try{
 
-  snapshot.forEach((item) => {
+    const snapshot =
+      await getDocs(
+        collection(db,"products")
+      );
 
-    const product = item.data();
+    products = [];
 
-    productList.innerHTML += `
+    snapshot.forEach(item => {
 
-      <div class="card">
+      products.push({
+        id:item.id,
+        ...item.data()
+      });
 
-        <img
-          src="${product.image}"
-          style="width:120px;height:120px;object-fit:cover;border-radius:10px;"
-        >
+    });
 
-        <h3>${product.name}</h3>
+    showProducts();
 
-        <p>💰 ₹${product.price}</p>
+  }catch(error){
 
-        <p>📂 ${product.category}</p>
+    console.error(error);
 
-        <button
-          onclick="deleteProduct('${item.id}')">
-          🗑️ Delete
-        </button>
+    document.getElementById("productList").innerHTML =
+      `<div class="empty">
+        ⚠️ Product load হয়নি।
+      </div>`;
 
-      </div>
-
-    `;
-
-  });
+  }
 
 }
 
 
-// ADD PRODUCT
-window.addProduct = async function() {
+/* Show Products */
+
+window.showProducts = function(){
+
+  const search =
+    document
+    .getElementById("search")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const list =
+    products.filter(p =>
+      String(p.name || "")
+      .toLowerCase()
+      .includes(search)
+    );
+
+
+  if(list.length === 0){
+
+    document.getElementById("productList").innerHTML =
+      `<div class="empty">
+        😕 কোনো Product নেই।
+      </div>`;
+
+    return;
+
+  }
+
+
+  document.getElementById("productList").innerHTML =
+    list.map(p => `
+
+      <div class="product">
+
+        <img
+          src="${safe(p.image || "https://picsum.photos/200")}"
+          onerror="this.src='https://picsum.photos/200'"
+        >
+
+        <div class="product-info">
+
+          <h4>
+            ${safe(p.name || "Product")}
+          </h4>
+
+          <p>
+            💰 ₹${Number(p.price || 0).toLocaleString("en-IN")}
+          </p>
+
+          <p>
+            📂 ${safe(p.category || "Other")}
+          </p>
+
+          <div class="actions">
+
+            <button
+              class="secondary"
+              onclick="editProduct('${p.id}')"
+            >
+              ✏️ Edit
+            </button>
+
+            <button
+              class="danger"
+              onclick="deleteProduct('${p.id}')"
+            >
+              🗑️ Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+};
+
+
+/* Add / Update */
+
+window.saveProduct = async function(){
 
   const name =
-    document.getElementById("productName").value.trim();
+    document.getElementById("name").value.trim();
 
   const price =
-    document.getElementById("productPrice").value;
+    Number(document.getElementById("price").value);
 
   const image =
-    document.getElementById("productImage").value.trim();
+    document.getElementById("image").value.trim();
 
   const category =
-    document.getElementById("productCategory").value;
+    document.getElementById("category").value;
 
 
-  if (!name || !price || !image) {
+  if(!name){
 
-    alert("সব তথ্য পূরণ করো");
+    show("❌ Product Name দাও");
+    return;
 
+  }
+
+  if(!Number.isFinite(price) || price < 0){
+
+    show("❌ সঠিক দাম দাও");
+    return;
+
+  }
+
+  if(!image){
+
+    show("❌ Image URL দাও");
     return;
 
   }
 
 
-  await addDoc(collection(db, "products"), {
+  try{
 
-    name: name,
+    if(editingId){
 
-    price: Number(price),
+      await updateDoc(
+        doc(db,"products",editingId),
+        {
+          name:name,
+          price:price,
+          image:image,
+          category:category,
+          updatedAt:serverTimestamp()
+        }
+      );
 
-    image: image,
+      show("✅ Product Updated");
 
-    category: category,
+    }else{
 
-    createdAt: new Date()
+      await addDoc(
+        collection(db,"products"),
+        {
+          name:name,
+          price:price,
+          image:image,
+          category:category,
+          createdAt:serverTimestamp()
+        }
+      );
 
+      show("✅ Product Added");
+
+    }
+
+
+    reset();
+
+    await loadProducts();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    show("❌ Error: " + error.message);
+
+  }
+
+};
+
+
+/* Edit */
+
+window.editProduct = function(id){
+
+  const p =
+    products.find(x => x.id === id);
+
+  if(!p) return;
+
+
+  editingId = id;
+
+
+  document.getElementById("title")
+    .textContent = "✏️ Edit Product";
+
+
+  document.getElementById("name").value =
+    p.name || "";
+
+
+  document.getElementById("price").value =
+    p.price || "";
+
+
+  document.getElementById("image").value =
+    p.image || "";
+
+
+  document.getElementById("category").value =
+    p.category || "Other";
+
+
+  document.getElementById("saveBtn")
+    .textContent = "💾 Update Product";
+
+
+  document.getElementById("cancelBtn")
+    .style.display = "block";
+
+
+  preview();
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
   });
 
-
-  alert("✅ Product Added");
-
-
-  document.getElementById("productName").value = "";
-
-  document.getElementById("productPrice").value = "";
-
-  document.getElementById("productImage").value = "";
-
-
-  loadProducts();
-
 };
 
 
-// DELETE PRODUCT
-window.deleteProduct = async function(id) {
+/* Delete */
 
-  if (!confirm("এই Product Delete করতে চাও?")) {
+window.deleteProduct = async function(id){
 
-    return;
+  const p =
+    products.find(x => x.id === id);
+
+  if(!p) return;
+
+
+  if(!confirm(
+    "🗑️ " + p.name +
+    " Delete করতে চাও?"
+  )) return;
+
+
+  try{
+
+    await deleteDoc(
+      doc(db,"products",id)
+    );
+
+    show("🗑️ Product Deleted");
+
+    await loadProducts();
+
+  }catch(error){
+
+    show("❌ Delete হয়নি");
 
   }
 
-
-  await deleteDoc(doc(db, "products", id));
-
-
-  alert("🗑️ Product Deleted");
+};
 
 
-  loadProducts();
+/* Cancel */
+
+window.cancelEdit = function(){
+
+  reset();
 
 };
+
+
+/* Reset */
+
+function reset(){
+
+  editingId = null;
+
+  document.getElementById("title")
+    .textContent = "➕ Add New Product";
+
+  document.getElementById("name").value = "";
+
+  document.getElementById("price").value = "";
+
+  document.getElementById("image").value = "";
+
+  document.getElementById("category").value = "Fashion";
+
+  document.getElementById("saveBtn")
+    .textContent = "➕ Add Product";
+
+  document.getElementById("cancelBtn")
+    .style.display = "none";
+
+  document.getElementById("previewImg")
+    .style.display = "none";
+
+}
+
+
+/* Image Preview */
+
+window.preview = function(){
+
+  const url =
+    document.getElementById("image").value.trim();
+
+  const img =
+    document.getElementById("previewImg");
+
+
+  if(url){
+
+    img.src = url;
+    img.style.display = "block";
+
+  }else{
+
+    img.style.display = "none";
+
+  }
+
+};
+
+
+/* Status */
+
+function show(text){
+
+  const status =
+    document.getElementById("status");
+
+  status.textContent = text;
+
+  setTimeout(()=>{
+    status.textContent = "";
+  },2500);
+
+}
+
+
+/* Security helper */
+
+function safe(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
 
 
 loadProducts();
@@ -191,4 +656,4 @@ loadProducts();
 </script>
 
 </body>
-    </html>
+</html>
