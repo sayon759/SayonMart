@@ -3,95 +3,673 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SayonMart Products</title>
+
 <link rel="stylesheet" href="style.css">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#050505;
+  color:white;
+  font-family:Arial,sans-serif;
+  padding-bottom:90px;
+}
+
+header{
+  background:#050505;
+  padding:20px;
+  text-align:center;
+  border-bottom:1px solid #292929;
+}
+
+header h2{
+  margin:0;
+  color:#ffd000;
+  font-size:27px;
+}
+
+/* Search */
+
+.search{
+  margin:18px;
+  background:#1b1b1f;
+  border:1px solid #303035;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+}
+
+.search input{
+  width:100%;
+  padding:15px 10px;
+  background:transparent;
+  border:0;
+  outline:0;
+  color:white;
+  font-size:16px;
+}
+
+/* Categories */
+
+.categories{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:0 18px 15px;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.category{
+  flex-shrink:0;
+  padding:10px 15px;
+  background:#1b1b1f;
+  border:1px solid #303035;
+  border-radius:20px;
+  color:#ddd;
+}
+
+.category.active{
+  background:#ffd000;
+  color:#000;
+  font-weight:bold;
+}
+
+/* Products */
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+  padding:10px 18px;
+}
+
+.card{
+  background:#19191c;
+  border:1px solid #303035;
+  border-radius:17px;
+  overflow:hidden;
+  position:relative;
+  padding-bottom:12px;
+}
+
+.card img{
+  width:100%;
+  height:155px;
+  object-fit:cover;
+  display:block;
+  background:#111;
+}
+
+.heart{
+  position:absolute;
+  right:9px;
+  top:9px;
+  width:35px;
+  height:35px;
+  border:0;
+  border-radius:50%;
+  background:rgba(0,0,0,.7);
+  color:white;
+  font-size:18px;
+}
+
+.info{
+  padding:10px;
+}
+
+.info h3{
+  margin:0 0 6px;
+  font-size:15px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.category-name{
+  color:#999;
+  font-size:12px;
+}
+
+.rating{
+  color:#ffd000;
+  font-size:12px;
+  margin-top:6px;
+}
+
+.price{
+  color:#ffd000;
+  font-size:18px;
+  font-weight:bold;
+  margin:7px 0;
+}
+
+.add{
+  width:calc(100% - 20px);
+  margin:0 10px;
+  padding:10px;
+  border:0;
+  border-radius:10px;
+  background:#ffd000;
+  color:#000;
+  font-weight:bold;
+  font-size:14px;
+}
+
+.loading,
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:60px 10px;
+  color:#aaa;
+}
+
+/* Bottom navigation */
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:72px;
+  background:#0b0b0d;
+  border-top:1px solid #29292d;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:20;
+}
+
+.bottom a{
+  color:#aaa;
+  text-decoration:none;
+  text-align:center;
+  font-size:11px;
+}
+
+.bottom a div{
+  font-size:23px;
+  margin-bottom:3px;
+}
+
+.bottom a.active{
+  color:#ffd000;
+}
+
+.toast{
+  position:fixed;
+  bottom:88px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#ffd000;
+  color:#000;
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:bold;
+  display:none;
+  z-index:50;
+}
+
+@media(min-width:700px){
+  .products{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h2>🛍️ SayonMart Products</h2>
+  <h2>🛍️ SayonMart</h2>
 </header>
 
-<div class="products">
 
-  <div class="card">
-    <img src="https://picsum.photos/200?1">
-    <h3>Premium T-Shirt</h3>
-    <p>₹499</p>
-    <button onclick="addToCart('Premium T-Shirt',499,'https://picsum.photos/200?1')">
-      🛒 Add to Cart
-    </button>
-  </div>
+<!-- Search -->
 
-  <div class="card">
-    <img src="https://picsum.photos/200?2">
-    <h3>Running Shoes</h3>
-    <p>₹999</p>
-    <button onclick="addToCart('Running Shoes',999,'https://picsum.photos/200?2')">
-      🛒 Add to Cart
-    </button>
-  </div>
+<div class="search">
 
-  <div class="card">
-    <img src="https://picsum.photos/200?3">
-    <h3>Smart Watch</h3>
-    <p>₹1499</p>
-    <button onclick="addToCart('Smart Watch',1499,'https://picsum.photos/200?3')">
-      🛒 Add to Cart
-    </button>
-  </div>
+  <span>🔍</span>
 
-  <div class="card">
-    <img src="https://picsum.photos/200?4">
-    <h3>Bluetooth Earbuds</h3>
-    <p>₹799</p>
-    <button onclick="addToCart('Bluetooth Earbuds',799,'https://picsum.photos/200?4')">
-      🛒 Add to Cart
-    </button>
+  <input
+    type="text"
+    id="search"
+    placeholder="Search products..."
+    oninput="filterProducts()"
+  >
+
+</div>
+
+
+<!-- Categories -->
+
+<div class="categories">
+
+  <button
+    class="category active"
+    onclick="setCategory('',this)"
+  >
+    All
+  </button>
+
+  <button
+    class="category"
+    onclick="setCategory('Fashion',this)"
+  >
+    👕 Fashion
+  </button>
+
+  <button
+    class="category"
+    onclick="setCategory('Shoes',this)"
+  >
+    👟 Shoes
+  </button>
+
+  <button
+    class="category"
+    onclick="setCategory('Mobiles',this)"
+  >
+    📱 Mobiles
+  </button>
+
+  <button
+    class="category"
+    onclick="setCategory('Watches',this)"
+  >
+    ⌚ Watches
+  </button>
+
+</div>
+
+
+<!-- Products -->
+
+<div class="products" id="products">
+
+  <div class="loading">
+    ⏳ Products loading...
   </div>
 
 </div>
 
-<div class="bottom-nav">
-  <a href="index.html">🏠<br>Home</a>
-  <a href="products.html">🛍️<br>Products</a>
-  <a href="cart.html">🛒<br>Cart</a>
-  <a href="profile.html">👤<br>Profile</a>
+
+<!-- Bottom Navigation -->
+
+<div class="bottom">
+
+  <a href="index.html">
+    <div>⌂</div>
+    Home
+  </a>
+
+  <a href="products.html" class="active">
+    <div>▦</div>
+    Products
+  </a>
+
+  <a href="cart.html">
+    <div>🛒</div>
+    Cart
+  </a>
+
+  <a href="order.html">
+    <div>▤</div>
+    Orders
+  </a>
+
+  <a href="profile.html">
+    <div>♙</div>
+    Profile
+  </a>
+
 </div>
 
-<script>
-function addToCart(name, price, image) {
 
-  let cart = JSON.parse(
+<div class="toast" id="toast">
+  ✅ Added to Cart
+</div>
+
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+let allProducts = [];
+
+let selectedCategory = "";
+
+
+/* Cart */
+
+function getCart(){
+
+  return JSON.parse(
     localStorage.getItem("cart") || "[]"
   );
 
-  const existing = cart.find(
-    item => item.name === name
-  );
+}
 
-  if (existing) {
-    existing.quantity =
-      (existing.quantity || 1) + 1;
-  } else {
-    cart.push({
-      name: name,
-      price: Number(price),
-      image: image,
-      quantity: 1
-    });
-  }
+
+/* Add to Cart */
+
+window.addToCart = function(
+  name,
+  price,
+  image
+){
+
+  const cart = getCart();
+
+  cart.push({
+
+    name:name,
+
+    price:Number(price),
+
+    image:image || "",
+
+    quantity:1
+
+  });
+
 
   localStorage.setItem(
     "cart",
     JSON.stringify(cart)
   );
 
-  alert("✅ " + name + " Cart-এ যোগ হয়েছে!");
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.style.display="block";
+
+
+  setTimeout(function(){
+
+    toast.style.display="none";
+
+  },1500);
+
+};
+
+
+/* Wishlist */
+
+window.addWishlist = function(){
+
+  let count =
+    Number(
+      localStorage.getItem("wishlistCount") || 0
+    );
+
+  count++;
+
+  localStorage.setItem(
+    "wishlistCount",
+    count
+  );
+
+};
+
+
+/* Show Products */
+
+function renderProducts(){
+
+  const searchText =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const filtered =
+    allProducts.filter(function(product){
+
+      const name =
+        String(product.name || "")
+        .toLowerCase();
+
+      const category =
+        String(product.category || "")
+        .toLowerCase();
+
+
+      const searchOK =
+        !searchText ||
+        name.includes(searchText);
+
+
+      const categoryOK =
+        !selectedCategory ||
+        category ===
+        selectedCategory.toLowerCase();
+
+
+      return searchOK && categoryOK;
+
+    });
+
+
+  const box =
+    document.getElementById("products");
+
+
+  if(filtered.length === 0){
+
+    box.innerHTML = `
+
+      <div class="empty">
+
+        😕<br><br>
+
+        কোনো Product পাওয়া যায়নি।
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    filtered.map(function(product){
+
+      const name =
+        String(product.name || "Product");
+
+      const price =
+        Number(product.price || 0);
+
+      const image =
+        product.image ||
+        "https://picsum.photos/300?random=99";
+
+      const category =
+        product.category || "Product";
+
+
+      const safeName =
+        name.replace(/'/g,"\\'");
+
+      const safeImage =
+        image.replace(/'/g,"\\'");
+
+
+      return `
+
+        <div class="card">
+
+          <button
+            class="heart"
+            onclick="addWishlist()"
+          >
+            ♡
+          </button>
+
+
+          <img
+            src="${image}"
+            alt="${name}"
+          >
+
+
+          <div class="info">
+
+            <h3>
+              ${name}
+            </h3>
+
+            <div class="category-name">
+              📂 ${category}
+            </div>
+
+            <div class="rating">
+              ★★★★★ 4.5
+            </div>
+
+            <div class="price">
+              ₹${price.toLocaleString("en-IN")}
+            </div>
+
+          </div>
+
+
+          <button
+            class="add"
+            onclick="addToCart(
+              '${safeName}',
+              ${price},
+              '${safeImage}'
+            )"
+          >
+            🛒 Add to Cart
+          </button>
+
+        </div>
+
+      `;
+
+    }).join("");
 
 }
+
+
+/* Search */
+
+window.filterProducts =
+  function(){
+
+    renderProducts();
+
+  };
+
+
+/* Category */
+
+window.setCategory =
+  function(category,button){
+
+    selectedCategory =
+      category;
+
+
+    document
+      .querySelectorAll(".category")
+      .forEach(function(btn){
+
+        btn.classList.remove("active");
+
+      });
+
+
+    button.classList.add("active");
+
+
+    renderProducts();
+
+  };
+
+
+/* Firebase Products */
+
+async function loadProducts(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"products")
+      );
+
+
+    allProducts = [];
+
+
+    snapshot.forEach(function(doc){
+
+      allProducts.push({
+
+        id:doc.id,
+
+        ...doc.data()
+
+      });
+
+    });
+
+
+    renderProducts();
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    document.getElementById("products")
+      .innerHTML = `
+
+        <div class="empty">
+
+          ⚠️ Products load হচ্ছে না।
+
+          <br><br>
+
+          Firebase check করো।
+
+        </div>
+
+      `;
+
+  }
+
+}
+
+
+loadProducts();
+
 </script>
 
 </body>
-    </html>￼Enter
+</html>
