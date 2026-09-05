@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>My Profile - SayonMart</title>
+<title>Profile - SayonMart</title>
 
 <style>
 *{
@@ -15,21 +14,22 @@
 body{
   margin:0;
   background:#111;
-  color:white;
-  padding-bottom:80px;
+  color:#fff;
+  padding-bottom:85px;
 }
 
 .header{
   height:70px;
+  background:#000;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 20px;
+  padding:0 18px;
   border-bottom:1px solid #333;
 }
 
 .logo{
-  font-size:28px;
+  font-size:27px;
   font-weight:bold;
 }
 
@@ -37,19 +37,20 @@ body{
   color:#FFD600;
 }
 
-.icon{
+.header-icon{
   font-size:25px;
+  cursor:pointer;
 }
 
-.profile{
+.profile-card{
   margin:18px;
   padding:22px;
+  background:#1c1c1c;
   border:1px solid #444;
   border-radius:22px;
   display:flex;
   align-items:center;
-  gap:18px;
-  background:#1c1c1c;
+  gap:17px;
 }
 
 .avatar{
@@ -57,32 +58,32 @@ body{
   height:75px;
   border-radius:50%;
   background:#292929;
+  border:2px solid #FFD600;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:42px;
-  border:2px solid #FFD600;
+  font-size:40px;
 }
 
 .name{
-  font-size:22px;
+  font-size:21px;
   font-weight:bold;
 }
 
 .phone{
-  color:#bbb;
+  color:#aaa;
   margin-top:7px;
 }
 
 .verified{
   color:#FFD600;
+  font-size:13px;
   margin-top:8px;
-  font-size:14px;
 }
 
 .stats{
   margin:18px;
-  padding:18px 8px;
+  padding:17px 5px;
   background:#202020;
   border-radius:18px;
   display:grid;
@@ -99,18 +100,16 @@ body{
 }
 
 .stat-icon{
-  font-size:25px;
-  color:#FFD600;
+  font-size:23px;
 }
 
 .stat-title{
-  color:#ddd;
-  font-size:13px;
+  color:#aaa;
+  font-size:12px;
   margin-top:5px;
 }
 
 .stat-number{
-  font-size:17px;
   font-weight:bold;
   margin-top:5px;
 }
@@ -118,37 +117,37 @@ body{
 .member{
   margin:18px;
   padding:18px;
-  border-radius:18px;
   background:#202020;
+  border-radius:18px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   gap:10px;
 }
 
 .member h3{
   margin:0 0 6px;
+  font-size:16px;
 }
 
 .member p{
   margin:0;
-  color:#aaa;
-  font-size:13px;
+  color:#999;
+  font-size:12px;
 }
 
 .join{
   background:#FFD600;
-  color:#111;
   border:0;
-  padding:12px 17px;
-  border-radius:10px;
+  border-radius:9px;
+  padding:11px 16px;
   font-weight:bold;
 }
 
 .section{
-  margin:20px 18px 10px;
-  color:#aaa;
-  font-size:17px;
+  margin:22px 18px 10px;
+  color:#999;
+  font-size:15px;
 }
 
 .menu{
@@ -159,34 +158,42 @@ body{
 }
 
 .menu-item{
-  padding:18px;
-  border-bottom:1px solid #363636;
+  min-height:62px;
+  padding:15px 17px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  border-bottom:1px solid #363636;
   cursor:pointer;
 }
 
 .menu-item:last-child{
-  border-bottom:0;
+  border-bottom:none;
 }
 
 .left{
   display:flex;
   align-items:center;
-  gap:18px;
-  font-size:16px;
+  gap:17px;
 }
 
 .menu-icon{
-  width:25px;
+  width:28px;
   text-align:center;
   font-size:22px;
 }
 
+.menu-name{
+  font-size:16px;
+}
+
 .arrow{
-  color:#aaa;
-  font-size:23px;
+  color:#999;
+  font-size:25px;
+}
+
+.logout{
+  color:#ff5555;
 }
 
 .bottom{
@@ -205,13 +212,13 @@ body{
 
 .nav{
   text-align:center;
-  color:#aaa;
-  font-size:12px;
+  color:#999;
+  font-size:11px;
   cursor:pointer;
 }
 
-.nav div{
-  font-size:24px;
+.nav-icon{
+  font-size:23px;
   margin-bottom:3px;
 }
 
@@ -223,28 +230,33 @@ body{
 
 <body>
 
+<!-- HEADER -->
+
 <div class="header">
-  <div class="icon">☰</div>
+
+  <div class="header-icon">☰</div>
 
   <div class="logo">
     Sayon<span>Mart</span>
   </div>
 
-  <div class="icon" onclick="location.href='cart.html'">
+  <div class="header-icon" onclick="location.href='cart.html'">
     🛒
   </div>
+
 </div>
 
 
 <!-- PROFILE -->
 
-<div class="profile">
+<div class="profile-card">
 
   <div class="avatar">
     👤
   </div>
 
   <div>
+
     <div class="name" id="userName">
       SayonMart User
     </div>
@@ -256,6 +268,7 @@ body{
     <div class="verified">
       ✓ Verified Account
     </div>
+
   </div>
 
 </div>
@@ -297,8 +310,8 @@ body{
 <div class="member">
 
   <div>
-    <h3>⭐ Become a SayonMart Member</h3>
-    <p>Get exclusive offers and faster delivery</p>
+    <h3>⭐ SayonMart Member</h3>
+    <p>Get exclusive offers and benefits</p>
   </div>
 
   <button class="join" onclick="alert('Coming Soon!')">
@@ -308,7 +321,7 @@ body{
 </div>
 
 
-<!-- ACCOUNT -->
+<!-- MY ACCOUNT -->
 
 <div class="section">
   My Account
@@ -317,49 +330,68 @@ body{
 <div class="menu">
 
   <div class="menu-item" onclick="location.href='order.html'">
+
     <div class="left">
       <span class="menu-icon">📦</span>
-      <span>My Orders</span>
+      <span class="menu-name">My Orders</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
+
 
   <div class="menu-item" onclick="alert('Wishlist coming soon!')">
+
     <div class="left">
-      <span class="menu-icon">♡</span>
-      <span>Wishlist</span>
+      <span class="menu-icon">♥</span>
+      <span class="menu-name">Wishlist</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
+
 
   <div class="menu-item" onclick="alert('Address feature coming soon!')">
+
     <div class="left">
       <span class="menu-icon">📍</span>
-      <span>My Addresses</span>
+      <span class="menu-name">My Addresses</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
+
 
   <div class="menu-item" onclick="alert('SayonCash coming soon!')">
+
     <div class="left">
       <span class="menu-icon">₹</span>
-      <span>SayonCash</span>
+      <span class="menu-name">SayonCash</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
 
+
   <div class="menu-item" onclick="location.href='payment.html'">
+
     <div class="left">
       <span class="menu-icon">💳</span>
-      <span>Payment Methods</span>
+      <span class="menu-name">Payment Methods</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
 
 </div>
 
 
-<!-- MORE -->
+<!-- MORE OPTIONS -->
 
 <div class="section">
   More Options
@@ -367,44 +399,67 @@ body{
 
 <div class="menu">
 
-  <div class="menu-item">
+  <div class="menu-item" onclick="alert('Notifications coming soon!')">
+
     <div class="left">
       <span class="menu-icon">🔔</span>
-      <span>Notifications</span>
+      <span class="menu-name">Notifications</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
 
-  <div class="menu-item">
+
+  <!-- SETTINGS -->
+
+  <div class="menu-item" onclick="location.href='settings.html'">
+
     <div class="left">
       <span class="menu-icon">⚙️</span>
-      <span>Settings</span>
+      <span class="menu-name">Settings</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
 
-  <div class="menu-item">
+
+  <div class="menu-item" onclick="alert('Help & Support coming soon!')">
+
     <div class="left">
       <span class="menu-icon">🎧</span>
-      <span>Help & Support</span>
+      <span class="menu-name">Help & Support</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
 
-  <div class="menu-item">
+
+  <div class="menu-item" onclick="alert('SayonMart Online Shopping App')">
+
     <div class="left">
       <span class="menu-icon">ⓘ</span>
-      <span>About SayonMart</span>
+      <span class="menu-name">About SayonMart</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
 
-  <div class="menu-item" onclick="logout()">
+
+  <!-- LOGOUT -->
+
+  <div class="menu-item logout" onclick="logout()">
+
     <div class="left">
       <span class="menu-icon">🚪</span>
-      <span>Logout</span>
+      <span class="menu-name">Logout</span>
     </div>
+
     <span class="arrow">›</span>
+
   </div>
 
 </div>
@@ -415,27 +470,27 @@ body{
 <div class="bottom">
 
   <div class="nav" onclick="location.href='index.html'">
-    <div>⌂</div>
+    <div class="nav-icon">⌂</div>
     Home
   </div>
 
   <div class="nav" onclick="location.href='products.html'">
-    <div>▦</div>
+    <div class="nav-icon">▦</div>
     Products
   </div>
 
   <div class="nav" onclick="location.href='products.html'">
-    <div>⌕</div>
+    <div class="nav-icon">⌕</div>
     Search
   </div>
 
   <div class="nav" onclick="location.href='cart.html'">
-    <div>🛒</div>
+    <div class="nav-icon">🛒</div>
     Cart
   </div>
 
   <div class="nav active">
-    <div>👤</div>
+    <div class="nav-icon">👤</div>
     Profile
   </div>
 
@@ -452,17 +507,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-/* USER INFO */
+/* USER */
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth,(user)=>{
 
   if(user){
 
     document.getElementById("userPhone").innerText =
       user.phoneNumber || "Mobile verified";
-
-    document.getElementById("userName").innerText =
-      "SayonMart User";
 
   }else{
 
@@ -474,35 +526,43 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-/* CART COUNT */
+/* CART */
 
 const cart =
   JSON.parse(localStorage.getItem("cart")) || [];
 
 let total = 0;
 
-cart.forEach(item => {
+cart.forEach(item=>{
+
   total += item.quantity || 1;
+
 });
 
-document.getElementById("cartCount").innerText = total;
+document.getElementById("cartCount").innerText =
+  total;
 
 
 /* LOGOUT */
 
 window.logout = async function(){
 
+  if(!confirm("আপনি কি Logout করতে চান?")){
+    return;
+  }
+
   try{
 
     await signOut(auth);
 
+    localStorage.removeItem("user");
     localStorage.removeItem("cart");
 
     location.href="login.html";
 
   }catch(error){
 
-    alert(error.message);
+    alert("Logout failed: " + error.message);
 
   }
 
