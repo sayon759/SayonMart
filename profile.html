@@ -3,37 +3,512 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>My Profile - SayonMart</title>
-<link rel="stylesheet" href="style.css">
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  margin:0;
+  background:#111;
+  color:white;
+  padding-bottom:80px;
+}
+
+.header{
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  border-bottom:1px solid #333;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.logo span{
+  color:#FFD600;
+}
+
+.icon{
+  font-size:25px;
+}
+
+.profile{
+  margin:18px;
+  padding:22px;
+  border:1px solid #444;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  background:#1c1c1c;
+}
+
+.avatar{
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  background:#292929;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  border:2px solid #FFD600;
+}
+
+.name{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.phone{
+  color:#bbb;
+  margin-top:7px;
+}
+
+.verified{
+  color:#FFD600;
+  margin-top:8px;
+  font-size:14px;
+}
+
+.stats{
+  margin:18px;
+  padding:18px 8px;
+  background:#202020;
+  border-radius:18px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  text-align:center;
+}
+
+.stat{
+  border-right:1px solid #444;
+}
+
+.stat:last-child{
+  border:none;
+}
+
+.stat-icon{
+  font-size:25px;
+  color:#FFD600;
+}
+
+.stat-title{
+  color:#ddd;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.stat-number{
+  font-size:17px;
+  font-weight:bold;
+  margin-top:5px;
+}
+
+.member{
+  margin:18px;
+  padding:18px;
+  border-radius:18px;
+  background:#202020;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.member h3{
+  margin:0 0 6px;
+}
+
+.member p{
+  margin:0;
+  color:#aaa;
+  font-size:13px;
+}
+
+.join{
+  background:#FFD600;
+  color:#111;
+  border:0;
+  padding:12px 17px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.section{
+  margin:20px 18px 10px;
+  color:#aaa;
+  font-size:17px;
+}
+
+.menu{
+  margin:0 18px;
+  background:#202020;
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.menu-item{
+  padding:18px;
+  border-bottom:1px solid #363636;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+}
+
+.menu-item:last-child{
+  border-bottom:0;
+}
+
+.left{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  font-size:16px;
+}
+
+.menu-icon{
+  width:25px;
+  text-align:center;
+  font-size:22px;
+}
+
+.arrow{
+  color:#aaa;
+  font-size:23px;
+}
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:70px;
+  background:#1b1b1b;
+  border-top:1px solid #444;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:10;
+}
+
+.nav{
+  text-align:center;
+  color:#aaa;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.nav div{
+  font-size:24px;
+  margin-bottom:3px;
+}
+
+.nav.active{
+  color:#FFD600;
+}
+</style>
 </head>
+
 <body>
 
-<header>
-  <h2>👤 My Profile</h2>
-</header>
+<div class="header">
+  <div class="icon">☰</div>
 
-<div class="card">
-  <h3>Welcome to SayonMart</h3>
-  <p>আপনি সফলভাবে লগইন করেছেন।</p>
+  <div class="logo">
+    Sayon<span>Mart</span>
+  </div>
+
+  <div class="icon" onclick="location.href='cart.html'">
+    🛒
+  </div>
 </div>
 
-<div class="card">
-  <button onclick="window.location.href='admin-orders.html'">
-    📦 My Orders
+
+<!-- PROFILE -->
+
+<div class="profile">
+
+  <div class="avatar">
+    👤
+  </div>
+
+  <div>
+    <div class="name" id="userName">
+      SayonMart User
+    </div>
+
+    <div class="phone" id="userPhone">
+      Loading...
+    </div>
+
+    <div class="verified">
+      ✓ Verified Account
+    </div>
+  </div>
+
+</div>
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+  <div class="stat">
+    <div class="stat-icon">📦</div>
+    <div class="stat-title">Orders</div>
+    <div class="stat-number">0</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-icon">♥</div>
+    <div class="stat-title">Wishlist</div>
+    <div class="stat-number">0</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-icon">🛒</div>
+    <div class="stat-title">Cart</div>
+    <div class="stat-number" id="cartCount">0</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-icon">₹</div>
+    <div class="stat-title">SayonCash</div>
+    <div class="stat-number">₹0</div>
+  </div>
+
+</div>
+
+
+<!-- MEMBER -->
+
+<div class="member">
+
+  <div>
+    <h3>⭐ Become a SayonMart Member</h3>
+    <p>Get exclusive offers and faster delivery</p>
+  </div>
+
+  <button class="join" onclick="alert('Coming Soon!')">
+    Join
   </button>
+
 </div>
 
-<div class="card">
-  <button onclick="window.location.href='index.html'">
-    🏠 Home
-  </button>
+
+<!-- ACCOUNT -->
+
+<div class="section">
+  My Account
 </div>
 
-<div class="card">
-  <button onclick="window.location.href='login.html'">
-    🚪 Logout
-  </button>
+<div class="menu">
+
+  <div class="menu-item" onclick="location.href='order.html'">
+    <div class="left">
+      <span class="menu-icon">📦</span>
+      <span>My Orders</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="menu-item" onclick="alert('Wishlist coming soon!')">
+    <div class="left">
+      <span class="menu-icon">♡</span>
+      <span>Wishlist</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="menu-item" onclick="alert('Address feature coming soon!')">
+    <div class="left">
+      <span class="menu-icon">📍</span>
+      <span>My Addresses</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="menu-item" onclick="alert('SayonCash coming soon!')">
+    <div class="left">
+      <span class="menu-icon">₹</span>
+      <span>SayonCash</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="menu-item" onclick="location.href='payment.html'">
+    <div class="left">
+      <span class="menu-icon">💳</span>
+      <span>Payment Methods</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
 </div>
+
+
+<!-- MORE -->
+
+<div class="section">
+  More Options
+</div>
+
+<div class="menu">
+
+  <div class="menu-item">
+    <div class="left">
+      <span class="menu-icon">🔔</span>
+      <span>Notifications</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="menu-item">
+    <div class="left">
+      <span class="menu-icon">⚙️</span>
+      <span>Settings</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="menu-item">
+    <div class="left">
+      <span class="menu-icon">🎧</span>
+      <span>Help & Support</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="menu-item">
+    <div class="left">
+      <span class="menu-icon">ⓘ</span>
+      <span>About SayonMart</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+  <div class="menu-item" onclick="logout()">
+    <div class="left">
+      <span class="menu-icon">🚪</span>
+      <span>Logout</span>
+    </div>
+    <span class="arrow">›</span>
+  </div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom">
+
+  <div class="nav" onclick="location.href='index.html'">
+    <div>⌂</div>
+    Home
+  </div>
+
+  <div class="nav" onclick="location.href='products.html'">
+    <div>▦</div>
+    Products
+  </div>
+
+  <div class="nav" onclick="location.href='products.html'">
+    <div>⌕</div>
+    Search
+  </div>
+
+  <div class="nav" onclick="location.href='cart.html'">
+    <div>🛒</div>
+    Cart
+  </div>
+
+  <div class="nav active">
+    <div>👤</div>
+    Profile
+  </div>
+
+</div>
+
+
+<script type="module">
+
+import { auth } from "./firebase.js";
+
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* USER INFO */
+
+onAuthStateChanged(auth, (user) => {
+
+  if(user){
+
+    document.getElementById("userPhone").innerText =
+      user.phoneNumber || "Mobile verified";
+
+    document.getElementById("userName").innerText =
+      "SayonMart User";
+
+  }else{
+
+    document.getElementById("userPhone").innerText =
+      "Not logged in";
+
+  }
+
+});
+
+
+/* CART COUNT */
+
+const cart =
+  JSON.parse(localStorage.getItem("cart")) || [];
+
+let total = 0;
+
+cart.forEach(item => {
+  total += item.quantity || 1;
+});
+
+document.getElementById("cartCount").innerText = total;
+
+
+/* LOGOUT */
+
+window.logout = async function(){
+
+  try{
+
+    await signOut(auth);
+
+    localStorage.removeItem("cart");
+
+    location.href="login.html";
+
+  }catch(error){
+
+    alert(error.message);
+
+  }
+
+};
+
+</script>
 
 </body>
 </html>
