@@ -1,269 +1,641 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SayonMart Settings</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-    }
+<title>SayonMart Settings</title>
 
-    header {
-      background: #000;
-      color: #FFD700;
-      padding: 20px;
-      text-align: center;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
 
-    .settings-box {
-      padding: 20px;
-    }
+body{
+  margin:0;
+  background:#111;
+  color:white;
+  padding-bottom:30px;
+  transition:.3s;
+}
 
-    .setting {
-      background: #222;
-      margin: 12px 0;
-      padding: 18px;
-      border-radius: 12px;
-    }
+header{
+  height:70px;
+  background:#000;
+  display:flex;
+  align-items:center;
+  padding:0 18px;
+  border-bottom:1px solid #333;
+}
 
-    .setting label {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
+.back{
+  font-size:32px;
+  margin-right:18px;
+  cursor:pointer;
+}
 
-    select {
-      width: 100%;
-      padding: 13px;
-      border-radius: 8px;
-      font-size: 16px;
-    }
+.logo{
+  font-size:27px;
+  font-weight:bold;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 10px;
-      background: #FFD700;
-      font-size: 17px;
-      font-weight: bold;
-    }
+.logo span{
+  color:#FFD700;
+}
 
-    .back {
-      background: #333;
-      color: white;
-    }
-  </style>
+.page-title{
+  padding:22px 18px 8px;
+  font-size:24px;
+  font-weight:bold;
+}
+
+.section-title{
+  color:#999;
+  margin:22px 18px 10px;
+  font-size:15px;
+}
+
+.box{
+  margin:0 18px;
+  background:#202020;
+  border-radius:17px;
+  overflow:hidden;
+}
+
+.item{
+  min-height:64px;
+  padding:14px 17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #363636;
+  cursor:pointer;
+}
+
+.item:last-child{
+  border-bottom:none;
+}
+
+.left{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.icon{
+  width:30px;
+  text-align:center;
+  font-size:22px;
+}
+
+.name{
+  font-size:16px;
+}
+
+.sub{
+  color:#888;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.arrow{
+  color:#999;
+  font-size:27px;
+}
+
+select{
+  background:#333;
+  color:white;
+  border:1px solid #555;
+  padding:8px 10px;
+  border-radius:8px;
+}
+
+.toggle{
+  width:48px;
+  height:27px;
+  background:#555;
+  border-radius:20px;
+  position:relative;
+}
+
+.toggle:after{
+  content:"";
+  width:21px;
+  height:21px;
+  background:white;
+  border-radius:50%;
+  position:absolute;
+  top:3px;
+  left:4px;
+  transition:.2s;
+}
+
+.toggle.on{
+  background:#FFD700;
+}
+
+.toggle.on:after{
+  left:23px;
+  background:#111;
+}
+
+.logout{
+  color:#ff5555;
+}
+
+.version{
+  text-align:center;
+  color:#666;
+  margin:30px 0;
+  font-size:13px;
+}
+
+/* LIGHT MODE */
+
+body.light{
+  background:#f5f5f5;
+  color:#111;
+}
+
+body.light header{
+  background:white;
+  border-color:#ddd;
+}
+
+body.light .box{
+  background:white;
+}
+
+body.light .item{
+  border-color:#ddd;
+}
+
+body.light .sub,
+body.light .section-title{
+  color:#777;
+}
+
+body.light select{
+  background:#eee;
+  color:#111;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h2>⚙️ <span data-lang="settings">Settings</span></h2>
+
+  <div class="back" onclick="history.back()">‹</div>
+
+  <div class="logo">
+    Sayon<span>Mart</span>
+  </div>
+
 </header>
 
-<div class="settings-box">
 
-  <!-- Language -->
-  <div class="setting">
-    <label>🌐 <span data-lang="language">Language</span></label>
+<div class="page-title">
+  ⚙️ <span id="title">Settings</span>
+</div>
+
+
+<!-- ACCOUNT -->
+
+<div class="section-title">
+  Account
+</div>
+
+<div class="box">
+
+  <div class="item" onclick="location.href='profile.html'">
+    <div class="left">
+      <div class="icon">👤</div>
+      <div>
+        <div class="name">Profile</div>
+        <div class="sub">View and edit your profile</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="location.href='order.html'">
+    <div class="left">
+      <div class="icon">📦</div>
+      <div>
+        <div class="name">My Orders</div>
+        <div class="sub">Track your orders</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="address()">
+    <div class="left">
+      <div class="icon">📍</div>
+      <div>
+        <div class="name">My Addresses</div>
+        <div class="sub">Manage delivery addresses</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="location.href='payment.html'">
+    <div class="left">
+      <div class="icon">💳</div>
+      <div>
+        <div class="name">Payment Methods</div>
+        <div class="sub">Manage payment options</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+</div>
+
+
+<!-- APP SETTINGS -->
+
+<div class="section-title">
+  App Settings
+</div>
+
+<div class="box">
+
+  <div class="item">
+
+    <div class="left">
+      <div class="icon">🌐</div>
+      <div>
+        <div class="name">Language</div>
+        <div class="sub">বাংলা / English / हिन्दी</div>
+      </div>
+    </div>
 
     <select id="language">
       <option value="bn">বাংলা</option>
       <option value="en">English</option>
       <option value="hi">हिन्दी</option>
     </select>
+
   </div>
 
-  <!-- Dark Mode -->
-  <div class="setting">
-    <label>🌙 <span data-lang="darkMode">Dark Mode</span></label>
 
-    <button onclick="toggleDarkMode()">
-      🌙 <span data-lang="changeTheme">Change Theme</span>
-    </button>
+  <div class="item" onclick="toggleDarkMode()">
+
+    <div class="left">
+      <div class="icon">🌙</div>
+      <div>
+        <div class="name">Dark Mode</div>
+        <div class="sub">Change app appearance</div>
+      </div>
+    </div>
+
+    <div class="toggle on" id="darkToggle"></div>
+
   </div>
 
-  <!-- Notification -->
-  <div class="setting">
-    <label>🔔 <span data-lang="notification">Notifications</span></label>
 
-    <button onclick="toggleNotification()" id="notificationBtn">
-      🔔 ON
-    </button>
+  <div class="item" onclick="toggleNotification()">
+
+    <div class="left">
+      <div class="icon">🔔</div>
+      <div>
+        <div class="name">Notifications</div>
+        <div class="sub">Orders, offers and updates</div>
+      </div>
+    </div>
+
+    <div class="toggle on" id="notificationToggle"></div>
+
   </div>
-
-  <!-- Profile -->
-  <div class="setting">
-    <label>👤 <span data-lang="profile">Profile</span></label>
-
-    <button onclick="location.href='profile.html'">
-      👤 <span data-lang="openProfile">Open Profile</span>
-    </button>
-  </div>
-
-  <!-- Logout -->
-  <div class="setting">
-    <label>🚪 <span data-lang="logout">Logout</span></label>
-
-    <button onclick="logout()">
-      🚪 <span data-lang="logout">Logout</span>
-    </button>
-  </div>
-
-  <!-- About -->
-  <div class="setting">
-    <label>ℹ️ <span data-lang="about">About SayonMart</span></label>
-
-    <p>SayonMart 🛍️</p>
-    <p>Online Shopping App</p>
-  </div>
-
-  <button class="back" onclick="location.href='index.html'">
-    🏠 <span data-lang="backHome">Back Home</span>
-  </button>
 
 </div>
 
-<script>
+
+<!-- PRIVACY -->
+
+<div class="section-title">
+  Privacy & Security
+</div>
+
+<div class="box">
+
+  <div class="item" onclick="privacy()">
+    <div class="left">
+      <div class="icon">🔒</div>
+      <div>
+        <div class="name">Privacy Policy</div>
+        <div class="sub">How we protect your information</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="terms()">
+    <div class="left">
+      <div class="icon">📄</div>
+      <div>
+        <div class="name">Terms & Conditions</div>
+        <div class="sub">SayonMart terms</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="security()">
+    <div class="left">
+      <div class="icon">🛡️</div>
+      <div>
+        <div class="name">Security</div>
+        <div class="sub">Account security information</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+</div>
+
+
+<!-- SUPPORT -->
+
+<div class="section-title">
+  Support
+</div>
+
+<div class="box">
+
+  <div class="item" onclick="help()">
+    <div class="left">
+      <div class="icon">🎧</div>
+      <div>
+        <div class="name">Help & Support</div>
+        <div class="sub">Get help with SayonMart</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="contact()">
+    <div class="left">
+      <div class="icon">📞</div>
+      <div>
+        <div class="name">Contact Us</div>
+        <div class="sub">Contact SayonMart</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="about()">
+    <div class="left">
+      <div class="icon">ℹ️</div>
+      <div>
+        <div class="name">About SayonMart</div>
+        <div class="sub">Version and app information</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+</div>
+
+
+<!-- LOGOUT -->
+
+<div class="section-title">
+  Account
+</div>
+
+<div class="box">
+
+  <div class="item logout" onclick="logout()">
+
+    <div class="left">
+      <div class="icon">🚪</div>
+
+      <div>
+        <div class="name">Logout</div>
+        <div class="sub">Sign out from SayonMart</div>
+      </div>
+
+    </div>
+
+    <div class="arrow">›</div>
+
+  </div>
+
+</div>
+
+
+<div class="version">
+  SayonMart 🛍️<br>
+  Version 1.0.0
+</div>
+
+
+<script type="module">
+
+import { auth } from "./firebase.js";
+
+import {
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* LANGUAGE */
+
 const translations = {
 
-  bn: {
-    settings: "সেটিংস",
-    language: "ভাষা",
-    darkMode: "ডার্ক মোড",
-    changeTheme: "থিম পরিবর্তন",
-    notification: "নোটিফিকেশন",
-    profile: "প্রোফাইল",
-    openProfile: "প্রোফাইল খুলুন",
-    logout: "লগআউট",
-    about: "SayonMart সম্পর্কে",
-    backHome: "হোমে ফিরে যান"
+  bn:{
+    title:"সেটিংস"
   },
 
-  en: {
-    settings: "Settings",
-    language: "Language",
-    darkMode: "Dark Mode",
-    changeTheme: "Change Theme",
-    notification: "Notifications",
-    profile: "Profile",
-    openProfile: "Open Profile",
-    logout: "Logout",
-    about: "About SayonMart",
-    backHome: "Back Home"
+  en:{
+    title:"Settings"
   },
 
-  hi: {
-    settings: "सेटिंग्स",
-    language: "भाषा",
-    darkMode: "डार्क मोड",
-    changeTheme: "थीम बदलें",
-    notification: "सूचनाएं",
-    profile: "प्रोफ़ाइल",
-    openProfile: "प्रोफ़ाइल खोलें",
-    logout: "लॉगआउट",
-    about: "SayonMart के बारे में",
-    backHome: "होम पर जाएं"
+  hi:{
+    title:"सेटिंग्स"
   }
 
 };
 
 
-function changeLanguage(lang) {
+function changeLanguage(lang){
 
-  localStorage.setItem("language", lang);
+  localStorage.setItem("language",lang);
 
-  document.querySelectorAll("[data-lang]").forEach(element => {
-
-    const key = element.getAttribute("data-lang");
-
-    if (translations[lang][key]) {
-      element.innerText = translations[lang][key];
-    }
-
-  });
+  document.getElementById("title").innerText =
+    translations[lang].title;
 
 }
 
 
-document.getElementById("language").addEventListener("change", function() {
+document.getElementById("language")
+.addEventListener("change",function(){
+
   changeLanguage(this.value);
+
 });
 
 
-function toggleDarkMode() {
+const savedLanguage =
+  localStorage.getItem("language") || "bn";
 
-  document.body.classList.toggle("light");
-
-  if (document.body.classList.contains("light")) {
-
-    document.body.style.background = "#f5f5f5";
-    document.body.style.color = "#111";
-
-    localStorage.setItem("theme", "light");
-
-  } else {
-
-    document.body.style.background = "#111";
-    document.body.style.color = "white";
-
-    localStorage.setItem("theme", "dark");
-
-  }
-
-}
-
-
-function toggleNotification() {
-
-  const btn = document.getElementById("notificationBtn");
-
-  if (btn.innerText.includes("ON")) {
-
-    btn.innerText = "🔕 OFF";
-    localStorage.setItem("notifications", "off");
-
-  } else {
-
-    btn.innerText = "🔔 ON";
-    localStorage.setItem("notifications", "on");
-
-  }
-
-}
-
-
-function logout() {
-
-  localStorage.removeItem("user");
-
-  alert("✅ Logout Successful");
-
-  location.href = "login.html";
-
-}
-
-
-// Load saved language
-const savedLanguage = localStorage.getItem("language") || "bn";
-
-document.getElementById("language").value = savedLanguage;
+document.getElementById("language").value =
+  savedLanguage;
 
 changeLanguage(savedLanguage);
 
 
-// Load notification
-if (localStorage.getItem("notifications") === "off") {
-  document.getElementById("notificationBtn").innerText = "🔕 OFF";
+/* DARK MODE */
+
+function loadTheme(){
+
+  const theme =
+    localStorage.getItem("theme") || "dark";
+
+  if(theme === "light"){
+
+    document.body.classList.add("light");
+
+    document.getElementById("darkToggle")
+      .classList.remove("on");
+
+  }
+
 }
+
+
+window.toggleDarkMode = function(){
+
+  document.body.classList.toggle("light");
+
+  if(document.body.classList.contains("light")){
+
+    localStorage.setItem("theme","light");
+
+    document.getElementById("darkToggle")
+      .classList.remove("on");
+
+  }else{
+
+    localStorage.setItem("theme","dark");
+
+    document.getElementById("darkToggle")
+      .classList.add("on");
+
+  }
+
+};
+
+
+loadTheme();
+
+
+/* NOTIFICATION */
+
+function loadNotification(){
+
+  if(localStorage.getItem("notifications")==="off"){
+
+    document.getElementById("notificationToggle")
+      .classList.remove("on");
+
+  }
+
+}
+
+
+window.toggleNotification = function(){
+
+  const toggle =
+    document.getElementById("notificationToggle");
+
+  toggle.classList.toggle("on");
+
+  if(toggle.classList.contains("on")){
+
+    localStorage.setItem("notifications","on");
+
+  }else{
+
+    localStorage.setItem("notifications","off");
+
+  }
+
+};
+
+
+loadNotification();
+
+
+/* OTHER OPTIONS */
+
+window.address = function(){
+  alert("My Addresses feature coming soon 📍");
+};
+
+window.privacy = function(){
+  alert("SayonMart Privacy Policy");
+};
+
+window.terms = function(){
+  alert("SayonMart Terms & Conditions");
+};
+
+window.security = function(){
+  alert("Your account is protected by Firebase Authentication 🛡️");
+};
+
+window.help = function(){
+  alert("Help & Support coming soon 🎧");
+};
+
+window.contact = function(){
+  alert("Contact Us feature coming soon 📞");
+};
+
+window.about = function(){
+  alert("SayonMart 🛍️\nOnline Shopping App\nVersion 1.0.0");
+};
+
+
+/* FIREBASE LOGOUT */
+
+window.logout = async function(){
+
+  const confirmLogout =
+    confirm("আপনি কি Logout করতে চান?");
+
+  if(!confirmLogout) return;
+
+  try{
+
+    await signOut(auth);
+
+    localStorage.removeItem("user");
+
+    location.href="login.html";
+
+  }catch(error){
+
+    alert("Logout failed: " + error.message);
+
+  }
+
+};
 
 </script>
 
