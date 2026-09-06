@@ -1,880 +1,1087 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayonMart</title>
+  <title>SayonMart</title>
 
-<style>
-*{
-  box-sizing:border-box;
-}
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#e91e63">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="./icon-192.png">
 
-body{
-  margin:0;
-  background:#f7f7f7;
-  color:#222;
-  font-family:Arial,sans-serif;
-  padding-bottom:75px;
-}
+  <!-- Firebase -->
+  <script type="module">
+    import { db, auth } from "./firebase.js";
+    import {
+      collection,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/* HEADER */
-.header{
-  background:#fff;
-  padding:14px 15px 10px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  position:sticky;
-  top:0;
-  z-index:20;
-  box-shadow:0 2px 8px #ddd;
-}
+    import {
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-.logo{
-  color:#e91e63;
-  font-size:21px;
-  font-weight:bold;
-}
+    window.db = db;
+    window.auth = auth;
+    window.getDocs = getDocs;
+    window.collection = collection;
+    window.onAuthStateChanged = onAuthStateChanged;
 
-.header-icons{
-  display:flex;
-  gap:18px;
-  font-size:22px;
-}
+    window.dispatchEvent(new Event("firebase-ready"));
+  </script>
 
-/* SEARCH */
-.search-box{
-  background:#fff;
-  padding:10px 15px 15px;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.search{
-  width:100%;
-  padding:13px 16px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  font-size:14px;
-  outline:none;
-  background:#f5f5f5;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+      padding-bottom: 75px;
+    }
 
-/* BANNER */
-.banner{
-  margin:12px;
-  height:175px;
-  border-radius:15px;
-  overflow:hidden;
-  background:#e91e63;
-  color:white;
-  position:relative;
-}
+    /* HEADER */
+    .header {
+      background: #ffffff;
+      padding: 14px 16px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
 
-.banner-content{
-  padding:25px 18px;
-}
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-.banner h1{
-  margin:0;
-  font-size:28px;
-}
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: #e91e63;
+    }
 
-.banner p{
-  margin:8px 0;
-}
+    .icons {
+      display: flex;
+      gap: 18px;
+      font-size: 24px;
+    }
 
-.shop-btn{
-  border:0;
-  background:#ffd600;
-  color:#111;
-  padding:10px 18px;
-  border-radius:20px;
-  font-weight:bold;
-}
+    .icon-btn {
+      border: 0;
+      background: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
 
-/* CATEGORIES */
-.title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:8px 15px;
-}
+    /* SEARCH */
+    .search {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      background: #f3f3f3;
+      border-radius: 10px;
+      padding: 10px 13px;
+    }
 
-.title h2{
-  margin:0;
-  font-size:19px;
-}
+    .search span {
+      font-size: 20px;
+      margin-right: 8px;
+    }
 
-.title span{
-  color:#e91e63;
-  font-size:13px;
-}
+    .search input {
+      border: 0;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 15px;
+    }
 
-.categories{
-  display:flex;
-  overflow-x:auto;
-  gap:12px;
-  padding:5px 15px 15px;
-}
+    /* BANNER */
+    .banner {
+      margin: 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #e91e63, #ff5b91);
+      color: white;
+      padding: 22px 18px;
+      min-height: 145px;
+      position: relative;
+      overflow: hidden;
+    }
 
-.category{
-  min-width:70px;
-  text-align:center;
-}
+    .banner h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
 
-.cat-icon{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:27px;
-  box-shadow:0 2px 8px #ddd;
-  margin:auto;
-}
+    .banner p {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
 
-.category p{
-  font-size:12px;
-  margin:6px 0;
-}
+    .shop-btn {
+      border: 0;
+      background: white;
+      color: #e91e63;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-/* PRODUCTS */
-.products{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  padding:5px 12px;
-}
+    /* SECTION */
+    .section {
+      padding: 5px 14px 0;
+    }
 
-.card{
-  background:#fff;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 2px 8px #ddd;
-  position:relative;
-}
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 15px 0 12px;
+    }
 
-.card img{
-  width:100%;
-  height:155px;
-  object-fit:cover;
-  background:#eee;
-}
+    .section-title h2 {
+      font-size: 19px;
+    }
 
-.card-info{
-  padding:10px;
-}
+    .see-all {
+      color: #e91e63;
+      font-size: 13px;
+      cursor: pointer;
+    }
 
-.card h3{
-  margin:0;
-  font-size:14px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
+    /* CATEGORIES */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
 
-.price{
-  margin:7px 0 2px;
-  font-size:17px;
-  font-weight:bold;
-}
+    .category {
+      background: white;
+      border-radius: 12px;
+      padding: 12px 5px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      cursor: pointer;
+    }
 
-.old-price{
-  color:#999;
-  text-decoration:line-through;
-  font-size:11px;
-}
+    .category-icon {
+      font-size: 27px;
+      margin-bottom: 6px;
+    }
 
-.rating{
-  color:#e91e63;
-  font-size:11px;
-}
+    .category p {
+      font-size: 12px;
+    }
 
-.add-btn{
-  width:100%;
-  border:0;
-  background:#e91e63;
-  color:white;
-  padding:10px;
-  margin-top:8px;
-  border-radius:8px;
-  font-weight:bold;
-}
+    /* PRODUCTS */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
 
-.wish{
-  position:absolute;
-  right:8px;
-  top:8px;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:0;
-  background:white;
-  font-size:18px;
-}
+    .product {
+      background: white;
+      border-radius: 13px;
+      overflow: hidden;
+      box-shadow: 0 2px 9px rgba(0,0,0,.07);
+      position: relative;
+    }
 
-/* DEAL */
-.deal{
-  margin:10px 12px;
-  padding:16px;
-  border-radius:14px;
-  background:#222;
-  color:white;
-}
+    .product-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      background: #eee;
+    }
 
-.deal h2{
-  margin:0;
-  color:#ffd600;
-}
+    .heart {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 50%;
+      background: white;
+      font-size: 19px;
+      cursor: pointer;
+      box-shadow: 0 2px 7px rgba(0,0,0,.15);
+    }
 
-.deal p{
-  font-size:13px;
-  color:#ddd;
-}
+    .product-info {
+      padding: 10px;
+    }
 
-/* BOTTOM */
-.bottom{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:65px;
-  background:#fff;
-  border-top:1px solid #ddd;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:100;
-}
+    .product-name {
+      font-size: 14px;
+      font-weight: bold;
+      height: 35px;
+      overflow: hidden;
+    }
 
-.bottom a{
-  text-decoration:none;
-  color:#777;
-  text-align:center;
-  font-size:10px;
-}
+    .price {
+      color: #e91e63;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 6px 0;
+    }
 
-.bottom a div{
-  font-size:21px;
-  margin-bottom:3px;
-}
+    .add-btn {
+      width: 100%;
+      border: 0;
+      background: #e91e63;
+      color: white;
+      padding: 9px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.bottom a.active{
-  color:#e91e63;
-}
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      background: white;
+      padding: 30px 15px;
+      border-radius: 12px;
+      color: #777;
+    }
 
-.cart{
-  position:relative;
-}
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 18px 14px;
+    }
 
-.badge{
-  position:absolute;
-  top:-7px;
-  right:-9px;
-  background:#e91e63;
-  color:#fff;
-  border-radius:50%;
-  min-width:16px;
-  height:16px;
-  font-size:9px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-</style>
+    .feature {
+      background: white;
+      border-radius: 10px;
+      padding: 12px 5px;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .feature div {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    /* BOTTOM NAV */
+    .bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: white;
+      border-top: 1px solid #ddd;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      z-index: 999;
+      box-shadow: 0 -2px 10px rgba(0,0,0,.08);
+    }
+
+    .bottom a {
+      text-decoration: none;
+      color: #777;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      position: relative;
+    }
+
+    .bottom a div {
+      font-size: 22px;
+      margin-bottom: 2px;
+    }
+
+    .bottom a.active {
+      color: #e91e63;
+      font-weight: bold;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: 5px;
+      margin-left: 20px;
+      background: #e91e63;
+      color: white;
+      min-width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      font-size: 10px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ADMIN */
+    #adminArea {
+      display: none;
+      margin: 10px 14px;
+    }
+
+    .admin-btn {
+      display: block;
+      background: #222;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
+  <!-- HEADER -->
+  <header class="header">
+    <div class="top">
 
-<div class="header">
+      <div class="logo">SayonMart</div>
 
-  <div class="logo">
-    🛍️ SayonMart
-  </div>
+      <div class="icons">
+        <button class="icon-btn" onclick="goWishlist()">♡</button>
 
-  <div class="header-icons">
+        <button class="icon-btn" onclick="goCart()">
+          🛒
+        </button>
+      </div>
 
-    <span onclick="location.href='profile.html'">
-      ♡
-    </span>
+    </div>
 
-    <span onclick="location.href='cart.html'">
-      🛒
-    </span>
-
-  </div>
-
-</div>
-
-
-<!-- SEARCH -->
-
-<div class="search-box">
-
-  <input
-    class="search"
-    id="searchInput"
-    type="text"
-    placeholder="🔍 Search for products..."
-    oninput="searchProducts()"
-  >
-
-</div>
+    <div class="search">
+      <span>🔍</span>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products..."
+        oninput="searchProducts()"
+      >
+    </div>
+  </header>
 
 
-<!-- BANNER -->
+  <!-- BANNER -->
+  <div class="banner">
 
-<div class="banner">
+    <h1>BIG DEALS 🔥</h1>
 
-  <div class="banner-content">
+    <p>Shop amazing products at amazing prices.</p>
 
-    <h1>Big Deals</h1>
-
-    <h1>Big Savings</h1>
-
-    <p>Up to 70% OFF</p>
-
-    <button
-      class="shop-btn"
-      onclick="location.href='products.html'"
-    >
+    <button class="shop-btn" onclick="goProducts()">
       Shop Now
     </button>
 
   </div>
 
-</div>
 
-
-<!-- CATEGORIES -->
-
-<div class="title">
-
-  <h2>Categories</h2>
-
-  <span onclick="location.href='products.html'">
-    See All
-  </span>
-
-</div>
-
-
-<div class="categories">
-
-  <div
-    class="category"
-    onclick="openCategory('Fashion')"
-  >
-    <div class="cat-icon">👕</div>
-    <p>Fashion</p>
+  <!-- ADMIN -->
+  <div id="adminArea">
+    <a class="admin-btn" href="admin.html">
+      ⚙️ Admin Panel
+    </a>
   </div>
 
 
-  <div
-    class="category"
-    onclick="openCategory('Electronics')"
-  >
-    <div class="cat-icon">📱</div>
-    <p>Electronics</p>
-  </div>
+  <!-- CATEGORIES -->
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Categories</h2>
+
+      <span class="see-all" onclick="goProducts()">
+        See All
+      </span>
+    </div>
+
+    <div class="categories">
+
+      <div class="category" onclick="openCategory('Fashion')">
+        <div class="category-icon">👗</div>
+        <p>Fashion</p>
+      </div>
+
+      <div class="category" onclick="openCategory('Shoes')">
+        <div class="category-icon">👟</div>
+        <p>Shoes</p>
+      </div>
+
+      <div class="category" onclick="openCategory('Mobiles')">
+        <div class="category-icon">📱</div>
+        <p>Mobiles</p>
+      </div>
+
+      <div class="category" onclick="openCategory('Electronics')">
+        <div class="category-icon">🎧</div>
+        <p>Electronics</p>
+      </div>
+
+      <div class="category" onclick="openCategory('Home')">
+        <div class="category-icon">🏠</div>
+        <p>Home</p>
+      </div>
+
+      <div class="category" onclick="openCategory('Beauty')">
+        <div class="category-icon">💄</div>
+        <p>Beauty</p>
+      </div>
+
+      <div class="category" onclick="openCategory('Watches')">
+        <div class="category-icon">⌚</div>
+        <p>Watches</p>
+      </div>
+
+      <div class="category" onclick="goProducts()">
+        <div class="category-icon">🛍️</div>
+        <p>More</p>
+      </div>
+
+    </div>
+
+  </section>
 
 
-  <div
-    class="category"
-    onclick="openCategory('Home')"
-  >
-    <div class="cat-icon">🏠</div>
-    <p>Home</p>
-  </div>
+  <!-- TOP DEALS -->
+  <section class="section">
 
+    <div class="section-title">
 
-  <div
-    class="category"
-    onclick="openCategory('Beauty')"
-  >
-    <div class="cat-icon">💄</div>
-    <p>Beauty</p>
-  </div>
+      <h2>Today's Top Deals 🔥</h2>
 
-
-  <div
-    class="category"
-    onclick="openCategory('Shoes')"
-  >
-    <div class="cat-icon">👟</div>
-    <p>Shoes</p>
-  </div>
-
-
-  <div
-    class="category"
-    onclick="openCategory('Mobiles')"
-  >
-    <div class="cat-icon">📲</div>
-    <p>Mobiles</p>
-  </div>
-
-</div>
-
-
-<!-- DEAL -->
-
-<div class="deal">
-
-  <h2>🔥 Today's Top Deals</h2>
-
-  <p>
-    Best products at amazing prices.
-  </p>
-
-</div>
-
-
-<!-- PRODUCTS -->
-
-<div class="title">
-
-  <h2>Top Products</h2>
-
-  <span onclick="location.href='products.html'">
-    See All
-  </span>
-
-</div>
-
-
-<div
-  id="products"
-  class="products"
->
-
-  <div style="
-    grid-column:1/3;
-    text-align:center;
-    padding:30px;
-  ">
-    Loading products...
-  </div>
-
-</div>
-
-
-<!-- BOTTOM NAV -->
-
-<nav class="bottom">
-
-  <a
-    href="index.html"
-    class="active"
-  >
-    <div>⌂</div>
-    Home
-  </a>
-
-
-  <a href="products.html">
-    <div>▦</div>
-    Categories
-  </a>
-
-
-  <a href="cart.html">
-
-    <div class="cart">
-
-      🛒
-
-      <span
-        id="cartBadge"
-        class="badge"
-      >
-        0
+      <span class="see-all" onclick="goProducts()">
+        View All
       </span>
 
     </div>
 
-    Cart
+    <div id="topDeals" class="products">
+      <div class="empty">
+        Loading products...
+      </div>
+    </div>
 
-  </a>
-
-
-  <a href="order.html">
-
-    <div>📦</div>
-
-    Orders
-
-  </a>
+  </section>
 
 
-  <a href="profile.html">
+  <!-- TOP PRODUCTS -->
+  <section class="section">
 
-    <div>♙</div>
+    <div class="section-title">
 
-    Profile
+      <h2>Top Products</h2>
 
-  </a>
+      <span class="see-all" onclick="goProducts()">
+        View All
+      </span>
 
-</nav>
+    </div>
 
+    <div id="products" class="products">
 
-<script type="module">
+      <div class="empty">
+        Loading products...
+      </div>
 
-import { db } from "./firebase.js";
+    </div>
 
-import {
-  collection,
-  getDocs
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-const productsDiv =
-document.getElementById("products");
+  </section>
 
 
-let allProducts=[];
+  <!-- FEATURES -->
+  <div class="features">
+
+    <div class="feature">
+      <div>🚚</div>
+      Fast Delivery
+    </div>
+
+    <div class="feature">
+      <div>🔒</div>
+      Secure Payment
+    </div>
+
+    <div class="feature">
+      <div>↩️</div>
+      Easy Return
+    </div>
+
+  </div>
 
 
-/* LOAD PRODUCTS */
+  <!-- BOTTOM NAV -->
+  <nav class="bottom">
 
-async function loadProducts(){
+    <a class="active" href="index.html">
+      <div>⌂</div>
+      Home
+    </a>
 
-  try{
+    <a href="products.html">
+      <div>▦</div>
+      Products
+    </a>
 
-    const snapshot =
-    await getDocs(
-      collection(db,"products")
-    );
+    <a href="cart.html" onclick="goCart(); return false;">
+
+      <div>
+        🛒
+      </div>
+
+      <span class="cart-badge" id="cartBadge">
+        0
+      </span>
+
+      Cart
+
+    </a>
+
+    <a href="order.html">
+
+      <div>▤</div>
+
+      Orders
+
+    </a>
+
+    <a href="profile.html">
+
+      <div>♙</div>
+
+      Profile
+
+    </a>
+
+  </nav>
 
 
-    allProducts=[];
+  <script>
+
+    let allProducts = [];
 
 
-    snapshot.forEach((doc)=>{
+    /* CART */
 
-      allProducts.push({
-        id:doc.id,
-        ...doc.data()
+    function getCart() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem("cart")
+        ) || [];
+
+      } catch {
+
+        return [];
+
+      }
+
+    }
+
+
+    function updateCartCount() {
+
+      const cart = getCart();
+
+      let count = 0;
+
+      cart.forEach(item => {
+
+        count += Number(item.quantity || 1);
+
       });
 
-    });
+      const badge =
+        document.getElementById("cartBadge");
+
+      if (!badge) return;
+
+      badge.textContent = count;
+
+      badge.style.display =
+        count > 0 ? "flex" : "none";
+
+    }
 
 
-    showProducts(allProducts);
+    function goCart() {
 
-  }catch(error){
+      window.location.href = "cart.html";
 
-    console.error(error);
-
-    productsDiv.innerHTML=`
-
-      <div style="
-        grid-column:1/3;
-        text-align:center;
-        padding:30px;
-        color:#e91e63;
-      ">
-
-        ❌ Products Load Failed
-
-      </div>
-
-    `;
-
-  }
-
-}
+    }
 
 
-/* SHOW PRODUCTS */
+    function goProducts() {
 
-function showProducts(products){
+      window.location.href = "products.html";
 
-  productsDiv.innerHTML="";
-
-
-  if(products.length===0){
-
-    productsDiv.innerHTML=`
-
-      <div style="
-        grid-column:1/3;
-        text-align:center;
-        padding:30px;
-        color:#777;
-      ">
-
-        📭 No Products Found
-
-      </div>
-
-    `;
-
-    return;
-
-  }
+    }
 
 
-  products.slice(0,8).forEach((product)=>{
+    function goWishlist() {
 
-    const name =
-    product.name || "Product";
+      alert("Wishlist খুলতে Products থেকে ❤️ চাপুন।");
 
-
-    const price =
-    Number(product.price || 0);
+    }
 
 
-    const image =
-    product.image ||
-    product.imageUrl ||
-    "https://via.placeholder.com/300";
+    /* ADD TO CART */
+
+    function addToCart(
+      name,
+      price,
+      image
+    ) {
+
+      let cart = getCart();
+
+      const existing =
+        cart.find(item => item.name === name);
+
+      if (existing) {
+
+        existing.quantity =
+          Number(existing.quantity || 1) + 1;
+
+      } else {
+
+        cart.push({
+
+          name: name,
+
+          price: Number(price) || 0,
+
+          image: image || "",
+
+          quantity: 1
+
+        });
+
+      }
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+      );
+
+      updateCartCount();
+
+      alert("🛒 Product cart-এ যোগ হয়েছে!");
+
+    }
 
 
-    productsDiv.innerHTML += `
+    /* WISHLIST */
 
-      <div class="card">
+    function addWishlist(name) {
 
-        <button
-          class="wish"
-          onclick="addWishlist('${product.id}')"
-        >
-          ♡
-        </button>
+      let wishlist = [];
+
+      try {
+
+        wishlist =
+          JSON.parse(
+            localStorage.getItem("wishlist")
+          ) || [];
+
+      } catch {
+
+        wishlist = [];
+
+      }
+
+      if (!wishlist.includes(name)) {
+
+        wishlist.push(name);
+
+        localStorage.setItem(
+          "wishlist",
+          JSON.stringify(wishlist)
+        );
+
+        alert("❤️ Wishlist-এ যোগ হয়েছে!");
+
+      } else {
+
+        alert("❤️ Productটি Wishlist-এ আগেই আছে।");
+
+      }
+
+    }
 
 
-        <img
-          src="${image}"
-          onerror="
-          this.src='https://via.placeholder.com/300'
-          "
-        >
+    /* PRODUCT CARD */
+
+    function productCard(product) {
+
+      const name =
+        product.name ||
+        product.title ||
+        "Product";
+
+      const price =
+        Number(product.price || 0);
+
+      const image =
+        product.image ||
+        product.imageUrl ||
+        "https://picsum.photos/500/500";
 
 
-        <div class="card-info">
+      return `
 
-          <h3>
-            ${name}
-          </h3>
-
-
-          <div class="price">
-            ₹${price}
-          </div>
-
-
-          <div class="rating">
-            ★ 4.3
-          </div>
-
+        <div class="product">
 
           <button
-            class="add-btn"
-            onclick="addToCart(
-              '${product.id}',
-              '${escapeText(name)}',
-              ${price},
-              '${image}'
-            )"
+            class="heart"
+            onclick="addWishlist(${JSON.stringify(name)})"
           >
-            Add to Cart
+            ♡
           </button>
+
+          <img
+            class="product-img"
+            src="${image}"
+            alt="${name}"
+            onerror="this.src='https://picsum.photos/500/500'"
+          >
+
+          <div class="product-info">
+
+            <div class="product-name">
+              ${name}
+            </div>
+
+            <div class="price">
+              ₹${price}
+            </div>
+
+            <button
+              class="add-btn"
+              onclick='addToCart(
+                ${JSON.stringify(name)},
+                ${price},
+                ${JSON.stringify(image)}
+              )'
+            >
+              Add to Cart
+            </button>
+
+          </div>
 
         </div>
 
-      </div>
+      `;
 
-    `;
-
-  });
-
-}
+    }
 
 
-/* SEARCH */
+    /* LOAD PRODUCTS */
 
-window.searchProducts=function(){
+    async function loadProducts() {
 
-  const text =
-  document
-  .getElementById("searchInput")
-  .value
-  .toLowerCase()
-  .trim();
+      const productsDiv =
+        document.getElementById("products");
 
-
-  const filtered =
-  allProducts.filter(product=>{
-
-    const name =
-    String(product.name || "")
-    .toLowerCase();
+      const dealsDiv =
+        document.getElementById("topDeals");
 
 
-    const category =
-    String(product.category || "")
-    .toLowerCase();
+      try {
+
+        const snapshot =
+          await window.getDocs(
+            window.collection(
+              window.db,
+              "products"
+            )
+          );
 
 
-    return(
-      name.includes(text) ||
-      category.includes(text)
+        allProducts = [];
+
+        snapshot.forEach(doc => {
+
+          allProducts.push({
+
+            id: doc.id,
+
+            ...doc.data()
+
+          });
+
+        });
+
+
+        if (allProducts.length === 0) {
+
+          productsDiv.innerHTML = `
+            <div class="empty">
+              😔 No Products Found
+              <br><br>
+              Admin Panel থেকে Product Add করুন।
+            </div>
+          `;
+
+          dealsDiv.innerHTML = `
+            <div class="empty">
+              এখনো কোনো Product নেই।
+            </div>
+          `;
+
+          return;
+
+        }
+
+
+        renderProducts(allProducts);
+
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        productsDiv.innerHTML = `
+          <div class="empty">
+            ⚠️ Products load হচ্ছে না।
+            <br><br>
+            Firebase connection/check করুন।
+          </div>
+        `;
+
+
+        dealsDiv.innerHTML = `
+          <div class="empty">
+            ⚠️ Firebase থেকে Product আনা যাচ্ছে না।
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /* RENDER */
+
+    function renderProducts(list) {
+
+      const productsDiv =
+        document.getElementById("products");
+
+      const dealsDiv =
+        document.getElementById("topDeals");
+
+
+      if (!list.length) {
+
+        productsDiv.innerHTML = `
+          <div class="empty">
+            🔍 No Products Found
+          </div>
+        `;
+
+        dealsDiv.innerHTML = `
+          <div class="empty">
+            🔍 No Products Found
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      productsDiv.innerHTML =
+        list
+          .slice(0, 20)
+          .map(productCard)
+          .join("");
+
+
+      dealsDiv.innerHTML =
+        list
+          .slice(0, 4)
+          .map(productCard)
+          .join("");
+
+    }
+
+
+    /* SEARCH */
+
+    function searchProducts() {
+
+      const text =
+        document
+          .getElementById("searchInput")
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      if (!text) {
+
+        renderProducts(allProducts);
+
+        return;
+
+      }
+
+
+      const filtered =
+        allProducts.filter(product => {
+
+          const name =
+            String(
+              product.name ||
+              product.title ||
+              ""
+            ).toLowerCase();
+
+
+          const category =
+            String(
+              product.category ||
+              ""
+            ).toLowerCase();
+
+
+          return (
+            name.includes(text) ||
+            category.includes(text)
+          );
+
+        });
+
+
+      renderProducts(filtered);
+
+    }
+
+
+    /* CATEGORY */
+
+    function openCategory(category) {
+
+      localStorage.setItem(
+        "selectedCategory",
+        category
+      );
+
+      window.location.href =
+        "products.html";
+
+    }
+
+
+    /* ADMIN CHECK */
+
+    function checkAdmin() {
+
+      if (!window.onAuthStateChanged) return;
+
+
+      window.onAuthStateChanged(
+        window.auth,
+        user => {
+
+          const adminArea =
+            document.getElementById(
+              "adminArea"
+            );
+
+
+          if (
+            user &&
+            user.uid ===
+            "fqQpbMgWScgUbu5Vco4dJ6WuBVL2"
+          ) {
+
+            adminArea.style.display =
+              "block";
+
+          } else {
+
+            adminArea.style.display =
+              "none";
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* START */
+
+    window.addEventListener(
+      "firebase-ready",
+      () => {
+
+        loadProducts();
+
+        checkAdmin();
+
+      }
     );
 
-  });
 
+    updateCartCount();
 
-  showProducts(filtered);
 
-};
+    /* PWA SERVICE WORKER */
 
+    if ("serviceWorker" in navigator) {
 
-/* CATEGORY */
+      window.addEventListener(
+        "load",
+        () => {
 
-window.openCategory=function(category){
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then(() => {
 
-  location.href =
-  "products.html?category="+
-  encodeURIComponent(category);
+              console.log(
+                "SayonMart PWA ready"
+              );
 
-};
+            })
+            .catch(error => {
 
+              console.log(
+                "Service Worker Error:",
+                error
+              );
 
-/* ADD CART */
+            });
 
-window.addToCart=function(
-  id,
-  name,
-  price,
-  image
-){
+        }
+      );
 
-  let cart =
-  JSON.parse(
-    localStorage.getItem("cart") || "[]"
-  );
+    }
 
-
-  const existing =
-  cart.find(item=>item.id===id);
-
-
-  if(existing){
-
-    existing.quantity =
-    (existing.quantity || 1)+1;
-
-  }else{
-
-    cart.push({
-
-      id:id,
-      name:name,
-      price:price,
-      image:image,
-      quantity:1
-
-    });
-
-  }
-
-
-  localStorage.setItem(
-    "cart",
-    JSON.stringify(cart)
-  );
-
-
-  updateCart();
-
-
-  alert(
-    "🛒 Added to Cart!"
-  );
-
-};
-
-
-/* WISHLIST */
-
-window.addWishlist=function(id){
-
-  let wishlist =
-  JSON.parse(
-    localStorage.getItem("wishlist") || "[]"
-  );
-
-
-  if(!wishlist.includes(id)){
-
-    wishlist.push(id);
-
-    localStorage.setItem(
-      "wishlist",
-      JSON.stringify(wishlist)
-    );
-
-    alert("❤️ Added to Wishlist!");
-
-  }else{
-
-    alert("Already in Wishlist!");
-
-  }
-
-};
-
-
-/* CART COUNT */
-
-function updateCart(){
-
-  const cart =
-  JSON.parse(
-    localStorage.getItem("cart") || "[]"
-  );
-
-
-  let count=0;
-
-
-  cart.forEach(item=>{
-
-    count +=
-    Number(item.quantity || 1);
-
-  });
-
-
-  document
-  .getElementById("cartBadge")
-  .textContent=count;
-
-}
-
-
-/* ESCAPE */
-
-function escapeText(text){
-
-  return String(text)
-  .replace(/'/g,"\\'")
-  .replace(/"/g,"&quot;");
-
-}
-
-
-loadProducts();
-
-updateCart();
-
-</script>
+  </script>
 
 </body>
 </html>
