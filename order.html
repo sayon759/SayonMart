@@ -1,530 +1,661 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>My Orders - SayonMart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayonMart - My Orders</title>
 
 <style>
+
 *{
   box-sizing:border-box;
 }
 
 body{
   margin:0;
-  background:#050505;
+  background:#111;
   color:#fff;
   font-family:Arial,sans-serif;
-  padding-bottom:85px;
+  padding-bottom:80px;
 }
 
-/* HEADER */
-header{
-  height:65px;
-  display:flex;
-  align-items:center;
-  padding:0 18px;
-  border-bottom:1px solid #29292d;
-  background:#050505;
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-.back{
-  font-size:28px;
-  cursor:pointer;
-  margin-right:18px;
-}
-
-.logo{
-  font-size:24px;
+.header{
+  background:#000;
+  color:#FFD700;
+  padding:18px;
+  text-align:center;
+  font-size:22px;
   font-weight:bold;
-  color:#ffd000;
+  border-bottom:1px solid #333;
 }
 
-.logo span{
-  color:#fff;
+.container{
+  padding:15px;
 }
 
-/* TITLE */
-.title{
-  padding:22px 18px 10px;
+.order-card{
+  background:#1b1b1b;
+  border:1px solid #333;
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:18px;
 }
 
-.title h1{
-  margin:0;
-  font-size:27px;
-}
-
-.title p{
-  color:#999;
-  margin:7px 0 0;
-  font-size:13px;
-}
-
-/* FILTER */
-.filters{
-  display:flex;
-  gap:9px;
-  overflow:auto;
-  padding:12px 18px;
-}
-
-.filter{
-  border:1px solid #39393e;
-  background:#19191c;
-  color:#aaa;
-  padding:9px 16px;
-  border-radius:20px;
-  white-space:nowrap;
-  cursor:pointer;
-}
-
-.filter.active{
-  background:#ffd000;
-  color:#000;
-  border-color:#ffd000;
-}
-
-/* ORDERS */
-.orders{
-  padding:10px 18px;
-}
-
-.order{
-  background:#19191c;
-  border:1px solid #303035;
-  border-radius:17px;
-  margin-bottom:14px;
-  overflow:hidden;
-}
-
-/* ORDER TOP */
 .order-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:14px;
-  border-bottom:1px solid #303035;
 }
 
 .order-id{
+  color:#FFD700;
   font-size:13px;
-  color:#aaa;
 }
 
-.order-date{
-  font-size:11px;
-  color:#777;
-  margin-top:4px;
-}
-
-/* STATUS */
 .status{
   padding:6px 10px;
-  border-radius:8px;
-  font-size:11px;
+  border-radius:20px;
+  font-size:12px;
   font-weight:bold;
 }
 
 .pending{
-  background:#3b3100;
-  color:#ffd000;
+  background:#4b3b00;
+  color:#FFD700;
 }
 
 .confirmed{
-  background:#143b5d;
-  color:#5db7ff;
+  background:#063d25;
+  color:#4cff9b;
 }
 
 .shipped{
-  background:#38205c;
-  color:#c28cff;
+  background:#073b55;
+  color:#4dcfff;
 }
 
 .delivered{
-  background:#123d25;
-  color:#54df86;
+  background:#183d08;
+  color:#7dff4d;
 }
 
 .cancelled{
-  background:#451b1b;
-  color:#ff6b6b;
+  background:#4a1111;
+  color:#ff7070;
 }
 
-/* PRODUCT */
 .product{
   display:flex;
   gap:12px;
-  padding:14px;
+  margin-top:14px;
+  background:#111;
+  padding:10px;
+  border-radius:12px;
 }
 
 .product img{
   width:75px;
   height:75px;
   object-fit:cover;
-  border-radius:12px;
-  background:#111;
+  border-radius:10px;
 }
 
-.product-info{
-  flex:1;
+.product h3{
+  margin:5px 0;
+  font-size:16px;
 }
 
-.product-name{
-  font-weight:bold;
-  font-size:15px;
-  margin-bottom:7px;
-}
-
-.product-price{
-  color:#ffd000;
-  font-weight:bold;
-}
-
-.quantity{
-  color:#999;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* ORDER BOTTOM */
-.order-bottom{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 14px;
-  border-top:1px solid #303035;
+.product p{
+  margin:5px 0;
+  color:#bbb;
+  font-size:13px;
 }
 
 .total{
-  color:#aaa;
-  font-size:12px;
-}
-
-.total b{
-  display:block;
-  color:#fff;
-  font-size:17px;
-  margin-top:3px;
-}
-
-.details{
-  background:#ffd000;
-  color:#000;
-  border:0;
-  padding:9px 14px;
-  border-radius:9px;
+  color:#FFD700;
+  font-size:18px;
   font-weight:bold;
-  cursor:pointer;
 }
 
-/* EMPTY */
+/* Tracking */
+
+.tracking{
+  margin-top:20px;
+  padding-top:15px;
+  border-top:1px solid #333;
+}
+
+.track-title{
+  color:#FFD700;
+  font-weight:bold;
+  margin-bottom:18px;
+}
+
+.steps{
+  display:flex;
+  justify-content:space-between;
+  position:relative;
+}
+
+.steps:before{
+  content:"";
+  position:absolute;
+  top:15px;
+  left:10%;
+  right:10%;
+  height:3px;
+  background:#444;
+  z-index:0;
+}
+
+.step{
+  text-align:center;
+  width:25%;
+  position:relative;
+  z-index:1;
+}
+
+.circle{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#333;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+}
+
+.step.active .circle{
+  background:#FFD700;
+  color:#000;
+}
+
+.step.done .circle{
+  background:#4cff9b;
+  color:#000;
+}
+
+.step p{
+  font-size:10px;
+  color:#aaa;
+  margin-top:7px;
+}
+
+.step.active p,
+.step.done p{
+  color:#fff;
+}
+
+.details-btn{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:0;
+  border-radius:10px;
+  background:#333;
+  color:#fff;
+  font-weight:bold;
+}
+
 .empty{
   text-align:center;
-  padding:55px 20px;
-  color:#888;
+  color:#aaa;
+  padding:50px 10px;
 }
 
-.empty-icon{
-  font-size:55px;
-  margin-bottom:12px;
-}
-
-.empty b{
-  display:block;
-  color:#fff;
-  font-size:18px;
-  margin-bottom:7px;
-}
-
-/* LOADING */
 .loading{
   text-align:center;
-  color:#aaa;
+  color:#FFD700;
   padding:40px;
 }
 
-/* BOTTOM NAV */
+/* Bottom navigation */
+
 .bottom{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  height:72px;
-  background:#0b0b0d;
-  border-top:1px solid #29292d;
+  height:65px;
+  background:#000;
+  border-top:1px solid #333;
   display:flex;
   justify-content:space-around;
   align-items:center;
-  z-index:10;
+  z-index:100;
 }
 
 .bottom a{
-  color:#aaa;
   text-decoration:none;
+  color:#888;
   text-align:center;
   font-size:11px;
 }
 
 .bottom a div{
-  font-size:22px;
+  font-size:21px;
   margin-bottom:3px;
 }
 
-.bottom .active{
-  color:#ffd000;
+.bottom a.active{
+  color:#FFD700;
 }
 
-/* CART */
-.cart{
-  background:#ffd000;
-  color:#000!important;
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  display:flex!important;
-  align-items:center;
-  justify-content:center;
-  font-size:23px!important;
-  margin-top:-15px;
-}
 </style>
 </head>
 
+
 <body>
 
-<!-- HEADER -->
-<header>
-
-  <div
-    class="back"
-    onclick="history.back()"
-  >
-    ‹
-  </div>
-
-  <div class="logo">
-    Sayon<span>Mart</span>
-  </div>
-
-</header>
+<div class="header">
+📦 My Orders
+</div>
 
 
-<!-- TITLE -->
-<div class="title">
+<div class="container">
 
-  <h1>My Orders 📦</h1>
-
-  <p>
-    আপনার সব অর্ডার এখানে দেখতে পারবেন
-  </p>
+<div id="orders" class="loading">
+Loading Orders...
+</div>
 
 </div>
 
 
-<!-- FILTER -->
-<div class="filters">
-
-  <button
-    class="filter active"
-    onclick="filterOrders('All',this)"
-  >
-    All
-  </button>
-
-  <button
-    class="filter"
-    onclick="filterOrders('Pending',this)"
-  >
-    Pending
-  </button>
-
-  <button
-    class="filter"
-    onclick="filterOrders('Confirmed',this)"
-  >
-    Confirmed
-  </button>
-
-  <button
-    class="filter"
-    onclick="filterOrders('Shipped',this)"
-  >
-    Shipped
-  </button>
-
-  <button
-    class="filter"
-    onclick="filterOrders('Delivered',this)"
-  >
-    Delivered
-  </button>
-
-</div>
-
-
-<!-- ORDERS -->
-<div
-  class="orders"
-  id="orders"
->
-
-  <div class="loading">
-    ⏳ Orders loading...
-  </div>
-
-</div>
-
-
-<!-- BOTTOM NAV -->
 <nav class="bottom">
 
-  <a href="index.html">
-    <div>⌂</div>
-    Home
-  </a>
+<a href="index.html">
+<div>⌂</div>
+Home
+</a>
 
-  <a href="products.html">
-    <div>▦</div>
-    Products
-  </a>
+<a href="products.html">
+<div>▦</div>
+Products
+</a>
 
-  <a href="cart.html">
-    <div class="cart">🛒</div>
-    Cart
-  </a>
+<a href="cart.html">
+<div>🛒</div>
+Cart
+</a>
 
-  <a
-    href="order.html"
-    class="active"
-  >
-    <div>▤</div>
-    Orders
-  </a>
+<a href="order.html" class="active">
+<div>📦</div>
+Orders
+</a>
 
-  <a href="profile.html">
-    <div>♙</div>
-    Profile
-  </a>
+<a href="profile.html">
+<div>♙</div>
+Profile
+</a>
 
 </nav>
 
 
 <script type="module">
 
-import { db, auth } from './firebase.js';
+import { db, auth } from "./firebase.js";
 
 import {
   collection,
   getDocs,
   query,
-  where,
-  orderBy
+  where
 }
-from
-'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import {
   onAuthStateChanged
 }
-from
-'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-let allOrders = [];
+const ordersDiv =
+document.getElementById("orders");
 
-let currentFilter = 'All';
+
+onAuthStateChanged(auth, async (user)=>{
+
+  if(!user){
+
+    ordersDiv.innerHTML=`
+      <div class="empty">
+        🔒 Please Login First
+        <br><br>
+        <button
+          onclick="location.href='login.html'"
+          style="
+          padding:12px 25px;
+          background:#FFD700;
+          border:0;
+          border-radius:10px;
+          font-weight:bold;
+          ">
+          Login
+        </button>
+      </div>
+    `;
+
+    return;
+  }
 
 
-/* LOAD ORDERS */
+  loadOrders(user.uid);
 
-async function loadOrders(user){
+});
 
-  const box =
-    document.getElementById('orders');
+
+async function loadOrders(uid){
 
   try{
 
-    let snap;
+    /*
+      Only user's own orders
+    */
 
-    try{
+    const q = query(
+      collection(db,"orders"),
+      where("userId","==",uid)
+    );
 
-      const q =
-        query(
-          collection(db,'orders'),
-          where('userId','==',user.uid),
-          orderBy('createdAt','desc')
-        );
 
-      snap =
-        await getDocs(q);
+    const snapshot =
+    await getDocs(q);
 
+
+    ordersDiv.innerHTML="";
+
+
+    if(snapshot.empty){
+
+      ordersDiv.innerHTML=`
+        <div class="empty">
+          📭 No Orders Yet
+          <br><br>
+          <button
+            onclick="location.href='products.html'"
+            style="
+            padding:12px 25px;
+            background:#FFD700;
+            border:0;
+            border-radius:10px;
+            font-weight:bold;
+            ">
+            Start Shopping
+          </button>
+        </div>
+      `;
+
+      return;
     }
 
-    catch(error){
 
-      console.log(
-        'userId query fallback',
-        error
-      );
-
-      snap =
-        await getDocs(
-          collection(db,'orders')
-        );
-
-    }
+    let orders=[];
 
 
-    allOrders = [];
+    snapshot.forEach((orderDoc)=>{
 
-    snap.forEach(doc => {
-
-      const data = doc.data();
-
-      /*
-       * Fallback query হলে শুধু নিজের
-       * phone/order data থাকলে দেখানো হবে।
-       */
-      if(
-        data.userId &&
-        data.userId !== user.uid
-      ){
-        return;
-      }
-
-      allOrders.push({
-        id:doc.id,
-        ...data
+      orders.push({
+        id:orderDoc.id,
+        data:orderDoc.data()
       });
 
     });
 
 
-    renderOrders();
+    /*
+      Newest orders first
+    */
 
-  }
+    orders.sort((a,b)=>{
 
-  catch(error){
+      const aTime =
+      a.data.createdAt?.seconds || 0;
+
+      const bTime =
+      b.data.createdAt?.seconds || 0;
+
+      return bTime-aTime;
+
+    });
+
+
+    orders.forEach((item)=>{
+
+      const order =
+      item.data;
+
+      const id =
+      item.id;
+
+
+      const status =
+      order.status || "Pending";
+
+
+      const productName =
+      order.productName || "Product";
+
+
+      const image =
+      order.productImage ||
+      "https://via.placeholder.com/100";
+
+
+      const price =
+      Number(order.price || 0);
+
+
+      const quantity =
+      Number(order.quantity || 1);
+
+
+      const total =
+      Number(
+        order.total ||
+        price * quantity
+      );
+
+
+      const statusClass =
+      status.toLowerCase();
+
+
+      ordersDiv.innerHTML += `
+
+      <div class="order-card">
+
+        <div class="order-top">
+
+          <div class="order-id">
+            Order #${id.substring(0,8)}
+          </div>
+
+          <div class="status ${statusClass}">
+            ${status}
+          </div>
+
+        </div>
+
+
+        <div class="product">
+
+          <img
+            src="${image}"
+            onerror="
+            this.src='https://via.placeholder.com/100'
+            "
+          >
+
+          <div>
+
+            <h3>
+              ${productName}
+            </h3>
+
+            <p>
+              💰 ₹${price}
+            </p>
+
+            <p>
+              🔢 Quantity: ${quantity}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <p class="total">
+          Total: ₹${total}
+        </p>
+
+
+        ${
+          status === "Cancelled"
+          ?
+
+          `
+          <div class="tracking">
+
+            <div class="track-title">
+              ❌ Order Cancelled
+            </div>
+
+          </div>
+          `
+
+          :
+
+          `
+
+          <div class="tracking">
+
+            <div class="track-title">
+              🚚 Order Tracking
+            </div>
+
+
+            <div class="steps">
+
+              <div class="step ${
+                getStep(status)>=1
+                ? "done"
+                : ""
+              }">
+
+                <div class="circle">
+                  ✓
+                </div>
+
+                <p>
+                  Pending
+                </p>
+
+              </div>
+
+
+              <div class="step ${
+                getStep(status)>=2
+                ? "done"
+                : ""
+              }">
+
+                <div class="circle">
+                  ✓
+                </div>
+
+                <p>
+                  Confirmed
+                </p>
+
+              </div>
+
+
+              <div class="step ${
+                getStep(status)>=3
+                ? "done"
+                : ""
+              }">
+
+                <div class="circle">
+                  ✓
+                </div>
+
+                <p>
+                  Shipped
+                </p>
+
+              </div>
+
+
+              <div class="step ${
+                getStep(status)>=4
+                ? "done"
+                : ""
+              }">
+
+                <div class="circle">
+                  ✓
+                </div>
+
+                <p>
+                  Delivered
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          `
+
+        }
+
+
+        <button
+          class="details-btn"
+          onclick="showDetails(
+            '${id}',
+            '${productName}',
+            '${order.name || "N/A"}',
+            '${order.phone || "N/A"}',
+            '${order.address || "N/A"}',
+            '${status}',
+            '${total}'
+          )"
+        >
+          👁️ View Order Details
+        </button>
+
+
+      </div>
+
+      `;
+
+    });
+
+
+  }catch(error){
 
     console.error(error);
 
-    box.innerHTML = `
+    ordersDiv.innerHTML=`
+
       <div class="empty">
 
-        <div class="empty-icon">
-          ⚠️
-        </div>
+        ❌ Orders Load Failed
 
-        <b>Orders পাওয়া যাচ্ছে না</b>
+        <br><br>
 
-        <span>
-          একটু পরে আবার চেষ্টা করুন
-        </span>
+        ${error.message}
 
       </div>
+
     `;
 
   }
@@ -532,343 +663,72 @@ async function loadOrders(user){
 }
 
 
-/* RENDER */
+/* Tracking step */
 
-function renderOrders(){
+function getStep(status){
 
-  const box =
-    document.getElementById('orders');
-
-  let orders =
-    allOrders.filter(order => {
-
-      if(currentFilter === 'All'){
-        return true;
-      }
-
-      return String(
-        order.status || 'Pending'
-      ).toLowerCase()
-      === currentFilter.toLowerCase();
-
-    });
-
-
-  if(!orders.length){
-
-    box.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">
-          📦
-        </div>
-
-        <b>কোনো Order নেই</b>
-
-        <span>
-          আপনি কোনো Order করলে এখানে দেখা যাবে
-        </span>
-
-      </div>
-
-    `;
-
-    return;
-
+  if(status==="Pending"){
+    return 1;
   }
 
+  if(status==="Confirmed"){
+    return 2;
+  }
 
-  box.innerHTML =
-    orders.map(order => createOrder(order)).join('');
+  if(status==="Shipped"){
+    return 3;
+  }
+
+  if(status==="Delivered"){
+    return 4;
+  }
+
+  return 0;
 
 }
 
 
-/* CREATE ORDER CARD */
-
-function createOrder(order){
-
-  const status =
-    String(
-      order.status || 'Pending'
-    );
-
-  const statusClass =
-    status.toLowerCase();
-
-
-  const orderId =
-    order.id || 'N/A';
-
-
-  let date = '';
-
-  if(order.createdAt){
-
-    try{
-
-      if(
-        typeof order.createdAt.toDate
-        === 'function'
-      ){
-
-        date =
-          order.createdAt
-          .toDate()
-          .toLocaleDateString('en-IN');
-
-      }
-
-      else{
-
-        date =
-          new Date(
-            order.createdAt
-          ).toLocaleDateString('en-IN');
-
-      }
-
-    }
-
-    catch(e){
-
-      date = '';
-
-    }
-
-  }
-
-
-  /*
-   * Product information
-   */
-  let productName =
-    order.productName ||
-    order.product ||
-    'SayonMart Product';
-
-
-  let image =
-    order.image ||
-    order.productImage ||
-    'https://picsum.photos/200?random=55';
-
-
-  let price =
-    Number(
-      order.total ||
-      order.amount ||
-      order.price ||
-      0
-    );
-
-
-  let quantity =
-    Number(
-      order.quantity || 1
-    );
-
-
-  return `
-
-    <div class="order">
-
-      <div class="order-top">
-
-        <div>
-
-          <div class="order-id">
-            Order #${orderId}
-          </div>
-
-          <div class="order-date">
-            ${date || 'Date not available'}
-          </div>
-
-        </div>
-
-        <span
-          class="status ${statusClass}"
-        >
-          ${status}
-        </span>
-
-      </div>
-
-
-      <div class="product">
-
-        <img
-          src="${image}"
-          onerror="
-            this.src='https://picsum.photos/200?random=55'
-          "
-        >
-
-        <div class="product-info">
-
-          <div class="product-name">
-            ${productName}
-          </div>
-
-          <div class="product-price">
-            ₹${price.toLocaleString('en-IN')}
-          </div>
-
-          <div class="quantity">
-            Quantity: ${quantity}
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="order-bottom">
-
-        <div class="total">
-
-          Total Amount
-
-          <b>
-            ₹${price.toLocaleString('en-IN')}
-          </b>
-
-        </div>
-
-        <button
-          class="details"
-          onclick="showDetails('${orderId}')"
-        >
-          View Details
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* FILTER */
-
-window.filterOrders =
-function(filter,button){
-
-  currentFilter = filter;
-
-
-  document
-    .querySelectorAll('.filter')
-    .forEach(btn => {
-
-      btn.classList.remove('active');
-
-    });
-
-
-  button.classList.add('active');
-
-
-  renderOrders();
-
-};
-
-
-/* DETAILS */
+/* Details */
 
 window.showDetails =
-function(id){
+function(
+  id,
+  product,
+  customer,
+  phone,
+  address,
+  status,
+  total
+){
 
-  const order =
-    allOrders.find(
-      x => x.id === id
-    );
+alert(
 
+`📦 ORDER DETAILS
 
-  if(!order){
+Order ID:
+${id}
 
-    alert('Order পাওয়া যায়নি');
+📦 Product:
+${product}
 
-    return;
+👤 Customer:
+${customer}
 
-  }
+📞 Phone:
+${phone}
 
+📍 Address:
+${address}
 
-  alert(
+📦 Status:
+${status}
 
-    '📦 Order Details\n\n' +
+💰 Total:
+₹${total}`
 
-    'Order ID: ' + id + '\n' +
-
-    'Status: ' +
-    (order.status || 'Pending') +
-    '\n' +
-
-    'Name: ' +
-    (order.name || 'N/A') +
-    '\n' +
-
-    'Phone: ' +
-    (order.phone || 'N/A') +
-    '\n' +
-
-    'Address: ' +
-    (order.address || 'N/A')
-
-  );
+);
 
 };
-
-
-/* AUTH */
-
-onAuthStateChanged(
-  auth,
-  user => {
-
-    if(!user){
-
-      document.getElementById('orders')
-        .innerHTML = `
-
-          <div class="empty">
-
-            <div class="empty-icon">
-              🔐
-            </div>
-
-            <b>Login করুন</b>
-
-            <span>
-              Order দেখতে আগে Login করতে হবে
-            </span>
-
-            <br><br>
-
-            <button
-              class="details"
-              onclick="location.href='login.html'"
-            >
-              Login
-            </button>
-
-          </div>
-
-        `;
-
-      return;
-
-    }
-
-
-    loadOrders(user);
-
-  }
-);
 
 </script>
 
