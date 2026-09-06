@@ -1,31 +1,742 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-  <title>SayonMart Payment</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout - SayonMart</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#050505;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  padding-bottom:90px;
+}
+
+header{
+  height:65px;
+  display:flex;
+  align-items:center;
+  padding:0 18px;
+  border-bottom:1px solid #29292d;
+  position:sticky;
+  top:0;
+  background:#050505;
+  z-index:5;
+}
+
+.back{
+  font-size:30px;
+  margin-right:18px;
+  cursor:pointer;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+  color:#ffd000;
+}
+
+.logo span{color:#fff}
+
+.title{
+  padding:20px 18px 8px;
+}
+
+.title h1{
+  margin:0;
+  font-size:25px;
+}
+
+.title p{
+  color:#888;
+  font-size:13px;
+}
+
+.box{
+  margin:12px 18px;
+  padding:16px;
+  background:#19191c;
+  border:1px solid #303035;
+  border-radius:17px;
+}
+
+.box h2{
+  margin:0 0 14px;
+  font-size:18px;
+}
+
+input,textarea{
+  width:100%;
+  padding:13px;
+  margin-bottom:10px;
+  border:1px solid #38383d;
+  border-radius:10px;
+  background:#101012;
+  color:#fff;
+  outline:none;
+  font-size:14px;
+}
+
+textarea{
+  height:80px;
+  resize:none;
+}
+
+input:focus,textarea:focus{
+  border-color:#ffd000;
+}
+
+.payment{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:13px;
+  border:1px solid #39393d;
+  border-radius:11px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.payment.active{
+  border-color:#ffd000;
+  background:#292300;
+}
+
+.payment input{
+  width:auto;
+  margin:0;
+  accent-color:#ffd000;
+}
+
+.payment b{
+  font-size:14px;
+}
+
+.summary{
+  display:flex;
+  justify-content:space-between;
+  margin:9px 0;
+  color:#aaa;
+  font-size:14px;
+}
+
+.summary.total{
+  padding-top:12px;
+  border-top:1px solid #333;
+  color:#fff;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.place{
+  width:calc(100% - 36px);
+  margin:12px 18px;
+  padding:15px;
+  border:0;
+  border-radius:12px;
+  background:#ffd000;
+  color:#000;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.place:disabled{
+  opacity:.5;
+}
+
+.empty{
+  text-align:center;
+  color:#888;
+  padding:35px 15px;
+}
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:72px;
+  background:#0b0b0d;
+  border-top:1px solid #29292d;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+}
+
+.bottom a{
+  color:#aaa;
+  text-decoration:none;
+  text-align:center;
+  font-size:11px;
+}
+
+.bottom a div{
+  font-size:22px;
+}
+
+.bottom .active{
+  color:#ffd000;
+}
+</style>
 </head>
+
 <body>
 
-<h2>💳 Payment</h2>
+<header>
 
-<h3>UPI ID</h3>
+  <div class="back" onclick="history.back()">‹</div>
 
-<p><b>YOURUPI@upi</b></p>
+  <div class="logo">
+    Sayon<span>Mart</span>
+  </div>
 
-<p>এই UPI ID-তে টাকা পাঠিয়ে নিচের বাটনে চাপুন।</p>
+</header>
 
-<button onclick="paymentDone()">
-✅ Payment Completed
+
+<div class="title">
+
+  <h1>Checkout 💳</h1>
+
+  <p>আপনার Delivery তথ্য দিন</p>
+
+</div>
+
+
+<!-- DELIVERY -->
+<div class="box">
+
+  <h2>📍 Delivery Address</h2>
+
+  <input
+    id="name"
+    placeholder="আপনার নাম"
+  >
+
+  <input
+    id="phone"
+    type="tel"
+    placeholder="Mobile Number"
+  >
+
+  <textarea
+    id="address"
+    placeholder="সম্পূর্ণ Delivery Address"
+  ></textarea>
+
+</div>
+
+
+<!-- PAYMENT -->
+<div class="box">
+
+  <h2>💳 Payment Method</h2>
+
+  <label class="payment active">
+
+    <input
+      type="radio"
+      name="payment"
+      value="COD"
+      checked
+    >
+
+    <div>
+      <b>💵 Cash on Delivery</b>
+      <br>
+      <small>Delivery-এর সময় টাকা দিন</small>
+    </div>
+
+  </label>
+
+
+  <label class="payment">
+
+    <input
+      type="radio"
+      name="payment"
+      value="UPI"
+    >
+
+    <div>
+      <b>📱 UPI</b>
+      <br>
+      <small>UPI payment</small>
+    </div>
+
+  </label>
+
+</div>
+
+
+<!-- SUMMARY -->
+<div class="box">
+
+  <h2>🛍️ Order Summary</h2>
+
+  <div id="items"></div>
+
+  <div class="summary">
+    <span>Subtotal</span>
+    <span id="subtotal">₹0</span>
+  </div>
+
+  <div class="summary">
+    <span>Delivery</span>
+    <span id="delivery">₹0</span>
+  </div>
+
+  <div class="summary total">
+    <span>Total</span>
+    <span id="total">₹0</span>
+  </div>
+
+</div>
+
+
+<button
+  class="place"
+  id="placeBtn"
+  onclick="placeOrder()"
+>
+  🛍️ Place Order
 </button>
 
-<script>
-  function paymentDone() {
-  alert("✅ Payment Successful!\nআপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে।");
 
-  localStorage.removeItem("cart");
+<!-- BOTTOM -->
+<nav class="bottom">
 
-  window.location.href = "profile.html";
+  <a href="index.html">
+    <div>⌂</div>
+    Home
+  </a>
+
+  <a href="products.html">
+    <div>▦</div>
+    Products
+  </a>
+
+  <a href="cart.html">
+    <div>🛒</div>
+    Cart
+  </a>
+
+  <a href="order.html">
+    <div>▤</div>
+    Orders
+  </a>
+
+  <a href="profile.html">
+    <div>♙</div>
+    Profile
+  </a>
+
+</nav>
+
+
+<script type="module">
+
+import { auth, db } from './firebase.js';
+
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+}
+from
+'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+import {
+  onAuthStateChanged
+}
+from
+'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+
+let currentUser = null;
+
+
+/* CART */
+
+function getCart(){
+
+  return JSON.parse(
+    localStorage.getItem('cart') || '[]'
+  );
+
+}
+
+
+/* SHOW CART */
+
+function showCart(){
+
+  const cart = getCart();
+
+  const box =
+    document.getElementById('items');
+
+  let subtotal = 0;
+
+
+  if(!cart.length){
+
+    box.innerHTML = `
+      <div class="empty">
+        🛒 Cart খালি
+      </div>
+    `;
+
+    document.getElementById('placeBtn')
+      .disabled = true;
+
+    return;
+
   }
+
+
+  box.innerHTML =
+    cart.map(item => {
+
+      const price =
+        Number(item.price || 0);
+
+      const qty =
+        Number(item.quantity || 1);
+
+      subtotal += price * qty;
+
+      return `
+        <div class="summary">
+
+          <span>
+            ${item.name || 'Product'}
+            × ${qty}
+          </span>
+
+          <span>
+            ₹${(price * qty)
+              .toLocaleString('en-IN')}
+          </span>
+
+        </div>
+      `;
+
+    }).join('');
+
+
+  /*
+   * ₹499 বা তার বেশি হলে Free Delivery
+   */
+  const delivery =
+    subtotal >= 499 ? 0 : 40;
+
+
+  const total =
+    subtotal + delivery;
+
+
+  document.getElementById('subtotal')
+    .textContent =
+    '₹' + subtotal.toLocaleString('en-IN');
+
+
+  document.getElementById('delivery')
+    .textContent =
+    delivery === 0
+      ? 'FREE'
+      : '₹' + delivery;
+
+
+  document.getElementById('total')
+    .textContent =
+    '₹' + total.toLocaleString('en-IN');
+
+}
+
+
+/* PAYMENT SELECTION */
+
+document
+  .querySelectorAll(
+    'input[name="payment"]'
+  )
+  .forEach(input => {
+
+    input.addEventListener(
+      'change',
+      function(){
+
+        document
+          .querySelectorAll('.payment')
+          .forEach(x =>
+            x.classList.remove('active')
+          );
+
+        this.closest('.payment')
+          .classList.add('active');
+
+      }
+    );
+
+  });
+
+
+/* PLACE ORDER */
+
+window.placeOrder =
+async function(){
+
+  if(!currentUser){
+
+    alert(
+      'আগে Login করুন'
+    );
+
+    location.href =
+      'login.html';
+
+    return;
+
+  }
+
+
+  const name =
+    document.getElementById('name')
+      .value.trim();
+
+
+  const phone =
+    document.getElementById('phone')
+      .value.trim();
+
+
+  const address =
+    document.getElementById('address')
+      .value.trim();
+
+
+  if(!name){
+
+    alert('আপনার নাম দিন');
+
+    return;
+
+  }
+
+
+  if(!phone){
+
+    alert('Mobile Number দিন');
+
+    return;
+
+  }
+
+
+  if(!address){
+
+    alert('Delivery Address দিন');
+
+    return;
+
+  }
+
+
+  const cart = getCart();
+
+
+  if(!cart.length){
+
+    alert('Cart খালি');
+
+    location.href =
+      'cart.html';
+
+    return;
+
+  }
+
+
+  let subtotal = 0;
+
+
+  cart.forEach(item => {
+
+    subtotal +=
+      Number(item.price || 0) *
+      Number(item.quantity || 1);
+
+  });
+
+
+  const delivery =
+    subtotal >= 499 ? 0 : 40;
+
+
+  const total =
+    subtotal + delivery;
+
+
+  const payment =
+    document.querySelector(
+      'input[name="payment"]:checked'
+    ).value;
+
+
+  const btn =
+    document.getElementById('placeBtn');
+
+
+  btn.disabled = true;
+
+  btn.textContent =
+    '⏳ Order তৈরি হচ্ছে...';
+
+
+  try{
+
+    /*
+     * প্রতিটি cart product
+     * একটি order document হিসেবে save হবে
+     */
+
+    for(const item of cart){
+
+      const price =
+        Number(item.price || 0);
+
+      const quantity =
+        Number(item.quantity || 1);
+
+
+      await addDoc(
+        collection(db,'orders'),
+        {
+
+          userId:
+            currentUser.uid,
+
+          name:name,
+
+          phone:phone,
+
+          address:address,
+
+          productName:
+            item.name || 'Product',
+
+          productImage:
+            item.image || '',
+
+          price:price,
+
+          quantity:quantity,
+
+          subtotal:subtotal,
+
+          delivery:delivery,
+
+          total:total,
+
+          paymentMethod:
+            payment,
+
+          status:
+            'Pending',
+
+          createdAt:
+            serverTimestamp()
+
+        }
+      );
+
+    }
+
+
+    /*
+     * Order successful হলে Cart খালি
+     */
+
+    localStorage.removeItem('cart');
+
+
+    alert(
+      '✅ Order সফলভাবে তৈরি হয়েছে!'
+    );
+
+
+    location.href =
+      'order.html';
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      '❌ Order তৈরি হয়নি। আবার চেষ্টা করুন।'
+    );
+
+
+    btn.disabled = false;
+
+    btn.textContent =
+      '🛍️ Place Order';
+
+  }
+
+};
+
+
+/* AUTH */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if(!user){
+
+      alert(
+        'Order করতে Login করতে হবে'
+      );
+
+      location.href =
+        'login.html';
+
+      return;
+
+    }
+
+
+    currentUser = user;
+
+
+    /*
+     * Firebase phone number থাকলে
+     * phone field-এ বসাবে
+     */
+
+    if(user.phoneNumber){
+
+      document.getElementById('phone')
+        .value =
+        user.phoneNumber
+          .replace('+91','');
+
+    }
+
+
+    showCart();
+
+  }
+);
+
 </script>
 
 </body>
