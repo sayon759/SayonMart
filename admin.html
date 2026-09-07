@@ -1,250 +1,157 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SayonMart Admin</title>
-<link rel="stylesheet" href="style.css">
 
 <style>
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  background:#050505;
-  color:white;
   font-family:Arial,sans-serif;
-  padding-bottom:30px;
+  background:#f5f5f5;
+  color:#222;
 }
-
-header{
-  background:#080808;
-  padding:20px;
-  text-align:center;
-  border-bottom:1px solid #292929;
-}
-
-header h2{
-  margin:0;
-  color:#ffd000;
-}
-
-.admin{
-  padding:18px;
-  max-width:800px;
-  margin:auto;
-}
-
-.box{
-  background:#19191c;
-  border:1px solid #303035;
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:18px;
-}
-
-.box h3{
-  margin-top:0;
-  color:#ffd000;
-}
-
-input,select{
-  width:100%;
-  padding:14px;
-  margin:7px 0;
-  border:1px solid #3a3a3e;
-  border-radius:11px;
-  background:#101012;
+.header{
+  background:#e91e63;
   color:white;
-  font-size:15px;
-}
-
-button{
-  border:0;
-  border-radius:10px;
-  padding:11px 14px;
+  padding:18px;
+  font-size:22px;
   font-weight:bold;
 }
-
-.primary{
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
+.card{
+  background:white;
+  padding:18px;
+  margin-bottom:15px;
+  border-radius:12px;
+  box-shadow:0 2px 8px #ddd;
+}
+input,select{
   width:100%;
-  margin-top:8px;
-  background:#ffd000;
-  color:#000;
+  padding:13px;
+  margin:7px 0 12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
 }
-
-.secondary{
-  background:#333;
-  color:#fff;
+button{
+  border:0;
+  padding:11px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
 }
-
-.danger{
-  background:#c62828;
-  color:#fff;
+.add{
+  width:100%;
+  background:#e91e63;
+  color:white;
 }
-
 .product{
-  background:#101012;
-  border:1px solid #303035;
-  border-radius:15px;
-  padding:12px;
-  margin-top:12px;
   display:flex;
   gap:12px;
   align-items:center;
+  border-bottom:1px solid #eee;
+  padding:12px 0;
 }
-
 .product img{
-  width:85px;
-  height:85px;
+  width:75px;
+  height:75px;
   object-fit:cover;
-  border-radius:11px;
-  background:#222;
+  border-radius:8px;
 }
-
-.product-info{
+.info{
   flex:1;
 }
-
-.product-info h4{
-  margin:0 0 6px;
+.price{
+  color:#e91e63;
+  font-weight:bold;
 }
-
-.product-info p{
-  margin:4px 0;
-  color:#aaa;
-  font-size:13px;
+.edit{
+  background:#2196f3;
+  color:white;
+  margin-right:5px;
 }
-
-.actions{
-  display:flex;
-  gap:6px;
-  margin-top:8px;
-  flex-wrap:wrap;
+.delete{
+  background:#f44336;
+  color:white;
 }
-
-.status{
-  text-align:center;
-  margin-top:12px;
-  color:#ffd000;
-}
-
-.empty{
-  text-align:center;
-  color:#999;
-  padding:30px;
-}
-
 .preview{
-  width:100%;
-  height:160px;
-  object-fit:contain;
-  background:#111;
-  border-radius:12px;
-  margin-top:8px;
+  width:100px;
+  height:100px;
+  object-fit:cover;
+  border-radius:10px;
   display:none;
+}
+#message{
+  margin:10px 0;
+  font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h2>🛠️ SayonMart Admin</h2>
-</header>
+<div class="header">⚙️ SayonMart Admin Panel</div>
 
-<div class="admin">
+<div class="container">
 
-<div class="box">
+<div class="card">
 
-<h3 id="title">➕ Add New Product</h3>
+<h2 id="formTitle">➕ Add Product</h2>
 
-<input
-  id="name"
-  type="text"
-  placeholder="Product Name"
->
+<input id="name" type="text" placeholder="Product Name">
 
-<input
-  id="price"
-  type="number"
-  min="0"
-  placeholder="Price ₹"
->
+<input id="price" type="number" placeholder="Price ₹">
 
-<input
-  id="image"
-  type="url"
-  placeholder="Image URL"
-  oninput="preview()"
->
+<input id="image" type="text" placeholder="Image URL">
 
-<img id="previewImg" class="preview">
+<img id="preview" class="preview">
 
 <select id="category">
-
-<option value="Fashion">👕 Fashion</option>
-<option value="Shoes">👟 Shoes</option>
-<option value="Mobiles">📱 Mobiles</option>
-<option value="Watches">⌚ Watches</option>
-<option value="Electronics">🎧 Electronics</option>
-<option value="Other">📦 Other</option>
-
+  <option value="">Select Category</option>
+  <option value="Fashion">Fashion</option>
+  <option value="Shoes">Shoes</option>
+  <option value="Mobiles">Mobiles</option>
+  <option value="Watches">Watches</option>
+  <option value="Electronics">Electronics</option>
+  <option value="Other">Other</option>
 </select>
 
-<button
-  id="saveBtn"
-  class="primary"
-  onclick="saveProduct()"
->
-➕ Add Product
-</button>
+<button class="add" id="saveBtn">➕ Add Product</button>
 
-<button
-  id="cancelBtn"
-  class="secondary"
-  onclick="cancelEdit()"
-  style="display:none;width:100%;margin-top:8px"
->
-✖ Cancel
-</button>
-
-<div id="status" class="status"></div>
+<div id="message"></div>
 
 </div>
 
 
-<div class="box">
+<div class="card">
 
-<h3>📦 Products</h3>
+<h2>📦 Products</h2>
 
 <input
   id="search"
   type="text"
   placeholder="🔍 Search Product..."
-  oninput="showProducts()"
 >
 
 <div id="productList">
-  <div class="empty">⏳ Loading...</div>
+Loading products...
 </div>
 
 </div>
-
-
-<button
-  class="primary"
-  onclick="location.href='index.html'"
->
-🏠 Back Home
-</button>
 
 </div>
 
 
 <script type="module">
 
-import { db } from "./firebase.js";
+import { auth, db } from "./firebase.js";
 
 import {
   collection,
@@ -256,402 +163,342 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-let products = [];
+
+const ADMIN_UID = "fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+
 let editingId = null;
+let allProducts = [];
+
+const nameInput = document.getElementById("name");
+const priceInput = document.getElementById("price");
+const imageInput = document.getElementById("image");
+const categoryInput = document.getElementById("category");
+const saveBtn = document.getElementById("saveBtn");
+const productList = document.getElementById("productList");
+const searchInput = document.getElementById("search");
+const message = document.getElementById("message");
+const preview = document.getElementById("preview");
 
 
-/* Load Products */
+/* ADMIN CHECK */
 
-async function loadProducts(){
+onAuthStateChanged(auth, async (user) => {
 
-  try{
+  if (!user) {
+    alert("Please login first.");
+    location.href = "login.html";
+    return;
+  }
 
-    const snapshot =
-      await getDocs(
-        collection(db,"products")
+  if (user.uid !== ADMIN_UID) {
+    alert("Access denied. Admin only.");
+    location.href = "index.html";
+    return;
+  }
+
+  loadProducts();
+
+});
+
+
+/* IMAGE PREVIEW */
+
+imageInput.addEventListener("input", () => {
+
+  const url = imageInput.value.trim();
+
+  if (url) {
+    preview.src = url;
+    preview.style.display = "block";
+  } else {
+    preview.style.display = "none";
+  }
+
+});
+
+
+/* ADD / UPDATE */
+
+saveBtn.addEventListener("click", async () => {
+
+  const name = nameInput.value.trim();
+  const price = Number(priceInput.value);
+  const image = imageInput.value.trim();
+  const category = categoryInput.value;
+
+  if (!name || !price || !image || !category) {
+    message.innerText = "⚠️ সব তথ্য পূরণ করো";
+    return;
+  }
+
+  try {
+
+    saveBtn.disabled = true;
+
+    if (editingId) {
+
+      await updateDoc(
+        doc(db, "products", editingId),
+        {
+          name,
+          price,
+          image,
+          category,
+          updatedAt: serverTimestamp()
+        }
       );
 
-    products = [];
+      message.innerText = "✅ Product updated successfully";
 
-    snapshot.forEach(item => {
+      editingId = null;
+      document.getElementById("formTitle").innerText = "➕ Add Product";
+      saveBtn.innerText = "➕ Add Product";
 
-      products.push({
-        id:item.id,
+    } else {
+
+      await addDoc(
+        collection(db, "products"),
+        {
+          name,
+          price,
+          image,
+          category,
+          createdAt: serverTimestamp()
+        }
+      );
+
+      message.innerText = "✅ Product added successfully";
+
+    }
+
+    clearForm();
+    loadProducts();
+
+  } catch (error) {
+
+    console.error(error);
+    message.innerText = "❌ Error: " + error.message;
+
+  }
+
+  saveBtn.disabled = false;
+
+});
+
+
+/* LOAD PRODUCTS */
+
+async function loadProducts() {
+
+  productList.innerHTML = "Loading...";
+
+  try {
+
+    const snapshot = await getDocs(
+      collection(db, "products")
+    );
+
+    allProducts = [];
+
+    snapshot.forEach((item) => {
+
+      allProducts.push({
+        id: item.id,
         ...item.data()
       });
 
     });
 
-    showProducts();
+    showProducts(allProducts);
 
-  }catch(error){
+  } catch (error) {
 
     console.error(error);
 
-    document.getElementById("productList").innerHTML =
-      `<div class="empty">
-        ⚠️ Product load হয়নি।
-      </div>`;
+    productList.innerHTML =
+      "❌ Products load হয়নি";
 
   }
 
 }
 
 
-/* Show Products */
+/* SHOW PRODUCTS */
 
-window.showProducts = function(){
+function showProducts(products) {
 
-  const search =
-    document
-    .getElementById("search")
-    .value
-    .toLowerCase()
-    .trim();
+  if (products.length === 0) {
 
-  const list =
-    products.filter(p =>
-      String(p.name || "")
-      .toLowerCase()
-      .includes(search)
-    );
-
-
-  if(list.length === 0){
-
-    document.getElementById("productList").innerHTML =
-      `<div class="empty">
-        😕 কোনো Product নেই।
-      </div>`;
+    productList.innerHTML =
+      "📦 No Products Found";
 
     return;
-
   }
 
+  productList.innerHTML = "";
 
-  document.getElementById("productList").innerHTML =
-    list.map(p => `
+  products.forEach(product => {
 
-      <div class="product">
+    const div = document.createElement("div");
 
-        <img
-          src="${safe(p.image || "https://picsum.photos/200")}"
-          onerror="this.src='https://picsum.photos/200'"
-        >
+    div.className = "product";
 
-        <div class="product-info">
+    div.innerHTML = `
 
-          <h4>
-            ${safe(p.name || "Product")}
-          </h4>
+      <img
+        src="${product.image || ''}"
+        onerror="this.src='https://via.placeholder.com/100'"
+      >
 
-          <p>
-            💰 ₹${Number(p.price || 0).toLocaleString("en-IN")}
-          </p>
+      <div class="info">
 
-          <p>
-            📂 ${safe(p.category || "Other")}
-          </p>
+        <b>${product.name || "Product"}</b>
 
-          <div class="actions">
-
-            <button
-              class="secondary"
-              onclick="editProduct('${p.id}')"
-            >
-              ✏️ Edit
-            </button>
-
-            <button
-              class="danger"
-              onclick="deleteProduct('${p.id}')"
-            >
-              🗑️ Delete
-            </button>
-
-          </div>
-
+        <div class="price">
+          ₹${product.price || 0}
         </div>
+
+        <small>
+          ${product.category || ""}
+        </small>
 
       </div>
 
-    `).join("");
+      <div>
 
-};
+        <button
+          class="edit"
+          data-id="${product.id}">
+          Edit
+        </button>
 
+        <button
+          class="delete"
+          data-id="${product.id}">
+          Delete
+        </button>
 
-/* Add / Update */
+      </div>
+    `;
 
-window.saveProduct = async function(){
+    productList.appendChild(div);
 
-  const name =
-    document.getElementById("name").value.trim();
-
-  const price =
-    Number(document.getElementById("price").value);
-
-  const image =
-    document.getElementById("image").value.trim();
-
-  const category =
-    document.getElementById("category").value;
-
-
-  if(!name){
-
-    show("❌ Product Name দাও");
-    return;
-
-  }
-
-  if(!Number.isFinite(price) || price < 0){
-
-    show("❌ সঠিক দাম দাও");
-    return;
-
-  }
-
-  if(!image){
-
-    show("❌ Image URL দাও");
-    return;
-
-  }
-
-
-  try{
-
-    if(editingId){
-
-      await updateDoc(
-        doc(db,"products",editingId),
-        {
-          name:name,
-          price:price,
-          image:image,
-          category:category,
-          updatedAt:serverTimestamp()
-        }
-      );
-
-      show("✅ Product Updated");
-
-    }else{
-
-      await addDoc(
-        collection(db,"products"),
-        {
-          name:name,
-          price:price,
-          image:image,
-          category:category,
-          createdAt:serverTimestamp()
-        }
-      );
-
-      show("✅ Product Added");
-
-    }
-
-
-    reset();
-
-    await loadProducts();
-
-
-  }catch(error){
-
-    console.error(error);
-
-    show("❌ Error: " + error.message);
-
-  }
-
-};
-
-
-/* Edit */
-
-window.editProduct = function(id){
-
-  const p =
-    products.find(x => x.id === id);
-
-  if(!p) return;
-
-
-  editingId = id;
-
-
-  document.getElementById("title")
-    .textContent = "✏️ Edit Product";
-
-
-  document.getElementById("name").value =
-    p.name || "";
-
-
-  document.getElementById("price").value =
-    p.price || "";
-
-
-  document.getElementById("image").value =
-    p.image || "";
-
-
-  document.getElementById("category").value =
-    p.category || "Other";
-
-
-  document.getElementById("saveBtn")
-    .textContent = "💾 Update Product";
-
-
-  document.getElementById("cancelBtn")
-    .style.display = "block";
-
-
-  preview();
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
   });
 
-};
+
+  /* EDIT BUTTON */
+
+  document.querySelectorAll(".edit").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const product = allProducts.find(
+        p => p.id === button.dataset.id
+      );
+
+      if (!product) return;
+
+      editingId = product.id;
+
+      nameInput.value = product.name || "";
+      priceInput.value = product.price || "";
+      imageInput.value = product.image || "";
+      categoryInput.value = product.category || "";
+
+      document.getElementById("formTitle").innerText =
+        "✏️ Edit Product";
+
+      saveBtn.innerText =
+        "💾 Update Product";
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+
+      if (product.image) {
+        preview.src = product.image;
+        preview.style.display = "block";
+      }
+
+    });
+
+  });
 
 
-/* Delete */
+  /* DELETE BUTTON */
 
-window.deleteProduct = async function(id){
+  document.querySelectorAll(".delete").forEach(button => {
 
-  const p =
-    products.find(x => x.id === id);
+    button.addEventListener("click", async () => {
 
-  if(!p) return;
+      const ok = confirm(
+        "এই Product টি Delete করতে চাও?"
+      );
 
+      if (!ok) return;
 
-  if(!confirm(
-    "🗑️ " + p.name +
-    " Delete করতে চাও?"
-  )) return;
+      try {
 
+        await deleteDoc(
+          doc(db, "products", button.dataset.id)
+        );
 
-  try{
+        message.innerText =
+          "🗑️ Product deleted";
 
-    await deleteDoc(
-      doc(db,"products",id)
-    );
+        loadProducts();
 
-    show("🗑️ Product Deleted");
+      } catch (error) {
 
-    await loadProducts();
+        message.innerText =
+          "❌ Delete error: " + error.message;
 
-  }catch(error){
+      }
 
-    show("❌ Delete হয়নি");
+    });
 
-  }
-
-};
-
-
-/* Cancel */
-
-window.cancelEdit = function(){
-
-  reset();
-
-};
-
-
-/* Reset */
-
-function reset(){
-
-  editingId = null;
-
-  document.getElementById("title")
-    .textContent = "➕ Add New Product";
-
-  document.getElementById("name").value = "";
-
-  document.getElementById("price").value = "";
-
-  document.getElementById("image").value = "";
-
-  document.getElementById("category").value = "Fashion";
-
-  document.getElementById("saveBtn")
-    .textContent = "➕ Add Product";
-
-  document.getElementById("cancelBtn")
-    .style.display = "none";
-
-  document.getElementById("previewImg")
-    .style.display = "none";
-
-}
-
-
-/* Image Preview */
-
-window.preview = function(){
-
-  const url =
-    document.getElementById("image").value.trim();
-
-  const img =
-    document.getElementById("previewImg");
-
-
-  if(url){
-
-    img.src = url;
-    img.style.display = "block";
-
-  }else{
-
-    img.style.display = "none";
-
-  }
-
-};
-
-
-/* Status */
-
-function show(text){
-
-  const status =
-    document.getElementById("status");
-
-  status.textContent = text;
-
-  setTimeout(()=>{
-    status.textContent = "";
-  },2500);
+  });
 
 }
 
 
-/* Security helper */
+/* SEARCH */
 
-function safe(text){
+searchInput.addEventListener("input", () => {
 
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  const text =
+    searchInput.value.toLowerCase().trim();
+
+  const filtered = allProducts.filter(product =>
+
+    (product.name || "")
+      .toLowerCase()
+      .includes(text)
+
+  );
+
+  showProducts(filtered);
+
+});
+
+
+/* CLEAR FORM */
+
+function clearForm() {
+
+  nameInput.value = "";
+  priceInput.value = "";
+  imageInput.value = "";
+  categoryInput.value = "";
+
+  preview.style.display = "none";
 
 }
-
-
-loadProducts();
 
 </script>
 
