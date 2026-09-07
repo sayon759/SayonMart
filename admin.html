@@ -79,14 +79,33 @@ button.edit{
   color:white;
 }
 
-#preview{
-  width:150px;
-  height:150px;
-  object-fit:cover;
-  border-radius:10px;
-  margin-top:10px;
-  display:none;
+button.cancel{
+  background:#555;
+  color:white;
 }
+
+/* PHOTO PREVIEW */
+
+#previewContainer{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+
+.preview-box{
+  position:relative;
+}
+
+.preview-img{
+  width:90px;
+  height:90px;
+  object-fit:cover;
+  border-radius:8px;
+  border:2px solid #444;
+}
+
+/* PRODUCTS */
 
 .products{
   display:grid;
@@ -117,6 +136,11 @@ button.edit{
   margin-top:5px;
 }
 
+.category{
+  color:#aaa;
+  margin-top:4px;
+}
+
 .small-btns{
   display:flex;
   gap:7px;
@@ -124,6 +148,12 @@ button.edit{
 
 .small-btns button{
   flex:1;
+}
+
+.loading{
+  color:#aaa;
+  text-align:center;
+  padding:20px;
 }
 </style>
 </head>
@@ -136,58 +166,118 @@ button.edit{
 
 <div class="container">
 
+  <!-- ADD PRODUCT -->
+
   <div class="card">
-    <h2>Add Product</h2>
 
-    <input id="productName" type="text" placeholder="Product Name">
+    <h2 id="formTitle">Add Product</h2>
 
-    <input id="productPrice" type="number" placeholder="Price">
+    <input
+      id="productName"
+      type="text"
+      placeholder="Product Name"
+    >
+
+    <input
+      id="productPrice"
+      type="number"
+      placeholder="Price"
+    >
 
     <select id="productCategory">
-      <option value="">Select Category</option>
-      <option value="Fashion">Fashion</option>
-      <option value="Shoes">Shoes</option>
-      <option value="Mobiles">Mobiles</option>
-      <option value="Watches">Watches</option>
-      <option value="Electronics">Electronics</option>
-      <option value="Other">Other</option>
+
+      <option value="">
+        Select Category
+      </option>
+
+      <option value="Fashion">
+        Fashion
+      </option>
+
+      <option value="Shoes">
+        Shoes
+      </option>
+
+      <option value="Mobiles">
+        Mobiles
+      </option>
+
+      <option value="Watches">
+        Watches
+      </option>
+
+      <option value="Electronics">
+        Electronics
+      </option>
+
+      <option value="Other">
+        Other
+      </option>
+
     </select>
+
+
+    <!-- GALLERY -->
 
     <input
       id="productImage"
       type="file"
       accept="image/*"
+      multiple
     >
 
-    <img id="preview">
+    <p style="color:#aaa;font-size:13px;margin-top:5px;">
+      📷 সর্বোচ্চ ১০টি ছবি নির্বাচন করুন
+    </p>
 
-    <button onclick="saveProduct()">
+
+    <!-- PREVIEW -->
+
+    <div id="previewContainer"></div>
+
+
+    <button
+      id="saveBtn"
+      onclick="saveProduct()"
+    >
       ➕ Add Product
     </button>
 
+
     <button
       id="cancelBtn"
+      class="cancel"
       onclick="cancelEdit()"
-      style="display:none;background:#555;color:white;"
+      style="display:none;"
     >
       Cancel Edit
     </button>
+
   </div>
 
 
+  <!-- ALL PRODUCTS -->
+
   <div class="card">
+
     <h2>All Products</h2>
 
     <input
       id="searchBox"
       type="text"
-      placeholder="Search Product..."
+      placeholder="🔍 Search Product..."
       oninput="loadProducts()"
     >
 
-    <div id="products" class="products">
-      Loading...
+    <div
+      id="products"
+      class="products"
+    >
+      <div class="loading">
+        Loading...
+      </div>
     </div>
+
   </div>
 
 </div>
@@ -204,14 +294,21 @@ import {
   updateDoc,
   deleteDoc,
   doc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 let currentUser = null;
+
 let editId = null;
-let selectedImage = "";
+
+let selectedImages = [];
 
 
-/* LOGIN CHECK */
+
+/* =========================
+   LOGIN CHECK
+========================= */
 
 auth.onAuthStateChanged(user => {
 
@@ -219,9 +316,11 @@ auth.onAuthStateChanged(user => {
 
     alert("Please Login First");
 
-    window.location.href = "login.html";
+    window.location.href =
+      "login.html";
 
     return;
+
   }
 
   currentUser = user;
@@ -231,208 +330,433 @@ auth.onAuthStateChanged(user => {
 });
 
 
-/* IMAGE SELECT */
 
-document.getElementById("productImage").addEventListener("change", function(e){
+/* =========================
+   IMAGE SELECT
+========================= */
 
-  const file = e.target.files[0];
+document
+.getElementById("productImage")
+.addEventListener("change", async function(e){
 
-  if(!file) return;
+  const files =
+    Array.from(e.target.files);
 
-  if(!file.type.startsWith("image/")){
 
-    alert("Please select an image");
+  /* MAX 10 */
+
+  if(files.length > 10){
+
+    alert(
+      "সর্বোচ্চ ১০টি ছবি নির্বাচন করতে পারবেন।"
+    );
+
+    this.value = "";
 
     return;
+
   }
 
-  const reader = new FileReader();
 
-  reader.onload = function(event){
+  selectedImages = [];
 
-    selectedImage = event.target.result;
+  const container =
+    document.getElementById(
+      "previewContainer"
+    );
 
-    const preview = document.getElementById("preview");
+  container.innerHTML = "";
 
-    preview.src = selectedImage;
 
-    preview.style.display = "block";
+  for(const file of files){
 
-  };
+    if(!file.type.startsWith("image/")){
 
-  reader.readAsDataURL(file);
+      continue;
+
+    }
+
+
+    try{
+
+      const image =
+        await compressImage(file);
+
+      selectedImages.push(image);
+
+
+      const box =
+        document.createElement("div");
+
+      box.className =
+        "preview-box";
+
+
+      const img =
+        document.createElement("img");
+
+      img.src = image;
+
+      img.className =
+        "preview-img";
+
+
+      box.appendChild(img);
+
+      container.appendChild(box);
+
+    }
+    catch(error){
+
+      console.error(error);
+
+    }
+
+  }
 
 });
 
 
-/* COMPRESS IMAGE */
+
+/* =========================
+   COMPRESS IMAGE
+========================= */
 
 function compressImage(file){
 
-  return new Promise((resolve,reject)=>{
+  return new Promise(
+    (resolve,reject) => {
 
-    const reader = new FileReader();
+      const reader =
+        new FileReader();
 
-    reader.onload = function(event){
 
-      const img = new Image();
+      reader.onload =
+        function(event){
 
-      img.onload = function(){
+          const img =
+            new Image();
 
-        const canvas = document.createElement("canvas");
 
-        const maxSize = 700;
+          img.onload =
+            function(){
 
-        let width = img.width;
-        let height = img.height;
+              const canvas =
+                document.createElement(
+                  "canvas"
+                );
 
-        if(width > height){
 
-          if(width > maxSize){
+              const maxSize = 700;
 
-            height = height * maxSize / width;
-            width = maxSize;
 
-          }
+              let width =
+                img.width;
 
-        }else{
+              let height =
+                img.height;
 
-          if(height > maxSize){
 
-            width = width * maxSize / height;
-            height = maxSize;
+              if(width > height){
 
-          }
+                if(width > maxSize){
 
-        }
+                  height =
+                    height *
+                    maxSize /
+                    width;
 
-        canvas.width = width;
-        canvas.height = height;
+                  width =
+                    maxSize;
 
-        const ctx = canvas.getContext("2d");
+                }
 
-        ctx.drawImage(img,0,0,width,height);
+              }
+              else{
 
-        const result = canvas.toDataURL("image/jpeg",0.65);
+                if(height > maxSize){
 
-        resolve(result);
+                  width =
+                    width *
+                    maxSize /
+                    height;
 
-      };
+                  height =
+                    maxSize;
 
-      img.onerror = reject;
+                }
 
-      img.src = event.target.result;
+              }
 
-    };
 
-    reader.onerror = reject;
+              canvas.width =
+                width;
 
-    reader.readAsDataURL(file);
+              canvas.height =
+                height;
 
-  });
+
+              const ctx =
+                canvas.getContext(
+                  "2d"
+                );
+
+
+              ctx.drawImage(
+                img,
+                0,
+                0,
+                width,
+                height
+              );
+
+
+              const result =
+                canvas.toDataURL(
+                  "image/jpeg",
+                  0.65
+                );
+
+
+              resolve(result);
+
+            };
+
+
+          img.onerror =
+            reject;
+
+
+          img.src =
+            event.target.result;
+
+        };
+
+
+      reader.onerror =
+        reject;
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
 
 }
 
 
-/* SAVE PRODUCT */
 
-window.saveProduct = async function(){
+/* =========================
+   SAVE PRODUCT
+========================= */
+
+window.saveProduct =
+async function(){
 
   if(!currentUser){
 
-    alert("Please login first");
+    alert(
+      "Please login first"
+    );
 
     return;
+
   }
 
+
   const name =
-    document.getElementById("productName").value.trim();
+    document
+    .getElementById(
+      "productName"
+    )
+    .value
+    .trim();
+
 
   const price =
-    document.getElementById("productPrice").value;
+    document
+    .getElementById(
+      "productPrice"
+    )
+    .value;
+
 
   const category =
-    document.getElementById("productCategory").value;
+    document
+    .getElementById(
+      "productCategory"
+    )
+    .value;
 
-  const file =
-    document.getElementById("productImage").files[0];
 
+  const fileInput =
+    document
+    .getElementById(
+      "productImage"
+    );
+
+
+  const files =
+    Array.from(
+      fileInput.files
+    );
+
+
+  /* VALIDATION */
 
   if(!name){
 
-    alert("Product name দিন");
+    alert(
+      "Product name দিন"
+    );
 
     return;
+
   }
+
 
   if(!price){
 
-    alert("Price দিন");
+    alert(
+      "Price দিন"
+    );
 
     return;
+
   }
+
 
   if(!category){
 
-    alert("Category select করুন");
+    alert(
+      "Category select করুন"
+    );
 
     return;
+
   }
 
 
   try{
 
-    /* নতুন product */
+
+    /* =====================
+       NEW PRODUCT
+    ===================== */
 
     if(!editId){
 
-      if(!file){
+      if(selectedImages.length === 0){
 
-        alert("Gallery থেকে product photo select করুন");
+        alert(
+          "Gallery থেকে অন্তত ১টি ছবি select করুন"
+        );
 
         return;
+
       }
 
-      selectedImage = await compressImage(file);
 
       await addDoc(
-        collection(db,"products"),
+        collection(
+          db,
+          "products"
+        ),
         {
+
           name:name,
+
           price:Number(price),
+
           category:category,
-          image:selectedImage,
-          createdAt:Date.now(),
-          createdBy:currentUser.uid
+
+          /* FIRST IMAGE
+             OLD APP SUPPORT */
+
+          image:
+            selectedImages[0],
+
+          /* ALL IMAGES */
+
+          images:
+            selectedImages,
+
+          createdAt:
+            Date.now(),
+
+          createdBy:
+            currentUser.uid
+
         }
       );
 
-      alert("✅ Product Added!");
+
+      alert(
+        "✅ Product Added!"
+      );
 
     }
 
 
-    /* Edit product */
+
+    /* =====================
+       EDIT PRODUCT
+    ===================== */
 
     else{
 
-      if(file){
+      /*
+       যদি নতুন ছবি দেওয়া হয়,
+       তাহলে নতুন ছবিগুলো save হবে।
+      */
 
-        selectedImage = await compressImage(file);
+      let finalImages =
+        selectedImages;
+
+
+      /*
+       নতুন ছবি না দিলে
+       পুরোনো ছবি থাকবে।
+      */
+
+      if(files.length === 0){
+
+        finalImages =
+          selectedImages;
 
       }
 
+
       await updateDoc(
-        doc(db,"products",editId),
+
+        doc(
+          db,
+          "products",
+          editId
+        ),
+
         {
+
           name:name,
+
           price:Number(price),
+
           category:category,
-          image:selectedImage
+
+          image:
+            finalImages[0] || "",
+
+          images:
+            finalImages
+
         }
+
       );
 
-      alert("✅ Product Updated!");
+
+      alert(
+        "✅ Product Updated!"
+      );
 
     }
 
@@ -441,72 +765,155 @@ window.saveProduct = async function(){
 
     loadProducts();
 
-  }catch(error){
+  }
+  catch(error){
 
     console.error(error);
 
-    alert("Error: " + error.message);
+    alert(
+      "Error: " +
+      error.message
+    );
 
   }
 
 };
 
 
-/* LOAD PRODUCTS */
 
-window.loadProducts = async function(){
+/* =========================
+   LOAD PRODUCTS
+========================= */
 
-  const box = document.getElementById("products");
+window.loadProducts =
+async function(){
 
-  box.innerHTML = "Loading...";
+  const box =
+    document.getElementById(
+      "products"
+    );
+
+
+  box.innerHTML =
+    '<div class="loading">Loading...</div>';
+
 
   try{
 
     const snapshot =
-      await getDocs(collection(db,"products"));
+      await getDocs(
+        collection(
+          db,
+          "products"
+        )
+      );
+
 
     const search =
-      document.getElementById("searchBox").value
+      document
+      .getElementById(
+        "searchBox"
+      )
+      .value
       .toLowerCase();
+
 
     box.innerHTML = "";
 
+
     let count = 0;
+
 
     snapshot.forEach(item => {
 
-      const p = item.data();
+      const p =
+        item.data();
+
 
       if(
         search &&
-        !String(p.name || "")
+        !String(
+          p.name || ""
+        )
         .toLowerCase()
         .includes(search)
       ){
 
         return;
+
       }
+
 
       count++;
 
-      const div = document.createElement("div");
 
-      div.className = "product";
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "product";
+
+
+      /*
+       OLD PRODUCT:
+       image
+
+       NEW PRODUCT:
+       images
+      */
+
+      const firstImage =
+        p.image ||
+        (
+          Array.isArray(
+            p.images
+          )
+          ?
+          p.images[0]
+          :
+          ""
+        );
+
 
       div.innerHTML = `
 
-        <img
-          src="${p.image || ""}"
-          onerror="this.style.display='none'"
-        >
+        ${
+          firstImage
+          ?
+          `
+          <img
+            src="${firstImage}"
+            onerror="this.style.display='none'"
+          >
+          `
+          :
+          ""
+        }
 
-        <h3>${p.name || "Product"}</h3>
+
+        <h3>
+          ${escapeHTML(
+            p.name ||
+            "Product"
+          )}
+        </h3>
+
 
         <div class="price">
           ₹${p.price || 0}
         </div>
 
-        <p>${p.category || ""}</p>
+
+        <p class="category">
+          ${escapeHTML(
+            p.category ||
+            ""
+          )}
+        </p>
+
 
         <div class="small-btns">
 
@@ -514,19 +921,21 @@ window.loadProducts = async function(){
             class="edit"
             onclick="editProduct('${item.id}')"
           >
-            Edit
+            ✏️ Edit
           </button>
+
 
           <button
             class="delete"
             onclick="deleteProduct('${item.id}')"
           >
-            Delete
+            🗑️ Delete
           </button>
 
         </div>
 
       `;
+
 
       box.appendChild(div);
 
@@ -540,7 +949,8 @@ window.loadProducts = async function(){
 
     }
 
-  }catch(error){
+  }
+  catch(error){
 
     console.error(error);
 
@@ -552,137 +962,377 @@ window.loadProducts = async function(){
 };
 
 
-/* EDIT */
 
-window.editProduct = async function(id){
+/* =========================
+   EDIT PRODUCT
+========================= */
+
+window.editProduct =
+async function(id){
 
   try{
 
     const snapshot =
-      await getDocs(collection(db,"products"));
+      await getDocs(
+        collection(
+          db,
+          "products"
+        )
+      );
+
 
     let found = null;
+
 
     snapshot.forEach(item => {
 
       if(item.id === id){
 
-        found = item.data();
+        found =
+          item.data();
 
       }
 
     });
 
-    if(!found) return;
 
+    if(!found){
 
-    document.getElementById("productName").value =
-      found.name || "";
-
-    document.getElementById("productPrice").value =
-      found.price || "";
-
-    document.getElementById("productCategory").value =
-      found.category || "";
-
-    selectedImage =
-      found.image || "";
-
-    if(selectedImage){
-
-      const preview =
-        document.getElementById("preview");
-
-      preview.src = selectedImage;
-
-      preview.style.display = "block";
+      return;
 
     }
 
+
+    document
+    .getElementById(
+      "productName"
+    )
+    .value =
+      found.name || "";
+
+
+    document
+    .getElementById(
+      "productPrice"
+    )
+    .value =
+      found.price || "";
+
+
+    document
+    .getElementById(
+      "productCategory"
+    )
+    .value =
+      found.category || "";
+
+
+    /*
+      OLD PRODUCT:
+      image
+
+      NEW PRODUCT:
+      images
+    */
+
+    if(
+      Array.isArray(
+        found.images
+      )
+      &&
+      found.images.length > 0
+    ){
+
+      selectedImages =
+        found.images;
+
+    }
+    else if(found.image){
+
+      selectedImages =
+        [found.image];
+
+    }
+    else{
+
+      selectedImages =
+        [];
+
+    }
+
+
+    showPreview();
+
+
     editId = id;
 
-    document.querySelector(
-      "button[onclick='saveProduct()']"
-    ).innerText = "💾 Update Product";
 
-    document.getElementById("cancelBtn")
-      .style.display = "block";
+    document
+    .getElementById(
+      "formTitle"
+    )
+    .innerText =
+      "Edit Product";
+
+
+    document
+    .getElementById(
+      "saveBtn"
+    )
+    .innerText =
+      "💾 Update Product";
+
+
+    document
+    .getElementById(
+      "cancelBtn"
+    )
+    .style.display =
+      "block";
+
 
     window.scrollTo({
+
       top:0,
+
       behavior:"smooth"
+
     });
 
-  }catch(error){
-
-    alert(error.message);
-
   }
+  catch(error){
 
-};
-
-
-/* DELETE */
-
-window.deleteProduct = async function(id){
-
-  const ok =
-    confirm("এই product delete করবেন?");
-
-  if(!ok) return;
-
-  try{
-
-    await deleteDoc(
-      doc(db,"products",id)
+    alert(
+      error.message
     );
 
-    alert("🗑️ Product Deleted");
-
-    loadProducts();
-
-  }catch(error){
-
-    alert(error.message);
-
   }
 
 };
 
 
-/* CLEAR */
 
-function clearForm(){
+/* =========================
+   SHOW PREVIEW
+========================= */
 
-  document.getElementById("productName").value = "";
+function showPreview(){
 
-  document.getElementById("productPrice").value = "";
+  const container =
+    document.getElementById(
+      "previewContainer"
+    );
 
-  document.getElementById("productCategory").value = "";
 
-  document.getElementById("productImage").value = "";
+  container.innerHTML = "";
 
-  document.getElementById("preview").style.display = "none";
 
-  selectedImage = "";
+  selectedImages.forEach(image => {
 
-  editId = null;
+    const box =
+      document.createElement(
+        "div"
+      );
 
-  document.querySelector(
-    "button[onclick='saveProduct()']"
-  ).innerText = "➕ Add Product";
 
-  document.getElementById("cancelBtn")
-    .style.display = "none";
+    box.className =
+      "preview-box";
+
+
+    const img =
+      document.createElement(
+        "img"
+      );
+
+
+    img.src = image;
+
+    img.className =
+      "preview-img";
+
+
+    box.appendChild(img);
+
+    container.appendChild(box);
+
+  });
 
 }
 
 
-window.cancelEdit = function(){
+
+/* =========================
+   DELETE PRODUCT
+========================= */
+
+window.deleteProduct =
+async function(id){
+
+  const ok =
+    confirm(
+      "এই product delete করবেন?"
+    );
+
+
+  if(!ok){
+
+    return;
+
+  }
+
+
+  try{
+
+    await deleteDoc(
+      doc(
+        db,
+        "products",
+        id
+      )
+    );
+
+
+    alert(
+      "🗑️ Product Deleted"
+    );
+
+
+    loadProducts();
+
+  }
+  catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
+
+};
+
+
+
+/* =========================
+   CLEAR FORM
+========================= */
+
+function clearForm(){
+
+  document
+  .getElementById(
+    "productName"
+  )
+  .value = "";
+
+
+  document
+  .getElementById(
+    "productPrice"
+  )
+  .value = "";
+
+
+  document
+  .getElementById(
+    "productCategory"
+  )
+  .value = "";
+
+
+  document
+  .getElementById(
+    "productImage"
+  )
+  .value = "";
+
+
+  document
+  .getElementById(
+    "previewContainer"
+  )
+  .innerHTML = "";
+
+
+  selectedImages = [];
+
+
+  editId = null;
+
+
+  document
+  .getElementById(
+    "formTitle"
+  )
+  .innerText =
+    "Add Product";
+
+
+  document
+  .getElementById(
+    "saveBtn"
+  )
+  .innerText =
+    "➕ Add Product";
+
+
+  document
+  .getElementById(
+    "cancelBtn"
+  )
+  .style.display =
+    "none";
+
+}
+
+
+
+/* =========================
+   CANCEL EDIT
+========================= */
+
+window.cancelEdit =
+function(){
 
   clearForm();
 
 };
+
+
+
+/* =========================
+   HTML SECURITY
+========================= */
+
+function escapeHTML(value){
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
 
 </script>
 
