@@ -194,11 +194,6 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  if (user.uid !== ADMIN_UID) {
-    alert("Access denied. Admin only.");
-    location.href = "index.html";
-    return;
-  }
 
   loadProducts();
 
