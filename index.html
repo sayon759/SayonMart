@@ -7,7 +7,6 @@
 
 <title>SayonMart</title>
 
-<!-- PWA -->
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#e91e63">
 
@@ -18,7 +17,10 @@
 <link rel="apple-touch-icon" href="./icon-192.png">
 
 
-<!-- Firebase -->
+<!-- =========================
+     FIREBASE
+========================= -->
+
 <script type="module">
 
 import { db, auth } from "./firebase.js";
@@ -95,7 +97,6 @@ body{
 .icons{
   display:flex;
   gap:18px;
-  font-size:24px;
 }
 
 .icon-btn{
@@ -244,6 +245,12 @@ body{
   overflow:hidden;
   box-shadow:0 2px 9px rgba(0,0,0,.07);
   position:relative;
+  cursor:pointer;
+  transition:.15s;
+}
+
+.product:active{
+  transform:scale(.98);
 }
 
 .product-img{
@@ -251,6 +258,7 @@ body{
   height:170px;
   object-fit:cover;
   background:#eee;
+  display:block;
 }
 
 .heart{
@@ -265,6 +273,7 @@ body{
   font-size:19px;
   cursor:pointer;
   box-shadow:0 2px 7px rgba(0,0,0,.15);
+  z-index:2;
 }
 
 .product-info{
@@ -294,6 +303,8 @@ body{
   border-radius:8px;
   cursor:pointer;
   font-weight:bold;
+  position:relative;
+  z-index:3;
 }
 
 .empty{
@@ -431,7 +442,7 @@ body{
 
       <button
         class="icon-btn"
-        onclick="goWishlist()"
+        onclick="goWishlist(event)"
       >
         ♡
       </button>
@@ -819,7 +830,6 @@ body{
 
   <a
     href="cart.html"
-    onclick="goCart(); return false;"
   >
 
     <div>
@@ -868,7 +878,7 @@ body{
 
 
 /* =========================
-   ALL PRODUCTS
+   PRODUCTS
 ========================= */
 
 let allProducts = [];
@@ -876,33 +886,24 @@ let allProducts = [];
 
 
 /* =========================
-   GET CART
+   CART
 ========================= */
 
 function getCart(){
 
   try{
 
-    const data =
+    const cart =
       JSON.parse(
         localStorage.getItem("cart") || "[]"
       );
 
-    if(Array.isArray(data)){
-
-      return data;
-
-    }
-
-    return [];
+    return Array.isArray(cart)
+      ? cart
+      : [];
 
   }
   catch(error){
-
-    console.log(
-      "Cart error:",
-      error
-    );
 
     return [];
 
@@ -913,7 +914,7 @@ function getCart(){
 
 
 /* =========================
-   UPDATE CART COUNT
+   CART COUNT
 ========================= */
 
 function updateCartCount(){
@@ -941,31 +942,23 @@ function updateCartCount(){
     );
 
 
-  if(!badge){
-
+  if(!badge)
     return;
-
-  }
 
 
   badge.textContent =
     count;
 
 
-  if(count > 0){
-
-    badge.style.display =
-      "flex";
-
-  }
-  else{
-
-    badge.style.display =
-      "none";
-
-  }
+  badge.style.display =
+    count > 0
+    ? "flex"
+    : "none";
 
 }
+
+
+updateCartCount();
 
 
 
@@ -975,7 +968,7 @@ function updateCartCount(){
 
 function goCart(){
 
-  window.location.href =
+  location.href =
     "cart.html";
 
 }
@@ -988,7 +981,7 @@ function goCart(){
 
 function goProducts(){
 
-  window.location.href =
+  location.href =
     "products.html";
 
 }
@@ -999,10 +992,13 @@ function goProducts(){
    WISHLIST
 ========================= */
 
-function goWishlist(){
+function goWishlist(event){
+
+  if(event)
+    event.stopPropagation();
 
   alert(
-    "Wishlist খুলতে Products থেকে ❤️ চাপুন।"
+    "Wishlist-এর Product দেখতে Products page থেকে ❤️ চাপুন।"
   );
 
 }
@@ -1010,132 +1006,71 @@ function goWishlist(){
 
 
 /* =========================
-   ADD TO CART
+   ADD CART
 ========================= */
 
 window.addToCart =
 function(
+  id,
   name,
   price,
   image
 ){
 
-  try{
+  let cart =
+    getCart();
 
 
-    let cart =
-      getCart();
+  const existing =
+    cart.find(
+      item =>
+        String(item.id) ===
+        String(id)
+    );
 
 
-    const productName =
-      String(
-        name || "Product"
-      );
+  if(existing){
 
-
-    const productPrice =
+    existing.quantity =
       Number(
-        price || 0
-      );
-
-
-    const productImage =
-      image || "";
-
-
-    /*
-      একই Product আগে
-      Cart-এ আছে কিনা
-    */
-
-    const existing =
-      cart.find(
-        item =>
-          String(item.name) ===
-          productName
-      );
-
-
-    if(existing){
-
-
-      existing.quantity =
-        Number(
-          existing.quantity || 1
-        ) + 1;
-
-
-    }
-    else{
-
-
-      cart.push({
-
-        name:
-          productName,
-
-        price:
-          productPrice,
-
-        image:
-          productImage,
-
-        quantity:
-          1
-
-      });
-
-
-    }
-
-
-    /*
-      Cart Save
-    */
-
-    localStorage.setItem(
-      "cart",
-      JSON.stringify(cart)
-    );
-
-
-    /*
-      Cart Number Update
-    */
-
-    updateCartCount();
-
-
-    /*
-      অন্য page-কে জানানো
-    */
-
-    window.dispatchEvent(
-      new Event(
-        "cartUpdated"
-      )
-    );
-
-
-    alert(
-      "🛒 Product cart-এ যোগ হয়েছে!"
-    );
-
+        existing.quantity || 1
+      ) + 1;
 
   }
-  catch(error){
+  else{
 
-    console.error(
-      "Add to cart error:",
-      error
-    );
+    cart.push({
 
+      id:id,
 
-    alert(
-      "Cart-এ Product যোগ করা যায়নি।"
-    );
+      name:
+        name || "Product",
+
+      price:
+        Number(price || 0),
+
+      image:
+        image || "",
+
+      quantity:1
+
+    });
 
   }
+
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+
+  updateCartCount();
+
+
+  alert(
+    "🛒 Product cart-এ যোগ হয়েছে!"
+  );
 
 };
 
@@ -1145,7 +1080,18 @@ function(
    WISHLIST
 ========================= */
 
-function addWishlist(name){
+window.addWishlist =
+function(
+  id,
+  name,
+  price,
+  image,
+  event
+){
+
+  if(event)
+    event.stopPropagation();
+
 
   let wishlist = [];
 
@@ -1167,18 +1113,39 @@ function addWishlist(name){
   }
 
 
-  if(
-    !wishlist.includes(name)
-  ){
+  if(!Array.isArray(wishlist))
+    wishlist = [];
 
-    wishlist.push(name);
+
+  const exists =
+    wishlist.some(
+      item =>
+        String(item.id) ===
+        String(id)
+    );
+
+
+  if(!exists){
+
+    wishlist.push({
+
+      id:id,
+
+      name:
+        name || "Product",
+
+      price:
+        Number(price || 0),
+
+      image:
+        image || ""
+
+    });
 
 
     localStorage.setItem(
       "wishlist",
-      JSON.stringify(
-        wishlist
-      )
+      JSON.stringify(wishlist)
     );
 
 
@@ -1195,17 +1162,17 @@ function addWishlist(name){
 
   }
 
-}
+};
 
 
 
 /* =========================
-   SAFE TEXT
+   ESCAPE HTML
 ========================= */
 
 function escapeHTML(value){
 
-  return String(value)
+  return String(value ?? "")
 
     .replace(
       /&/g,
@@ -1242,6 +1209,9 @@ function escapeHTML(value){
 
 function productCard(product){
 
+  const id =
+    product.id;
+
 
   const name =
     product.name ||
@@ -1255,26 +1225,15 @@ function productCard(product){
     );
 
 
-  /*
-    Product-এর ছবি
-  */
-
   let image =
     product.image ||
     product.imageUrl ||
     "";
 
 
-  /*
-    যদি images array থাকে
-    তাহলে প্রথম ছবি নেবে
-  */
-
   if(
     !image &&
-    Array.isArray(
-      product.images
-    ) &&
+    Array.isArray(product.images) &&
     product.images.length
   ){
 
@@ -1283,10 +1242,6 @@ function productCard(product){
 
   }
 
-
-  /*
-    ছবি না থাকলে placeholder
-  */
 
   if(!image){
 
@@ -1305,9 +1260,17 @@ function productCard(product){
 
 
   /*
-    JSON.stringify ব্যবহার করা হয়েছে
-    যাতে Product name-এ
-    ' থাকলেও সমস্যা না হয়
+    Product Details-এর জন্য
+    Firebase document ID
+  */
+
+  const safeId =
+    encodeURIComponent(id);
+
+
+  /*
+    JavaScript-এর জন্য
+    JSON string
   */
 
   const nameJS =
@@ -1320,12 +1283,23 @@ function productCard(product){
 
   return `
 
-    <div class="product">
+    <div
+      class="product"
+      data-product-id="${safeId}"
+    >
 
 
       <button
         class="heart"
-        onclick='addWishlist(${nameJS})'
+        onclick='
+          event.stopPropagation();
+          addWishlist(
+            ${JSON.stringify(id)},
+            ${nameJS},
+            ${price},
+            ${imageJS}
+          )
+        '
       >
         ♡
       </button>
@@ -1335,6 +1309,8 @@ function productCard(product){
         class="product-img"
         src="${safeImage}"
         alt="${safeName}"
+        loading="lazy"
+        decoding="async"
         onerror="
           this.src='https://picsum.photos/500/500'
         "
@@ -1360,11 +1336,15 @@ function productCard(product){
 
         <button
           class="add-btn"
-          onclick='window.addToCart(
-            ${nameJS},
-            ${price},
-            ${imageJS}
-          )'
+          onclick='
+            event.stopPropagation();
+            addToCart(
+              ${JSON.stringify(id)},
+              ${nameJS},
+              ${price},
+              ${imageJS}
+            )
+          '
         >
 
           🛒 Add to Cart
@@ -1384,11 +1364,62 @@ function productCard(product){
 
 
 /* =========================
+   PRODUCT CLICK
+========================= */
+
+function enableProductClick(container){
+
+  const cards =
+    container.querySelectorAll(
+      ".product"
+    );
+
+
+  cards.forEach(card => {
+
+    card.addEventListener(
+      "click",
+      function(){
+
+        const id =
+          this.dataset.productId;
+
+
+        if(!id){
+
+          alert(
+            "Product ID পাওয়া যায়নি।"
+          );
+
+          return;
+
+        }
+
+
+        /*
+          Product Details page
+        */
+
+        location.href =
+          "product.html?id=" +
+          encodeURIComponent(
+            decodeURIComponent(id)
+          );
+
+      }
+    );
+
+  });
+
+}
+
+
+
+/* =========================
    LOAD PRODUCTS
 ========================= */
 
 async function loadProducts(){
-
 
   const productsDiv =
     document.getElementById(
@@ -1406,7 +1437,7 @@ async function loadProducts(){
 
 
     /*
-      Firebase Firestore
+      Firebase থেকে Product
     */
 
     const snapshot =
@@ -1437,25 +1468,15 @@ async function loadProducts(){
     );
 
 
-    /*
-      Product না থাকলে
-    */
-
     if(
       allProducts.length === 0
     ){
-
 
       productsDiv.innerHTML = `
 
         <div class="empty">
 
           😔 No Products Found
-
-          <br><br>
-
-          Admin Panel থেকে
-          Product Add করুন।
 
         </div>
 
@@ -1478,10 +1499,6 @@ async function loadProducts(){
     }
 
 
-    /*
-      Product দেখানো
-    */
-
     renderProducts(
       allProducts
     );
@@ -1489,7 +1506,6 @@ async function loadProducts(){
 
   }
   catch(error){
-
 
     console.error(
       "Firebase error:",
@@ -1505,7 +1521,7 @@ async function loadProducts(){
 
         <br><br>
 
-        Firebase connection/check করুন।
+        Internet/Firebase check করুন।
 
       </div>
 
@@ -1516,8 +1532,7 @@ async function loadProducts(){
 
       <div class="empty">
 
-        ⚠️ Firebase থেকে
-        Product আনা যাচ্ছে না।
+        ⚠️ Products load হচ্ছে না।
 
       </div>
 
@@ -1530,11 +1545,10 @@ async function loadProducts(){
 
 
 /* =========================
-   RENDER PRODUCTS
+   RENDER
 ========================= */
 
 function renderProducts(list){
-
 
   const productsDiv =
     document.getElementById(
@@ -1552,7 +1566,6 @@ function renderProducts(list){
     !list ||
     list.length === 0
   ){
-
 
     productsDiv.innerHTML = `
 
@@ -1588,23 +1601,33 @@ function renderProducts(list){
   productsDiv.innerHTML =
     list
       .slice(0,20)
-      .map(
-        productCard
-      )
+      .map(productCard)
       .join("");
 
 
   /*
-    Top Deals
+    Today's Deals
   */
 
   dealsDiv.innerHTML =
     list
       .slice(0,4)
-      .map(
-        productCard
-      )
+      .map(productCard)
       .join("");
+
+
+  /*
+    Card click চালু
+  */
+
+  enableProductClick(
+    productsDiv
+  );
+
+
+  enableProductClick(
+    dealsDiv
+  );
 
 }
 
@@ -1616,18 +1639,10 @@ function renderProducts(list){
 
 function searchProducts(){
 
-
   const input =
     document.getElementById(
       "searchInput"
     );
-
-
-  if(!input){
-
-    return;
-
-  }
 
 
   const text =
@@ -1651,7 +1666,6 @@ function searchProducts(){
     allProducts.filter(
       product => {
 
-
         const name =
           String(
             product.name ||
@@ -1670,11 +1684,8 @@ function searchProducts(){
 
 
         return (
-
           name.includes(text) ||
-
           category.includes(text)
-
         );
 
       }
@@ -1703,7 +1714,7 @@ function openCategory(
   );
 
 
-  window.location.href =
+  location.href =
     "products.html";
 
 }
@@ -1711,19 +1722,15 @@ function openCategory(
 
 
 /* =========================
-   ADMIN CHECK
+   ADMIN
 ========================= */
 
 function checkAdmin(){
 
-
   if(
     !window.onAuthStateChanged
-  ){
-
+  )
     return;
-
-  }
 
 
   window.onAuthStateChanged(
@@ -1732,31 +1739,20 @@ function checkAdmin(){
 
     user => {
 
-
       const adminArea =
         document.getElementById(
           "adminArea"
         );
 
 
-      if(!adminArea){
-
+      if(!adminArea)
         return;
 
-      }
-
-
-      /*
-        তোমার Admin UID
-      */
 
       if(
-
         user &&
-
         user.uid ===
         "fqQpbMgWScgUbu5Vco4dJ6WuBVL2"
-
       ){
 
         adminArea.style.display =
@@ -1779,22 +1775,7 @@ function checkAdmin(){
 
 
 /* =========================
-   CART UPDATED
-========================= */
-
-window.addEventListener(
-  "cartUpdated",
-  () => {
-
-    updateCartCount();
-
-  }
-);
-
-
-
-/* =========================
-   PAGE START
+   FIREBASE READY
 ========================= */
 
 window.addEventListener(
@@ -1810,42 +1791,8 @@ window.addEventListener(
 
 
 
-/*
-  যদি Firebase event আগে
-  চলে যায়, তবুও load করার
-  চেষ্টা করবে
-*/
-
-setTimeout(
-  () => {
-
-    if(
-      window.db &&
-      window.getDocs
-    ){
-
-      loadProducts();
-
-      checkAdmin();
-
-    }
-
-  },
-  1000
-);
-
-
-
 /* =========================
-   INITIAL CART COUNT
-========================= */
-
-updateCartCount();
-
-
-
-/* =========================
-   PWA SERVICE WORKER
+   SERVICE WORKER
 ========================= */
 
 if(
@@ -1858,27 +1805,21 @@ if(
 
       navigator.serviceWorker
         .register("./sw.js")
+        .then(() => {
 
-        .then(
-          () => {
+          console.log(
+            "SayonMart PWA ready"
+          );
 
-            console.log(
-              "SayonMart PWA ready"
-            );
+        })
+        .catch(error => {
 
-          }
-        )
+          console.log(
+            "Service Worker Error:",
+            error
+          );
 
-        .catch(
-          error => {
-
-            console.log(
-              "Service Worker Error:",
-              error
-            );
-
-          }
-        );
+        });
 
     }
   );
