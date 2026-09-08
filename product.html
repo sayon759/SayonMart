@@ -1,50 +1,931 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<title>Product - SayonMart</title>
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Product Details - SayonMart</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:#f7f7f7;
+  color:#222;
+  font-family:Arial,sans-serif;
+  padding-bottom:90px;
+}
+
+/* TOP BAR */
+.topbar{
+  height:65px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:0 1px 5px #ddd;
+}
+
+.back{
+  font-size:30px;
+  cursor:pointer;
+}
+
+.top-icons{
+  display:flex;
+  gap:22px;
+  align-items:center;
+}
+
+.icon{
+  font-size:27px;
+  cursor:pointer;
+}
+
+.cart{
+  position:relative;
+}
+
+.badge{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  background:#e91e63;
+  color:white;
+  font-size:12px;
+  min-width:20px;
+  height:20px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* IMAGE */
+.image-box{
+  background:white;
+  padding:15px;
+  text-align:center;
+}
+
+.main-image{
+  width:100%;
+  max-height:420px;
+  object-fit:contain;
+  border-radius:10px;
+}
+
+.thumbs{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  justify-content:center;
+  margin-top:12px;
+}
+
+.thumb{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border:2px solid #ddd;
+  border-radius:7px;
+  cursor:pointer;
+}
+
+.thumb.active{
+  border-color:#e91e63;
+}
+
+/* PRODUCT INFO */
+.info{
+  background:white;
+  margin-top:8px;
+  padding:18px;
+}
+
+.product-name{
+  font-size:20px;
+  line-height:1.5;
+  font-weight:600;
+}
+
+.rating{
+  display:inline-block;
+  background:#008f5a;
+  color:white;
+  padding:5px 9px;
+  border-radius:5px;
+  margin-top:12px;
+  font-size:14px;
+}
+
+.price-box{
+  margin-top:15px;
+}
+
+.price{
+  font-size:30px;
+  font-weight:bold;
+  color:#222;
+}
+
+.old-price{
+  color:#777;
+  text-decoration:line-through;
+  margin-left:8px;
+  font-size:17px;
+}
+
+.discount{
+  color:#e91e63;
+  font-weight:bold;
+  margin-left:8px;
+}
+
+/* OFFER */
+.offer{
+  background:#f5efff;
+  padding:14px;
+  border-radius:8px;
+  margin-top:15px;
+  color:#555;
+}
+
+/* DETAILS */
+.details{
+  background:white;
+  margin-top:8px;
+  padding:18px;
+}
+
+.details h3{
+  margin-bottom:12px;
+}
+
+.details p{
+  line-height:1.7;
+  color:#555;
+  white-space:pre-line;
+}
+
+/* CATEGORY */
+.category{
+  margin-top:15px;
+  color:#666;
+}
+
+/* BOTTOM BUTTONS */
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  padding:10px;
+  display:flex;
+  gap:10px;
+  box-shadow:0 -2px 8px #ccc;
+  z-index:20;
+}
+
+.bottom button{
+  flex:1;
+  height:52px;
+  border-radius:8px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.add{
+  background:white;
+  color:#a51d88;
+  border:2px solid #a51d88;
+}
+
+.buy{
+  background:#a51d88;
+  color:white;
+  border:2px solid #a51d88;
+}
+
+/* LOADING */
+#loading{
+  text-align:center;
+  padding:60px 20px;
+  font-size:18px;
+}
+
+#error{
+  display:none;
+  text-align:center;
+  padding:50px 20px;
+}
+
+/* TOAST */
+#toast{
+  position:fixed;
+  bottom:80px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#222;
+  color:white;
+  padding:13px 20px;
+  border-radius:25px;
+  display:none;
+  z-index:50;
+}
+</style>
 </head>
+
 <body>
 
-<header>
-<h2>Premium T-Shirt</h2>
-</header>
+<!-- TOP BAR -->
+<div class="topbar">
 
-<div class="card">
-  <h3>দাম: ₹499</h3>
+  <div class="back" onclick="history.back()">
+    ‹
+  </div>
 
-  <p>আপনার লাভ (₹)</p>
+  <div class="top-icons">
 
-  <input type="number" id="profit" placeholder="যেমন 100">
+    <div class="icon">
+      🔍
+    </div>
 
-  <button onclick="calculateProfit()">দাম দেখুন</button>
+    <div class="icon" onclick="addWishlist()">
+      ♡
+    </div>
 
-  <h3 id="finalPrice"></h3>
+    <div class="icon cart" onclick="goCart()">
+      🛒
+      <span id="cartBadge" class="badge">0</span>
+    </div>
+
+  </div>
+
 </div>
 
-<script>
-function calculateProfit(){
-  let profit = Number(document.getElementById("profit").value);
-  let finalPrice = 499 + profit;
 
-  document.getElementById("finalPrice").innerHTML =
-    "বিক্রির দাম: ₹" + finalPrice;
+<!-- LOADING -->
+<div id="loading">
+  Product Loading...
+</div>
+
+
+<!-- ERROR -->
+<div id="error">
+  <h2>Product পাওয়া যায়নি 😔</h2>
+  <br>
+  <button onclick="history.back()">
+    ← Back
+  </button>
+</div>
+
+
+<!-- PRODUCT -->
+<div id="productPage" style="display:none;">
+
+  <!-- IMAGE -->
+  <div class="image-box">
+
+    <img
+      id="mainImage"
+      class="main-image"
+      src=""
+      alt="Product"
+    >
+
+    <div id="thumbs" class="thumbs"></div>
+
+  </div>
+
+
+  <!-- INFO -->
+  <div class="info">
+
+    <div id="productName" class="product-name">
+    </div>
+
+    <div class="rating">
+      ⭐ 4.0
+    </div>
+
+    <div class="price-box">
+
+      <span id="price" class="price">
+        ₹0
+      </span>
+
+      <span id="oldPrice" class="old-price">
+      </span>
+
+      <span id="discount" class="discount">
+      </span>
+
+    </div>
+
+
+    <div class="offer">
+      🏷️ <b>Special Offer</b><br>
+      এই Product-এর জন্য বিশেষ অফার পাওয়া যাচ্ছে।
+    </div>
+
+
+    <div id="category" class="category">
+    </div>
+
+  </div>
+
+
+  <!-- DETAILS -->
+  <div class="details">
+
+    <h3>
+      📦 Product Details
+    </h3>
+
+    <p id="description">
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- BOTTOM BUTTON -->
+<div class="bottom">
+
+  <button
+    class="add"
+    onclick="addToCart()"
+  >
+    🛒 কার্টে যোগ করুন
+  </button>
+
+  <button
+    class="buy"
+    onclick="buyNow()"
+  >
+    ▶ এখনই কিনুন
+  </button>
+
+</div>
+
+
+<div id="toast"></div>
+
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+// =================================
+// VARIABLES
+// =================================
+
+let product = null;
+
+let productId = null;
+
+let images = [];
+
+
+// =================================
+// GET PRODUCT ID
+// =================================
+
+const params =
+  new URLSearchParams(window.location.search);
+
+productId =
+  params.get("id");
+
+
+// =================================
+// CART COUNT
+// =================================
+
+function updateCartCount(){
+
+  let cart = [];
+
+  try{
+    cart =
+      JSON.parse(localStorage.getItem("cart")) || [];
+  }catch(e){
+    cart = [];
+  }
+
+  let count = 0;
+
+  cart.forEach(item => {
+
+    count +=
+      Number(item.quantity) || 1;
+
+  });
+
+  document.getElementById("cartBadge")
+    .textContent = count;
+
 }
+
+
+// =================================
+// LOAD PRODUCT
+// =================================
+
+async function loadProduct(){
+
+  if(!productId){
+
+    showError();
+
+    return;
+
+  }
+
+
+  try{
+
+    const productRef =
+      doc(db,"products",productId);
+
+    const snapshot =
+      await getDoc(productRef);
+
+
+    if(!snapshot.exists()){
+
+      showError();
+
+      return;
+
+    }
+
+
+    product =
+      snapshot.data();
+
+
+    displayProduct();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showError();
+
+  }
+
+}
+
+
+// =================================
+// DISPLAY PRODUCT
+// =================================
+
+function displayProduct(){
+
+  document.getElementById("loading")
+    .style.display = "none";
+
+  document.getElementById("productPage")
+    .style.display = "block";
+
+
+  // NAME
+
+  document.getElementById("productName")
+    .textContent =
+      product.name || "Product";
+
+
+  // PRICE
+
+  const price =
+    Number(product.price) || 0;
+
+  document.getElementById("price")
+    .textContent =
+      "₹" + price;
+
+
+  // OLD PRICE
+
+  if(product.oldPrice){
+
+    const old =
+      Number(product.oldPrice);
+
+    document.getElementById("oldPrice")
+      .textContent =
+        "₹" + old;
+
+
+    if(old > price){
+
+      const discount =
+        Math.round(
+          ((old - price) / old) * 100
+        );
+
+      document.getElementById("discount")
+        .textContent =
+          discount + "% ছাড়";
+
+    }
+
+  }
+
+
+  // CATEGORY
+
+  if(product.category){
+
+    document.getElementById("category")
+      .textContent =
+        "📂 Category: " +
+        product.category;
+
+  }
+
+
+  // DESCRIPTION
+
+  document.getElementById("description")
+    .textContent =
+      product.description ||
+      "এই Product-এর কোনো বিস্তারিত তথ্য দেওয়া হয়নি।";
+
+
+  // IMAGES
+
+  images = [];
+
+
+  // Multiple images
+
+  if(
+    Array.isArray(product.images) &&
+    product.images.length > 0
+  ){
+
+    images =
+      product.images;
+
+  }
+
+
+  // Single image
+
+  else if(product.image){
+
+    images = [
+      product.image
+    ];
+
+  }
+
+
+  // No image
+
+  else{
+
+    images = [
+      "https://via.placeholder.com/600x600?text=SayonMart"
+    ];
+
+  }
+
+
+  showImages();
+
+}
+
+
+// =================================
+// SHOW IMAGES
+// =================================
+
+function showImages(){
+
+  const main =
+    document.getElementById("mainImage");
+
+  const thumbs =
+    document.getElementById("thumbs");
+
+
+  thumbs.innerHTML = "";
+
+
+  main.src =
+    images[0];
+
+
+  images.forEach((image,index) => {
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      image;
+
+    img.className =
+      "thumb";
+
+
+    if(index === 0){
+
+      img.classList.add("active");
+
+    }
+
+
+    img.onclick = function(){
+
+      main.src =
+        image;
+
+
+      document
+        .querySelectorAll(".thumb")
+        .forEach(x =>
+          x.classList.remove("active")
+        );
+
+
+      img.classList.add("active");
+
+    };
+
+
+    thumbs.appendChild(img);
+
+  });
+
+}
+
+
+// =================================
+// ADD TO CART
+// =================================
+
+window.addToCart = function(){
+
+  if(!product){
+
+    return;
+
+  }
+
+
+  let cart = [];
+
+  try{
+
+    cart =
+      JSON.parse(localStorage.getItem("cart")) || [];
+
+  }catch(e){
+
+    cart = [];
+
+  }
+
+
+  const index =
+    cart.findIndex(
+      item =>
+        item.productId === productId
+    );
+
+
+  if(index !== -1){
+
+    cart[index].quantity =
+      (Number(cart[index].quantity) || 1) + 1;
+
+  }else{
+
+    cart.push({
+
+      productId:
+        productId,
+
+      name:
+        product.name || "Product",
+
+      price:
+        Number(product.price) || 0,
+
+      image:
+        images[0] || "",
+
+      quantity:
+        1
+
+    });
+
+  }
+
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+
+  updateCartCount();
+
+  showToast(
+    "✅ Product কার্টে যোগ হয়েছে!"
+  );
+
+};
+
+
+// =================================
+// BUY NOW
+// =================================
+
+window.buyNow = function(){
+
+  if(!product){
+
+    return;
+
+  }
+
+
+  addToCart();
+
+
+  setTimeout(() => {
+
+    location.href =
+      "payment.html";
+
+  },300);
+
+};
+
+
+// =================================
+// WISHLIST
+// =================================
+
+window.addWishlist = function(){
+
+  if(!product){
+
+    return;
+
+  }
+
+
+  let wishlist = [];
+
+  try{
+
+    wishlist =
+      JSON.parse(
+        localStorage.getItem("wishlist")
+      ) || [];
+
+  }catch(e){
+
+    wishlist = [];
+
+  }
+
+
+  const exists =
+    wishlist.some(
+      item =>
+        item.productId === productId
+    );
+
+
+  if(!exists){
+
+    wishlist.push({
+
+      productId:
+        productId,
+
+      name:
+        product.name || "Product",
+
+      price:
+        Number(product.price) || 0,
+
+      image:
+        images[0] || ""
+
+    });
+
+
+    localStorage.setItem(
+      "wishlist",
+      JSON.stringify(wishlist)
+    );
+
+
+    showToast(
+      "❤️ Wishlist-এ যোগ হয়েছে!"
+    );
+
+  }else{
+
+    showToast(
+      "❤️ Wishlist-এ আগেই আছে"
+    );
+
+  }
+
+};
+
+
+// =================================
+// CART
+// =================================
+
+window.goCart = function(){
+
+  location.href =
+    "cart.html";
+
+};
+
+
+// =================================
+// TOAST
+// =================================
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent =
+    message;
+
+  toast.style.display =
+    "block";
+
+
+  setTimeout(() => {
+
+    toast.style.display =
+      "none";
+
+  },2000);
+
+}
+
+
+// =================================
+// ERROR
+// =================================
+
+function showError(){
+
+  document.getElementById("loading")
+    .style.display = "none";
+
+  document.getElementById("error")
+    .style.display = "block";
+
+}
+
+
+// =================================
+// START
+// =================================
+
+updateCartCount();
+
+loadProduct();
+
 </script>
 
 </body>
 </html>
-<h3>Supplier Price: ₹499</h3>
-
-<label>আপনার লাভ (₹)</label>
-
-<input type="number" id="profit" placeholder="যেমন 100">
-
-<button onclick="calculateProfit()">
-দাম হিসাব করুন
-</button>
-<button onclick="shareWhatsApp()">
-📤 WhatsApp Share
-</button>
-<h3 id="finalPrice"></h3>
