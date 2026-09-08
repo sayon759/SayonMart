@@ -161,7 +161,7 @@ window.goWishlist=()=>location.href="products.html";
 
 window.openProduct=function(id){
   if(!id){alert("Product ID পাওয়া যায়নি।");return;}
-  location.href="product.html?id="+encodeURIComponent(id);
+  location.href="./product.html?id="+encodeURIComponent(id);
 };
 
 window.openCategory=function(category){
@@ -216,20 +216,22 @@ function productCard(p){
   const idJS=JSON.stringify(id);
   const nameJS=JSON.stringify(name);
   const imageJS=JSON.stringify(image);
-  const detailsURL="product.html?id="+encodeURIComponent(id);
+  const detailsURL="./product.html?id="+encodeURIComponent(id);
 
   return `
-  <div class="product">
+  <div class="product" role="button" tabindex="0"
+       onclick='openProduct(${idJS})'
+       onkeydown='if(event.key==="Enter"||event.key===" "){event.preventDefault();openProduct(${idJS})}'>
     <button class="heart" onclick='event.stopPropagation();addWishlist(${idJS},${nameJS},${price},${imageJS})'>♡</button>
 
-    <a href="${esc(detailsURL)}" style="display:block;text-decoration:none;color:inherit">
+    <div style="display:block;text-decoration:none;color:inherit">
       <img class="product-img" src="${esc(image)}" alt="${esc(name)}" loading="lazy" decoding="async"
         onerror="this.onerror=null;this.src='https://picsum.photos/500/500';">
       <div class="product-info" style="padding-bottom:4px">
         <div class="product-name">${esc(name)}</div>
         <div class="price">₹${price}</div>
       </div>
-    </a>
+    </div>
 
     <div class="product-info" style="padding-top:4px">
       <div class="product-buttons">
@@ -286,9 +288,9 @@ updateCartCount();
 loadProducts();
 
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.log));
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=4").catch(console.log));
 }
 </script>
 
 </body>
-</html> 
+</html>
