@@ -1,1518 +1,552 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SayonMart Product</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
   margin:0;
-  padding:0;
-  padding-bottom:80px;
   font-family:Arial,sans-serif;
   background:#f5f5f5;
   color:#222;
+  padding-bottom:75px;
 }
-
-/* ================= HEADER ================= */
-
-.header{
+header{
   height:58px;
-  background:#fff;
+  background:#e91e63;
+  color:white;
   display:flex;
   align-items:center;
   padding:0 12px;
-  gap:10px;
+  gap:15px;
   position:sticky;
   top:0;
-  z-index:1000;
-  box-shadow:0 2px 8px rgba(0,0,0,.15);
+  z-index:20;
 }
-
-.back-btn{
-  border:0;
+header button{
   background:none;
-  font-size:32px;
-  width:40px;
-  cursor:pointer;
-}
-
-.logo{
-  flex:1;
-  color:#e91e63;
-  font-size:20px;
-  font-weight:bold;
-}
-
-.header-btn{
   border:0;
-  background:none;
-  font-size:23px;
-  cursor:pointer;
-}
-
-.cart-number{
-  font-size:12px;
-  color:#e91e63;
-  font-weight:bold;
-}
-
-/* ================= LOADING ================= */
-
-.loading{
-  text-align:center;
-  padding:100px 20px;
-  color:#777;
-  font-size:16px;
-}
-
-/* ================= IMAGE ================= */
-
-.gallery{
-  background:#fff;
-  padding:10px;
-  position:relative;
-}
-
-.main-image{
-  width:100%;
-  height:350px;
-  object-fit:contain;
-  background:#f2f2f2;
-  border-radius:8px;
-}
-
-.discount{
-  position:absolute;
-  top:20px;
-  left:20px;
-  background:#e91e63;
-  color:#fff;
-  padding:8px 14px;
-  border-radius:5px;
-  font-weight:bold;
-  z-index:5;
-}
-
-.image-number{
-  position:absolute;
-  right:20px;
-  bottom:85px;
-  background:rgba(0,0,0,.65);
   color:white;
-  padding:6px 12px;
-  border-radius:20px;
-  font-size:13px;
+  font-size:25px;
 }
-
-/* ================= THUMBNAILS ================= */
-
-.thumbnails{
+.logo{
+  font-size:21px;
+  font-weight:bold;
+  flex:1;
+}
+.box{
+  background:white;
+  margin-bottom:10px;
+  padding:14px;
+}
+.mainImg{
+  width:100%;
+  height:330px;
+  object-fit:contain;
+  background:#fafafa;
+  border-radius:10px;
+}
+.thumbs{
   display:flex;
   gap:8px;
-  margin-top:8px;
+  margin-top:10px;
   overflow-x:auto;
-  padding-bottom:3px;
 }
-
-.thumbnail{
+.thumbs img{
   width:65px;
   height:65px;
-  min-width:65px;
-  object-fit:cover;
+  object-fit:contain;
   border:2px solid #ddd;
   border-radius:7px;
-  background:#eee;
-  cursor:pointer;
 }
-
-.thumbnail.active{
-  border:2px solid #e91e63;
-}
-
-/* ================= PRODUCT INFO ================= */
-
-.product-info{
-  background:#fff;
-  margin-top:8px;
-  padding:15px;
-}
-
-.product-title{
-  margin:0;
+.title{
   font-size:21px;
-  line-height:1.35;
+  font-weight:bold;
 }
-
-.description{
-  color:#666;
-  font-size:14px;
-  line-height:1.5;
-  margin-top:8px;
-}
-
-/* ================= RATING ================= */
-
-.rating-box{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-top:10px;
-}
-
 .rating{
-  background:#198754;
-  color:white;
-  padding:5px 9px;
-  border-radius:5px;
-  font-weight:bold;
+  color:#ff9800;
+  margin:8px 0;
 }
-
-.reviews{
-  color:#777;
-  font-size:14px;
-}
-
-/* ================= PRICE ================= */
-
-.price-box{
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:9px;
-  margin-top:10px;
-}
-
-.current-price{
+.price{
   color:#e91e63;
-  font-size:29px;
+  font-size:28px;
   font-weight:bold;
 }
-
-.old-price{
+.old{
   color:#888;
   text-decoration:line-through;
-  font-size:17px;
+  margin-left:8px;
 }
-
-.discount-text{
+.discount{
   background:#e91e63;
-  color:#fff;
-  padding:6px 9px;
+  color:white;
+  padding:5px 8px;
   border-radius:5px;
-  font-size:13px;
-  font-weight:bold;
+  margin-left:7px;
 }
-
-/* ================= BENEFITS ================= */
-
+.desc{
+  line-height:1.6;
+  color:#555;
+}
 .benefits{
   display:flex;
-  background:#fff0f6;
-  margin-top:15px;
-  padding:12px 5px;
-  border-radius:8px;
-}
-
-.benefit{
-  flex:1;
+  justify-content:space-around;
   text-align:center;
-  font-size:12px;
-  border-right:1px solid #eee;
+  font-size:13px;
 }
-
-.benefit:last-child{
-  border-right:0;
+.benefits div{
+  flex:1;
 }
-
-.benefit-icon{
-  display:block;
-  font-size:24px;
-  margin-bottom:5px;
-}
-
-/* ================= OPTION ================= */
-
-.option{
-  background:#fff;
-  margin-top:8px;
-  padding:15px;
-}
-
-.option-title{
-  font-size:16px;
+.sectionTitle{
+  font-size:20px;
   font-weight:bold;
   margin-bottom:12px;
 }
-
-/* ================= COLORS ================= */
-
-.colors{
+.recommend{
   display:flex;
-  gap:13px;
+  gap:10px;
+  overflow-x:auto;
 }
-
-.color{
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  border:3px solid #fff;
-  box-shadow:0 0 0 1px #bbb;
-  cursor:pointer;
+.recCard{
+  min-width:165px;
+  width:165px;
+  background:white;
+  border:1px solid #eee;
+  border-radius:10px;
+  padding:8px;
 }
-
-.color.selected{
-  box-shadow:0 0 0 2px #e91e63;
+.recCard img{
+  width:100%;
+  height:145px;
+  object-fit:contain;
+  background:#fafafa;
+  border-radius:8px;
 }
-
-/* ================= SIZE ================= */
-
-.sizes{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.size{
-  min-width:50px;
-  padding:10px 13px;
-  background:#fff;
-  border:1px solid #ccc;
-  border-radius:6px;
+.recName{
   font-weight:bold;
-  cursor:pointer;
+  height:38px;
+  overflow:hidden;
+  margin-top:7px;
 }
-
-.size.selected{
-  border:2px solid #e91e63;
+.recPrice{
   color:#e91e63;
-}
-
-/* ================= QUANTITY ================= */
-
-.quantity{
-  display:flex;
-  align-items:center;
-}
-
-.quantity button{
-  width:42px;
-  height:40px;
-  border:1px solid #ddd;
-  background:#f5f5f5;
-  font-size:22px;
-  cursor:pointer;
-}
-
-.quantity-number{
-  width:55px;
-  height:40px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#fff;
-  border-top:1px solid #ddd;
-  border-bottom:1px solid #ddd;
   font-weight:bold;
+  font-size:18px;
+  margin-top:5px;
 }
-
-/* ================= DETAILS ================= */
-
-.details{
-  background:#fff;
+.recCard button{
+  width:100%;
   margin-top:8px;
-  padding:15px;
+  padding:8px;
+  border:0;
+  border-radius:7px;
+  background:#e91e63;
+  color:white;
 }
-
-.details-title{
-  margin:0 0 12px;
-  font-size:19px;
-}
-
-.detail-row{
-  display:flex;
-  padding:9px 0;
-  border-bottom:1px solid #eee;
-  font-size:14px;
-}
-
-.detail-label{
-  width:40%;
-  color:#777;
-}
-
-.detail-value{
-  width:60%;
-  font-weight:500;
-}
-
-/* ================= BOTTOM ================= */
-
-.bottom-bar{
+.actionBar{
   position:fixed;
+  bottom:0;
   left:0;
   right:0;
-  bottom:0;
-  height:70px;
-  background:#fff;
+  background:white;
+  padding:8px;
   display:flex;
   gap:8px;
-  padding:8px;
-  box-shadow:0 -2px 10px rgba(0,0,0,.18);
-  z-index:2000;
+  z-index:30;
+  box-shadow:0 -2px 8px #ddd;
 }
-
-.cart-button{
+.actionBar button{
   flex:1;
-  border:2px solid #e91e63;
-  background:#fff;
-  color:#e91e63;
-  border-radius:8px;
-  font-size:14px;
-  font-weight:bold;
-}
-
-.buy-button{
-  flex:1;
-  border:2px solid #e91e63;
-  background:#e91e63;
-  color:#fff;
-  border-radius:8px;
-  font-size:14px;
-  font-weight:bold;
-}
-
-/* ================= TOAST ================= */
-
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:85px;
-  transform:translateX(-50%);
-  background:#222;
-  color:#fff;
-  padding:12px 20px;
-  border-radius:25px;
-  display:none;
-  z-index:3000;
-  font-size:14px;
-  white-space:nowrap;
-}
-
-/* ================= ERROR ================= */
-
-.error{
-  background:#fff;
-  margin-top:10px;
-  padding:70px 20px;
-  text-align:center;
-}
-
-.error button{
+  padding:13px 5px;
   border:0;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:15px;
+}
+.cartBtn{
+  background:white;
+  color:#e91e63;
+  border:2px solid #e91e63 !important;
+}
+.buyBtn{
   background:#e91e63;
-  color:#fff;
-  padding:12px 20px;
-  border-radius:7px;
+  color:white;
 }
-
-/* ================= DESKTOP ================= */
-
-@media(min-width:700px){
-
-  .main-image{
-    height:500px;
-  }
-
-  .gallery,
-  .product-info,
-  .option,
-  .details{
-    max-width:1000px;
-    margin-left:auto;
-    margin-right:auto;
-  }
-
+.loading{
+  text-align:center;
+  padding:60px 20px;
+  color:#777;
 }
-
+.error{
+  text-align:center;
+  padding:60px 20px;
+}
 </style>
-
 </head>
-
 
 <body>
 
+<header>
+  <button onclick="history.back()">‹</button>
+  <div class="logo">SayonMart</div>
+  <button onclick="location.href='cart.html'">🛒</button>
+</header>
 
-<!-- ================= HEADER ================= -->
-
-<div class="header">
-
-  <button
-    class="back-btn"
-    onclick="goBack()">
-    ‹
-  </button>
-
-  <div class="logo">
-    🛍️ SayonMart
-  </div>
-
-  <button
-    class="header-btn"
-    onclick="addWishlist()">
-    ♡
-  </button>
-
-  <button
-    class="header-btn"
-    onclick="goCart()">
-    🛒
-    <span
-      id="cartCount"
-      class="cart-number">
-      0
-    </span>
-  </button>
-
+<div id="product">
+  <div class="loading">Product loading...</div>
 </div>
 
-
-<!-- ================= PRODUCT CONTAINER ================= -->
-
-<div id="productContainer">
-
-  <div class="loading">
-    ⏳ Product Details লোড হচ্ছে...
-  </div>
-
-</div>
-
-
-<!-- ================= TOAST ================= -->
-
-<div
-  id="toast"
-  class="toast">
-</div>
-
-
-<!-- ================= BOTTOM BUTTONS ================= -->
-
-<div class="bottom-bar">
-
-  <button
-    class="cart-button"
-    onclick="addCurrentToCart()">
-
-    🛒 কার্টে যোগ করুন
-
+<div class="actionBar" id="actions" style="display:none">
+  <button class="cartBtn" onclick="addCurrentCart()">
+    🛒 Add to Cart
   </button>
 
-
-  <button
-    class="buy-button"
-    onclick="buyNow()">
-
-    ⚡ এখনই কিনুন
-
+  <button class="buyBtn" onclick="buyNow()">
+    ⚡ Buy Now
   </button>
-
 </div>
-
-
 
 <script type="module">
 
-
-/* ================= FIREBASE ================= */
-
-import { db } from "./firebase.js";
-
+import {db} from "./firebase.js";
 
 import {
   doc,
-  getDoc
+  getDoc,
+  collection,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-
-/* ================= PRODUCT ID ================= */
-
-const urlParams =
-  new URLSearchParams(
-    window.location.search
-  );
-
+const productBox =
+  document.getElementById("product");
 
 const productId =
-  urlParams.get("id");
-
-
-
-/* ================= VARIABLES ================= */
+  new URLSearchParams(location.search).get("id");
 
 let currentProduct = null;
 
-let currentImages = [];
 
-let currentImageIndex = 0;
+// ==========================
+// IMAGE
+// ==========================
 
-let quantity = 1;
+function getImage(product){
 
+  if(product.image)
+    return product.image;
 
+  if(Array.isArray(product.images) &&
+     product.images.length)
+    return product.images[0];
 
-/* ================= TOAST ================= */
-
-function showToast(message){
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.innerText =
-    message;
-
-  toast.style.display =
-    "block";
+  return "https://via.placeholder.com/500?text=SayonMart";
+}
 
 
-  setTimeout(function(){
+// ==========================
+// SAFE
+// ==========================
 
-    toast.style.display =
-      "none";
+function safe(text){
 
-  },2000);
+  return String(text ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
-
-/* ================= LOAD PRODUCT ================= */
+// ==========================
+// LOAD PRODUCT
+// ==========================
 
 async function loadProduct(){
 
   if(!productId){
 
-    showError();
+    productBox.innerHTML =
+      `<div class="error">
+        Product পাওয়া যায়নি।
+      </div>`;
 
     return;
-
   }
 
 
   try{
 
-    const productRef =
-      doc(
-        db,
-        "products",
-        productId
-      );
+    const ref =
+      doc(db,"products",productId);
+
+    const snap =
+      await getDoc(ref);
 
 
-    const productSnap =
-      await getDoc(
-        productRef
-      );
+    if(!snap.exists()){
 
-
-    if(!productSnap.exists()){
-
-      showError();
+      productBox.innerHTML =
+        `<div class="error">
+          Product পাওয়া যায়নি।
+        </div>`;
 
       return;
-
     }
 
 
     currentProduct = {
-
-      id:productSnap.id,
-
-      ...productSnap.data()
-
+      id:snap.id,
+      ...snap.data()
     };
 
 
-    prepareImages();
+    showProduct(currentProduct);
 
-    displayProduct();
+    loadRecommendations();
 
-    updateCartCount();
+  }catch(error){
 
-  }
+    console.error(error);
 
-
-  catch(error){
-
-    console.error(
-      "Product error:",
-      error
-    );
-
-    showError();
+    productBox.innerHTML =
+      `<div class="error">
+        Product load করা যাচ্ছে না।
+      </div>`;
 
   }
 
 }
 
 
+// ==========================
+// SHOW PRODUCT
+// ==========================
 
-/* ================= PREPARE IMAGES ================= */
+function showProduct(product){
 
-function prepareImages(){
-
-  currentImages = [];
-
-
-  if(
-    Array.isArray(
-      currentProduct.images
-    )
-  ){
-
-    currentProduct.images.forEach(
-      function(image){
-
-        if(
-          typeof image === "string" &&
-          image.trim() !== ""
-        ){
-
-          currentImages.push(
-            image
-          );
-
-        }
-
-      }
-    );
-
-  }
-
-
-  if(
-    currentProduct.image &&
-    typeof currentProduct.image === "string"
-  ){
-
-    if(
-      !currentImages.includes(
-        currentProduct.image
-      )
-    ){
-
-      currentImages.unshift(
-        currentProduct.image
-      );
-
-    }
-
-  }
-
-
-  if(currentImages.length === 0){
-
-    currentImages.push(
-      "https://via.placeholder.com/600x600?text=SayonMart"
-    );
-
-  }
-
-
-  currentImageIndex = 0;
-
-}
-
-
-
-/* ================= DISPLAY PRODUCT ================= */
-
-function displayProduct(){
-
-  const product =
-    currentProduct;
-
-
-  const container =
-    document.getElementById(
-      "productContainer"
-    );
-
+  const image =
+    getImage(product);
 
   const name =
-    product.name ||
-    product.title ||
-    "Product";
-
+    product.name || "Product";
 
   const price =
-    Number(
-      product.price || 0
-    );
-
+    Number(product.price || 0);
 
   const oldPrice =
-    Number(
-      product.oldPrice ||
-      product.mrp ||
-      0
-    );
+    Number(product.oldPrice || 0);
 
+  const discount =
+    oldPrice > price
+    ? Math.round((oldPrice-price)/oldPrice*100)
+    : 0;
 
   const rating =
-    product.rating ||
-    "4.5";
-
-
-  const reviewCount =
-    product.reviewCount ||
-    product.reviews ||
-    "0";
-
+    product.rating || "4.5";
 
   const description =
     product.description ||
-    "এই Product সম্পর্কে বিস্তারিত তথ্য এখানে পাবেন।";
+    "এই Product সম্পর্কে বিস্তারিত তথ্য এখানে দেখতে পারবেন।";
 
 
-  let discount = 0;
+  let images = [];
+
+  if(Array.isArray(product.images))
+    images = product.images;
+
+  if(product.image &&
+     !images.includes(product.image))
+    images.unshift(product.image);
+
+  if(!images.length)
+    images = [image];
 
 
-  if(
-    oldPrice > price &&
-    oldPrice > 0
-  ){
+  productBox.innerHTML = `
 
-    discount =
-      Math.round(
-        (
-          (oldPrice - price)
-          / oldPrice
-        ) * 100
-      );
-
-  }
-
-
-
-  /* ================= THUMBNAILS ================= */
-
-  let thumbnailHTML = "";
-
-
-  currentImages.forEach(
-    function(image,index){
-
-      thumbnailHTML += `
-
-        <img
-          class="thumbnail ${index === 0 ? "active" : ""}"
-          src="${safe(image)}"
-          onclick="changeImage(${index})"
-          onerror="this.src='https://via.placeholder.com/100x100?text=Image'"
-        >
-
-      `;
-
-    }
-  );
-
-
-
-  /* ================= DETAILS ================= */
-
-  const brand =
-    product.brand ||
-    "SayonMart";
-
-
-  const category =
-    product.category ||
-    "General";
-
-
-  const material =
-    product.material ||
-    "Premium Quality";
-
-
-  const stock =
-    product.stock !== undefined
-      ? product.stock
-      : "Available";
-
-
-
-  container.innerHTML = `
-
-
-    <!-- IMAGE GALLERY -->
-
-    <div class="gallery">
-
-
-      ${
-        discount > 0
-        ? `
-
-          <div class="discount">
-            -${discount}%
-          </div>
-
-        `
-        : ""
-      }
-
+    <div class="box">
 
       <img
         id="mainImage"
-        class="main-image"
-        src="${safe(currentImages[0])}"
-        onerror="this.src='https://via.placeholder.com/600x600?text=SayonMart'"
+        class="mainImg"
+        src="${safe(image)}"
+        alt="${safe(name)}"
       >
 
+      <div class="thumbs">
 
-      <div
-        id="imageNumber"
-        class="image-number">
+        ${images.map(img=>`
 
-        1 / ${currentImages.length}
+          <img
+            src="${safe(img)}"
+            loading="lazy"
+            onclick="changeImage('${safe(img)}')"
+          >
 
-      </div>
-
-
-      <div class="thumbnails">
-
-        ${thumbnailHTML}
+        `).join("")}
 
       </div>
-
 
     </div>
 
 
+    <div class="box">
 
-    <!-- PRODUCT INFORMATION -->
-
-    <div class="product-info">
-
-
-      <h1 class="product-title">
-
+      <div class="title">
         ${safe(name)}
-
-      </h1>
-
-
-      <div class="description">
-
-        ${safe(description)}
-
       </div>
 
-
-      <!-- RATING -->
-
-      <div class="rating-box">
-
-        <span class="rating">
-
-          ⭐ ${safe(String(rating))}
-
+      <div class="rating">
+        ⭐ ${safe(rating)}
+        <span style="color:#888">
+          | Customer Reviews
         </span>
-
-
-        <span class="reviews">
-
-          (${safe(String(reviewCount))}
-          রিভিউ)
-
-        </span>
-
       </div>
 
+      <div>
 
-
-      <!-- PRICE -->
-
-      <div class="price-box">
-
-
-        <span class="current-price">
-
+        <span class="price">
           ₹${price}
-
         </span>
-
 
         ${
           oldPrice > price
-          ? `
-
-            <span class="old-price">
-
-              ₹${oldPrice}
-
-            </span>
-
-
-            <span class="discount-text">
-
-              ${discount}% ছাড়
-
-            </span>
-
-          `
+          ? `<span class="old">₹${oldPrice}</span>`
           : ""
         }
 
+        ${
+          discount
+          ? `<span class="discount">
+               ${discount}% OFF
+             </span>`
+          : ""
+        }
 
       </div>
 
+    </div>
 
 
-      <!-- BENEFITS -->
+    <div class="box">
+
+      <div class="sectionTitle">
+        Product Details
+      </div>
+
+      <div class="desc">
+        ${safe(description)}
+      </div>
+
+    </div>
+
+
+    <div class="box">
 
       <div class="benefits">
 
-
-        <div class="benefit">
-
-          <span class="benefit-icon">
-            🚚
-          </span>
-
-          Free Delivery
-
+        <div>
+          🔄<br>
+          Easy Return
         </div>
 
-
-        <div class="benefit">
-
-          <span class="benefit-icon">
-            🔄
-          </span>
-
-          7 Days Return
-
+        <div>
+          💵<br>
+          Cash on Delivery
         </div>
 
-
-        <div class="benefit">
-
-          <span class="benefit-icon">
-            🛡️
-          </span>
-
-          Original
-
+        <div>
+          🚚<br>
+          Fast Delivery
         </div>
-
 
       </div>
-
 
     </div>
 
 
+    <div class="box">
 
-    <!-- COLOR -->
-
-    <div class="option">
-
-
-      <div class="option-title">
-
-        Color:
-
+      <div class="sectionTitle">
+        🔥 আরও Product দেখুন
       </div>
 
+      <div
+        id="recommendations"
+        class="recommend">
 
-      <div class="colors">
-
-
-        <div
-          class="color selected"
-          style="background:#222"
-          onclick="selectColor(this)">
+        <div class="loading">
+          Loading...
         </div>
-
-
-        <div
-          class="color"
-          style="background:#fff"
-          onclick="selectColor(this)">
-        </div>
-
-
-        <div
-          class="color"
-          style="background:#24477a"
-          onclick="selectColor(this)">
-        </div>
-
-
-        <div
-          class="color"
-          style="background:#777"
-          onclick="selectColor(this)">
-        </div>
-
 
       </div>
-
 
     </div>
-
-
-
-    <!-- SIZE -->
-
-    <div class="option">
-
-
-      <div class="option-title">
-
-        Size:
-
-      </div>
-
-
-      <div class="sizes">
-
-
-        <button
-          class="size"
-          onclick="selectSize(this)">
-
-          S
-
-        </button>
-
-
-        <button
-          class="size selected"
-          onclick="selectSize(this)">
-
-          M
-
-        </button>
-
-
-        <button
-          class="size"
-          onclick="selectSize(this)">
-
-          L
-
-        </button>
-
-
-        <button
-          class="size"
-          onclick="selectSize(this)">
-
-          XL
-
-        </button>
-
-
-        <button
-          class="size"
-          onclick="selectSize(this)">
-
-          XXL
-
-        </button>
-
-
-      </div>
-
-
-    </div>
-
-
-
-    <!-- QUANTITY -->
-
-    <div class="option">
-
-
-      <div class="option-title">
-
-        Quantity:
-
-      </div>
-
-
-      <div class="quantity">
-
-
-        <button
-          onclick="changeQuantity(-1)">
-
-          −
-
-        </button>
-
-
-        <div
-          id="quantityNumber"
-          class="quantity-number">
-
-          1
-
-        </div>
-
-
-        <button
-          onclick="changeQuantity(1)">
-
-          +
-
-        </button>
-
-
-      </div>
-
-
-    </div>
-
-
-
-    <!-- PRODUCT DETAILS -->
-
-    <div class="details">
-
-
-      <h2 class="details-title">
-
-        📋 Product Details
-
-      </h2>
-
-
-      <div class="detail-row">
-
-
-        <div class="detail-label">
-          Brand
-        </div>
-
-
-        <div class="detail-value">
-
-          ${safe(String(brand))}
-
-        </div>
-
-
-      </div>
-
-
-      <div class="detail-row">
-
-
-        <div class="detail-label">
-          Category
-        </div>
-
-
-        <div class="detail-value">
-
-          ${safe(String(category))}
-
-        </div>
-
-
-      </div>
-
-
-      <div class="detail-row">
-
-
-        <div class="detail-label">
-          Material
-        </div>
-
-
-        <div class="detail-value">
-
-          ${safe(String(material))}
-
-        </div>
-
-
-      </div>
-
-
-      <div class="detail-row">
-
-
-        <div class="detail-label">
-          Stock
-        </div>
-
-
-        <div class="detail-value">
-
-          ${safe(String(stock))}
-
-        </div>
-
-
-      </div>
-
-
-      <div class="detail-row">
-
-
-        <div class="detail-label">
-          Delivery
-        </div>
-
-
-        <div class="detail-value">
-
-          Available
-
-        </div>
-
-
-      </div>
-
-
-    </div>
-
 
   `;
+
+
+  document.getElementById("actions")
+    .style.display = "flex";
 
 }
 
 
-
-/* ================= CHANGE IMAGE ================= */
+// ==========================
+// CHANGE IMAGE
+// ==========================
 
 window.changeImage =
-function(index){
+function(image){
 
-  if(
-    !currentImages[index]
-  ){
-
-    return;
-
-  }
-
-
-  currentImageIndex =
-    index;
-
-
-  const mainImage =
-    document.getElementById(
-      "mainImage"
-    );
-
-
-  mainImage.src =
-    currentImages[index];
-
-
-  const number =
-    document.getElementById(
-      "imageNumber"
-    );
-
-
-  number.innerText =
-    `${index + 1} / ${currentImages.length}`;
-
-
-  document
-  .querySelectorAll(".thumbnail")
-  .forEach(
-    function(item,i){
-
-      item.classList.toggle(
-        "active",
-        i === index
-      );
-
-    }
-  );
+  document.getElementById("mainImage")
+    .src = image;
 
 };
 
 
+// ==========================
+// ADD CART
+// ==========================
 
-/* ================= COLOR ================= */
-
-window.selectColor =
-function(element){
-
-  document
-  .querySelectorAll(".color")
-  .forEach(
-    function(item){
-
-      item.classList.remove(
-        "selected"
-      );
-
-    }
-  );
-
-
-  element.classList.add(
-    "selected"
-  );
-
-};
-
-
-
-/* ================= SIZE ================= */
-
-window.selectSize =
-function(element){
-
-  document
-  .querySelectorAll(".size")
-  .forEach(
-    function(item){
-
-      item.classList.remove(
-        "selected"
-      );
-
-    }
-  );
-
-
-  element.classList.add(
-    "selected"
-  );
-
-};
-
-
-
-/* ================= QUANTITY ================= */
-
-window.changeQuantity =
-function(amount){
-
-  quantity =
-    quantity + amount;
-
-
-  if(quantity < 1){
-
-    quantity = 1;
-
-  }
-
-
-  if(quantity > 20){
-
-    quantity = 20;
-
-  }
-
-
-  document.getElementById(
-    "quantityNumber"
-  ).innerText =
-    quantity;
-
-};
-
-
-
-/* ================= ADD TO CART ================= */
-
-window.addCurrentToCart =
-function(){
-
-  if(!currentProduct){
-
-    return;
-
-  }
-
+function addCart(product){
 
   let cart =
     JSON.parse(
-      localStorage.getItem("cart") ||
-      "[]"
+      localStorage.getItem("cart") || "[]"
     );
 
 
-  const id =
-    currentProduct.id;
-
-
-  const name =
-    currentProduct.name ||
-    currentProduct.title ||
-    "Product";
-
-
-  const price =
-    Number(
-      currentProduct.price || 0
+  const found =
+    cart.find(item =>
+      String(item.id) === String(product.id)
     );
 
 
-  const image =
-    currentImages[0] ||
-    currentProduct.image ||
-    "";
+  if(found){
 
+    found.quantity =
+      Number(found.quantity || 1) + 1;
 
-  const existing =
-    cart.find(
-      function(item){
-
-        return item.id === id;
-
-      }
-    );
-
-
-  if(existing){
-
-    existing.quantity =
-      Number(
-        existing.quantity || 1
-      ) + quantity;
-
-  }
-  else{
+  }else{
 
     cart.push({
 
-      id:id,
+      id:product.id,
 
-      name:name,
+      name:product.name || "Product",
 
-      price:price,
+      price:Number(product.price || 0),
 
-      image:image,
+      image:getImage(product),
 
-      quantity:quantity
+      quantity:1
 
     });
 
@@ -1525,241 +559,205 @@ function(){
   );
 
 
-  updateCartCount();
+  alert("🛒 Product Cart-এ যোগ হয়েছে!");
+
+}
 
 
-  showToast(
-    "✅ Product cart-এ যোগ হয়েছে!"
-  );
+window.addCurrentCart =
+function(){
+
+  if(currentProduct)
+    addCart(currentProduct);
 
 };
 
-
-
-/* ================= BUY NOW ================= */
 
 window.buyNow =
 function(){
 
-  if(!currentProduct){
-
+  if(!currentProduct)
     return;
 
-  }
+  addCart(currentProduct);
 
-
-  addCurrentToCart();
-
-
-  setTimeout(
-    function(){
-
-      window.location.href =
-        "payment.html";
-
-    },
-    300
-  );
+  location.href =
+    "payment.html";
 
 };
 
 
+// ==========================
+// RECOMMENDATIONS
+// ==========================
 
-/* ================= WISHLIST ================= */
+async function loadRecommendations(){
 
-window.addWishlist =
-function(){
-
-  if(!currentProduct){
-
-    return;
-
-  }
-
-
-  let wishlist =
-    JSON.parse(
-      localStorage.getItem("wishlist") ||
-      "[]"
+  const box =
+    document.getElementById(
+      "recommendations"
     );
 
-
-  const id =
-    currentProduct.id;
+  if(!box) return;
 
 
-  const exists =
-    wishlist.some(
-      function(item){
+  try{
 
-        return item.id === id;
+    const snapshot =
+      await getDocs(
+        collection(db,"products")
+      );
+
+
+    const products = [];
+
+
+    snapshot.forEach(doc=>{
+
+      if(doc.id !== productId){
+
+        products.push({
+
+          id:doc.id,
+          ...doc.data()
+
+        });
 
       }
-    );
+
+    });
 
 
-  if(exists){
+    // সর্বোচ্চ ১০টা product
+    const list =
+      products.slice(0,10);
 
-    showToast(
-      "❤️ Wishlist-এ আগে থেকেই আছে"
-    );
 
-    return;
+    if(!list.length){
+
+      box.innerHTML =
+        "<div>আরও Product নেই</div>";
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      list.map(product=>{
+
+        const image =
+          getImage(product);
+
+        const name =
+          product.name || "Product";
+
+        const price =
+          Number(product.price || 0);
+
+
+        return `
+
+          <div
+            class="recCard"
+            onclick="openRecommended('${product.id}')"
+          >
+
+            <img
+              src="${safe(image)}"
+              loading="lazy"
+              decoding="async"
+            >
+
+            <div class="recName">
+              ${safe(name)}
+            </div>
+
+            <div class="recPrice">
+              ₹${price}
+            </div>
+
+            <button
+              onclick="event.stopPropagation();
+              addRecommended('${product.id}')">
+
+              🛒 Add to Cart
+
+            </button>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML =
+      "<div>Product load করা যায়নি</div>";
 
   }
 
-
-  wishlist.push({
-
-    id:id,
-
-    name:
-      currentProduct.name ||
-      currentProduct.title ||
-      "Product",
-
-    price:
-      Number(
-        currentProduct.price || 0
-      ),
-
-    image:
-      currentImages[0] || ""
-
-  });
+}
 
 
-  localStorage.setItem(
-    "wishlist",
-    JSON.stringify(wishlist)
-  );
+// ==========================
+// OPEN RECOMMENDED
+// ==========================
 
+window.openRecommended =
+function(id){
 
-  showToast(
-    "❤️ Wishlist-এ যোগ হয়েছে"
-  );
+  location.href =
+    "product.html?id=" +
+    encodeURIComponent(id);
 
 };
 
 
+// ==========================
+// ADD RECOMMENDED
+// ==========================
 
-/* ================= CART COUNT ================= */
+window.addRecommended =
+async function(id){
 
-function updateCartCount(){
+  try{
 
-  const cart =
-    JSON.parse(
-      localStorage.getItem("cart") ||
-      "[]"
-    );
-
-
-  let count = 0;
-
-
-  cart.forEach(
-    function(item){
-
-      count +=
-        Number(
-          item.quantity || 1
-        );
-
-    }
-  );
+    const snap =
+      await getDoc(
+        doc(db,"products",id)
+      );
 
 
-  document.getElementById(
-    "cartCount"
-  ).innerText =
-    count;
-
-}
+    if(!snap.exists())
+      return;
 
 
+    const product = {
+      id:snap.id,
+      ...snap.data()
+    };
 
-/* ================= GO BACK ================= */
 
-window.goBack =
-function(){
+    addCart(product);
 
-  history.back();
+  }catch(error){
+
+    console.error(error);
+
+  }
 
 };
 
 
-
-/* ================= GO CART ================= */
-
-window.goCart =
-function(){
-
-  window.location.href =
-    "cart.html";
-
-};
-
-
-
-/* ================= ERROR ================= */
-
-function showError(){
-
-  document.getElementById(
-    "productContainer"
-  ).innerHTML = `
-
-    <div class="error">
-
-      <h2>
-        😔 Product পাওয়া যায়নি
-      </h2>
-
-      <p>
-        Product টি খুঁজে পাওয়া যাচ্ছে না।
-      </p>
-
-      <button onclick="goBack()">
-
-        ← ফিরে যান
-
-      </button>
-
-    </div>
-
-  `;
-
-}
-
-
-
-/* ================= SAFE TEXT ================= */
-
-function safe(value){
-
-  return String(value)
-
-    .replace(/&/g,"&amp;")
-
-    .replace(/</g,"&lt;")
-
-    .replace(/>/g,"&gt;")
-
-    .replace(/"/g,"&quot;")
-
-    .replace(/'/g,"&#039;");
-
-}
-
-
-
-/* ================= START ================= */
-
+// START
 loadProduct();
-
 
 </script>
 
 </body>
-
 </html>
