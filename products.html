@@ -2,110 +2,117 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SayonMart - Products</title>
-
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SayonMart Products</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f5f5f5;
   color:#222;
 }
-
-/* Header */
-.header{
-  background:#ffffff;
-  padding:12px;
+header{
   position:sticky;
   top:0;
-  z-index:100;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
+  z-index:10;
+  background:#e91e63;
+  padding:12px;
+  color:white;
 }
-
-.header h2{
-  margin:0 0 10px;
-  color:#e91e63;
-  text-align:center;
+.top{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
-
-.search-box{
+.logo{
+  font-size:22px;
+  font-weight:bold;
+}
+.search{
+  flex:1;
+}
+.search input{
   width:100%;
-  padding:12px 15px;
-  border:1px solid #ddd;
-  border-radius:25px;
+  padding:10px 12px;
+  border:0;
+  border-radius:8px;
   outline:none;
-  font-size:15px;
 }
-
-/* Categories */
 .categories{
   display:flex;
   gap:8px;
-  padding:12px;
   overflow-x:auto;
-  background:#fff;
-}
-
-.category{
-  border:1px solid #e91e63;
-  color:#e91e63;
+  padding:10px;
   background:white;
-  padding:8px 15px;
+}
+.categories button{
+  border:1px solid #ddd;
+  background:white;
+  padding:8px 14px;
   border-radius:20px;
   white-space:nowrap;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  padding:10px;
+}
+.card{
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 1px 5px #ddd;
+  position:relative;
   cursor:pointer;
 }
-
-.category.active,
-.category:hover{
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:contain;
+  background:#fafafa;
+}
+.info{
+  padding:10px;
+}
+.name{
+  font-size:15px;
+  font-weight:bold;
+  height:38px;
+  overflow:hidden;
+}
+.price{
+  font-size:19px;
+  font-weight:bold;
+  color:#e91e63;
+  margin:6px 0;
+}
+.old{
+  color:#888;
+  text-decoration:line-through;
+  font-size:13px;
+}
+.actions{
+  display:flex;
+  gap:6px;
+}
+.actions button{
+  flex:1;
+  border:0;
+  padding:9px 4px;
+  border-radius:7px;
+  font-weight:bold;
+}
+.cartBtn{
   background:#e91e63;
   color:white;
 }
-
-/* Products */
-.title{
-  padding:15px 12px 5px;
-  font-size:20px;
-  font-weight:bold;
+.buyBtn{
+  background:#ff9800;
+  color:white;
 }
-
-.products{
-  padding:12px;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  padding-bottom:90px;
-}
-
-.card{
-  background:#fff;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
-  position:relative;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.card:active{
-  transform:scale(.98);
-}
-
-.product-image{
-  width:100%;
-  height:170px;
-  object-fit:cover;
-  background:#eee;
-}
-
 .heart{
   position:absolute;
   right:8px;
@@ -116,375 +123,328 @@ body{
   border-radius:50%;
   background:white;
   font-size:19px;
-  cursor:pointer;
-  box-shadow:0 2px 5px rgba(0,0,0,.2);
 }
-
-.info{
-  padding:10px;
-}
-
-.product-name{
-  font-size:15px;
-  font-weight:bold;
-  margin:0 0 6px;
-  min-height:38px;
-}
-
-.price{
-  color:#e91e63;
-  font-size:18px;
-  font-weight:bold;
-}
-
-.old-price{
-  color:#888;
-  text-decoration:line-through;
-  font-size:13px;
-  margin-left:5px;
-}
-
-.add-btn{
-  width:100%;
-  margin-top:9px;
-  padding:10px;
-  border:0;
-  border-radius:8px;
-  background:#e91e63;
-  color:white;
-  font-size:14px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.buy-btn{
-  width:100%;
-  margin-top:7px;
-  padding:9px;
-  border:1px solid #e91e63;
-  border-radius:8px;
-  background:white;
-  color:#e91e63;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* Loading */
 .loading{
   text-align:center;
   padding:40px;
   color:#777;
 }
-
-/* Bottom navigation */
-.bottom-nav{
+.bottom{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  height:65px;
   background:white;
+  border-top:1px solid #ddd;
   display:flex;
   justify-content:space-around;
-  align-items:center;
-  box-shadow:0 -2px 10px rgba(0,0,0,.15);
-  z-index:200;
+  padding:9px 0;
+  z-index:20;
 }
-
-.nav-item{
-  text-align:center;
-  color:#666;
-  font-size:12px;
-  cursor:pointer;
+.bottom a{
+  text-decoration:none;
+  color:#555;
+  font-size:13px;
 }
-
-.nav-item span{
-  display:block;
-  font-size:23px;
-  margin-bottom:2px;
+.badge{
+  background:#e91e63;
+  color:white;
+  border-radius:20px;
+  padding:2px 6px;
+  font-size:11px;
 }
-
-.nav-item.active{
-  color:#e91e63;
-}
-
-/* Toast */
 .toast{
   position:fixed;
+  bottom:70px;
   left:50%;
-  bottom:80px;
   transform:translateX(-50%);
   background:#222;
   color:white;
-  padding:12px 20px;
-  border-radius:25px;
+  padding:12px 18px;
+  border-radius:8px;
   display:none;
-  z-index:500;
-  font-size:14px;
-}
-
-/* Empty */
-.empty{
-  grid-column:1/-1;
-  text-align:center;
-  padding:50px 10px;
-  color:#777;
-}
-
-@media(min-width:700px){
-  .products{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .product-image{
-    height:220px;
-  }
+  z-index:50;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Header -->
-<div class="header">
-  <h2>🛍️ SayonMart</h2>
+<header>
+  <div class="top">
+    <div class="logo">SayonMart</div>
 
-  <input
-    type="text"
-    id="searchInput"
-    class="search-box"
-    placeholder="🔍 Product search করুন..."
-  >
-</div>
-
-<!-- Categories -->
-<div class="categories">
-
-  <button class="category active" data-category="all">
-    সব
-  </button>
-
-  <button class="category" data-category="Fashion">
-    👕 Fashion
-  </button>
-
-  <button class="category" data-category="Shoes">
-    👟 Shoes
-  </button>
-
-  <button class="category" data-category="Mobiles">
-    📱 Mobiles
-  </button>
-
-  <button class="category" data-category="Watches">
-    ⌚ Watches
-  </button>
-
-</div>
-
-<div class="title">
-  🛒 All Products
-</div>
-
-<!-- Products -->
-<div id="products" class="products">
-  <div class="loading">
-    Product লোড হচ্ছে...
+    <div class="search">
+      <input
+        id="search"
+        type="search"
+        placeholder="Product খুঁজুন..."
+        autocomplete="off">
+    </div>
   </div>
+</header>
+
+<div class="categories">
+  <button onclick="filterCategory('all')">সব</button>
+  <button onclick="filterCategory('Fashion')">Fashion</button>
+  <button onclick="filterCategory('Shoes')">Shoes</button>
+  <button onclick="filterCategory('Mobiles')">Mobiles</button>
+  <button onclick="filterCategory('Watches')">Watches</button>
 </div>
 
-<!-- Toast -->
+<div id="products" class="grid">
+  <div class="loading">Product loading...</div>
+</div>
+
 <div id="toast" class="toast"></div>
 
-<!-- Bottom Navigation -->
-<div class="bottom-nav">
-
-  <div class="nav-item" onclick="goHome()">
-    <span>🏠</span>
-    Home
-  </div>
-
-  <div class="nav-item active">
-    <span>🛍️</span>
-    Products
-  </div>
-
-  <div class="nav-item" onclick="goCart()">
-    <span>🛒</span>
-    Cart
-    <b id="cartCount"></b>
-  </div>
-
-  <div class="nav-item" onclick="goOrders()">
-    <span>📦</span>
-    Orders
-  </div>
-
-  <div class="nav-item" onclick="goProfile()">
-    <span>👤</span>
-    Profile
-  </div>
-
+<div class="bottom">
+  <a href="index.html">🏠<br>Home</a>
+  <a href="products.html">🛍️<br>Products</a>
+  <a href="cart.html">🛒 <span id="cartCount" class="badge">0</span><br>Cart</a>
+  <a href="order.html">📦<br>Orders</a>
+  <a href="profile.html">👤<br>Profile</a>
 </div>
 
-
-<!-- Firebase -->
 <script type="module">
 
 import { db } from "./firebase.js";
-
 import {
   collection,
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-const productsBox = document.getElementById("products");
-
-const searchInput = document.getElementById("searchInput");
+const box = document.getElementById("products");
+const searchBox = document.getElementById("search");
 
 let allProducts = [];
-
-let selectedCategory = "all";
-
-
-/* =========================
-   TOAST
-========================= */
-
-window.showToast = function(message){
-
-  const toast = document.getElementById("toast");
-
-  toast.innerText = message;
-
-  toast.style.display = "block";
-
-  setTimeout(()=>{
-    toast.style.display = "none";
-  },2000);
-
-};
+let currentCategory = "all";
 
 
-/* =========================
-   LOAD PRODUCTS
-========================= */
+// ===============================
+// CART COUNT
+// ===============================
 
-async function loadProducts(){
+function updateCartCount(){
 
   try{
 
-    const snapshot = await getDocs(
-      collection(db,"products")
-    );
+    const cart =
+      JSON.parse(localStorage.getItem("cart") || "[]");
 
-    allProducts = [];
+    let total = 0;
 
-    snapshot.forEach(doc => {
-
-      allProducts.push({
-
-        id:doc.id,
-
-        ...doc.data()
-
-      });
-
+    cart.forEach(item=>{
+      total += Number(item.quantity || 1);
     });
 
-    displayProducts(allProducts);
+    document.getElementById("cartCount").textContent = total;
 
-    updateCartCount();
+  }catch(e){
 
-  }
-  catch(error){
-
-    console.error(error);
-
-    productsBox.innerHTML = `
-      <div class="empty">
-        ❌ Product লোড করা যায়নি।
-        <br><br>
-        Internet অথবা Firebase check করুন।
-      </div>
-    `;
+    document.getElementById("cartCount").textContent = "0";
 
   }
 
 }
 
+updateCartCount();
 
-/* =========================
-   DISPLAY PRODUCTS
-========================= */
 
-function displayProducts(products){
+// ===============================
+// IMAGE
+// ===============================
 
-  productsBox.innerHTML = "";
+function getImage(product){
 
-  if(products.length === 0){
+  if(product.image)
+    return product.image;
 
-    productsBox.innerHTML = `
-      <div class="empty">
-        😔 কোনো Product পাওয়া যায়নি।
-      </div>
-    `;
+  if(Array.isArray(product.images) &&
+     product.images.length > 0)
+    return product.images[0];
+
+  return "https://via.placeholder.com/500x500?text=SayonMart";
+}
+
+
+// ===============================
+// SAFE TEXT
+// ===============================
+
+function safe(text){
+
+  return String(text ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+// ===============================
+// TOAST
+// ===============================
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+  toast.style.display = "block";
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(()=>{
+      toast.style.display = "none";
+    },1800);
+
+}
+
+
+// ===============================
+// ADD CART
+// ===============================
+
+window.addToCart =
+function(id,name,price,image){
+
+  let cart =
+    JSON.parse(localStorage.getItem("cart") || "[]");
+
+  const existing =
+    cart.find(item =>
+      String(item.id) === String(id)
+    );
+
+  if(existing){
+
+    existing.quantity =
+      Number(existing.quantity || 1) + 1;
+
+  }else{
+
+    cart.push({
+      id:id,
+      name:name,
+      price:Number(price) || 0,
+      image:image,
+      quantity:1
+    });
+
+  }
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+  updateCartCount();
+
+  showToast("🛒 Cart-এ যোগ হয়েছে");
+
+};
+
+
+// ===============================
+// WISHLIST
+// ===============================
+
+window.addWishlist =
+function(id,name,price,image){
+
+  let list =
+    JSON.parse(
+      localStorage.getItem("wishlist") || "[]"
+    );
+
+  const exists =
+    list.some(item =>
+      String(item.id) === String(id)
+    );
+
+  if(!exists){
+
+    list.push({
+      id:id,
+      name:name,
+      price:Number(price) || 0,
+      image:image
+    });
+
+    localStorage.setItem(
+      "wishlist",
+      JSON.stringify(list)
+    );
+
+    showToast("❤️ Wishlist-এ যোগ হয়েছে");
+
+  }else{
+
+    showToast("❤️ আগে থেকেই Wishlist-এ আছে");
+
+  }
+
+};
+
+
+// ===============================
+// OPEN PRODUCT
+// ===============================
+
+window.openProduct =
+function(id){
+
+  if(!id) return;
+
+  location.href =
+    "product.html?id=" +
+    encodeURIComponent(id);
+
+};
+
+
+// ===============================
+// SHOW PRODUCTS
+// ===============================
+
+function showProducts(list){
+
+  if(!list.length){
+
+    box.innerHTML =
+      `<div class="loading">
+        Product পাওয়া যায়নি
+      </div>`;
 
     return;
   }
 
 
-  products.forEach(product => {
+  const fragment =
+    document.createDocumentFragment();
+
+
+  list.forEach(product=>{
 
     const id = product.id;
 
     const name =
-      product.name ||
-      product.title ||
-      "Product";
-
+      product.name || "Product";
 
     const price =
       Number(product.price || 0);
 
-
     const oldPrice =
-      Number(
-        product.oldPrice ||
-        product.mrp ||
-        0
-      );
+      Number(product.oldPrice || 0);
 
-
-    let image =
-      product.image ||
-      "";
-
-
-    if(
-      !image &&
-      Array.isArray(product.images) &&
-      product.images.length > 0
-    ){
-
-      image = product.images[0];
-
-    }
-
-
-    if(!image){
-
-      image =
-        "https://via.placeholder.com/500x500?text=SayonMart";
-
-    }
-
-
-    const category =
-      product.category ||
-      "";
-
+    const image =
+      getImage(product);
 
     const card =
       document.createElement("div");
@@ -492,534 +452,274 @@ function displayProducts(products){
     card.className = "card";
 
 
-    /* Card click → Product Details */
+    card.innerHTML = `
 
+      <button class="heart">♡</button>
+
+      <img
+        src="${safe(image)}"
+        loading="lazy"
+        decoding="async"
+        alt="${safe(name)}"
+      >
+
+      <div class="info">
+
+        <div class="name">
+          ${safe(name)}
+        </div>
+
+        <div class="price">
+          ₹${price}
+        </div>
+
+        ${
+          oldPrice > price
+          ? `<span class="old">₹${oldPrice}</span>`
+          : ""
+        }
+
+        <div class="actions">
+
+          <button class="cartBtn">
+            🛒 Cart
+          </button>
+
+          <button class="buyBtn">
+            Buy Now
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+
+    // Product details
     card.addEventListener(
       "click",
-      function(){
-
+      ()=>{
         openProduct(id);
-
       }
     );
 
 
-    /* Image */
+    // Cart
+    card
+      .querySelector(".cartBtn")
+      .addEventListener(
+        "click",
+        event=>{
 
-    const img =
-      document.createElement("img");
+          event.stopPropagation();
 
-    img.className = "product-image";
+          addToCart(
+            id,
+            name,
+            price,
+            image
+          );
 
-    img.src = image;
-
-    img.alt = name;
-
-    img.onerror = function(){
-
-      this.src =
-        "https://via.placeholder.com/500x500?text=SayonMart";
-
-    };
-
-
-    /* Info */
-
-    const info =
-      document.createElement("div");
-
-    info.className = "info";
+        }
+      );
 
 
-    /* Name */
+    // Buy
+    card
+      .querySelector(".buyBtn")
+      .addEventListener(
+        "click",
+        event=>{
 
-    const productName =
-      document.createElement("p");
+          event.stopPropagation();
 
-    productName.className =
-      "product-name";
+          addToCart(
+            id,
+            name,
+            price,
+            image
+          );
 
-    productName.innerText =
-      name;
+          location.href =
+            "payment.html";
 
-
-    /* Price */
-
-    const priceDiv =
-      document.createElement("div");
-
-    priceDiv.className =
-      "price";
-
-    priceDiv.innerText =
-      "₹" + price;
+        }
+      );
 
 
-    if(oldPrice > price){
+    // Wishlist
+    card
+      .querySelector(".heart")
+      .addEventListener(
+        "click",
+        event=>{
 
-      const old =
-        document.createElement("span");
+          event.stopPropagation();
 
-      old.className =
-        "old-price";
+          addWishlist(
+            id,
+            name,
+            price,
+            image
+          );
 
-      old.innerText =
-        "₹" + oldPrice;
+        }
+      );
 
-      priceDiv.appendChild(old);
+
+    fragment.appendChild(card);
+
+  });
+
+
+  box.innerHTML = "";
+
+  box.appendChild(fragment);
+
+}
+
+
+// ===============================
+// LOAD FIREBASE PRODUCTS
+// ===============================
+
+async function loadProducts(){
+
+  try{
+
+    // আগে cache দেখাও
+    const cached =
+      localStorage.getItem(
+        "sayonmart_products"
+      );
+
+    if(cached){
+
+      allProducts =
+        JSON.parse(cached);
+
+      showProducts(allProducts);
 
     }
 
 
-    /* Heart */
+    // Firebase থেকে update
+    const snapshot =
+      await getDocs(
+        collection(db,"products")
+      );
 
-    const heart =
-      document.createElement("button");
 
-    heart.className =
-      "heart";
+    const products = [];
 
-    heart.innerHTML =
-      "♡";
+    snapshot.forEach(doc=>{
 
-
-    heart.addEventListener(
-      "click",
-      function(event){
-
-        event.stopPropagation();
-
-        addWishlist(
-          id,
-          name,
-          price,
-          image
-        );
-
-      }
-    );
-
-
-    /* Add Cart */
-
-    const addButton =
-      document.createElement("button");
-
-    addButton.className =
-      "add-btn";
-
-    addButton.innerText =
-      "🛒 Add to Cart";
-
-
-    addButton.addEventListener(
-      "click",
-      function(event){
-
-        event.stopPropagation();
-
-        addToCart(
-          id,
-          name,
-          price,
-          image
-        );
-
-      }
-    );
-
-
-    /* Buy Now */
-
-    const buyButton =
-      document.createElement("button");
-
-    buyButton.className =
-      "buy-btn";
-
-    buyButton.innerText =
-      "⚡ এখনই কিনুন";
-
-
-    buyButton.addEventListener(
-      "click",
-      function(event){
-
-        event.stopPropagation();
-
-        addToCart(
-          id,
-          name,
-          price,
-          image
-        );
-
-        window.location.href =
-          "payment.html";
-
-      }
-    );
-
-
-    info.appendChild(productName);
-
-    info.appendChild(priceDiv);
-
-    info.appendChild(addButton);
-
-    info.appendChild(buyButton);
-
-
-    card.appendChild(img);
-
-    card.appendChild(heart);
-
-    card.appendChild(info);
-
-
-    productsBox.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================
-   OPEN PRODUCT DETAILS
-========================= */
-
-window.openProduct = function(id){
-
-  if(!id){
-
-    alert("Product ID পাওয়া যায়নি।");
-
-    return;
-
-  }
-
-
-  window.location.href =
-    "product.html?id=" +
-    encodeURIComponent(id);
-
-};
-
-
-/* =========================
-   ADD TO CART
-========================= */
-
-window.addToCart = function(
-  id,
-  name,
-  price,
-  image
-){
-
-  let cart =
-    JSON.parse(
-      localStorage.getItem("cart") ||
-      "[]"
-    );
-
-
-  const existing =
-    cart.find(
-      item =>
-        item.id === id ||
-        (
-          !item.id &&
-          item.name === name
-        )
-    );
-
-
-  if(existing){
-
-    existing.quantity =
-      Number(existing.quantity || 1) + 1;
-
-  }
-  else{
-
-    cart.push({
-
-      id:id,
-
-      name:name,
-
-      price:Number(price),
-
-      image:image,
-
-      quantity:1
-
-    });
-
-  }
-
-
-  localStorage.setItem(
-    "cart",
-    JSON.stringify(cart)
-  );
-
-
-  updateCartCount();
-
-  showToast(
-    "✅ Product cart-এ যোগ হয়েছে!"
-  );
-
-};
-
-
-/* =========================
-   WISHLIST
-========================= */
-
-window.addWishlist = function(
-  id,
-  name,
-  price,
-  image
-){
-
-  let wishlist =
-    JSON.parse(
-      localStorage.getItem("wishlist") ||
-      "[]"
-    );
-
-
-  const exists =
-    wishlist.some(
-      item => item.id === id
-    );
-
-
-  if(!exists){
-
-    wishlist.push({
-
-      id:id,
-
-      name:name,
-
-      price:Number(price),
-
-      image:image
+      products.push({
+        id:doc.id,
+        ...doc.data()
+      });
 
     });
 
 
+    allProducts = products;
+
+
+    // cache save
     localStorage.setItem(
-      "wishlist",
-      JSON.stringify(wishlist)
+      "sayonmart_products",
+      JSON.stringify(products)
     );
 
 
-    showToast(
-      "❤️ Wishlist-এ যোগ হয়েছে"
-    );
-
-  }
-  else{
-
-    showToast(
-      "❤️ Wishlist-এ আছে"
-    );
-
-  }
-
-};
-
-
-/* =========================
-   CART COUNT
-========================= */
-
-function updateCartCount(){
-
-  const cart =
-    JSON.parse(
-      localStorage.getItem("cart") ||
-      "[]"
+    showProducts(
+      getFilteredProducts()
     );
 
 
-  let count = 0;
+  }catch(error){
 
+    console.error(error);
 
-  cart.forEach(item => {
+    if(!allProducts.length){
 
-    count +=
-      Number(item.quantity || 1);
+      box.innerHTML =
+        `<div class="loading">
+          Product load হচ্ছে না।<br>
+          Internet check করুন।
+        </div>`;
 
-  });
-
-
-  const badge =
-    document.getElementById("cartCount");
-
-
-  if(count > 0){
-
-    badge.innerText =
-      " (" + count + ")";
-
-  }
-  else{
-
-    badge.innerText = "";
+    }
 
   }
 
 }
 
 
-/* =========================
-   SEARCH
-========================= */
+// ===============================
+// FILTER
+// ===============================
 
-searchInput.addEventListener(
-  "input",
-  function(){
+function getFilteredProducts(){
 
-    const text =
-      this.value
+  const text =
+    searchBox.value
       .trim()
       .toLowerCase();
 
 
-    filterProducts(text);
+  return allProducts.filter(product=>{
 
-  }
-);
+    const name =
+      String(product.name || "")
+        .toLowerCase();
 
-
-function filterProducts(text){
-
-  let filtered =
-    allProducts.filter(product => {
-
-      const name =
-        (
-          product.name ||
-          product.title ||
-          ""
-        ).toLowerCase();
+    const category =
+      String(product.category || "");
 
 
-      const category =
-        (
-          product.category ||
-          ""
-        ).toLowerCase();
+    const matchSearch =
+      !text ||
+      name.includes(text);
 
 
-      const matchSearch =
-        name.includes(text);
+    const matchCategory =
+      currentCategory === "all" ||
+      category === currentCategory;
 
 
-      const matchCategory =
-        selectedCategory === "all" ||
-        category ===
-        selectedCategory.toLowerCase();
+    return matchSearch &&
+           matchCategory;
 
-
-      return (
-        matchSearch &&
-        matchCategory
-      );
-
-    });
-
-
-  displayProducts(filtered);
+  });
 
 }
 
 
-/* =========================
-   CATEGORY
-========================= */
+window.filterCategory =
+function(category){
 
-document
-.querySelectorAll(".category")
-.forEach(button => {
+  currentCategory =
+    category;
 
-  button.addEventListener(
-    "click",
-    function(){
-
-      document
-      .querySelectorAll(".category")
-      .forEach(btn =>
-        btn.classList.remove("active")
-      );
-
-
-      this.classList.add("active");
-
-
-      selectedCategory =
-        this.dataset.category;
-
-
-      const text =
-        searchInput.value
-        .trim()
-        .toLowerCase();
-
-
-      filterProducts(text);
-
-    }
+  showProducts(
+    getFilteredProducts()
   );
 
-});
-
-
-/* =========================
-   NAVIGATION
-========================= */
-
-window.goHome = function(){
-
-  window.location.href =
-    "index.html";
-
 };
 
 
-window.goCart = function(){
-
-  window.location.href =
-    "cart.html";
-
-};
-
-
-window.goOrders = function(){
-
-  window.location.href =
-    "order.html";
-
-};
+searchBox.addEventListener(
+  "input",
+  ()=>{
+    showProducts(
+      getFilteredProducts()
+    );
+  }
+);
 
 
-window.goProfile = function(){
-
-  window.location.href =
-    "profile.html";
-
-};
-
-
-/* START */
-
+// শুরু
 loadProducts();
 
 </script>
