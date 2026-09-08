@@ -2,12 +2,18 @@
 <html lang="bn">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SayonMart Admin Orders</title>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+<title>SayonMart - My Orders</title>
+
 
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -15,8 +21,9 @@
 body{
   margin:0;
   background:#111;
-  color:white;
+  color:#fff;
   font-family:Arial,sans-serif;
+  padding-bottom:80px;
 }
 
 .header{
@@ -41,12 +48,11 @@ body{
   margin-bottom:18px;
 }
 
-.top{
+.order-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin-bottom:12px;
 }
 
 .order-id{
@@ -57,8 +63,9 @@ body{
 .status{
   padding:6px 10px;
   border-radius:20px;
-  font-size:12px;
+  font-size:11px;
   font-weight:bold;
+  text-align:center;
 }
 
 .pending{
@@ -96,13 +103,16 @@ body{
   color:#ff7070;
 }
 
+
+/* Product */
+
 .product{
   display:flex;
   gap:12px;
+  margin-top:14px;
   background:#111;
   padding:10px;
   border-radius:12px;
-  margin-bottom:12px;
 }
 
 .product img{
@@ -118,80 +128,180 @@ body{
 }
 
 .product p{
-  margin:4px 0;
+  margin:5px 0;
   color:#bbb;
   font-size:13px;
 }
 
-.info{
-  border-top:1px solid #333;
-  padding-top:10px;
-}
-
-.info p{
-  margin:8px 0;
-  font-size:14px;
-  word-break:break-word;
-}
-
 .total{
   color:#FFD700;
-  font-size:19px !important;
+  font-size:18px;
   font-weight:bold;
 }
 
-select{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  background:#222;
-  color:white;
-  border:1px solid #555;
-  border-radius:10px;
+
+/* Tracking */
+
+.tracking{
+  margin-top:20px;
+  padding-top:15px;
+  border-top:1px solid #333;
 }
 
-button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border:0;
-  border-radius:10px;
+.track-title{
+  color:#FFD700;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+
+.steps{
+  display:flex;
+  justify-content:space-between;
+  position:relative;
+}
+
+.steps:before{
+  content:"";
+  position:absolute;
+  top:15px;
+  left:6%;
+  right:6%;
+  height:3px;
+  background:#444;
+  z-index:0;
+}
+
+.step{
+  text-align:center;
+  width:16.66%;
+  position:relative;
+  z-index:1;
+}
+
+.circle{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#333;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+}
+
+.step.done .circle{
+  background:#4cff9b;
+  color:#000;
+}
+
+.step.current .circle{
   background:#FFD700;
   color:#000;
-  font-weight:bold;
-  font-size:15px;
 }
 
-.cancel{
-  background:#e53935;
-  color:white;
+.step p{
+  font-size:8px;
+  color:#777;
+  margin-top:7px;
+  line-height:1.2;
 }
 
-.details{
+.step.done p,
+.step.current p{
+  color:#fff;
+}
+
+
+/* Details */
+
+.details-btn{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:0;
+  border-radius:10px;
   background:#333;
-  color:white;
+  color:#fff;
+  font-weight:bold;
 }
+
+
+/* Empty */
 
 .empty{
   text-align:center;
-  padding:40px 10px;
   color:#aaa;
+  padding:50px 10px;
 }
 
 .loading{
   text-align:center;
-  padding:30px;
+  color:#FFD700;
+  padding:40px;
+}
+
+
+/* Bottom */
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:65px;
+  background:#000;
+  border-top:1px solid #333;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:100;
+}
+
+.bottom a{
+  text-decoration:none;
+  color:#888;
+  text-align:center;
+  font-size:11px;
+}
+
+.bottom a div{
+  font-size:21px;
+  margin-bottom:3px;
+}
+
+.bottom a.active{
   color:#FFD700;
 }
+
+
+/* Mobile */
+
+@media(max-width:380px){
+
+  .step p{
+    font-size:7px;
+  }
+
+  .circle{
+    width:27px;
+    height:27px;
+  }
+
+}
+
 </style>
+
 </head>
 
 
 <body>
 
+
 <div class="header">
-📦 SayonMart Admin Orders
+📦 My Orders
 </div>
+
 
 <div class="container">
 
@@ -202,17 +312,54 @@ Loading Orders...
 </div>
 
 
+<nav class="bottom">
+
+<a href="index.html">
+<div>⌂</div>
+Home
+</a>
+
+<a href="products.html">
+<div>▦</div>
+Products
+</a>
+
+<a href="cart.html">
+<div>🛒</div>
+Cart
+</a>
+
+<a href="order.html" class="active">
+<div>📦</div>
+Orders
+</a>
+
+<a href="profile.html">
+<div>♙</div>
+Profile
+</a>
+
+</nav>
+
+
 <script type="module">
 
-import { db, auth } from "./firebase.js";
+
+import {
+  db,
+  auth
+}
+from "./firebase.js";
+
 
 import {
   collection,
   getDocs,
-  doc,
-  updateDoc
+  query,
+  where
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 import {
   onAuthStateChanged
@@ -224,55 +371,68 @@ const ordersDiv =
 document.getElementById("orders");
 
 
-const ADMIN_UID =
-"fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+/*
+  AUTH
+*/
+
+onAuthStateChanged(
+  auth,
+  async (user)=>{
+
+    if(!user){
+
+      ordersDiv.innerHTML=`
+
+        <div class="empty">
+
+          🔒 Please Login First
+
+          <br><br>
+
+          <button
+            onclick="location.href='login.html'"
+            style="
+              padding:12px 25px;
+              background:#FFD700;
+              border:0;
+              border-radius:10px;
+              font-weight:bold;
+            "
+          >
+            Login
+          </button>
+
+        </div>
+
+      `;
+
+      return;
+    }
 
 
-onAuthStateChanged(auth, async (user)=>{
+    loadOrders(user.uid);
 
-  if(!user){
-
-    ordersDiv.innerHTML=`
-      <div class="empty">
-        🔒 Admin Login Required
-        <br><br>
-        <button onclick="location.href='login.html'">
-          Login
-        </button>
-      </div>
-    `;
-
-    return;
   }
+);
 
 
-  if(user.uid !== ADMIN_UID){
+/*
+  LOAD ORDERS
+*/
 
-    ordersDiv.innerHTML=`
-      <div class="empty">
-        ❌ Access Denied
-        <br><br>
-        This page is only for Admin.
-      </div>
-    `;
-
-    return;
-  }
-
-
-  loadOrders();
-
-});
-
-
-async function loadOrders(){
+async function loadOrders(uid){
 
   try{
 
+    const q =
+      query(
+        collection(db,"orders"),
+        where("userId","==",uid)
+      );
+
+
     const snapshot =
-    await getDocs(
-      collection(db,"orders")
-    );
+      await getDocs(q);
 
 
     ordersDiv.innerHTML="";
@@ -281,9 +441,28 @@ async function loadOrders(){
     if(snapshot.empty){
 
       ordersDiv.innerHTML=`
+
         <div class="empty">
-          📭 No Orders Found
+
+          📭 No Orders Yet
+
+          <br><br>
+
+          <button
+            onclick="location.href='products.html'"
+            style="
+              padding:12px 25px;
+              background:#FFD700;
+              border:0;
+              border-radius:10px;
+              font-weight:bold;
+            "
+          >
+            Start Shopping
+          </button>
+
         </div>
+
       `;
 
       return;
@@ -293,154 +472,226 @@ async function loadOrders(){
     let orders=[];
 
 
-    snapshot.forEach((orderDoc)=>{
+    snapshot.forEach(
+      orderDoc=>{
 
-      orders.push({
-        id:orderDoc.id,
-        data:orderDoc.data()
-      });
+        orders.push({
 
-    });
+          id:orderDoc.id,
 
+          data:orderDoc.data()
+
+        });
+
+      }
+    );
+
+
+    /*
+      Newest first
+    */
 
     orders.sort((a,b)=>{
 
       const aTime =
-      a.data.createdAt?.seconds || 0;
+        a.data.createdAt?.seconds || 0;
 
       const bTime =
-      b.data.createdAt?.seconds || 0;
+        b.data.createdAt?.seconds || 0;
 
       return bTime-aTime;
 
     });
 
 
-    orders.forEach((item)=>{
+    /*
+      SHOW
+    */
+
+    orders.forEach(item=>{
 
       const order =
-      item.data;
+        item.data;
 
       const id =
-      item.id;
+        item.id;
 
 
       const status =
-      order.status || "Pending";
-
-
-      const statusClass =
-      status
-        .toLowerCase()
-        .replaceAll(" ","-");
+        order.status || "Pending";
 
 
       const productName =
-      order.productName || "Product";
+        order.productName ||
+        "Product";
 
 
       const image =
-      order.productImage ||
-      "https://via.placeholder.com/100";
+        order.productImage ||
+        "https://via.placeholder.com/100";
 
 
       const price =
-      Number(order.price || 0);
+        Number(order.price || 0);
 
 
       const quantity =
-      Number(order.quantity || 1);
+        Number(order.quantity || 1);
 
 
       const total =
-      Number(
-        order.total ||
-        price * quantity
-      );
+        Number(
+          order.total ||
+          price * quantity
+        );
 
 
       ordersDiv.innerHTML += `
 
-      <div class="order-card">
-
-        <div class="top">
-
-          <div class="order-id">
-            Order #${escapeHtml(id.substring(0,8))}
-          </div>
-
-          <div class="status ${statusClass}">
-            ${escapeHtml(status)}
-          </div>
-
-        </div>
+        <div class="order-card">
 
 
-        <div class="product">
+          <div class="order-top">
 
-          <img
-            src="${escapeHtml(image)}"
-            onerror="
-              this.onerror=null;
-              this.src='https://via.placeholder.com/100';
-            "
-          >
+            <div class="order-id">
+              Order #${esc(id.substring(0,8))}
+            </div>
 
-          <div>
-
-            <h3>
-              ${escapeHtml(productName)}
-            </h3>
-
-            <p>
-              💰 Price: ₹${price}
-            </p>
-
-            <p>
-              🔢 Quantity: ${quantity}
-            </p>
+            <div class="
+              status
+              ${statusClass(status)}
+            ">
+              ${esc(status)}
+            </div>
 
           </div>
 
-        </div>
 
+          <div class="product">
 
-        <div class="info">
+            <img
+              src="${esc(image)}"
+              onerror="
+                this.onerror=null;
+                this.src='https://via.placeholder.com/100';
+              "
+            >
 
-          <p>
-            👤 <b>Customer:</b>
-            ${escapeHtml(order.name || "N/A")}
-          </p>
+            <div>
 
-          <p>
-            📞 <b>Phone:</b>
-            ${escapeHtml(order.phone || "N/A")}
-          </p>
+              <h3>
+                ${esc(productName)}
+              </h3>
 
-          <p>
-            📍 <b>Address:</b>
-            ${escapeHtml(order.address || "N/A")}
-          </p>
+              <p>
+                💰 ₹${price}
+              </p>
 
-          <p>
-            💳 <b>Payment:</b>
-            ${escapeHtml(order.paymentMethod || "N/A")}
-          </p>
+              <p>
+                🔢 Quantity: ${quantity}
+              </p>
+
+            </div>
+
+          </div>
+
 
           <p class="total">
-            💰 Total: ₹${total}
+            Total: ₹${total}
           </p>
+
+
+          ${
+            status === "Cancelled"
+
+            ?
+
+            `
+
+            <div class="tracking">
+
+              <div class="track-title">
+                ❌ Order Cancelled
+              </div>
+
+            </div>
+
+            `
+
+            :
+
+            `
+
+            <div class="tracking">
+
+              <div class="track-title">
+                🚚 Order Tracking
+              </div>
+
+
+              <div class="steps">
+
+
+                ${trackingStep(
+                  "Pending",
+                  status,
+                  1
+                )}
+
+
+                ${trackingStep(
+                  "Confirmed",
+                  status,
+                  2
+                )}
+
+
+                ${trackingStep(
+                  "Packed",
+                  status,
+                  3
+                )}
+
+
+                ${trackingStep(
+                  "Shipped",
+                  status,
+                  4
+                )}
+
+
+                ${trackingStep(
+                  "Out for Delivery",
+                  status,
+                  5
+                )}
+
+
+                ${trackingStep(
+                  "Delivered",
+                  status,
+                  6
+                )}
+
+
+              </div>
+
+            </div>
+
+            `
+
+          }
 
 
           <button
-            class="details"
+            class="details-btn"
             onclick="showDetails(
-              '${escapeAttr(id)}',
-              '${escapeAttr(productName)}',
-              '${escapeAttr(order.name || "N/A")}',
-              '${escapeAttr(order.phone || "N/A")}',
-              '${escapeAttr(order.address || "N/A")}',
-              '${escapeAttr(status)}',
+              '${escAttr(id)}',
+              '${escAttr(productName)}',
+              '${escAttr(order.name || "N/A")}',
+              '${escAttr(order.phone || "N/A")}',
+              '${escAttr(order.address || "N/A")}',
+              '${escAttr(status)}',
               '${total}'
             )"
           >
@@ -448,81 +699,18 @@ async function loadOrders(){
           </button>
 
 
-          <select id="status-${escapeAttr(id)}">
-
-            <option value="Pending"
-              ${status==="Pending" ? "selected" : ""}>
-              ⏳ Pending
-            </option>
-
-            <option value="Confirmed"
-              ${status==="Confirmed" ? "selected" : ""}>
-              ✅ Confirmed
-            </option>
-
-            <option value="Packed"
-              ${status==="Packed" ? "selected" : ""}>
-              📦 Packed
-            </option>
-
-            <option value="Shipped"
-              ${status==="Shipped" ? "selected" : ""}>
-              🚚 Shipped
-            </option>
-
-            <option value="Out for Delivery"
-              ${status==="Out for Delivery" ? "selected" : ""}>
-              🛵 Out for Delivery
-            </option>
-
-            <option value="Delivered"
-              ${status==="Delivered" ? "selected" : ""}>
-              🎉 Delivered
-            </option>
-
-            <option value="Cancelled"
-              ${status==="Cancelled" ? "selected" : ""}>
-              ❌ Cancelled
-            </option>
-
-          </select>
-
-
-          <button
-            onclick="updateStatus('${escapeAttr(id)}')"
-          >
-            💾 Update Status
-          </button>
-
-
-          ${
-            status !== "Delivered" &&
-            status !== "Cancelled"
-            ?
-            `
-            <button
-              class="cancel"
-              onclick="cancelOrder('${escapeAttr(id)}')"
-            >
-              ❌ Cancel Order
-            </button>
-            `
-            :
-            ""
-          }
-
         </div>
-
-      </div>
 
       `;
 
     });
 
+  }
 
-  }catch(error){
+  catch(error){
 
     console.error(error);
+
 
     ordersDiv.innerHTML=`
 
@@ -532,7 +720,7 @@ async function loadOrders(){
 
         <br><br>
 
-        ${escapeHtml(error.message)}
+        ${esc(error.message)}
 
       </div>
 
@@ -543,102 +731,111 @@ async function loadOrders(){
 }
 
 
-/* Update Status */
+/*
+  TRACKING
+*/
 
-window.updateStatus =
-async function(id){
+function trackingStep(
+  name,
+  currentStatus,
+  stepNumber
+){
 
-  try{
-
-    const select =
-      document.getElementById(
-        "status-"+id
-      );
-
-
-    if(!select){
-
-      alert("Status select পাওয়া যায়নি।");
-
-      return;
-    }
+  const current =
+    getStep(currentStatus);
 
 
-    await updateDoc(
-      doc(db,"orders",id),
-      {
-        status:select.value
-      }
-    );
+  let className = "";
 
 
-    alert(
-      "✅ Order status updated!"
-    );
+  if(stepNumber < current){
 
-
-    loadOrders();
-
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "❌ Update failed:\n" +
-      error.message
-    );
+    className = "done";
 
   }
 
-};
+  else if(stepNumber === current){
 
-
-/* Cancel */
-
-window.cancelOrder =
-async function(id){
-
-  if(!confirm(
-    "Are you sure you want to cancel this order?"
-  )){
-
-    return;
+    className = "current";
 
   }
 
 
-  try{
+  return `
 
-    await updateDoc(
-      doc(db,"orders",id),
-      {
-        status:"Cancelled"
-      }
-    );
+    <div class="step ${className}">
+
+      <div class="circle">
+
+        ${
+          stepNumber <= current
+          ? "✓"
+          : stepNumber
+        }
+
+      </div>
+
+      <p>
+        ${esc(name)}
+      </p>
+
+    </div>
+
+  `;
+
+}
 
 
-    alert(
-      "❌ Order Cancelled"
-    );
+/*
+  STATUS NUMBER
+*/
 
+function getStep(status){
 
-    loadOrders();
+  switch(status){
 
+    case "Pending":
+      return 1;
 
-  }catch(error){
+    case "Confirmed":
+      return 2;
 
-    alert(
-      "❌ Cancel failed:\n" +
-      error.message
-    );
+    case "Packed":
+      return 3;
+
+    case "Shipped":
+      return 4;
+
+    case "Out for Delivery":
+      return 5;
+
+    case "Delivered":
+      return 6;
+
+    default:
+      return 0;
 
   }
 
-};
+}
 
 
-/* Details */
+/*
+  STATUS CSS CLASS
+*/
+
+function statusClass(status){
+
+  return String(status)
+    .toLowerCase()
+    .replaceAll(" ","-");
+
+}
+
+
+/*
+  DETAILS
+*/
 
 window.showDetails =
 function(
@@ -658,14 +855,14 @@ function(
 Order ID:
 ${id}
 
+📦 Product:
+${product}
+
 👤 Customer:
 ${customer}
 
 📞 Phone:
 ${phone}
-
-📦 Product:
-${product}
 
 📍 Address:
 ${address}
@@ -681,9 +878,11 @@ ${status}
 };
 
 
-/* Security helpers */
+/*
+  SECURITY HELPERS
+*/
 
-function escapeHtml(value){
+function esc(value){
 
   return String(value ?? "")
     .replace(/&/g,"&amp;")
@@ -694,12 +893,12 @@ function escapeHtml(value){
 
 }
 
-function escapeAttr(value){
+
+function escAttr(value){
 
   return String(value ?? "")
     .replace(/\\/g,"\\\\")
     .replace(/'/g,"\\'")
-    .replace(/"/g,"&quot;")
     .replace(/\n/g," ");
 
 }
