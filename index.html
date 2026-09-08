@@ -216,15 +216,22 @@ function productCard(p){
   const idJS=JSON.stringify(id);
   const nameJS=JSON.stringify(name);
   const imageJS=JSON.stringify(image);
+  const detailsURL="product.html?id="+encodeURIComponent(id);
 
   return `
-  <div class="product" onclick='openProduct(${idJS})'>
+  <div class="product">
     <button class="heart" onclick='event.stopPropagation();addWishlist(${idJS},${nameJS},${price},${imageJS})'>♡</button>
-    <img class="product-img" src="${esc(image)}" alt="${esc(name)}" loading="lazy" decoding="async"
-      onerror="this.onerror=null;this.src='https://picsum.photos/500/500';">
-    <div class="product-info">
-      <div class="product-name">${esc(name)}</div>
-      <div class="price">₹${price}</div>
+
+    <a href="${esc(detailsURL)}" style="display:block;text-decoration:none;color:inherit">
+      <img class="product-img" src="${esc(image)}" alt="${esc(name)}" loading="lazy" decoding="async"
+        onerror="this.onerror=null;this.src='https://picsum.photos/500/500';">
+      <div class="product-info" style="padding-bottom:4px">
+        <div class="product-name">${esc(name)}</div>
+        <div class="price">₹${price}</div>
+      </div>
+    </a>
+
+    <div class="product-info" style="padding-top:4px">
       <div class="product-buttons">
         <button class="add-btn" onclick='event.stopPropagation();addToCart(${idJS},${nameJS},${price},${imageJS})'>🛒 Cart</button>
         <button class="buy-btn" onclick='event.stopPropagation();buyNow(${idJS},${nameJS},${price},${imageJS})'>Buy Now</button>
@@ -232,7 +239,6 @@ function productCard(p){
     </div>
   </div>`;
 }
-
 function renderProducts(list){
   const p=document.getElementById("products");
   const d=document.getElementById("topDeals");
