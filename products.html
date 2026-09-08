@@ -1,414 +1,334 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<title>SayonMart Products</title>
+<title>SayonMart - Products</title>
 
 <link rel="stylesheet" href="style.css">
 
 <style>
-
 *{
   box-sizing:border-box;
 }
 
 body{
   margin:0;
-  background:#050505;
-  color:white;
   font-family:Arial,sans-serif;
-  padding-bottom:90px;
+  background:#f5f5f5;
+  color:#222;
 }
 
-/* HEADER */
+/* Header */
+.header{
+  background:#ffffff;
+  padding:12px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
 
-header{
-  background:#050505;
-  padding:20px;
+.header h2{
+  margin:0 0 10px;
+  color:#e91e63;
   text-align:center;
-  border-bottom:1px solid #292929;
 }
 
-header h2{
-  margin:0;
-  color:#ffd000;
-  font-size:27px;
-}
-
-/* SEARCH */
-
-.search{
-  margin:18px;
-  background:#1b1b1f;
-  border:1px solid #303035;
-  border-radius:15px;
-  display:flex;
-  align-items:center;
-  padding:0 14px;
-}
-
-.search span{
-  font-size:20px;
-}
-
-.search input{
+.search-box{
   width:100%;
-  padding:15px 10px;
-  background:transparent;
-  border:0;
-  outline:0;
-  color:white;
-  font-size:16px;
+  padding:12px 15px;
+  border:1px solid #ddd;
+  border-radius:25px;
+  outline:none;
+  font-size:15px;
 }
 
-/* CATEGORIES */
-
+/* Categories */
 .categories{
   display:flex;
-  gap:10px;
+  gap:8px;
+  padding:12px;
   overflow-x:auto;
-  padding:0 18px 15px;
-}
-
-.categories::-webkit-scrollbar{
-  display:none;
+  background:#fff;
 }
 
 .category{
-  flex-shrink:0;
-  padding:10px 15px;
-  background:#1b1b1f;
-  border:1px solid #303035;
+  border:1px solid #e91e63;
+  color:#e91e63;
+  background:white;
+  padding:8px 15px;
   border-radius:20px;
-  color:#ddd;
+  white-space:nowrap;
   cursor:pointer;
 }
 
-.category.active{
-  background:#ffd000;
-  color:#000;
+.category.active,
+.category:hover{
+  background:#e91e63;
+  color:white;
+}
+
+/* Products */
+.title{
+  padding:15px 12px 5px;
+  font-size:20px;
   font-weight:bold;
 }
 
-/* PRODUCTS */
-
 .products{
+  padding:12px;
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:13px;
-  padding:10px 18px;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  padding-bottom:90px;
 }
 
 .card{
-  background:#19191c;
-  border:1px solid #303035;
-  border-radius:17px;
+  background:#fff;
+  border-radius:12px;
   overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
   position:relative;
-  padding-bottom:12px;
+  cursor:pointer;
+  transition:.2s;
 }
 
-.card img{
+.card:active{
+  transform:scale(.98);
+}
+
+.product-image{
   width:100%;
-  height:155px;
+  height:170px;
   object-fit:cover;
-  display:block;
-  background:#111;
+  background:#eee;
 }
 
 .heart{
   position:absolute;
-  right:9px;
-  top:9px;
-  width:35px;
-  height:35px;
+  right:8px;
+  top:8px;
+  width:34px;
+  height:34px;
   border:0;
   border-radius:50%;
-  background:rgba(0,0,0,.7);
-  color:white;
-  font-size:18px;
+  background:white;
+  font-size:19px;
   cursor:pointer;
+  box-shadow:0 2px 5px rgba(0,0,0,.2);
 }
 
 .info{
   padding:10px;
 }
 
-.info h3{
-  margin:0 0 6px;
+.product-name{
   font-size:15px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.category-name{
-  color:#999;
-  font-size:12px;
-}
-
-.rating{
-  color:#ffd000;
-  font-size:12px;
-  margin-top:6px;
+  font-weight:bold;
+  margin:0 0 6px;
+  min-height:38px;
 }
 
 .price{
-  color:#ffd000;
+  color:#e91e63;
   font-size:18px;
   font-weight:bold;
-  margin:7px 0;
 }
 
-/* ADD TO CART */
+.old-price{
+  color:#888;
+  text-decoration:line-through;
+  font-size:13px;
+  margin-left:5px;
+}
 
-.add{
-  width:calc(100% - 20px);
-  margin:0 10px;
-  padding:11px;
+.add-btn{
+  width:100%;
+  margin-top:9px;
+  padding:10px;
   border:0;
-  border-radius:10px;
-  background:#ffd000;
-  color:#000;
-  font-weight:bold;
+  border-radius:8px;
+  background:#e91e63;
+  color:white;
   font-size:14px;
+  font-weight:bold;
   cursor:pointer;
 }
 
-.add:active{
-  transform:scale(.96);
+.buy-btn{
+  width:100%;
+  margin-top:7px;
+  padding:9px;
+  border:1px solid #e91e63;
+  border-radius:8px;
+  background:white;
+  color:#e91e63;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-/* LOADING / EMPTY */
-
-.loading,
-.empty{
-  grid-column:1/-1;
+/* Loading */
+.loading{
   text-align:center;
-  padding:60px 10px;
-  color:#aaa;
+  padding:40px;
+  color:#777;
 }
 
-/* BOTTOM NAVIGATION */
-
-.bottom{
+/* Bottom navigation */
+.bottom-nav{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  height:72px;
-  background:#0b0b0d;
-  border-top:1px solid #29292d;
+  height:65px;
+  background:white;
   display:flex;
   justify-content:space-around;
   align-items:center;
-  z-index:20;
+  box-shadow:0 -2px 10px rgba(0,0,0,.15);
+  z-index:200;
 }
 
-.bottom a{
-  color:#aaa;
-  text-decoration:none;
+.nav-item{
   text-align:center;
-  font-size:11px;
+  color:#666;
+  font-size:12px;
+  cursor:pointer;
 }
 
-.bottom a div{
+.nav-item span{
+  display:block;
   font-size:23px;
-  margin-bottom:3px;
+  margin-bottom:2px;
 }
 
-.bottom a.active{
-  color:#ffd000;
+.nav-item.active{
+  color:#e91e63;
 }
 
-/* TOAST */
-
+/* Toast */
 .toast{
   position:fixed;
-  bottom:88px;
   left:50%;
+  bottom:80px;
   transform:translateX(-50%);
-  background:#ffd000;
-  color:#000;
-  padding:12px 18px;
-  border-radius:12px;
-  font-weight:bold;
+  background:#222;
+  color:white;
+  padding:12px 20px;
+  border-radius:25px;
   display:none;
-  z-index:50;
-  white-space:nowrap;
+  z-index:500;
+  font-size:14px;
+}
+
+/* Empty */
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:50px 10px;
+  color:#777;
 }
 
 @media(min-width:700px){
-
   .products{
     grid-template-columns:repeat(4,1fr);
   }
 
+  .product-image{
+    height:220px;
+  }
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- HEADER -->
-
-<header>
-
+<!-- Header -->
+<div class="header">
   <h2>🛍️ SayonMart</h2>
-
-</header>
-
-
-<!-- SEARCH -->
-
-<div class="search">
-
-  <span>🔍</span>
 
   <input
     type="text"
-    id="search"
-    placeholder="Search products..."
-    oninput="filterProducts()"
+    id="searchInput"
+    class="search-box"
+    placeholder="🔍 Product search করুন..."
   >
-
 </div>
 
-
-<!-- CATEGORIES -->
-
+<!-- Categories -->
 <div class="categories">
 
-  <button
-    class="category active"
-    onclick="setCategory('',this)"
-  >
-    All
+  <button class="category active" data-category="all">
+    সব
   </button>
 
-  <button
-    class="category"
-    onclick="setCategory('Fashion',this)"
-  >
+  <button class="category" data-category="Fashion">
     👕 Fashion
   </button>
 
-  <button
-    class="category"
-    onclick="setCategory('Shoes',this)"
-  >
+  <button class="category" data-category="Shoes">
     👟 Shoes
   </button>
 
-  <button
-    class="category"
-    onclick="setCategory('Mobiles',this)"
-  >
+  <button class="category" data-category="Mobiles">
     📱 Mobiles
   </button>
 
-  <button
-    class="category"
-    onclick="setCategory('Watches',this)"
-  >
+  <button class="category" data-category="Watches">
     ⌚ Watches
   </button>
 
 </div>
 
+<div class="title">
+  🛒 All Products
+</div>
 
-<!-- PRODUCTS -->
-
-<div
-  class="products"
-  id="products"
->
-
+<!-- Products -->
+<div id="products" class="products">
   <div class="loading">
-    ⏳ Products loading...
+    Product লোড হচ্ছে...
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+
+  <div class="nav-item" onclick="goHome()">
+    <span>🏠</span>
+    Home
+  </div>
+
+  <div class="nav-item active">
+    <span>🛍️</span>
+    Products
+  </div>
+
+  <div class="nav-item" onclick="goCart()">
+    <span>🛒</span>
+    Cart
+    <b id="cartCount"></b>
+  </div>
+
+  <div class="nav-item" onclick="goOrders()">
+    <span>📦</span>
+    Orders
+  </div>
+
+  <div class="nav-item" onclick="goProfile()">
+    <span>👤</span>
+    Profile
   </div>
 
 </div>
 
 
-<!-- BOTTOM NAVIGATION -->
-
-<div class="bottom">
-
-  <a href="index.html">
-
-    <div>⌂</div>
-
-    Home
-
-  </a>
-
-
-  <a
-    href="products.html"
-    class="active"
-  >
-
-    <div>▦</div>
-
-    Products
-
-  </a>
-
-
-  <a href="cart.html">
-
-    <div>🛒</div>
-
-    Cart
-
-  </a>
-
-
-  <a href="order.html">
-
-    <div>▤</div>
-
-    Orders
-
-  </a>
-
-
-  <a href="profile.html">
-
-    <div>♙</div>
-
-    Profile
-
-  </a>
-
-</div>
-
-
-<!-- TOAST -->
-
-<div
-  class="toast"
-  id="toast"
->
-  ✅ Added to Cart
-</div>
-
-
-<!-- FIREBASE + JAVASCRIPT -->
-
+<!-- Firebase -->
 <script type="module">
 
 import { db } from "./firebase.js";
@@ -419,28 +339,76 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+const productsBox = document.getElementById("products");
+
+const searchInput = document.getElementById("searchInput");
+
 let allProducts = [];
 
-let selectedCategory = "";
+let selectedCategory = "all";
 
 
 /* =========================
-   GET CART
+   TOAST
 ========================= */
 
-function getCart(){
+window.showToast = function(message){
+
+  const toast = document.getElementById("toast");
+
+  toast.innerText = message;
+
+  toast.style.display = "block";
+
+  setTimeout(()=>{
+    toast.style.display = "none";
+  },2000);
+
+};
+
+
+/* =========================
+   LOAD PRODUCTS
+========================= */
+
+async function loadProducts(){
 
   try{
 
-    return JSON.parse(
-      localStorage.getItem("cart") || "[]"
+    const snapshot = await getDocs(
+      collection(db,"products")
     );
 
-  }catch(error){
+    allProducts = [];
 
-    console.error("Cart error:",error);
+    snapshot.forEach(doc => {
 
-    return [];
+      allProducts.push({
+
+        id:doc.id,
+
+        ...doc.data()
+
+      });
+
+    });
+
+    displayProducts(allProducts);
+
+    updateCartCount();
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    productsBox.innerHTML = `
+      <div class="empty">
+        ❌ Product লোড করা যায়নি।
+        <br><br>
+        Internet অথবা Firebase check করুন।
+      </div>
+    `;
 
   }
 
@@ -448,423 +416,181 @@ function getCart(){
 
 
 /* =========================
-   ADD TO CART
+   DISPLAY PRODUCTS
 ========================= */
 
-window.addToCart = function(
-  name,
-  price,
-  image
-){
+function displayProducts(products){
 
-  try{
+  productsBox.innerHTML = "";
 
-    let cart = getCart();
+  if(products.length === 0){
 
-    price = Number(price) || 0;
+    productsBox.innerHTML = `
+      <div class="empty">
+        😔 কোনো Product পাওয়া যায়নি।
+      </div>
+    `;
 
-    image = image || "";
-
-
-    /* Check product already exists */
-
-    const existingProduct =
-      cart.find(function(item){
-
-        return item.name === name;
-
-      });
+    return;
+  }
 
 
-    if(existingProduct){
+  products.forEach(product => {
 
-      existingProduct.quantity =
-        Number(existingProduct.quantity || 1) + 1;
+    const id = product.id;
 
-    }else{
+    const name =
+      product.name ||
+      product.title ||
+      "Product";
 
-      cart.push({
 
-        name:name,
+    const price =
+      Number(product.price || 0);
 
-        price:price,
 
-        image:image,
+    const oldPrice =
+      Number(
+        product.oldPrice ||
+        product.mrp ||
+        0
+      );
 
-        quantity:1
 
-      });
+    let image =
+      product.image ||
+      "";
+
+
+    if(
+      !image &&
+      Array.isArray(product.images) &&
+      product.images.length > 0
+    ){
+
+      image = product.images[0];
 
     }
 
 
-    /* SAVE CART */
+    if(!image){
 
-    localStorage.setItem(
-      "cart",
-      JSON.stringify(cart)
-    );
+      image =
+        "https://via.placeholder.com/500x500?text=SayonMart";
 
-
-    /* SHOW MESSAGE */
-
-    const toast =
-      document.getElementById("toast");
-
-
-    toast.textContent =
-      "✅ Added to Cart";
-
-
-    toast.style.display =
-      "block";
-
-
-    setTimeout(function(){
-
-      toast.style.display =
-        "none";
-
-    },1500);
-
-
-    console.log(
-      "Cart saved:",
-      cart
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Add to cart error:",
-      error
-    );
-
-    alert(
-      "Cart-এ product যোগ করা যায়নি।"
-    );
-
-  }
-
-};
-
-
-/* =========================
-   WISHLIST
-========================= */
-
-window.addWishlist = function(){
-
-  let count =
-    Number(
-      localStorage.getItem(
-        "wishlistCount"
-      ) || 0
-    );
-
-
-  count++;
-
-
-  localStorage.setItem(
-    "wishlistCount",
-    count
-  );
-
-
-  const toast =
-    document.getElementById("toast");
-
-
-  toast.textContent =
-    "❤️ Wishlist-এ যোগ হয়েছে";
-
-
-  toast.style.display =
-    "block";
-
-
-  setTimeout(function(){
-
-    toast.style.display =
-      "none";
-
-  },1500);
-
-};
-
-
-/* =========================
-   RENDER PRODUCTS
-========================= */
-
-function renderProducts(){
-
-  const searchInput =
-    document.getElementById("search");
-
-
-  const searchText =
-    searchInput
-      ? searchInput.value
-          .toLowerCase()
-          .trim()
-      : "";
-
-
-  const filtered =
-    allProducts.filter(function(product){
-
-
-      const name =
-        String(
-          product.name || ""
-        ).toLowerCase();
-
-
-      const category =
-        String(
-          product.category || ""
-        ).toLowerCase();
-
-
-      const searchOK =
-        !searchText ||
-        name.includes(searchText);
-
-
-      const categoryOK =
-        !selectedCategory ||
-        category ===
-        selectedCategory.toLowerCase();
-
-
-      return (
-        searchOK &&
-        categoryOK
-      );
-
-    });
-
-
-  const box =
-    document.getElementById(
-      "products"
-    );
-
-
-  if(filtered.length === 0){
-
-    box.innerHTML = `
-
-      <div class="empty">
-
-        😕<br><br>
-
-        কোনো Product পাওয়া যায়নি।
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  box.innerHTML = "";
-
-
-  filtered.forEach(function(product){
-
-
-    const name =
-      String(
-        product.name || "Product"
-      );
-
-
-    const price =
-      Number(
-        product.price || 0
-      );
-
-
-    const image =
-      product.image ||
-      (
-        Array.isArray(product.images)
-          ? product.images[0]
-          : ""
-      ) ||
-      "https://picsum.photos/300?random=99";
+    }
 
 
     const category =
-      String(
-        product.category || "Product"
-      );
+      product.category ||
+      "";
 
-
-    /* CARD */
 
     const card =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
+
+    card.className = "card";
 
 
-    card.className =
-      "card";
+    /* Card click → Product Details */
 
-
-    /* HEART */
-
-    const heart =
-      document.createElement(
-        "button"
-      );
-
-
-    heart.className =
-      "heart";
-
-
-    heart.textContent =
-      "♡";
-
-
-    heart.type =
-      "button";
-
-
-    heart.addEventListener(
+    card.addEventListener(
       "click",
       function(){
 
-        window.addWishlist();
+        openProduct(id);
 
       }
     );
 
 
-    /* IMAGE */
+    /* Image */
 
     const img =
-      document.createElement(
-        "img"
-      );
+      document.createElement("img");
+
+    img.className = "product-image";
+
+    img.src = image;
+
+    img.alt = name;
+
+    img.onerror = function(){
+
+      this.src =
+        "https://via.placeholder.com/500x500?text=SayonMart";
+
+    };
 
 
-    img.src =
-      image;
-
-
-    img.alt =
-      name;
-
-
-    /* INFO */
+    /* Info */
 
     const info =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
+
+    info.className = "info";
 
 
-    info.className =
-      "info";
+    /* Name */
 
+    const productName =
+      document.createElement("p");
 
-    /* NAME */
+    productName.className =
+      "product-name";
 
-    const title =
-      document.createElement(
-        "h3"
-      );
-
-
-    title.textContent =
+    productName.innerText =
       name;
 
 
-    /* CATEGORY */
+    /* Price */
 
-    const cat =
-      document.createElement(
-        "div"
-      );
+    const priceDiv =
+      document.createElement("div");
 
-
-    cat.className =
-      "category-name";
-
-
-    cat.textContent =
-      "📂 " + category;
-
-
-    /* RATING */
-
-    const rating =
-      document.createElement(
-        "div"
-      );
-
-
-    rating.className =
-      "rating";
-
-
-    rating.textContent =
-      "★★★★★ 4.5";
-
-
-    /* PRICE */
-
-    const priceBox =
-      document.createElement(
-        "div"
-      );
-
-
-    priceBox.className =
+    priceDiv.className =
       "price";
 
-
-    priceBox.textContent =
-      "₹" +
-      price.toLocaleString(
-        "en-IN"
-      );
+    priceDiv.innerText =
+      "₹" + price;
 
 
-    /* ADD BUTTON */
+    if(oldPrice > price){
 
-    const addButton =
-      document.createElement(
-        "button"
-      );
+      const old =
+        document.createElement("span");
 
+      old.className =
+        "old-price";
 
-    addButton.className =
-      "add";
+      old.innerText =
+        "₹" + oldPrice;
 
+      priceDiv.appendChild(old);
 
-    addButton.type =
-      "button";
-
-
-    addButton.textContent =
-      "🛒 Add to Cart";
+    }
 
 
-    addButton.addEventListener(
+    /* Heart */
+
+    const heart =
+      document.createElement("button");
+
+    heart.className =
+      "heart";
+
+    heart.innerHTML =
+      "♡";
+
+
+    heart.addEventListener(
       "click",
-      function(){
+      function(event){
 
-        window.addToCart(
+        event.stopPropagation();
+
+        addWishlist(
+          id,
           name,
           price,
           image
@@ -874,31 +600,281 @@ function renderProducts(){
     );
 
 
-    /* PUT INFO TOGETHER */
+    /* Add Cart */
 
-    info.appendChild(title);
+    const addButton =
+      document.createElement("button");
 
-    info.appendChild(cat);
+    addButton.className =
+      "add-btn";
 
-    info.appendChild(rating);
+    addButton.innerText =
+      "🛒 Add to Cart";
 
-    info.appendChild(priceBox);
+
+    addButton.addEventListener(
+      "click",
+      function(event){
+
+        event.stopPropagation();
+
+        addToCart(
+          id,
+          name,
+          price,
+          image
+        );
+
+      }
+    );
 
 
-    /* PUT CARD TOGETHER */
+    /* Buy Now */
 
-    card.appendChild(heart);
+    const buyButton =
+      document.createElement("button");
+
+    buyButton.className =
+      "buy-btn";
+
+    buyButton.innerText =
+      "⚡ এখনই কিনুন";
+
+
+    buyButton.addEventListener(
+      "click",
+      function(event){
+
+        event.stopPropagation();
+
+        addToCart(
+          id,
+          name,
+          price,
+          image
+        );
+
+        window.location.href =
+          "payment.html";
+
+      }
+    );
+
+
+    info.appendChild(productName);
+
+    info.appendChild(priceDiv);
+
+    info.appendChild(addButton);
+
+    info.appendChild(buyButton);
+
 
     card.appendChild(img);
 
+    card.appendChild(heart);
+
     card.appendChild(info);
 
-    card.appendChild(addButton);
 
-
-    box.appendChild(card);
+    productsBox.appendChild(card);
 
   });
+
+}
+
+
+/* =========================
+   OPEN PRODUCT DETAILS
+========================= */
+
+window.openProduct = function(id){
+
+  if(!id){
+
+    alert("Product ID পাওয়া যায়নি।");
+
+    return;
+
+  }
+
+
+  window.location.href =
+    "product.html?id=" +
+    encodeURIComponent(id);
+
+};
+
+
+/* =========================
+   ADD TO CART
+========================= */
+
+window.addToCart = function(
+  id,
+  name,
+  price,
+  image
+){
+
+  let cart =
+    JSON.parse(
+      localStorage.getItem("cart") ||
+      "[]"
+    );
+
+
+  const existing =
+    cart.find(
+      item =>
+        item.id === id ||
+        (
+          !item.id &&
+          item.name === name
+        )
+    );
+
+
+  if(existing){
+
+    existing.quantity =
+      Number(existing.quantity || 1) + 1;
+
+  }
+  else{
+
+    cart.push({
+
+      id:id,
+
+      name:name,
+
+      price:Number(price),
+
+      image:image,
+
+      quantity:1
+
+    });
+
+  }
+
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+
+  updateCartCount();
+
+  showToast(
+    "✅ Product cart-এ যোগ হয়েছে!"
+  );
+
+};
+
+
+/* =========================
+   WISHLIST
+========================= */
+
+window.addWishlist = function(
+  id,
+  name,
+  price,
+  image
+){
+
+  let wishlist =
+    JSON.parse(
+      localStorage.getItem("wishlist") ||
+      "[]"
+    );
+
+
+  const exists =
+    wishlist.some(
+      item => item.id === id
+    );
+
+
+  if(!exists){
+
+    wishlist.push({
+
+      id:id,
+
+      name:name,
+
+      price:Number(price),
+
+      image:image
+
+    });
+
+
+    localStorage.setItem(
+      "wishlist",
+      JSON.stringify(wishlist)
+    );
+
+
+    showToast(
+      "❤️ Wishlist-এ যোগ হয়েছে"
+    );
+
+  }
+  else{
+
+    showToast(
+      "❤️ Wishlist-এ আছে"
+    );
+
+  }
+
+};
+
+
+/* =========================
+   CART COUNT
+========================= */
+
+function updateCartCount(){
+
+  const cart =
+    JSON.parse(
+      localStorage.getItem("cart") ||
+      "[]"
+    );
+
+
+  let count = 0;
+
+
+  cart.forEach(item => {
+
+    count +=
+      Number(item.quantity || 1);
+
+  });
+
+
+  const badge =
+    document.getElementById("cartCount");
+
+
+  if(count > 0){
+
+    badge.innerText =
+      " (" + count + ")";
+
+  }
+  else{
+
+    badge.innerText = "";
+
+  }
 
 }
 
@@ -907,128 +883,139 @@ function renderProducts(){
    SEARCH
 ========================= */
 
-window.filterProducts =
+searchInput.addEventListener(
+  "input",
   function(){
 
-    renderProducts();
+    const text =
+      this.value
+      .trim()
+      .toLowerCase();
 
-  };
+
+    filterProducts(text);
+
+  }
+);
+
+
+function filterProducts(text){
+
+  let filtered =
+    allProducts.filter(product => {
+
+      const name =
+        (
+          product.name ||
+          product.title ||
+          ""
+        ).toLowerCase();
+
+
+      const category =
+        (
+          product.category ||
+          ""
+        ).toLowerCase();
+
+
+      const matchSearch =
+        name.includes(text);
+
+
+      const matchCategory =
+        selectedCategory === "all" ||
+        category ===
+        selectedCategory.toLowerCase();
+
+
+      return (
+        matchSearch &&
+        matchCategory
+      );
+
+    });
+
+
+  displayProducts(filtered);
+
+}
 
 
 /* =========================
    CATEGORY
 ========================= */
 
-window.setCategory =
-  function(
-    category,
-    button
-  ){
+document
+.querySelectorAll(".category")
+.forEach(button => {
 
-    selectedCategory =
-      category;
+  button.addEventListener(
+    "click",
+    function(){
 
-
-    document
-      .querySelectorAll(
-        ".category"
-      )
-      .forEach(function(btn){
-
-        btn.classList.remove(
-          "active"
-        );
-
-      });
-
-
-    button.classList.add(
-      "active"
-    );
-
-
-    renderProducts();
-
-  };
-
-
-/* =========================
-   LOAD PRODUCTS FROM FIREBASE
-========================= */
-
-async function loadProducts(){
-
-  const box =
-    document.getElementById(
-      "products"
-    );
-
-
-  try{
-
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "products"
-        )
+      document
+      .querySelectorAll(".category")
+      .forEach(btn =>
+        btn.classList.remove("active")
       );
 
 
-    allProducts = [];
+      this.classList.add("active");
 
 
-    snapshot.forEach(
-      function(doc){
-
-        allProducts.push({
-
-          id:doc.id,
-
-          ...doc.data()
-
-        });
-
-      }
-    );
+      selectedCategory =
+        this.dataset.category;
 
 
-    console.log(
-      "Products loaded:",
-      allProducts
-    );
+      const text =
+        searchInput.value
+        .trim()
+        .toLowerCase();
 
 
-    renderProducts();
+      filterProducts(text);
+
+    }
+  );
+
+});
 
 
-  }catch(error){
+/* =========================
+   NAVIGATION
+========================= */
+
+window.goHome = function(){
+
+  window.location.href =
+    "index.html";
+
+};
 
 
-    console.error(
-      "Firebase error:",
-      error
-    );
+window.goCart = function(){
+
+  window.location.href =
+    "cart.html";
+
+};
 
 
-    box.innerHTML = `
+window.goOrders = function(){
 
-      <div class="empty">
+  window.location.href =
+    "order.html";
 
-        ⚠️ Products load হচ্ছে না।
+};
 
-        <br><br>
 
-        Firebase check করো।
+window.goProfile = function(){
 
-      </div>
+  window.location.href =
+    "profile.html";
 
-    `;
-
-  }
-
-}
+};
 
 
 /* START */
@@ -1037,7 +1024,5 @@ loadProducts();
 
 </script>
 
-
 </body>
-
 </html>
