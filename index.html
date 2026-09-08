@@ -1,296 +1,1057 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SayonMart</title>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#e91e63">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" href="./icon-192.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f7f7f7;color:#222;padding-bottom:75px}
-.header{background:#fff;padding:14px 16px 10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-.top{display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:25px;font-weight:bold;color:#e91e63}
-.icons{display:flex;gap:18px}
-.icon-btn{border:0;background:none;font-size:24px;cursor:pointer}
-.search{margin-top:12px;display:flex;align-items:center;background:#f3f3f3;border-radius:10px;padding:10px 13px}
-.search span{font-size:20px;margin-right:8px}
-.search input{border:0;outline:none;background:transparent;width:100%;font-size:15px}
-.banner{margin:14px;border-radius:14px;background:linear-gradient(135deg,#e91e63,#ff5b91);color:#fff;padding:22px 18px;min-height:145px}
-.banner h1{font-size:28px;margin-bottom:8px}
-.banner p{font-size:14px;margin-bottom:15px}
-.shop-btn{border:0;background:#fff;color:#e91e63;padding:10px 18px;border-radius:20px;font-weight:bold}
-.section{padding:5px 14px 0}
-.section-title{display:flex;justify-content:space-between;align-items:center;margin:15px 0 12px}
-.section-title h2{font-size:19px}
-.see-all{color:#e91e63;font-size:13px;cursor:pointer}
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.category{background:#fff;border-radius:12px;padding:12px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);cursor:pointer}
-.category-icon{font-size:27px;margin-bottom:6px}
-.category p{font-size:12px}
-.products{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.product{background:#fff;border-radius:13px;overflow:hidden;box-shadow:0 2px 9px rgba(0,0,0,.07);position:relative;cursor:pointer}
-.product-img{width:100%;height:170px;object-fit:cover;background:#eee;display:block}
-.heart{position:absolute;right:8px;top:8px;width:36px;height:36px;border:0;border-radius:50%;background:#fff;font-size:21px;z-index:5;box-shadow:0 2px 7px rgba(0,0,0,.15)}
-.product-info{padding:10px}
-.product-name{font-size:14px;font-weight:bold;height:35px;overflow:hidden}
-.price{color:#e91e63;font-size:18px;font-weight:bold;margin:7px 0}
-.product-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.add-btn,.buy-btn{width:100%;border:0;color:#fff;padding:10px 5px;border-radius:8px;font-weight:bold;font-size:14px}
-.add-btn{background:#e91e63}.buy-btn{background:#ff9800}
-.empty{grid-column:1/-1;text-align:center;background:#fff;padding:30px 15px;border-radius:12px;color:#777}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 14px}
-.feature{background:#fff;border-radius:10px;padding:12px 5px;text-align:center;font-size:11px}
-.feature div{font-size:22px;margin-bottom:5px}
-.bottom{position:fixed;bottom:0;left:0;right:0;height:65px;background:#fff;border-top:1px solid #ddd;display:grid;grid-template-columns:repeat(5,1fr);z-index:999;box-shadow:0 -2px 10px rgba(0,0,0,.08)}
-.bottom a{text-decoration:none;color:#777;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;position:relative}
-.bottom a div{font-size:22px;margin-bottom:2px}.bottom a.active{color:#e91e63;font-weight:bold}
-.cart-badge{position:absolute;top:5px;margin-left:20px;background:#e91e63;color:#fff;min-width:18px;height:18px;padding:0 4px;border-radius:50%;font-size:10px;display:none;align-items:center;justify-content:center}
-#adminArea{display:none;margin:10px 14px}.admin-btn{display:block;background:#222;color:#fff;text-align:center;text-decoration:none;padding:12px;border-radius:10px;font-weight:bold}
-</style>
+  <title>SayonMart</title>
+
+  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="./manifest.json">
+
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      background:#111;
+      color:#fff;
+      font-family:Arial,sans-serif;
+      padding-bottom:75px;
+    }
+
+    header{
+      background:#000;
+      padding:15px;
+      text-align:center;
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+
+    header h1{
+      margin:0;
+      color:#FFD700;
+      font-size:25px;
+    }
+
+    .search-box{
+      padding:12px;
+      background:#111;
+    }
+
+    #searchInput{
+      width:100%;
+      padding:13px;
+      border:none;
+      outline:none;
+      border-radius:10px;
+      font-size:16px;
+    }
+
+    .banner{
+      width:100%;
+      overflow:hidden;
+      padding:10px;
+    }
+
+    .banner img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:12px;
+      display:block;
+    }
+
+    .section-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 14px;
+    }
+
+    .section-title h2{
+      margin:0;
+      color:#FFD700;
+      font-size:20px;
+    }
+
+    .section-title a{
+      color:#fff;
+      text-decoration:none;
+      font-size:14px;
+    }
+
+    .categories{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      padding:10px;
+    }
+
+    .category{
+      background:#222;
+      border-radius:10px;
+      padding:15px 5px;
+      text-align:center;
+      cursor:pointer;
+    }
+
+    .category div{
+      font-size:28px;
+    }
+
+    .category span{
+      display:block;
+      margin-top:5px;
+      font-size:12px;
+    }
+
+    .products{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      padding:10px;
+    }
+
+    .product{
+      position:relative;
+      background:#222;
+      border-radius:12px;
+      overflow:hidden;
+      cursor:pointer;
+      min-width:0;
+    }
+
+    .product-img{
+      width:100%;
+      height:170px;
+      object-fit:cover;
+      display:block;
+      background:#333;
+    }
+
+    .heart{
+      position:absolute;
+      right:8px;
+      top:8px;
+      width:34px;
+      height:34px;
+      border:0;
+      border-radius:50%;
+      background:#fff;
+      color:#e91e63;
+      font-size:20px;
+      z-index:5;
+      cursor:pointer;
+    }
+
+    .product-info{
+      padding:10px;
+    }
+
+    .product-name{
+      font-size:15px;
+      font-weight:bold;
+      margin-bottom:7px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .price{
+      color:#FFD700;
+      font-size:18px;
+      font-weight:bold;
+      margin-bottom:9px;
+    }
+
+    .product-buttons{
+      display:flex;
+      gap:6px;
+    }
+
+    .product-buttons button{
+      flex:1;
+      border:0;
+      padding:9px 4px;
+      border-radius:7px;
+      font-size:12px;
+      cursor:pointer;
+    }
+
+    .add-btn{
+      background:#333;
+      color:#fff;
+    }
+
+    .buy-btn{
+      background:#FFD700;
+      color:#000;
+      font-weight:bold;
+    }
+
+    .empty{
+      grid-column:1/-1;
+      text-align:center;
+      padding:30px 10px;
+      color:#aaa;
+    }
+
+    .bottom-nav{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      height:65px;
+      background:#000;
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
+      z-index:999;
+      border-top:1px solid #333;
+    }
+
+    .bottom-nav a{
+      color:#fff;
+      text-decoration:none;
+      text-align:center;
+      font-size:12px;
+    }
+
+    .bottom-nav span{
+      display:block;
+      font-size:22px;
+      margin-bottom:2px;
+    }
+
+    @media(max-width:350px){
+      .products{
+        gap:8px;
+        padding:8px;
+      }
+
+      .product-img{
+        height:145px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="header">
-  <div class="top">
-    <div class="logo">SayonMart</div>
-    <div class="icons">
-      <button class="icon-btn" onclick="goWishlist()">♡</button>
-      <button class="icon-btn" onclick="goCart()">🛒</button>
-    </div>
+  <!-- HEADER -->
+  <header>
+    <h1>🛍️ SayonMart</h1>
+  </header>
+
+  <!-- SEARCH -->
+  <div class="search-box">
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="🔍 Product search করুন..."
+      oninput="searchProduct()">
   </div>
-  <div class="search">
-    <span>🔍</span>
-    <input id="searchInput" type="text" placeholder="Search products..." oninput="searchProducts()">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <img
+      id="bannerImage"
+      src="https://picsum.photos/800/300?random=1"
+      alt="SayonMart Banner">
   </div>
-</header>
 
-<div class="banner">
-  <h1>BIG DEALS 🔥</h1>
-  <p>Shop amazing products at amazing prices.</p>
-  <button class="shop-btn" onclick="goProducts()">Shop Now</button>
-</div>
-
-<div id="adminArea">
-  <a class="admin-btn" href="admin.html">⚙️ Admin Panel</a>
-</div>
-
-<section class="section">
+  <!-- CATEGORIES -->
   <div class="section-title">
     <h2>Categories</h2>
-    <span class="see-all" onclick="goProducts()">See All</span>
   </div>
-  <div class="categories">
-    <div class="category" onclick="openCategory('Fashion')"><div class="category-icon">👗</div><p>Fashion</p></div>
-    <div class="category" onclick="openCategory('Shoes')"><div class="category-icon">👟</div><p>Shoes</p></div>
-    <div class="category" onclick="openCategory('Mobiles')"><div class="category-icon">📱</div><p>Mobiles</p></div>
-    <div class="category" onclick="openCategory('Electronics')"><div class="category-icon">🎧</div><p>Electronics</p></div>
-    <div class="category" onclick="openCategory('Home')"><div class="category-icon">🏠</div><p>Home</p></div>
-    <div class="category" onclick="openCategory('Beauty')"><div class="category-icon">💄</div><p>Beauty</p></div>
-    <div class="category" onclick="openCategory('Watches')"><div class="category-icon">⌚</div><p>Watches</p></div>
-    <div class="category" onclick="goProducts()"><div class="category-icon">🛍️</div><p>More</p></div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-title">
-    <h2>Today's Top Deals 🔥</h2>
-    <span class="see-all" onclick="goProducts()">View All</span>
+  <div class="categories">
+
+    <div class="category" onclick="goCategory('Fashion')">
+      <div>👕</div>
+      <span>Fashion</span>
+    </div>
+
+    <div class="category" onclick="goCategory('Shoes')">
+      <div>👟</div>
+      <span>Shoes</span>
+    </div>
+
+    <div class="category" onclick="goCategory('Mobiles')">
+      <div>📱</div>
+      <span>Mobiles</span>
+    </div>
+
+    <div class="category" onclick="goCategory('Watches')">
+      <div>⌚</div>
+      <span>Watches</span>
+    </div>
+
   </div>
+
+  <!-- TOP DEALS -->
+  <div class="section-title">
+    <h2>🔥 Today's Top Deals</h2>
+    <a href="./products.html">See All</a>
+  </div>
+
   <div id="topDeals" class="products">
     <div class="empty">Loading products...</div>
   </div>
-</section>
 
-<section class="section">
+  <!-- TOP PRODUCTS -->
   <div class="section-title">
-    <h2>Top Products</h2>
-    <span class="see-all" onclick="goProducts()">View All</span>
+    <h2>⭐ Top Products</h2>
+    <a href="./products.html">See All</a>
   </div>
+
   <div id="products" class="products">
     <div class="empty">Loading products...</div>
   </div>
-</section>
 
-<div class="features">
-  <div class="feature"><div>🚚</div>Fast Delivery</div>
-  <div class="feature"><div>🔒</div>Secure Payment</div>
-  <div class="feature"><div>↩️</div>Easy Return</div>
-</div>
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
 
-<nav class="bottom">
-  <a class="active" href="index.html"><div>⌂</div>Home</a>
-  <a href="products.html"><div>▦</div>Products</a>
-  <a href="cart.html"><div>🛒</div><span class="cart-badge" id="cartBadge">0</span>Cart</a>
-  <a href="order.html"><div>▤</div>Orders</a>
-  <a href="profile.html"><div>♙</div>Profile</a>
-</nav>
+    <a href="./index.html">
+      <span>🏠</span>
+      Home
+    </a>
 
-<script type="module">
-import {db,auth} from "./firebase.js";
-import {collection,getDocs} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import {onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    <a href="./products.html">
+      <span>🛍️</span>
+      Products
+    </a>
 
-let allProducts=[];
+    <a href="./cart.html">
+      <span>🛒</span>
+      Cart
+    </a>
 
-function getCart(){
-  try{
-    const c=JSON.parse(localStorage.getItem("cart")||"[]");
-    return Array.isArray(c)?c:[];
-  }catch(e){return [];}
-}
+    <a href="./profile.html">
+      <span>👤</span>
+      Profile
+    </a>
 
-function updateCartCount(){
-  let n=0;
-  getCart().forEach(x=>n+=Number(x.quantity||1));
-  const b=document.getElementById("cartBadge");
-  if(!b)return;
-  b.textContent=n;
-  b.style.display=n?"flex":"none";
-}
+  </div>
 
-window.goCart=()=>location.href="cart.html";
-window.goProducts=()=>location.href="products.html";
-window.goWishlist=()=>location.href="products.html";
 
-window.openProduct=function(id){
-  if(!id){alert("Product ID পাওয়া যায়নি।");return;}
-  location.href="./product.html?id="+encodeURIComponent(id);
-};
+  <script type="module">
 
-window.openCategory=function(category){
-  localStorage.setItem("selectedCategory",category);
-  location.href="products.html";
-};
+    /*
+      =====================================
+      FIRESTORE REST API
+      =====================================
+    */
 
-window.addToCart=function(id,name,price,image){
-  const cart=getCart();
-  const old=cart.find(x=>String(x.id)===String(id));
-  if(old) old.quantity=Number(old.quantity||1)+1;
-  else cart.push({id,name:name||"Product",price:Number(price||0),image:image||"",quantity:1});
-  localStorage.setItem("cart",JSON.stringify(cart));
-  updateCartCount();
-  alert("🛒 Product cart-এ যোগ হয়েছে!");
-};
+    const FIRESTORE_URL =
+      "https://firestore.googleapis.com/v1/projects/sayonmart-90156/databases/(default)/documents/products";
 
-window.buyNow=function(id,name,price,image){
-  const cart=getCart();
-  const old=cart.find(x=>String(x.id)===String(id));
-  if(old) old.quantity=1;
-  else cart.push({id,name:name||"Product",price:Number(price||0),image:image||"",quantity:1});
-  localStorage.setItem("cart",JSON.stringify(cart));
-  location.href="payment.html";
-};
 
-window.addWishlist=function(id,name,price,image){
-  let w=[];
-  try{w=JSON.parse(localStorage.getItem("wishlist")||"[]");}catch(e){w=[];}
-  if(!Array.isArray(w))w=[];
-  if(w.some(x=>String(x.id)===String(id))){
-    alert("❤️ Productটি Wishlist-এ আগেই আছে।");
-    return;
-  }
-  w.push({id,name:name||"Product",price:Number(price||0),image:image||""});
-  localStorage.setItem("wishlist",JSON.stringify(w));
-  alert("❤️ Wishlist-এ যোগ হয়েছে!");
-};
+    let allProducts = [];
 
-function esc(v){
-  return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
 
-function productCard(p){
-  const id=p.id;
-  const name=p.name||p.title||"Product";
-  const price=Number(p.price||0);
-  let image=p.image||p.imageUrl||"";
-  if(!image && Array.isArray(p.images) && p.images.length) image=p.images[0];
-  if(!image) image="https://picsum.photos/500/500";
+    /*
+      =====================================
+      FIRESTORE VALUE CONVERTER
+      =====================================
+    */
 
-  const idJS=JSON.stringify(id);
-  const nameJS=JSON.stringify(name);
-  const imageJS=JSON.stringify(image);
-  const detailsURL="./product.html?id="+encodeURIComponent(id);
+    function firestoreValue(v){
 
-  return `
-  <div class="product" role="button" tabindex="0"
-       onclick='openProduct(${idJS})'
-       onkeydown='if(event.key==="Enter"||event.key===" "){event.preventDefault();openProduct(${idJS})}'>
-    <button class="heart" onclick='event.stopPropagation();addWishlist(${idJS},${nameJS},${price},${imageJS})'>♡</button>
+      if(!v) return null;
 
-    <div style="display:block;text-decoration:none;color:inherit">
-      <img class="product-img" src="${esc(image)}" alt="${esc(name)}" loading="lazy" decoding="async"
-        onerror="this.onerror=null;this.src='https://picsum.photos/500/500';">
-      <div class="product-info" style="padding-bottom:4px">
-        <div class="product-name">${esc(name)}</div>
-        <div class="price">₹${price}</div>
-      </div>
-    </div>
+      if("stringValue" in v)
+        return v.stringValue;
 
-    <div class="product-info" style="padding-top:4px">
-      <div class="product-buttons">
-        <button class="add-btn" onclick='event.stopPropagation();addToCart(${idJS},${nameJS},${price},${imageJS})'>🛒 Cart</button>
-        <button class="buy-btn" onclick='event.stopPropagation();buyNow(${idJS},${nameJS},${price},${imageJS})'>Buy Now</button>
-      </div>
-    </div>
-  </div>`;
-}
-function renderProducts(list){
-  const p=document.getElementById("products");
-  const d=document.getElementById("topDeals");
-  if(!list.length){
-    p.innerHTML='<div class="empty">🔍 No Products Found</div>';
-    d.innerHTML='<div class="empty">🔍 No Products Found</div>';
-    return;
-  }
-  p.innerHTML=list.slice(0,20).map(productCard).join("");
-  d.innerHTML=list.slice(0,4).map(productCard).join("");
-}
+      if("integerValue" in v)
+        return Number(v.integerValue);
 
-window.searchProducts=function(){
-  const q=document.getElementById("searchInput").value.toLowerCase().trim();
-  if(!q){renderProducts(allProducts);return;}
-  renderProducts(allProducts.filter(p=>{
-    const n=String(p.name||p.title||"").toLowerCase();
-    const c=String(p.category||"").toLowerCase();
-    return n.includes(q)||c.includes(q);
-  }));
-};
+      if("doubleValue" in v)
+        return Number(v.doubleValue);
 
-async function loadProducts(){
-  const p=document.getElementById("products");
-  const d=document.getElementById("topDeals");
-  try{
-    const snap=await getDocs(collection(db,"products"));
-    allProducts=[];
-    snap.forEach(doc=>allProducts.push({id:doc.id,...doc.data()}));
-    renderProducts(allProducts);
-  }catch(e){
-    console.error(e);
-    p.innerHTML='<div class="empty">⚠️ Products load হচ্ছে না। Internet/Firebase check করুন।</div>';
-    d.innerHTML='<div class="empty">⚠️ Products load হচ্ছে না।</div>';
-  }
-}
+      if("booleanValue" in v)
+        return v.booleanValue;
 
-onAuthStateChanged(auth,user=>{
-  const a=document.getElementById("adminArea");
-  if(user && user.uid==="fqQpbMgWScgUbu5Vco4dJ6WuBVL2") a.style.display="block";
-  else a.style.display="none";
-});
+      if("nullValue" in v)
+        return null;
 
-updateCartCount();
-loadProducts();
+      if("timestampValue" in v)
+        return v.timestampValue;
 
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=4").catch(console.log));
-}
-</script>
+      if("referenceValue" in v)
+        return v.referenceValue;
+
+      if("arrayValue" in v){
+
+        return (v.arrayValue.values || [])
+          .map(firestoreValue);
+
+      }
+
+      if("mapValue" in v){
+
+        const out = {};
+
+        for(
+          const [key,val]
+          of Object.entries(v.mapValue.fields || {})
+        ){
+
+          out[key] = firestoreValue(val);
+
+        }
+
+        return out;
+      }
+
+      return "";
+    }
+
+
+    /*
+      =====================================
+      FIRESTORE DOCUMENT CONVERTER
+      =====================================
+    */
+
+    function firestoreDoc(doc){
+
+      const id =
+        doc.name.split("/").pop();
+
+      const data = {
+        id:id
+      };
+
+      for(
+        const [key,value]
+        of Object.entries(doc.fields || {})
+      ){
+
+        data[key] =
+          firestoreValue(value);
+
+      }
+
+      return data;
+    }
+
+
+    /*
+      =====================================
+      ESCAPE HTML
+      =====================================
+    */
+
+    function esc(value){
+
+      return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+
+    /*
+      =====================================
+      OPEN PRODUCT DETAILS
+      =====================================
+    */
+
+    window.openProduct = function(id){
+
+      if(!id){
+
+        alert("Product ID পাওয়া যায়নি।");
+
+        return;
+      }
+
+      location.href =
+        "./product.html?id=" +
+        encodeURIComponent(id);
+
+    };
+
+
+    /*
+      =====================================
+      PRODUCT CARD
+      =====================================
+    */
+
+    function productCard(p){
+
+      const id = p.id;
+
+      const name =
+        p.name ||
+        p.title ||
+        "Product";
+
+      const price =
+        Number(p.price || 0);
+
+      let image =
+        p.image ||
+        p.imageUrl ||
+        "";
+
+      if(
+        !image &&
+        Array.isArray(p.images) &&
+        p.images.length
+      ){
+
+        image = p.images[0];
+
+      }
+
+      if(!image){
+
+        image =
+          "https://picsum.photos/500/500";
+
+      }
+
+
+      const idJS =
+        JSON.stringify(id);
+
+      const nameJS =
+        JSON.stringify(name);
+
+      const imageJS =
+        JSON.stringify(image);
+
+
+      return `
+
+        <div
+          class="product"
+          role="button"
+          tabindex="0"
+          onclick='openProduct(${idJS})'
+          onkeydown='
+            if(event.key==="Enter" || event.key===" "){
+              event.preventDefault();
+              openProduct(${idJS});
+            }
+          '>
+
+          <button
+            class="heart"
+            onclick='
+              event.stopPropagation();
+              addWishlist(
+                ${idJS},
+                ${nameJS},
+                ${price},
+                ${imageJS}
+              );
+            '>
+            ♡
+          </button>
+
+
+          <img
+            class="product-img"
+            src="${esc(image)}"
+            alt="${esc(name)}"
+            loading="lazy"
+            decoding="async"
+            onerror="
+              this.onerror=null;
+              this.src='https://picsum.photos/500/500';
+            ">
+
+
+          <div class="product-info">
+
+            <div class="product-name">
+              ${esc(name)}
+            </div>
+
+            <div class="price">
+              ₹${price}
+            </div>
+
+
+            <div class="product-buttons">
+
+              <button
+                class="add-btn"
+                onclick='
+                  event.stopPropagation();
+                  addToCart(
+                    ${idJS},
+                    ${nameJS},
+                    ${price},
+                    ${imageJS}
+                  );
+                '>
+                🛒 Cart
+              </button>
+
+
+              <button
+                class="buy-btn"
+                onclick='
+                  event.stopPropagation();
+                  buyNow(
+                    ${idJS},
+                    ${nameJS},
+                    ${price},
+                    ${imageJS}
+                  );
+                '>
+                Buy Now
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+    }
+
+
+    /*
+      =====================================
+      LOAD PRODUCTS FROM FIREBASE
+      =====================================
+    */
+
+    async function loadProducts(){
+
+      const productsBox =
+        document.getElementById("products");
+
+      const dealsBox =
+        document.getElementById("topDeals");
+
+
+      try{
+
+        productsBox.innerHTML =
+          '<div class="empty">Loading products...</div>';
+
+        dealsBox.innerHTML =
+          '<div class="empty">Loading products...</div>';
+
+
+        const response =
+          await fetch(
+            FIRESTORE_URL,
+            {
+              cache:"no-store"
+            }
+          );
+
+
+        if(!response.ok){
+
+          throw new Error(
+            "Firestore HTTP " +
+            response.status
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        allProducts =
+          (data.documents || [])
+            .map(firestoreDoc);
+
+
+        if(allProducts.length === 0){
+
+          productsBox.innerHTML =
+            '<div class="empty">কোনো Product পাওয়া যায়নি।</div>';
+
+          dealsBox.innerHTML =
+            '<div class="empty">কোনো Product পাওয়া যায়নি।</div>';
+
+          return;
+        }
+
+
+        renderProducts(allProducts);
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Product loading error:",
+          error
+        );
+
+
+        productsBox.innerHTML =
+          `
+          <div class="empty">
+            ⚠️ Products load হচ্ছে না।<br>
+            Firebase check করুন।
+          </div>
+          `;
+
+
+        dealsBox.innerHTML =
+          `
+          <div class="empty">
+            ⚠️ Products load হচ্ছে না।
+          </div>
+          `;
+
+      }
+
+    }
+
+
+    /*
+      =====================================
+      RENDER PRODUCTS
+      =====================================
+    */
+
+    function renderProducts(list){
+
+      const productsBox =
+        document.getElementById("products");
+
+      const dealsBox =
+        document.getElementById("topDeals");
+
+
+      if(!list.length){
+
+        productsBox.innerHTML =
+          '<div class="empty">Product পাওয়া যায়নি।</div>';
+
+        dealsBox.innerHTML =
+          '<div class="empty">Product পাওয়া যায়নি।</div>';
+
+        return;
+      }
+
+
+      /*
+        TOP PRODUCTS
+      */
+
+      productsBox.innerHTML =
+        list
+          .map(productCard)
+          .join("");
+
+
+      /*
+        TOP DEALS
+        প্রথম 4টি Product
+      */
+
+      dealsBox.innerHTML =
+        list
+          .slice(0,4)
+          .map(productCard)
+          .join("");
+
+    }
+
+
+    /*
+      =====================================
+      SEARCH PRODUCT
+      =====================================
+    */
+
+    window.searchProduct = function(){
+
+      const input =
+        document.getElementById(
+          "searchInput"
+        );
+
+
+      const text =
+        input.value
+          .trim()
+          .toLowerCase();
+
+
+      if(!text){
+
+        renderProducts(allProducts);
+
+        return;
+      }
+
+
+      const filtered =
+        allProducts.filter(p => {
+
+          const name =
+            (
+              p.name ||
+              p.title ||
+              ""
+            )
+            .toString()
+            .toLowerCase();
+
+
+          return name.includes(text);
+
+        });
+
+
+      renderProducts(filtered);
+
+    };
+
+
+    /*
+      =====================================
+      ADD TO CART
+      =====================================
+    */
+
+    window.addToCart = function(
+      id,
+      name,
+      price,
+      image
+    ){
+
+      const cart =
+        JSON.parse(
+          localStorage.getItem("cart") ||
+          "[]"
+        );
+
+
+      const existing =
+        cart.find(
+          item => item.id === id
+        );
+
+
+      if(existing){
+
+        existing.qty =
+          Number(existing.qty || 1) + 1;
+
+      }else{
+
+        cart.push({
+
+          id:id,
+          name:name,
+          price:Number(price || 0),
+          image:image,
+          qty:1
+
+        });
+
+      }
+
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+      );
+
+
+      alert(
+        "Product cart-এ যোগ হয়েছে!"
+      );
+
+    };
+
+
+    /*
+      =====================================
+      BUY NOW
+      =====================================
+    */
+
+    window.buyNow = function(
+      id,
+      name,
+      price,
+      image
+    ){
+
+      const item = {
+
+        id:id,
+        name:name,
+        price:Number(price || 0),
+        image:image,
+        qty:1
+
+      };
+
+
+      localStorage.setItem(
+        "buyNow",
+        JSON.stringify(item)
+      );
+
+
+      location.href =
+        "./order.html";
+
+    };
+
+
+    /*
+      =====================================
+      WISHLIST
+      =====================================
+    */
+
+    window.addWishlist = function(
+      id,
+      name,
+      price,
+      image
+    ){
+
+      const wishlist =
+        JSON.parse(
+          localStorage.getItem("wishlist") ||
+          "[]"
+        );
+
+
+      const exists =
+        wishlist.some(
+          item => item.id === id
+        );
+
+
+      if(!exists){
+
+        wishlist.push({
+
+          id:id,
+          name:name,
+          price:Number(price || 0),
+          image:image
+
+        });
+
+
+        localStorage.setItem(
+          "wishlist",
+          JSON.stringify(wishlist)
+        );
+
+
+        alert(
+          "Wishlist-এ যোগ হয়েছে ❤️"
+        );
+
+      }else{
+
+        alert(
+          "এটি আগে থেকেই Wishlist-এ আছে।"
+        );
+
+      }
+
+    };
+
+
+    /*
+      =====================================
+      CATEGORY
+      =====================================
+    */
+
+    window.goCategory = function(category){
+
+      location.href =
+        "./products.html?category=" +
+        encodeURIComponent(category);
+
+    };
+
+
+    /*
+      =====================================
+      BANNER SLIDER
+      =====================================
+    */
+
+    const banners = [
+
+      "https://picsum.photos/800/300?random=1",
+
+      "https://picsum.photos/800/300?random=2",
+
+      "https://picsum.photos/800/300?random=3"
+
+    ];
+
+
+    let bannerIndex = 0;
+
+
+    setInterval(function(){
+
+      bannerIndex++;
+
+      if(
+        bannerIndex >= banners.length
+      ){
+
+        bannerIndex = 0;
+
+      }
+
+
+      const banner =
+        document.getElementById(
+          "bannerImage"
+        );
+
+
+      if(banner){
+
+        banner.src =
+          banners[bannerIndex];
+
+      }
+
+    },3000);
+
+
+    /*
+      =====================================
+      START
+      =====================================
+    */
+
+    loadProducts();
+
+  </script>
 
 </body>
 </html>
