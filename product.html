@@ -2,761 +2,209 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SayonMart Product</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details - SayonMart</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f5f5;
-  color:#222;
-  padding-bottom:75px;
-}
-header{
-  height:58px;
-  background:#e91e63;
-  color:white;
-  display:flex;
-  align-items:center;
-  padding:0 12px;
-  gap:15px;
-  position:sticky;
-  top:0;
-  z-index:20;
-}
-header button{
-  background:none;
-  border:0;
-  color:white;
-  font-size:25px;
-}
-.logo{
-  font-size:21px;
-  font-weight:bold;
-  flex:1;
-}
-.box{
-  background:white;
-  margin-bottom:10px;
-  padding:14px;
-}
-.mainImg{
-  width:100%;
-  height:330px;
-  object-fit:contain;
-  background:#fafafa;
-  border-radius:10px;
-}
-.thumbs{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-  overflow-x:auto;
-}
-.thumbs img{
-  width:65px;
-  height:65px;
-  object-fit:contain;
-  border:2px solid #ddd;
-  border-radius:7px;
-}
-.title{
-  font-size:21px;
-  font-weight:bold;
-}
-.rating{
-  color:#ff9800;
-  margin:8px 0;
-}
-.price{
-  color:#e91e63;
-  font-size:28px;
-  font-weight:bold;
-}
-.old{
-  color:#888;
-  text-decoration:line-through;
-  margin-left:8px;
-}
-.discount{
-  background:#e91e63;
-  color:white;
-  padding:5px 8px;
-  border-radius:5px;
-  margin-left:7px;
-}
-.desc{
-  line-height:1.6;
-  color:#555;
-}
-.benefits{
-  display:flex;
-  justify-content:space-around;
-  text-align:center;
-  font-size:13px;
-}
-.benefits div{
-  flex:1;
-}
-.sectionTitle{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:12px;
-}
-.recommend{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-}
-.recCard{
-  min-width:165px;
-  width:165px;
-  background:white;
-  border:1px solid #eee;
-  border-radius:10px;
-  padding:8px;
-}
-.recCard img{
-  width:100%;
-  height:145px;
-  object-fit:contain;
-  background:#fafafa;
-  border-radius:8px;
-}
-.recName{
-  font-weight:bold;
-  height:38px;
-  overflow:hidden;
-  margin-top:7px;
-}
-.recPrice{
-  color:#e91e63;
-  font-weight:bold;
-  font-size:18px;
-  margin-top:5px;
-}
-.recCard button{
-  width:100%;
-  margin-top:8px;
-  padding:8px;
-  border:0;
-  border-radius:7px;
-  background:#e91e63;
-  color:white;
-}
-.actionBar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:white;
-  padding:8px;
-  display:flex;
-  gap:8px;
-  z-index:30;
-  box-shadow:0 -2px 8px #ddd;
-}
-.actionBar button{
-  flex:1;
-  padding:13px 5px;
-  border:0;
-  border-radius:8px;
-  font-weight:bold;
-  font-size:15px;
-}
-.cartBtn{
-  background:white;
-  color:#e91e63;
-  border:2px solid #e91e63 !important;
-}
-.buyBtn{
-  background:#e91e63;
-  color:white;
-}
-.loading{
-  text-align:center;
-  padding:60px 20px;
-  color:#777;
-}
-.error{
-  text-align:center;
-  padding:60px 20px;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222;padding-bottom:75px}
+header{background:#e91e63;color:white;padding:15px;text-align:center;font-size:21px;font-weight:bold;position:sticky;top:0;z-index:10}
+.back{position:absolute;left:15px;top:15px;color:white;text-decoration:none;font-size:18px}
+.container{max-width:900px;margin:auto}
+.card{background:white;margin:12px;border-radius:10px;padding:14px}
+.main-img{width:100%;height:330px;object-fit:contain;border-radius:8px;background:#fff}
+.thumbs{display:flex;gap:8px;overflow-x:auto;margin-top:10px}
+.thumbs img{width:65px;height:65px;object-fit:cover;border:2px solid #ddd;border-radius:6px;cursor:pointer}
+.title{font-size:21px;font-weight:bold;margin:10px 0}
+.price{font-size:25px;font-weight:bold;color:#e91e63}
+.old{text-decoration:line-through;color:#888;margin-left:8px}
+.discount{color:green;font-weight:bold;margin-left:8px}
+.rating{display:inline-block;background:#168a43;color:white;padding:5px 8px;border-radius:5px;margin:8px 0}
+h3{margin-bottom:8px}
+.benefits{padding-left:20px;line-height:1.8}
+.recommendations{display:flex;gap:10px;overflow-x:auto}
+.rec{min-width:155px;background:white;border:1px solid #ddd;border-radius:8px;padding:8px;cursor:pointer}
+.rec img{width:100%;height:140px;object-fit:contain}
+.rec-name{font-size:14px;height:38px;overflow:hidden;margin:5px 0}
+.rec-price{font-weight:bold;color:#e91e63}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:white;padding:10px;display:flex;gap:8px;box-shadow:0 -2px 8px #aaa;z-index:20}
+.bottom button{flex:1;border:0;padding:14px;border-radius:7px;font-size:16px;font-weight:bold;cursor:pointer}
+.cart{background:#ff9800;color:white}
+.buy{background:#e91e63;color:white}
+.loading{text-align:center;padding:40px}
+.error{text-align:center;padding:30px;color:#d00}
 </style>
 </head>
-
 <body>
 
 <header>
-  <button onclick="history.back()">‹</button>
-  <div class="logo">SayonMart</div>
-  <button onclick="location.href='cart.html'">🛒</button>
+<a class="back" href="index.html">←</a>
+SayonMart
 </header>
 
-<div id="product">
+<div id="content" class="container">
   <div class="loading">Product loading...</div>
 </div>
 
-<div class="actionBar" id="actions" style="display:none">
-  <button class="cartBtn" onclick="addCurrentCart()">
-    🛒 Add to Cart
-  </button>
-
-  <button class="buyBtn" onclick="buyNow()">
-    ⚡ Buy Now
-  </button>
+<div class="bottom" id="bottomBar" style="display:none">
+  <button class="cart" id="cartBtn">🛒 Add to Cart</button>
+  <button class="buy" id="buyBtn">⚡ Buy Now</button>
 </div>
 
 <script type="module">
+import { db } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {db} from "./firebase.js";
+const content = document.getElementById("content");
+const bottomBar = document.getElementById("bottomBar");
 
-import {
-  doc,
-  getDoc,
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-const productBox =
-  document.getElementById("product");
-
-const productId =
-  new URLSearchParams(location.search).get("id");
+const params = new URLSearchParams(location.search);
+const productId = params.get("id");
 
 let currentProduct = null;
 
-
-// ==========================
-// IMAGE
-// ==========================
-
-function getImage(product){
-
-  if(product.image)
-    return product.image;
-
-  if(Array.isArray(product.images) &&
-     product.images.length)
-    return product.images[0];
-
-  return "https://via.placeholder.com/500?text=SayonMart";
+function money(value){
+  const n = Number(value);
+  return "₹" + (isNaN(n) ? value : n);
 }
 
-
-// ==========================
-// SAFE
-// ==========================
-
-function safe(text){
-
-  return String(text ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
+function escapeHTML(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
+function addToCart(product){
+  let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const old = cart.find(x => x.id === product.id);
 
-// ==========================
-// LOAD PRODUCT
-// ==========================
-
-async function loadProduct(){
-
-  if(!productId){
-
-    productBox.innerHTML =
-      `<div class="error">
-        Product পাওয়া যায়নি।
-      </div>`;
-
-    return;
+  if(old){
+    old.quantity = (old.quantity || 1) + 1;
+  }else{
+    cart.push({
+      id: product.id,
+      name: product.name || "Product",
+      price: Number(product.price) || 0,
+      image: product.image || "",
+      quantity: 1
+    });
   }
 
-
-  try{
-
-    const ref =
-      doc(db,"products",productId);
-
-    const snap =
-      await getDoc(ref);
-
-
-    if(!snap.exists()){
-
-      productBox.innerHTML =
-        `<div class="error">
-          Product পাওয়া যায়নি।
-        </div>`;
-
-      return;
-    }
-
-
-    currentProduct = {
-      id:snap.id,
-      ...snap.data()
-    };
-
-
-    showProduct(currentProduct);
-
-    loadRecommendations();
-
-  }catch(error){
-
-    console.error(error);
-
-    productBox.innerHTML =
-      `<div class="error">
-        Product load করা যাচ্ছে না।
-      </div>`;
-
-  }
-
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Product cart-এ যোগ হয়েছে!");
 }
 
+function buyNow(product){
+  addToCart(product);
+  location.href = "payment.html";
+}
 
-// ==========================
-// SHOW PRODUCT
-// ==========================
+function showProduct(product, allProducts){
+  currentProduct = product;
 
-function showProduct(product){
+  const image = product.image || product.imageUrl || "https://via.placeholder.com/500";
+  const name = product.name || "Product";
+  const price = product.price ?? 0;
+  const oldPrice = product.oldPrice;
+  const discount = product.discount;
+  const rating = product.rating || "4.5";
+  const description = product.description || "এই পণ্যের কোনো বিবরণ দেওয়া হয়নি।";
 
-  const image =
-    getImage(product);
+  const benefits = Array.isArray(product.benefits)
+    ? product.benefits
+    : ["ভালো মানের পণ্য","সহজে অর্ডার করুন","SayonMart থেকে কিনুন"];
 
-  const name =
-    product.name || "Product";
+  const related = allProducts
+    .filter(p => p.id !== product.id)
+    .slice(0,10);
 
-  const price =
-    Number(product.price || 0);
-
-  const oldPrice =
-    Number(product.oldPrice || 0);
-
-  const discount =
-    oldPrice > price
-    ? Math.round((oldPrice-price)/oldPrice*100)
-    : 0;
-
-  const rating =
-    product.rating || "4.5";
-
-  const description =
-    product.description ||
-    "এই Product সম্পর্কে বিস্তারিত তথ্য এখানে দেখতে পারবেন।";
-
-
-  let images = [];
-
-  if(Array.isArray(product.images))
-    images = product.images;
-
-  if(product.image &&
-     !images.includes(product.image))
-    images.unshift(product.image);
-
-  if(!images.length)
-    images = [image];
-
-
-  productBox.innerHTML = `
-
-    <div class="box">
-
-      <img
-        id="mainImage"
-        class="mainImg"
-        src="${safe(image)}"
-        alt="${safe(name)}"
-      >
-
+  content.innerHTML = `
+    <div class="card">
+      <img id="mainImage" class="main-img" src="${escapeHTML(image)}" alt="${escapeHTML(name)}">
       <div class="thumbs">
-
-        ${images.map(img=>`
-
-          <img
-            src="${safe(img)}"
-            loading="lazy"
-            onclick="changeImage('${safe(img)}')"
-          >
-
-        `).join("")}
-
+        <img src="${escapeHTML(image)}" onclick="document.getElementById('mainImage').src=this.src">
+        ${(product.images || []).map(img =>
+          `<img src="${escapeHTML(img)}" onclick="document.getElementById('mainImage').src=this.src">`
+        ).join("")}
       </div>
-
     </div>
 
-
-    <div class="box">
-
-      <div class="title">
-        ${safe(name)}
-      </div>
-
-      <div class="rating">
-        ⭐ ${safe(rating)}
-        <span style="color:#888">
-          | Customer Reviews
-        </span>
-      </div>
-
+    <div class="card">
+      <div class="title">${escapeHTML(name)}</div>
+      <span class="rating">★ ${escapeHTML(rating)}</span>
       <div>
+        <span class="price">${money(price)}</span>
+        ${oldPrice ? `<span class="old">${money(oldPrice)}</span>` : ""}
+        ${discount ? `<span class="discount">${escapeHTML(discount)}% OFF</span>` : ""}
+      </div>
 
-        <span class="price">
-          ₹${price}
-        </span>
+      <h3>Product Description</h3>
+      <p>${escapeHTML(description)}</p>
 
+      <h3>Benefits</h3>
+      <ul class="benefits">
+        ${benefits.map(b => `<li>${escapeHTML(b)}</li>`).join("")}
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>More Products</h3>
+      <div class="recommendations">
         ${
-          oldPrice > price
-          ? `<span class="old">₹${oldPrice}</span>`
-          : ""
+          related.length
+          ? related.map(p => {
+              const img = p.image || p.imageUrl || "https://via.placeholder.com/300";
+              return `
+                <div class="rec" data-id="${escapeHTML(p.id)}">
+                  <img src="${escapeHTML(img)}" alt="${escapeHTML(p.name || "Product")}">
+                  <div class="rec-name">${escapeHTML(p.name || "Product")}</div>
+                  <div class="rec-price">${money(p.price ?? 0)}</div>
+                </div>
+              `;
+            }).join("")
+          : "<p>আর কোনো product নেই।</p>"
         }
-
-        ${
-          discount
-          ? `<span class="discount">
-               ${discount}% OFF
-             </span>`
-          : ""
-        }
-
       </div>
-
     </div>
-
-
-    <div class="box">
-
-      <div class="sectionTitle">
-        Product Details
-      </div>
-
-      <div class="desc">
-        ${safe(description)}
-      </div>
-
-    </div>
-
-
-    <div class="box">
-
-      <div class="benefits">
-
-        <div>
-          🔄<br>
-          Easy Return
-        </div>
-
-        <div>
-          💵<br>
-          Cash on Delivery
-        </div>
-
-        <div>
-          🚚<br>
-          Fast Delivery
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="box">
-
-      <div class="sectionTitle">
-        🔥 আরও Product দেখুন
-      </div>
-
-      <div
-        id="recommendations"
-        class="recommend">
-
-        <div class="loading">
-          Loading...
-        </div>
-
-      </div>
-
-    </div>
-
   `;
 
+  document.querySelectorAll(".rec").forEach(card => {
+    card.addEventListener("click", () => {
+      location.href = "product.html?id=" + encodeURIComponent(card.dataset.id);
+    });
+  });
 
-  document.getElementById("actions")
-    .style.display = "flex";
-
+  document.getElementById("cartBtn").onclick = () => addToCart(currentProduct);
+  document.getElementById("buyBtn").onclick = () => buyNow(currentProduct);
+  bottomBar.style.display = "flex";
 }
 
-
-// ==========================
-// CHANGE IMAGE
-// ==========================
-
-window.changeImage =
-function(image){
-
-  document.getElementById("mainImage")
-    .src = image;
-
-};
-
-
-// ==========================
-// ADD CART
-// ==========================
-
-function addCart(product){
-
-  let cart =
-    JSON.parse(
-      localStorage.getItem("cart") || "[]"
-    );
-
-
-  const found =
-    cart.find(item =>
-      String(item.id) === String(product.id)
-    );
-
-
-  if(found){
-
-    found.quantity =
-      Number(found.quantity || 1) + 1;
-
-  }else{
-
-    cart.push({
-
-      id:product.id,
-
-      name:product.name || "Product",
-
-      price:Number(product.price || 0),
-
-      image:getImage(product),
-
-      quantity:1
-
-    });
-
+async function load(){
+  if(!productId){
+    content.innerHTML = `<div class="error">Product ID পাওয়া যায়নি। Home থেকে product-এ আবার চাপুন।</div>`;
+    return;
   }
 
-
-  localStorage.setItem(
-    "cart",
-    JSON.stringify(cart)
-  );
-
-
-  alert("🛒 Product Cart-এ যোগ হয়েছে!");
-
-}
-
-
-window.addCurrentCart =
-function(){
-
-  if(currentProduct)
-    addCart(currentProduct);
-
-};
-
-
-window.buyNow =
-function(){
-
-  if(!currentProduct)
-    return;
-
-  addCart(currentProduct);
-
-  location.href =
-    "payment.html";
-
-};
-
-
-// ==========================
-// RECOMMENDATIONS
-// ==========================
-
-async function loadRecommendations(){
-
-  const box =
-    document.getElementById(
-      "recommendations"
-    );
-
-  if(!box) return;
-
-
   try{
+    const snapshot = await getDocs(collection(db,"products"));
+    const allProducts = snapshot.docs.map(d => ({id:d.id, ...d.data()}));
+    const product = allProducts.find(p => p.id === productId);
 
-    const snapshot =
-      await getDocs(
-        collection(db,"products")
-      );
-
-
-    const products = [];
-
-
-    snapshot.forEach(doc=>{
-
-      if(doc.id !== productId){
-
-        products.push({
-
-          id:doc.id,
-          ...doc.data()
-
-        });
-
-      }
-
-    });
-
-
-    // সর্বোচ্চ ১০টা product
-    const list =
-      products.slice(0,10);
-
-
-    if(!list.length){
-
-      box.innerHTML =
-        "<div>আরও Product নেই</div>";
-
+    if(!product){
+      content.innerHTML = `<div class="error">Product পাওয়া যায়নি।</div>`;
       return;
-
     }
 
-
-    box.innerHTML =
-      list.map(product=>{
-
-        const image =
-          getImage(product);
-
-        const name =
-          product.name || "Product";
-
-        const price =
-          Number(product.price || 0);
-
-
-        return `
-
-          <div
-            class="recCard"
-            onclick="openRecommended('${product.id}')"
-          >
-
-            <img
-              src="${safe(image)}"
-              loading="lazy"
-              decoding="async"
-            >
-
-            <div class="recName">
-              ${safe(name)}
-            </div>
-
-            <div class="recPrice">
-              ₹${price}
-            </div>
-
-            <button
-              onclick="event.stopPropagation();
-              addRecommended('${product.id}')">
-
-              🛒 Add to Cart
-
-            </button>
-
-          </div>
-
-        `;
-
-      }).join("");
-
-
+    showProduct(product, allProducts);
   }catch(error){
-
     console.error(error);
-
-    box.innerHTML =
-      "<div>Product load করা যায়নি</div>";
-
+    content.innerHTML = `<div class="error">Product load হয়নি। Internet/Firebase connection check করুন।</div>`;
   }
-
 }
 
-
-// ==========================
-// OPEN RECOMMENDED
-// ==========================
-
-window.openRecommended =
-function(id){
-
-  location.href =
-    "product.html?id=" +
-    encodeURIComponent(id);
-
-};
-
-
-// ==========================
-// ADD RECOMMENDED
-// ==========================
-
-window.addRecommended =
-async function(id){
-
-  try{
-
-    const snap =
-      await getDoc(
-        doc(db,"products",id)
-      );
-
-
-    if(!snap.exists())
-      return;
-
-
-    const product = {
-      id:snap.id,
-      ...snap.data()
-    };
-
-
-    addCart(product);
-
-  }catch(error){
-
-    console.error(error);
-
-  }
-
-};
-
-
-// START
-loadProduct();
-
+load();
 </script>
 
 </body>
