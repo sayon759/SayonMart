@@ -1,371 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SayonMart Cart</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
+*{box-sizing:border-box}
 body{
+  margin:0;
   font-family:Arial,sans-serif;
   background:#f5f5f5;
   color:#222;
-  padding-bottom:90px;
+  padding-bottom:80px;
 }
-
-/* HEADER */
-
 header{
   background:#e91e63;
   color:white;
-  padding:16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  padding:15px;
+  font-size:22px;
+  font-weight:bold;
   position:sticky;
   top:0;
   z-index:10;
 }
-
-header h2{
-  font-size:20px;
+#cart{
+  padding:10px;
 }
-
-/* CONTAINER */
-
-.container{
-  max-width:800px;
-  margin:auto;
-  padding:15px;
-}
-
-/* CART ITEM */
-
-.cart-item{
+.item{
   background:white;
-  border-radius:12px;
-  padding:12px;
-  margin-bottom:12px;
+  margin-bottom:10px;
+  padding:10px;
+  border-radius:10px;
   display:flex;
-  gap:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  gap:10px;
+  box-shadow:0 1px 4px #ddd;
 }
-
-.cart-item img{
+.item img{
   width:90px;
   height:90px;
-  object-fit:cover;
+  object-fit:contain;
   border-radius:8px;
-  background:#eee;
+  background:#fafafa;
 }
-
-.item-info{
+.info{
   flex:1;
 }
-
-.item-info h3{
-  font-size:16px;
-  margin-bottom:7px;
+.name{
+  font-weight:bold;
+  margin-bottom:5px;
 }
-
-.item-price{
+.price{
   color:#e91e63;
   font-weight:bold;
-  font-size:17px;
+  font-size:18px;
 }
-
-/* QUANTITY */
-
-.quantity{
+.qty{
   display:flex;
   align-items:center;
-  gap:8px;
-  margin-top:10px;
-}
-
-.quantity button{
-  width:32px;
-  height:32px;
-  border:none;
-  border-radius:6px;
-  background:#e91e63;
-  color:white;
-  font-size:18px;
-  cursor:pointer;
-}
-
-.quantity span{
-  min-width:25px;
-  text-align:center;
-  font-weight:bold;
-}
-
-/* REMOVE */
-
-.remove{
+  gap:10px;
   margin-top:8px;
-  border:none;
-  background:none;
-  color:#e53935;
-  cursor:pointer;
-  font-size:13px;
 }
-
-/* SUMMARY */
-
+.qty button{
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:6px;
+  background:#eee;
+  font-size:18px;
+}
+.delete{
+  border:0;
+  background:#ffebee;
+  color:#e91e63;
+  padding:6px 9px;
+  border-radius:6px;
+}
 .summary{
   background:white;
-  border-radius:12px;
-  padding:18px;
-  margin-top:18px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  margin:10px;
+  padding:15px;
+  border-radius:10px;
 }
-
 .row{
   display:flex;
   justify-content:space-between;
-  margin-bottom:12px;
+  margin:8px 0;
 }
-
 .total{
   border-top:1px solid #ddd;
-  padding-top:14px;
+  padding-top:10px;
   font-size:20px;
   font-weight:bold;
 }
-
 .checkout{
   width:100%;
-  padding:15px;
-  border:none;
-  border-radius:8px;
+  border:0;
+  padding:13px;
   background:#e91e63;
   color:white;
+  border-radius:8px;
   font-size:17px;
   font-weight:bold;
-  margin-top:15px;
-  cursor:pointer;
+  margin-top:10px;
 }
-
-/* EMPTY */
-
 .empty{
   text-align:center;
   padding:60px 20px;
   color:#777;
 }
-
-.empty h2{
-  margin-bottom:10px;
-}
-
-/* BOTTOM NAV */
-
 .bottom{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  height:65px;
   background:white;
   border-top:1px solid #ddd;
   display:flex;
   justify-content:space-around;
-  align-items:center;
+  padding:9px 0;
   z-index:20;
 }
-
 .bottom a{
   text-decoration:none;
-  color:#777;
+  color:#555;
+  font-size:13px;
   text-align:center;
-  font-size:12px;
 }
-
-.bottom a div{
-  font-size:22px;
-  margin-bottom:2px;
-}
-
-.bottom .active{
-  color:#e91e63;
-}
-
 </style>
 </head>
 
 <body>
 
+<header>🛒 SayonMart Cart</header>
 
-<!-- HEADER -->
+<div id="cart"></div>
 
-<header>
+<div id="summary"></div>
 
-  <h2>
-    🛒 My Cart
-  </h2>
-
-  <span
-    onclick="location.href='products.html'"
-    style="cursor:pointer;"
-  >
-    Continue Shopping
-  </span>
-
-</header>
-
-
-
-<div class="container">
-
-
-  <!-- CART -->
-
-  <div id="cartList"></div>
-
-
-  <!-- SUMMARY -->
-
-  <div
-    id="summary"
-    class="summary"
-    style="display:none;"
-  >
-
-    <div class="row">
-
-      <span>
-        Items
-      </span>
-
-      <span id="itemCount">
-        0
-      </span>
-
-    </div>
-
-
-    <div class="row">
-
-      <span>
-        Subtotal
-      </span>
-
-      <span>
-        ₹<span id="subtotal">0</span>
-      </span>
-
-    </div>
-
-
-    <div class="row">
-
-      <span>
-        Delivery
-      </span>
-
-      <span id="delivery">
-        ₹0
-      </span>
-
-    </div>
-
-
-    <div class="row total">
-
-      <span>
-        Total
-      </span>
-
-      <span>
-        ₹<span id="total">0</span>
-      </span>
-
-    </div>
-
-
-    <button
-      class="checkout"
-      onclick="checkout()"
-    >
-      Proceed to Checkout →
-    </button>
-
-  </div>
-
+<div class="bottom">
+  <a href="index.html">🏠<br>Home</a>
+  <a href="products.html">🛍️<br>Products</a>
+  <a href="cart.html">🛒<br>Cart</a>
+  <a href="order.html">📦<br>Orders</a>
+  <a href="profile.html">👤<br>Profile</a>
 </div>
-
-
-
-<!-- BOTTOM NAV -->
-
-<nav class="bottom">
-
-  <a href="index.html">
-
-    <div>⌂</div>
-
-    Home
-
-  </a>
-
-
-  <a href="products.html">
-
-    <div>▦</div>
-
-    Products
-
-  </a>
-
-
-  <a
-    href="cart.html"
-    class="active"
-  >
-
-    <div>🛒</div>
-
-    Cart
-
-  </a>
-
-
-  <a href="order.html">
-
-    <div>▤</div>
-
-    Orders
-
-  </a>
-
-
-  <a href="profile.html">
-
-    <div>♙</div>
-
-    Profile
-
-  </a>
-
-</nav>
-
-
 
 <script>
 
+const cartBox =
+  document.getElementById("cart");
 
-/* =========================
-   GET CART
-========================= */
+const summaryBox =
+  document.getElementById("summary");
+
+
+// ======================
+// LOAD CART
+// ======================
 
 function getCart(){
 
@@ -375,8 +167,7 @@ function getCart(){
       localStorage.getItem("cart") || "[]"
     );
 
-  }
-  catch(error){
+  }catch(e){
 
     return [];
 
@@ -385,10 +176,9 @@ function getCart(){
 }
 
 
-
-/* =========================
-   SAVE CART
-========================= */
+// ======================
+// SAVE CART
+// ======================
 
 function saveCart(cart){
 
@@ -400,441 +190,258 @@ function saveCart(cart){
 }
 
 
+// ======================
+// IMAGE
+// ======================
 
-/* =========================
-   LOAD CART
-========================= */
+function getImage(item){
 
-function loadCart(){
+  if(item.image)
+    return item.image;
 
-  const cart =
-    getCart();
+  return "https://via.placeholder.com/150?text=Product";
 
-  const list =
-    document.getElementById(
-      "cartList"
-    );
-
-  const summary =
-    document.getElementById(
-      "summary"
-    );
+}
 
 
-  /* EMPTY CART */
+// ======================
+// SHOW CART
+// ======================
+
+function showCart(){
+
+  const cart = getCart();
 
   if(cart.length === 0){
 
-    list.innerHTML = `
-
+    cartBox.innerHTML = `
       <div class="empty">
-
-        <div style="font-size:60px;">
-          🛒
-        </div>
-
-        <h2>
-          Your Cart is Empty
-        </h2>
-
-        <p>
-          Add some products to your cart.
-        </p>
-
+        <div style="font-size:55px">🛒</div>
+        <h3>আপনার Cart খালি</h3>
+        <p>Product যোগ করুন</p>
         <button
-          onclick="location.href='products.html'"
-          style="
-            margin-top:20px;
-            padding:13px 25px;
-            border:none;
-            border-radius:8px;
-            background:#e91e63;
-            color:white;
-            font-weight:bold;
-          "
-        >
-          Shop Now
+          class="checkout"
+          onclick="location.href='products.html'">
+          🛍️ Product দেখুন
         </button>
+      </div>
+    `;
+
+    summaryBox.innerHTML = "";
+
+    return;
+  }
+
+
+  let html = "";
+
+  let subtotal = 0;
+
+
+  cart.forEach((item,index)=>{
+
+    const price =
+      Number(item.price || 0);
+
+    const quantity =
+      Number(item.quantity || 1);
+
+    const total =
+      price * quantity;
+
+    subtotal += total;
+
+
+    html += `
+
+      <div class="item">
+
+        <img
+          src="${getImage(item)}"
+          loading="lazy"
+          decoding="async"
+          alt="Product"
+        >
+
+        <div class="info">
+
+          <div class="name">
+            ${escapeHTML(item.name || "Product")}
+          </div>
+
+          <div class="price">
+            ₹${price}
+          </div>
+
+          <div class="qty">
+
+            <button
+              onclick="changeQty(${index},-1)">
+              −
+            </button>
+
+            <b>${quantity}</b>
+
+            <button
+              onclick="changeQty(${index},1)">
+              +
+            </button>
+
+            <button
+              class="delete"
+              onclick="removeItem(${index})">
+              🗑️
+            </button>
+
+          </div>
+
+        </div>
 
       </div>
 
     `;
 
-    summary.style.display =
-      "none";
+  });
 
-    return;
 
-  }
+  cartBox.innerHTML = html;
 
 
-  summary.style.display =
-    "block";
+  const delivery =
+    subtotal >= 499 ? 0 : 40;
 
+  const grandTotal =
+    subtotal + delivery;
 
-  list.innerHTML =
-    "";
 
+  summaryBox.innerHTML = `
 
-  let subtotal = 0;
+    <div class="summary">
 
-  let itemCount = 0;
+      <div class="row">
+        <span>Subtotal</span>
+        <b>₹${subtotal}</b>
+      </div>
 
+      <div class="row">
+        <span>Delivery</span>
+        <b>
+          ${delivery === 0 ? "FREE" : "₹" + delivery}
+        </b>
+      </div>
 
-  /* CART ITEMS */
+      <div class="row total">
+        <span>Total</span>
+        <span>₹${grandTotal}</span>
+      </div>
 
-  cart.forEach(
-    (item,index) => {
+      <button
+        class="checkout"
+        onclick="checkout()">
+        Proceed to Checkout →
+      </button>
 
-      const price =
-        Number(
-          item.price || 0
-        );
+    </div>
 
-
-      const quantity =
-        Number(
-          item.quantity || 1
-        );
-
-
-      subtotal +=
-        price * quantity;
-
-
-      itemCount +=
-        quantity;
-
-
-      const image =
-        item.image || "";
-
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-
-      div.className =
-        "cart-item";
-
-
-      div.innerHTML = `
-
-        ${
-          image
-          ?
-          `
-          <img
-            src="${image}"
-            onerror="
-              this.style.display='none'
-            "
-          >
-          `
-          :
-          `
-          <div style="
-            width:90px;
-            height:90px;
-            background:#eee;
-            border-radius:8px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:30px;
-          ">
-            📦
-          </div>
-          `
-        }
-
-
-        <div class="item-info">
-
-          <h3>
-            ${escapeHTML(
-              item.name ||
-              "Product"
-            )}
-          </h3>
-
-
-          <div class="item-price">
-            ₹${price.toLocaleString("en-IN")}
-          </div>
-
-
-          <div class="quantity">
-
-            <button
-              onclick="changeQuantity(${index},-1)"
-            >
-              −
-            </button>
-
-
-            <span>
-              ${quantity}
-            </span>
-
-
-            <button
-              onclick="changeQuantity(${index},1)"
-            >
-              +
-            </button>
-
-          </div>
-
-
-          <button
-            class="remove"
-            onclick="removeItem(${index})"
-          >
-            🗑️ Remove
-          </button>
-
-        </div>
-
-      `;
-
-
-      list.appendChild(
-        div
-      );
-
-    }
-  );
-
-
-  /* DELIVERY */
-
-  let delivery = 0;
-
-
-  if(subtotal > 0){
-
-    delivery =
-      subtotal >= 499
-      ? 0
-      : 40;
-
-  }
-
-
-  const total =
-    subtotal +
-    delivery;
-
-
-  document
-  .getElementById(
-    "itemCount"
-  )
-  .textContent =
-    itemCount;
-
-
-  document
-  .getElementById(
-    "subtotal"
-  )
-  .textContent =
-    subtotal.toLocaleString(
-      "en-IN"
-    );
-
-
-  document
-  .getElementById(
-    "delivery"
-  )
-  .textContent =
-    delivery === 0
-    ? "FREE"
-    : "₹" + delivery;
-
-
-  document
-  .getElementById(
-    "total"
-  )
-  .textContent =
-    total.toLocaleString(
-      "en-IN"
-    );
+  `;
 
 }
 
 
+// ======================
+// QUANTITY
+// ======================
 
-/* =========================
-   CHANGE QUANTITY
-========================= */
-
-window.changeQuantity =
+window.changeQty =
 function(index,change){
 
-  const cart =
-    getCart();
+  const cart = getCart();
 
-
-  if(!cart[index]){
-
+  if(!cart[index])
     return;
 
-  }
+
+  cart[index].quantity =
+    Number(cart[index].quantity || 1)
+    + change;
 
 
-  let quantity =
-    Number(
-      cart[index].quantity || 1
-    );
+  if(cart[index].quantity <= 0){
 
-
-  quantity +=
-    change;
-
-
-  if(quantity <= 0){
-
-    cart.splice(
-      index,
-      1
-    );
-
-  }
-  else{
-
-    cart[index].quantity =
-      quantity;
+    cart.splice(index,1);
 
   }
 
 
-  saveCart(
-    cart
-  );
+  saveCart(cart);
 
-
-  loadCart();
+  showCart();
 
 };
 
 
-
-/* =========================
-   REMOVE ITEM
-========================= */
+// ======================
+// REMOVE
+// ======================
 
 window.removeItem =
 function(index){
 
-  const cart =
-    getCart();
+  const cart = getCart();
 
+  cart.splice(index,1);
 
-  if(!cart[index]){
+  saveCart(cart);
 
-    return;
-
-  }
-
-
-  cart.splice(
-    index,
-    1
-  );
-
-
-  saveCart(
-    cart
-  );
-
-
-  loadCart();
+  showCart();
 
 };
 
 
-
-/* =========================
-   CHECKOUT
-========================= */
+// ======================
+// CHECKOUT
+// ======================
 
 window.checkout =
 function(){
 
-  const cart =
-    getCart();
+  const cart = getCart();
 
+  if(!cart.length){
 
-  if(cart.length === 0){
-
-    alert(
-      "Your cart is empty"
-    );
+    alert("Cart খালি");
 
     return;
 
   }
 
-
-  /*
-    Checkout page
-  */
-
- location.href =
-  "payment.html";
+  location.href =
+    "payment.html";
 
 };
 
 
+// ======================
+// SAFE TEXT
+// ======================
 
-/* =========================
-   ESCAPE HTML
-========================= */
+function escapeHTML(text){
 
-function escapeHTML(value){
-
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
+// ======================
+// START
+// ======================
 
-/* =========================
-   START
-========================= */
-
-loadCart();
+showCart();
 
 </script>
 
