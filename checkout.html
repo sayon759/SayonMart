@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SayonMart - Checkout</title>
+
+<script src="language.js"></script>
+
+<style>
+
+/* ================================
+   BASIC
+================================ */
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#f5f5f5;
+  color:#222;
+  font-family:Arial,sans-serif;
+  padding-bottom:95px;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.header{
+
+  height:64px;
+
+  background:#fff;
+
+  border-bottom:1px solid #ddd;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  padding:0 16px;
+
+  position:sticky;
+
+  top:0;
+
+  z-index:100;
+}
+
+
+.back{
+
+  border:0;
+
+  background:none;
+
+  font-size:38px;
+
+  color:#555;
+
+  line-height:1;
+
+  padding:0 8px;
+}
+
+
+.header-title{
+
+  font-size:19px;
+
+  font-weight:600;
+
+  flex:1;
+}
+
+
+.step{
+
+  background:#eef4ff;
+
+  color:#5875b8;
+
+  border-radius:20px;
+
+  padding:8px 12px;
+
+  font-size:12px;
+
+  white-space:nowrap;
+}
+
+
+/* ================================
+   OFFER
+================================ */
+
+.offer{
+
+  background:#e9fff8;
+
+  color:#178b70;
+
+  text-align:center;
+
+  font-size:18px;
+
+  padding:18px 8px 24px;
+
+  border-bottom:1px solid #b9e7da;
+
+  position:relative;
+}
+
+
+.offer b{
+
+  font-size:25px;
+}
+
+
+.offer:after{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+
+  right:0;
+
+  bottom:-1px;
+
+  height:12px;
+
+  background:
+  radial-gradient(
+    circle at 10px 0,
+    transparent 9px,
+    #b9e7da 10px,
+    #e9fff8 11px
+  ) repeat-x;
+
+  background-size:20px 12px;
+}
+
+
+/* ================================
+   PRODUCT
+================================ */
+
+.product-box{
+
+  background:#fff;
+
+  padding:18px 20px;
+
+  display:flex;
+
+  gap:15px;
+
+  border-bottom:1px solid #ddd;
+}
+
+
+.product-image{
+
+  width:120px;
+
+  height:120px;
+
+  object-fit:cover;
+
+  border-radius:10px;
+
+  background:#eee;
+
+  flex-shrink:0;
+}
+
+
+.product-info{
+
+  min-width:0;
+}
+
+
+.product-name{
+
+  margin:2px 0 9px;
+
+  font-size:17px;
+
+  font-weight:500;
+
+  line-height:1.35;
+
+  display:-webkit-box;
+
+  -webkit-line-clamp:2;
+
+  -webkit-box-orient:vertical;
+
+  overflow:hidden;
+}
+
+
+.price-row{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  flex-wrap:wrap;
+}
+
+
+.price{
+
+  font-size:23px;
+
+  font-weight:bold;
+}
+
+
+.old-price{
+
+  color:#888;
+
+  text-decoration:line-through;
+}
+
+
+.discount{
+
+  color:#168b70;
+
+  font-size:16px;
+}
+
+
+.meta{
+
+  margin-top:9px;
+
+  color:#555;
+
+  font-size:14px;
+
+  line-height:1.5;
+}
+
+
+/* ================================
+   SECTIONS
+================================ */
+
+.section{
+
+  background:#fff;
+
+  margin-top:9px;
+
+  padding:18px 20px;
+
+  border-top:1px solid #ddd;
+
+  border-bottom:1px solid #ddd;
+}
+
+
+.section-title{
+
+  font-size:19px;
+
+  font-weight:600;
+
+  margin-bottom:13px;
+}
+
+
+/* ================================
+   INPUTS
+================================ */
+
+.input{
+
+  width:100%;
+
+  padding:13px;
+
+  margin:6px 0;
+
+  border:1px solid #bbb;
+
+  border-radius:9px;
+
+  font-size:16px;
+
+  outline:none;
+
+  font-family:Arial,sans-serif;
+}
+
+
+.input:focus{
+
+  border-color:#c99d00;
+}
+
+
+textarea.input{
+
+  resize:none;
+}
+
+
+/* ================================
+   DELIVERY
+================================ */
+
+.delivery{
+
+  display:flex;
+
+  gap:12px;
+
+  align-items:flex-start;
+}
+
+
+.delivery-icon{
+
+  font-size:27px;
+}
+
+
+.delivery-text{
+
+  font-size:16px;
+
+  line-height:1.5;
+}
+
+
+.delivery-date{
+
+  font-weight:bold;
+}
+
+
+.change-btn{
+
+  margin-top:12px;
+
+  padding:9px 17px;
+
+  background:#fff;
+
+  border:1px solid #555;
+
+  border-radius:7px;
+
+  font-size:14px;
+}
+
+
+/* ================================
+   PRICE DETAILS
+================================ */
+
+.price-head{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  font-size:18px;
+
+  cursor:pointer;
+}
+
+
+.arrow{
+
+  font-size:25px;
+}
+
+
+.price-details{
+
+  display:none;
+
+  padding-top:12px;
+}
+
+
+.price-line{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  padding:8px 0;
+
+  color:#555;
+}
+
+
+.total-line{
+
+  border-top:1px solid #ddd;
+
+  margin-top:7px;
+
+  padding-top:13px;
+
+  color:#222;
+
+  font-size:19px;
+
+  font-weight:bold;
+}
+
+
+/* ================================
+   BOTTOM BAR
+================================ */
+
+.bottom{
+
+  position:fixed;
+
+  left:0;
+
+  right:0;
+
+  bottom:0;
+
+  height:82px;
+
+  background:#fff;
+
+  border-top:1px solid #ccc;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:9px 15px;
+
+  z-index:200;
+}
+
+
+.bottom-total{
+
+  font-size:22px;
+
+  font-weight:500;
+}
+
+
+.bottom-discount{
+
+  display:inline-block;
+
+  color:#168b70;
+
+  background:#e8fff8;
+
+  padding:5px 8px;
+
+  margin-top:4px;
+
+  font-size:14px;
+}
+
+
+.continue{
+
+  width:45%;
+
+  height:56px;
+
+  border:0;
+
+  border-radius:7px;
+
+  background:#c99d00;
+
+  color:#fff;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+}
+
+
+.continue:active{
+
+  transform:scale(.98);
+}
+
+
+/* ================================
+   EMPTY
+================================ */
+
+.empty{
+
+  padding:70px 20px;
+
+  text-align:center;
+
+  color:#777;
+
+  font-size:17px;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:420px){
+
+  .product-image{
+
+    width:105px;
+
+    height:105px;
+  }
+
+
+  .product-name{
+
+    font-size:16px;
+  }
+
+
+  .price{
+
+    font-size:21px;
+  }
+
+
+  .offer{
+
+    font-size:16px;
+  }
+
+
+  .offer b{
+
+    font-size:23px;
+  }
+
+
+  .header-title{
+
+    font-size:17px;
+  }
+
+
+  .step{
+
+    font-size:11px;
+
+    padding:7px 9px;
+  }
+
+
+  .bottom{
+
+    padding:9px 12px;
+  }
+
+
+  .bottom-total{
+
+    font-size:20px;
+  }
+
+
+  .continue{
+
+    width:45%;
+
+    font-size:16px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     HEADER
+================================ -->
+
+<header class="header">
+
+  <button
+    class="back"
+    onclick="history.back()">
+    ‹
+  </button>
+
+
+  <div
+    class="header-title"
+    data-i18n="Review your order">
+
+    Review your order
+
+  </div>
+
+
+  <div class="step">
+
+    STEP 1/2
+
+  </div>
+
+</header>
+
+
+
+<!-- ================================
+     CHECKOUT CONTENT
+================================ -->
+
+<div id="checkout"></div>
+
+
+
+<!-- ================================
+     BOTTOM
+================================ -->
+
+<div
+  class="bottom"
+  id="bottomBar"
+  style="display:none">
+
+  <div>
+
+    <div
+      class="bottom-total"
+      id="bottomTotal">
+
+      ₹0
+
+    </div>
+
+
+    <span
+      class="bottom-discount"
+      id="bottomDiscount">
+
+      ₹0 OFF
+
+    </span>
+
+  </div>
+
+
+  <button
+    class="continue"
+    onclick="continueOrder()"
+    data-i18n="Continue">
+
+    Continue
+
+  </button>
+
+</div>
+
+
+
+<script>
+
+
+/* =================================
+   TRANSLATION FALLBACK
+================================= */
+
+const checkoutTranslations = {
+
+  English:{
+
+    "Review your order":
+    "Review your order",
+
+    "OFF":
+    "OFF",
+
+    "on this order":
+    "on this order",
+
+    "Size":
+    "Size",
+
+    "Color":
+    "Color",
+
+    "Quantity":
+    "Quantity",
+
+    "Seller":
+    "Seller",
+
+    "Delivery":
+    "Delivery",
+
+    "Expected delivery":
+    "Expected delivery",
+
+    "Change":
+    "Change",
+
+    "Price Details":
+    "Price Details",
+
+    "Product Price":
+    "Product Price",
+
+    "Discount":
+    "Discount",
+
+    "Delivery Fee":
+    "Delivery Fee",
+
+    "Total":
+    "Total",
+
+    "Continue":
+    "Continue",
+
+    "Enter your name":
+    "Enter your name",
+
+    "Enter phone number":
+    "Enter phone number",
+
+    "Enter address":
+    "Enter address",
+
+    "Address":
+    "Address",
+
+    "Free":
+    "Free",
+
+    "No product selected":
+    "No product selected",
+
+    "Continue Shopping":
+    "Continue Shopping",
+
+    "Please fill your details":
+    "Please fill your details"
+
+  },
+
+
+  Bangla:{
+
+    "Review your order":
+    "আপনার অর্ডারকে রিভিউ করুন",
+
+    "OFF":
+    "ছাড়",
+
+    "on this order":
+    "এই অর্ডারে",
+
+    "Size":
+    "সাইজ",
+
+    "Color":
+    "রং",
+
+    "Quantity":
+    "পরিমাণ",
+
+    "Seller":
+    "বিক্রেতা",
+
+    "Delivery":
+    "ডেলিভারি",
+
+    "Expected delivery":
+    "প্রত্যাশিত ডেলিভারি",
+
+    "Change":
+    "পরিবর্তন করুন",
+
+    "Price Details":
+    "দামের ডিটেইলস",
+
+    "Product Price":
+    "পণ্যের দাম",
+
+    "Discount":
+    "ছাড়",
+
+    "Delivery Fee":
+    "ডেলিভারি চার্জ",
+
+    "Total":
+    "মোট",
+
+    "Continue":
+    "এগিয়ে যান",
+
+    "Enter your name":
+    "আপনার নাম লিখুন",
+
+    "Enter phone number":
+    "ফোন নম্বর লিখুন",
+
+    "Enter address":
+    "আপনার ঠিকানা লিখুন",
+
+    "Address":
+    "ঠিকানা",
+
+    "Free":
+    "ফ্রি",
+
+    "No product selected":
+    "কোনো পণ্য নির্বাচন করা হয়নি",
+
+    "Continue Shopping":
+    "শপিং শুরু করুন",
+
+    "Please fill your details":
+    "আপনার তথ্য পূরণ করুন"
+
+  },
+
+
+  Hindi:{
+
+    "Review your order":
+    "अपने ऑर्डर की समीक्षा करें",
+
+    "OFF":
+    "छूट",
+
+    "on this order":
+    "इस ऑर्डर पर",
+
+    "Size":
+    "साइज़",
+
+    "Color":
+    "रंग",
+
+    "Quantity":
+    "मात्रा",
+
+    "Seller":
+    "विक्रेता",
+
+    "Delivery":
+    "डिलीवरी",
+
+    "Expected delivery":
+    "अनुमानित डिलीवरी",
+
+    "Change":
+    "बदलें",
+
+    "Price Details":
+    "कीमत की जानकारी",
+
+    "Product Price":
+    "प्रोडक्ट की कीमत",
+
+    "Discount":
+    "छूट",
+
+    "Delivery Fee":
+    "डिलीवरी शुल्क",
+
+    "Total":
+    "कुल",
+
+    "Continue":
+    "आगे बढ़ें",
+
+    "Enter your name":
+    "अपना नाम दर्ज करें",
+
+    "Enter phone number":
+    "फोन नंबर दर्ज करें",
+
+    "Enter address":
+    "अपना पता दर्ज करें",
+
+    "Address":
+    "पता",
+
+    "Free":
+    "फ्री",
+
+    "No product selected":
+    "कोई प्रोडक्ट चुना नहीं गया",
+
+    "Continue Shopping":
+    "शॉपिंग शुरू करें",
+
+    "Please fill your details":
+    "कृपया अपनी जानकारी भरें"
+
+  }
+
+};
+
+
+
+/* =================================
+   TRANSLATE FUNCTION
+================================= */
+
+function t(key){
+
+  if(
+    typeof window.translate === "function"
+  ){
+
+    const result =
+    window.translate(key);
+
+    if(result && result !== key){
+
+      return result;
+
+    }
+
+  }
+
+
+  const language =
+  localStorage.getItem(
+    "sayonmart_language"
+  ) || "English";
+
+
+  return (
+
+    checkoutTranslations[language]
+    ||
+    checkoutTranslations.English
+
+  )[key] || key;
+
+}
+
+
+
+/* =================================
+   GET BUY NOW PRODUCT
+================================= */
+
+let buyNow = null;
+
+
+try{
+
+  buyNow =
+  JSON.parse(
+    localStorage.getItem(
+      "sayonmart_buy_now"
+    ) || "null"
+  );
+
+}catch(error){
+
+  buyNow = null;
+
+}
+
+
+
+/* =================================
+   MONEY
+================================= */
+
+function money(number){
+
+  return "₹" +
+
+  Number(number || 0)
+  .toLocaleString("en-IN");
+
+}
+
+
+
+/* =================================
+   ESCAPE HTML
+================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+
+  .replace(
+    /[&<>"']/g,
+
+    function(char){
+
+      return {
+
+        "&":"&amp;",
+
+        "<":"&lt;",
+
+        ">":"&gt;",
+
+        '"':"&quot;",
+
+        "'":"&#039;"
+
+      }[char];
+
+    }
+
+  );
+
+}
+
+
+
+/* =================================
+   DELIVERY DATE
+================================= */
+
+function deliveryDate(){
+
+  const date =
+  new Date();
+
+  date.setDate(
+    date.getDate() + 5
+  );
+
+
+  let locale = "en-IN";
+
+
+  const lang =
+  localStorage.getItem(
+    "sayonmart_language"
+  ) || "English";
+
+
+  if(lang === "Bangla"){
+
+    locale = "bn-IN";
+
+  }
+
+
+  if(lang === "Hindi"){
+
+    locale = "hi-IN";
+
+  }
+
+
+  return date.toLocaleDateString(
+
+    locale,
+
+    {
+
+      weekday:"long",
+
+      day:"numeric",
+
+      month:"short"
+
+    }
+
+  );
+
+}
+
+
+
+/* =================================
+   RENDER CHECKOUT
+================================= */
+
+function renderCheckout(){
+
+  const checkout =
+  document.getElementById(
+    "checkout"
+  );
+
+
+  if(!buyNow){
+
+    checkout.innerHTML = `
+
+      <div class="empty">
+
+        🛒
+
+        <br><br>
+
+        ${t("No product selected")}
+
+        <br><br>
+
+        <button
+          class="change-btn"
+          onclick="location.href='products.html'">
+
+          ${t("Continue Shopping")}
+
+        </button>
+
+      </div>
+
+    `;
+
+
+    document.getElementById(
+      "bottomBar"
+    ).style.display = "none";
+
+
+    return;
+
+  }
+
+
+
+  /* PRODUCT DATA */
+
+  const price =
+  Number(
+    buyNow.price || 0
+  );
+
+
+  const oldPrice =
+  Number(
+    buyNow.oldPrice || 0
+  );
+
+
+  const quantity =
+  Number(
+    buyNow.quantity || 1
+  );
+
+
+  const productPrice =
+  price * quantity;
+
+
+  const discount =
+  oldPrice > price
+
+  ?
+
+  (oldPrice - price)
+  * quantity
+
+  :
+
+  0;
+
+
+  const deliveryFee =
+  Number(
+    buyNow.deliveryFee || 0
+  );
+
+
+  const total =
+  productPrice +
+  deliveryFee;
+
+
+
+  /* SIZE */
+
+  const size =
+  buyNow.size ||
+
+  "Free Size";
+
+
+
+  /* COLOR */
+
+  let colorHTML = "";
+
+
+  if(buyNow.color){
+
+    colorHTML = `
+
+      • ${t("Color")}:
+      ${escapeHTML(
+        buyNow.color
+      )}
+
+    `;
+
+  }
+
+
+
+  /* DISCOUNT PERCENT */
+
+  let discountPercent = "";
+
+
+  if(oldPrice > price){
+
+    discountPercent =
+
+      Math.round(
+
+        (
+          (oldPrice-price)
+          /
+          oldPrice
+        ) * 100
+
+      );
+
+  }
+
+
+
+  /* HTML */
+
+  checkout.innerHTML = `
+
+
+    <!-- OFFER -->
+
+    <div class="offer">
+
+      <b>
+        ${money(discount)}
+      </b>
+
+      ${t("OFF")}
+
+      ${t("on this order")}
+
+    </div>
+
+
+
+    <!-- PRODUCT -->
+
+    <div class="product-box">
+
+
+      <img
+
+        class="product-image"
+
+        src="${
+          escapeHTML(
+            buyNow.image ||
+            "https://via.placeholder.com/300"
+          )
+        }"
+
+        onerror="
+          this.src=
+          'https://via.placeholder.com/300'
+        "
+
+      >
+
+
+      <div class="product-info">
+
+
+        <div class="product-name">
+
+          ${
+            escapeHTML(
+              buyNow.name ||
+              "Product"
+            )
+          }
+
+        </div>
+
+
+        <div class="price-row">
+
+
+          <span class="price">
+
+            ${money(price)}
+
+          </span>
+
+
+          ${
+            oldPrice > price
+
+            ?
+
+            `
+
+            <span class="old-price">
+
+              ${money(oldPrice)}
+
+            </span>
+
+            `
+
+            :
+
+            ""
+
+          }
+
+
+          ${
+            oldPrice > price
+
+            ?
+
+            `
+
+            <span class="discount">
+
+              ${discountPercent}%
+              ${t("OFF")}
+
+            </span>
+
+            `
+
+            :
+
+            ""
+
+          }
+
+        </div>
+
+
+        <div class="meta">
+
+          ${t("Size")}:
+          ${escapeHTML(size)}
+
+          ${colorHTML}
+
+        </div>
+
+
+        <div class="meta">
+
+          ${t("Quantity")}:
+          ${quantity}
+
+        </div>
+
+
+        ${
+          buyNow.seller
+
+          ?
+
+          `
+
+          <div class="meta">
+
+            ${t("Seller")}:
+            ${escapeHTML(
+              buyNow.seller
+            )}
+
+          </div>
+
+          `
+
+          :
+
+          ""
+
+        }
+
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ADDRESS -->
+
+    <div class="section">
+
+
+      <div class="section-title">
+
+        ${t("Address")}
+
+      </div>
+
+
+      <input
+
+        class="input"
+
+        id="customerName"
+
+        placeholder="${
+          t("Enter your name")
+        }"
+
+      >
+
+
+      <input
+
+        class="input"
+
+        id="customerPhone"
+
+        type="tel"
+
+        inputmode="numeric"
+
+        placeholder="${
+          t("Enter phone number")
+        }"
+
+      >
+
+
+      <textarea
+
+        class="input"
+
+        id="customerAddress"
+
+        rows="3"
+
+        placeholder="${
+          t("Enter address")
+        }"
+
+      ></textarea>
+
+
+    </div>
+
+
+
+    <!-- DELIVERY -->
+
+    <div class="section">
+
+
+      <div class="section-title">
+
+        🚚 ${t("Delivery")}
+
+      </div>
+
+
+      <div class="delivery">
+
+
+        <div class="delivery-icon">
+
+          🚚
+
+        </div>
+
+
+        <div class="delivery-text">
+
+          ${t("Expected delivery")}:
+
+          <span class="delivery-date">
+
+            ${deliveryDate()}
+
+          </span>
+
+        </div>
+
+
+      </div>
+
+
+      <button
+
+        class="change-btn"
+
+        onclick="
+          document
+          .getElementById(
+            'customerAddress'
+          )
+          .focus()
+        "
+
+      >
+
+        ${t("Change")}
+
+      </button>
+
+
+    </div>
+
+
+
+    <!-- PRICE DETAILS -->
+
+    <div class="section">
+
+
+      <div
+
+        class="price-head"
+
+        onclick="togglePrice()"
+
+      >
+
+        <span>
+
+          ${t("Price Details")}
+
+        </span>
+
+
+        <span
+
+          class="arrow"
+
+          id="priceArrow"
+
+        >
+
+          ⌄
+
+        </span>
+
+
+      </div>
+
+
+
+      <div
+
+        class="price-details"
+
+        id="priceDetails"
+
+      >
+
+
+        <div class="price-line">
+
+          <span>
+
+            ${t("Product Price")}
+
+          </span>
+
+          <span>
+
+            ${money(productPrice)}
+
+          </span>
+
+        </div>
+
+
+
+        <div class="price-line">
+
+          <span>
+
+            ${t("Discount")}
+
+          </span>
+
+          <span>
+
+            -${money(discount)}
+
+          </span>
+
+        </div>
+
+
+
+        <div class="price-line">
+
+          <span>
+
+            ${t("Delivery Fee")}
+
+          </span>
+
+          <span>
+
+            ${
+              deliveryFee
+
+              ?
+
+              money(deliveryFee)
+
+              :
+
+              t("Free")
+
+            }
+
+          </span>
+
+        </div>
+
+
+
+        <div class="price-line total-line">
+
+          <span>
+
+            ${t("Total")}
+
+          </span>
+
+          <span>
+
+            ${money(total)}
+
+          </span>
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+  `;
+
+
+
+  /* BOTTOM */
+
+  document.getElementById(
+    "bottomTotal"
+  ).textContent =
+  money(total);
+
+
+  document.getElementById(
+    "bottomDiscount"
+  ).textContent =
+
+  money(discount)
+  + " "
+  + t("OFF");
+
+
+  document.getElementById(
+    "bottomBar"
+  ).style.display =
+  "flex";
+
+
+
+  /* OLD CUSTOMER DATA */
+
+  if(buyNow.customerName){
+
+    document.getElementById(
+      "customerName"
+    ).value =
+    buyNow.customerName;
+
+  }
+
+
+  if(buyNow.phone){
+
+    document.getElementById(
+      "customerPhone"
+    ).value =
+    buyNow.phone;
+
+  }
+
+
+  if(buyNow.address){
+
+    document.getElementById(
+      "customerAddress"
+    ).value =
+    buyNow.address;
+
+  }
+
+}
+
+
+
+/* =================================
+   PRICE DETAILS OPEN/CLOSE
+================================= */
+
+function togglePrice(){
+
+  const details =
+  document.getElementById(
+    "priceDetails"
+  );
+
+
+  const arrow =
+  document.getElementById(
+    "priceArrow"
+  );
+
+
+  if(!details){
+
+    return;
+
+  }
+
+
+  const open =
+  details.style.display ===
+  "block";
+
+
+  if(open){
+
+    details.style.display =
+    "none";
+
+    arrow.textContent =
+    "⌄";
+
+  }else{
+
+    details.style.display =
+    "block";
+
+    arrow.textContent =
+    "⌃";
+
+  }
+
+}
+
+
+
+/* =================================
+   CONTINUE
+================================= */
+
+window.continueOrder =
+function(){
+
+  const name =
+  document.getElementById(
+    "customerName"
+  )?.value.trim();
+
+
+  const phone =
+  document.getElementById(
+    "customerPhone"
+  )?.value.trim();
+
+
+  const address =
+  document.getElementById(
+    "customerAddress"
+  )?.value.trim();
+
+
+
+  if(
+    !name ||
+    !phone ||
+    !address
+  ){
+
+    alert(
+      t("Please fill your details")
+    );
+
+    return;
+
+  }
+
+
+
+  /* SAVE CUSTOMER DATA */
+
+  buyNow.customerName =
+  name;
+
+
+  buyNow.phone =
+  phone;
+
+
+  buyNow.address =
+  address;
+
+
+
+  localStorage.setItem(
+
+    "sayonmart_buy_now",
+
+    JSON.stringify(
+      buyNow
+    )
+
+  );
+
+
+
+  /* GO PAYMENT */
+
+  location.href =
+  "payment.html";
+
+};
+
+
+
+/* =================================
+   LANGUAGE CHANGE
+================================= */
+
+window.addEventListener(
+  "languageChanged",
+  function(){
+
+    renderCheckout();
+
+  }
+);
+
+
+
+/* =================================
+   START
+================================= */
+
+renderCheckout();
+
+</script>
+
+</body>
+
+</html>
