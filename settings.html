@@ -133,9 +133,7 @@ body{
 
 </head>
 
-
 <body>
-
 
 <!-- HEADER -->
 
@@ -151,7 +149,6 @@ onclick="history.back()">
 </div>
 
 
-
 <div class="container">
 
 
@@ -162,7 +159,6 @@ My Account
 </div>
 
 <div class="menu">
-
 
 <div class="menu-item"
 onclick="location.href='profile.html'">
@@ -184,7 +180,6 @@ Profile
 </span>
 
 </div>
-
 
 
 <div class="menu-item"
@@ -209,7 +204,6 @@ My Orders
 </div>
 
 
-
 <div class="menu-item"
 onclick="location.href='payment.html'">
 
@@ -231,9 +225,7 @@ Payment Methods
 
 </div>
 
-
 </div>
-
 
 
 <!-- ADMIN -->
@@ -248,7 +240,9 @@ Administration
 <!-- ADMIN PANEL -->
 
 <div class="menu-item admin"
-onclick="location.href='admin.html'">
+id="adminPanel"
+onclick="location.href='admin.html'"
+style="display:none;">
 
 <div class="left">
 
@@ -267,7 +261,6 @@ Admin Panel
 </span>
 
 </div>
-
 
 
 <!-- ADMIN ORDERS -->
@@ -296,8 +289,33 @@ Admin Orders
 </div>
 
 
+<!-- CONFIRM ORDERS -->
+
+<div class="menu-item admin"
+id="confirmOrders"
+onclick="location.href='confirm-orders.html'"
+style="display:none;">
+
+<div class="left">
+
+<span class="menu-icon">
+✅
+</span>
+
+<span>
+Confirm Orders
+</span>
+
 </div>
 
+<span class="arrow">
+›
+</span>
+
+</div>
+
+
+</div>
 
 
 <!-- APP SETTINGS -->
@@ -331,7 +349,6 @@ Language
 </div>
 
 
-
 <div class="menu-item"
 onclick="toggleDarkMode()">
 
@@ -352,7 +369,6 @@ Dark Mode
 </span>
 
 </div>
-
 
 
 <div class="menu-item"
@@ -378,7 +394,6 @@ Notifications
 
 
 </div>
-
 
 
 <!-- PRIVACY -->
@@ -412,7 +427,6 @@ Privacy Policy
 </div>
 
 
-
 <div class="menu-item"
 onclick="alert('Terms & Conditions শীঘ্রই আসছে।')">
 
@@ -436,7 +450,6 @@ Terms & Conditions
 
 
 </div>
-
 
 
 <!-- SUPPORT -->
@@ -470,7 +483,6 @@ Help & Support
 </div>
 
 
-
 <div class="menu-item"
 onclick="alert('Contact Us শীঘ্রই আসছে।')">
 
@@ -491,7 +503,6 @@ Contact Us
 </span>
 
 </div>
-
 
 
 <div class="menu-item"
@@ -519,7 +530,6 @@ About SayonMart
 </div>
 
 
-
 <!-- LOGOUT -->
 
 <button class="logout"
@@ -540,7 +550,6 @@ SayonMart v1.0.0
 </div>
 
 
-
 <!-- FIREBASE -->
 
 <script type="module">
@@ -555,8 +564,7 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-
-/* ADMIN ORDERS শুধু Admin দেখবে */
+/* তোমার Admin UID */
 
 const ADMIN_UID =
 "fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
@@ -564,25 +572,39 @@ const ADMIN_UID =
 
 onAuthStateChanged(auth,(user)=>{
 
+const adminPanel =
+document.getElementById("adminPanel");
+
 const adminOrders =
 document.getElementById("adminOrders");
 
+const confirmOrders =
+document.getElementById("confirmOrders");
 
-if(
-user &&
-user.uid === ADMIN_UID
-){
 
-adminOrders.style.display="flex";
+if(user && user.uid === ADMIN_UID){
+
+  /* Admin হলে দেখাবে */
+
+  adminPanel.style.display="flex";
+
+  adminOrders.style.display="flex";
+
+  confirmOrders.style.display="flex";
 
 }else{
 
-adminOrders.style.display="none";
+  /* Customer হলে লুকিয়ে থাকবে */
+
+  adminPanel.style.display="none";
+
+  adminOrders.style.display="none";
+
+  confirmOrders.style.display="none";
 
 }
 
 });
-
 
 
 /* LOGOUT */
@@ -593,7 +615,6 @@ const ok =
 confirm("আপনি কি Logout করতে চান?");
 
 if(!ok) return;
-
 
 try{
 
@@ -618,7 +639,6 @@ console.error(error);
 </script>
 
 
-
 <script>
 
 /* LANGUAGE */
@@ -630,7 +650,6 @@ alert(
 );
 
 }
-
 
 
 /* DARK MODE */
@@ -663,7 +682,6 @@ document.getElementById("darkSwitch")
 }
 
 
-
 /* NOTIFICATIONS */
 
 function toggleNotifications(){
@@ -686,7 +704,6 @@ sw.innerText="🟢";
 }
 
 </script>
-
 
 </body>
 
