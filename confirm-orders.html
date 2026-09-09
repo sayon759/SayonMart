@@ -2,7 +2,6 @@
 <html lang="bn">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -25,23 +24,37 @@ body{
 }
 
 .header{
+  position:relative;
   background:#000;
   color:#FFD700;
-  padding:18px;
+  padding:18px 50px;
   text-align:center;
   font-size:22px;
   font-weight:bold;
   border-bottom:1px solid #333;
 }
 
+.back{
+  position:absolute;
+  left:12px;
+  top:10px;
+  background:none;
+  border:0;
+  color:#FFD700;
+  font-size:30px;
+  cursor:pointer;
+}
+
 .container{
   padding:15px;
+  max-width:650px;
+  margin:auto;
 }
 
 .loading{
   text-align:center;
   color:#FFD700;
-  padding:40px;
+  padding:50px 10px;
 }
 
 .empty{
@@ -53,9 +66,10 @@ body{
 .order-card{
   background:#1b1b1b;
   border:1px solid #333;
-  border-radius:16px;
+  border-radius:18px;
   padding:15px;
   margin-bottom:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.35);
 }
 
 .order-top{
@@ -68,10 +82,11 @@ body{
 .order-id{
   color:#FFD700;
   font-size:13px;
+  font-weight:bold;
 }
 
 .status{
-  padding:6px 10px;
+  padding:6px 11px;
   border-radius:20px;
   font-size:11px;
   font-weight:bold;
@@ -97,19 +112,21 @@ body{
   gap:12px;
   margin-top:14px;
   background:#111;
-  padding:10px;
-  border-radius:12px;
+  padding:11px;
+  border-radius:13px;
+  align-items:center;
 }
 
 .product img{
-  width:75px;
-  height:75px;
+  width:78px;
+  height:78px;
   object-fit:cover;
   border-radius:10px;
+  background:#222;
 }
 
 .product h3{
-  margin:5px 0;
+  margin:3px 0 8px;
   font-size:16px;
 }
 
@@ -119,31 +136,43 @@ body{
   font-size:13px;
 }
 
-.total{
-  color:#FFD700;
-  font-size:18px;
-  font-weight:bold;
-  margin-top:12px;
-}
-
 .info{
-  margin-top:10px;
+  margin-top:13px;
   color:#ccc;
   font-size:14px;
-  line-height:1.5;
+  line-height:1.7;
 }
+
+.total{
+  color:#FFD700;
+  font-size:19px;
+  font-weight:bold;
+  margin-top:13px;
+  padding-top:12px;
+  border-top:1px solid #333;
+}
+
+/* CONFIRM BUTTON */
 
 .confirm-btn{
   width:100%;
   margin-top:15px;
-  padding:13px;
-  border:0;
-  border-radius:10px;
+  padding:14px;
+  border:none;
+  border-radius:11px;
   background:#FFD700;
   color:#000;
   font-size:16px;
   font-weight:bold;
   cursor:pointer;
+}
+
+.confirm-btn:active{
+  transform:scale(.98);
+}
+
+.confirm-btn:hover{
+  background:#ffe44d;
 }
 
 .confirm-btn:disabled{
@@ -152,59 +181,51 @@ body{
   cursor:not-allowed;
 }
 
-.back{
-  position:absolute;
-  left:12px;
-  top:13px;
-  background:none;
-  border:0;
-  color:#FFD700;
-  font-size:28px;
-  cursor:pointer;
+/* CONFIRMING */
+
+.confirming{
+  background:#8a7600 !important;
+  color:#fff !important;
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
 <div class="header">
 
-<button
-class="back"
-onclick="history.back()">
-‹
-</button>
+  <button
+    class="back"
+    onclick="history.back()">
+    ‹
+  </button>
 
-✅ Confirm Orders
+  ✅ Confirm Orders
 
 </div>
 
 
 <div class="container">
 
-<div
-id="orders"
-class="loading">
+  <div
+    id="orders"
+    class="loading">
 
-Loading Orders...
+    Loading Orders...
 
-</div>
+  </div>
 
 </div>
 
 
 <script type="module">
 
-
 import {
   db,
   auth
-}
-from "./firebase.js";
+} from "./firebase.js";
 
 
 import {
@@ -212,19 +233,15 @@ import {
   getDocs,
   updateDoc,
   doc
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 import {
   onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-/*
-  তোমার Admin UID
-*/
+/* ADMIN UID */
 
 const ADMIN_UID =
 "fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
@@ -234,48 +251,51 @@ const ordersDiv =
 document.getElementById("orders");
 
 
-/*
-  ADMIN CHECK
-*/
+/* ADMIN CHECK */
 
-onAuthStateChanged(
-  auth,
-  async(user)=>{
+onAuthStateChanged(auth, async (user) => {
 
-    if(
-      !user ||
-      user.uid !== ADMIN_UID
-    ){
+  if(!user){
 
-      ordersDiv.innerHTML=`
+    ordersDiv.innerHTML = `
+      <div class="empty">
+        🚫 Login করা নেই।
+      </div>
+    `;
 
-        <div class="empty">
-
-          🚫 Access Denied
-
-          <br><br>
-
-          এই পেজটি শুধু Admin-এর জন্য।
-
-        </div>
-
-      `;
-
-      return;
-    }
-
-
-    loadOrders();
-
+    return;
   }
-);
 
 
-/*
-  LOAD ALL ORDERS
-*/
+  if(user.uid !== ADMIN_UID){
+
+    ordersDiv.innerHTML = `
+      <div class="empty">
+        🚫 Access Denied
+        <br><br>
+        এই পেজটি শুধু Admin-এর জন্য।
+      </div>
+    `;
+
+    return;
+  }
+
+
+  loadOrders();
+
+});
+
+
+/* LOAD ORDERS */
 
 async function loadOrders(){
+
+  ordersDiv.innerHTML = `
+    <div class="loading">
+      🔄 Orders Loading...
+    </div>
+  `;
+
 
   try{
 
@@ -285,48 +305,34 @@ async function loadOrders(){
       );
 
 
-    ordersDiv.innerHTML="";
-
-
     if(snapshot.empty){
 
-      ordersDiv.innerHTML=`
-
+      ordersDiv.innerHTML = `
         <div class="empty">
-
           📭 কোনো Order নেই।
-
         </div>
-
       `;
 
       return;
     }
 
 
-    let orders=[];
+    let orders = [];
 
 
-    snapshot.forEach(
-      orderDoc=>{
+    snapshot.forEach(orderDoc => {
 
-        orders.push({
+      orders.push({
+        id:orderDoc.id,
+        data:orderDoc.data()
+      });
 
-          id:orderDoc.id,
-
-          data:orderDoc.data()
-
-        });
-
-      }
-    );
+    });
 
 
-    /*
-      Newest first
-    */
+    /* NEWEST FIRST */
 
-    orders.sort((a,b)=>{
+    orders.sort((a,b) => {
 
       const aTime =
         a.data.createdAt?.seconds || 0;
@@ -334,31 +340,32 @@ async function loadOrders(){
       const bTime =
         b.data.createdAt?.seconds || 0;
 
-      return bTime-aTime;
+      return bTime - aTime;
 
     });
 
 
-    /*
-      SHOW ORDERS
-    */
+    ordersDiv.innerHTML = "";
 
-    orders.forEach(item=>{
 
-      const order =
-        item.data;
+    /* SHOW ORDERS */
 
-      const id =
-        item.id;
+    orders.forEach(item => {
+
+      const order = item.data;
+      const id = item.id;
 
 
       const status =
-        order.status || "Pending";
+        String(order.status || "Pending").trim();
+
+
+      const statusLower =
+        status.toLowerCase();
 
 
       const productName =
-        order.productName ||
-        "Product";
+        order.productName || "Product";
 
 
       const image =
@@ -382,39 +389,29 @@ async function loadOrders(){
 
 
       let statusClass =
-        String(status)
-        .toLowerCase()
-        .replaceAll(" ","-");
+        statusLower.replace(/\s+/g,"-");
 
+
+      /* CARD */
 
       const card =
         document.createElement("div");
 
 
-      card.className=
+      card.className =
         "order-card";
 
 
-      card.innerHTML=`
+      card.innerHTML = `
 
         <div class="order-top">
 
           <div class="order-id">
-
-            Order #${esc(
-              id.substring(0,8)
-            )}
-
+            Order #${esc(id.substring(0,8))}
           </div>
 
-
-          <div class="
-            status
-            ${statusClass}
-          ">
-
+          <div class="status ${statusClass}">
             ${esc(status)}
-
           </div>
 
         </div>
@@ -430,29 +427,18 @@ async function loadOrders(){
             "
           >
 
-
           <div>
 
             <h3>
-
               ${esc(productName)}
-
             </h3>
 
-
             <p>
-
-              💰 Price:
-              ₹${price}
-
+              💰 Price: ₹${price}
             </p>
 
-
             <p>
-
-              🔢 Quantity:
-              ${quantity}
-
+              🔢 Quantity: ${quantity}
             </p>
 
           </div>
@@ -479,19 +465,16 @@ async function loadOrders(){
 
 
         <div class="total">
-
           Total: ₹${total}
-
         </div>
 
 
         ${
-          String(status).trim().toLowerCase() === "pending"
+          statusLower === "pending"
 
           ?
 
           `
-
           <button
             class="confirm-btn"
             data-id="${escAttr(id)}">
@@ -499,31 +482,27 @@ async function loadOrders(){
             ✅ Confirm Order
 
           </button>
-
           `
 
           :
 
-          status === "Confirmed"
+          statusLower === "confirmed"
 
           ?
 
           `
-
           <button
             class="confirm-btn"
             disabled>
 
-            ✅ Already Confirmed
+            ✅ Order Confirmed
 
           </button>
-
           `
 
           :
 
           ""
-
         }
 
       `;
@@ -534,29 +513,25 @@ async function loadOrders(){
     });
 
 
-    /*
-      CONFIRM BUTTON
-    */
+    /* BUTTON EVENTS */
 
     document
-    .querySelectorAll(".confirm-btn")
-    .forEach(button=>{
+      .querySelectorAll(".confirm-btn:not(:disabled)")
+      .forEach(button => {
 
-      if(
-        button.disabled
-      ) return;
+        button.addEventListener(
+          "click",
+          () => {
 
+            confirmOrder(
+              button.dataset.id,
+              button
+            );
 
-      button.addEventListener(
-        "click",
-        ()=>confirmOrder(
-          button.dataset.id,
-          button
-        )
-      );
+          }
+        );
 
-    });
-
+      });
 
   }
 
@@ -564,8 +539,7 @@ async function loadOrders(){
 
     console.error(error);
 
-
-    ordersDiv.innerHTML=`
+    ordersDiv.innerHTML = `
 
       <div class="empty">
 
@@ -584,9 +558,7 @@ async function loadOrders(){
 }
 
 
-/*
-  CONFIRM ORDER
-*/
+/* CONFIRM ORDER */
 
 async function confirmOrder(
   orderId,
@@ -594,18 +566,22 @@ async function confirmOrder(
 ){
 
   const ok =
-    confirm(
+    window.confirm(
       "আপনি কি এই Order Confirm করতে চান?"
     );
 
 
-  if(!ok) return;
+  if(!ok){
+    return;
+  }
 
 
-  button.disabled=true;
+  button.disabled = true;
 
-  button.innerText=
-    "Confirm হচ্ছে...";
+  button.classList.add("confirming");
+
+  button.innerText =
+    "⏳ Confirm হচ্ছে...";
 
 
   try{
@@ -630,12 +606,7 @@ async function confirmOrder(
     );
 
 
-    /*
-      আবার Orders load
-    */
-
     loadOrders();
-
 
   }
 
@@ -645,14 +616,16 @@ async function confirmOrder(
 
 
     alert(
-      "❌ Order Confirm করা যায়নি।\n\n"+
+      "❌ Order Confirm করা যায়নি।\n\n" +
       error.message
     );
 
 
-    button.disabled=false;
+    button.disabled = false;
 
-    button.innerText=
+    button.classList.remove("confirming");
+
+    button.innerText =
       "✅ Confirm Order";
 
   }
@@ -660,9 +633,7 @@ async function confirmOrder(
 }
 
 
-/*
-  SECURITY HELPERS
-*/
+/* SECURITY HELPERS */
 
 function esc(value){
 
@@ -679,14 +650,15 @@ function esc(value){
 function escAttr(value){
 
   return String(value ?? "")
-    .replace(/\\/g,"\\\\")
-    .replace(/'/g,"\\'")
-    .replace(/\n/g," ");
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/'/g,"&#039;");
 
 }
 
 </script>
-
 
 </body>
 
