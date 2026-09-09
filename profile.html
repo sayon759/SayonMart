@@ -1,852 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SayonMart Profile</title>
-
 <style>
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f5f5;
-  color:#222;
-  padding-bottom:90px;
-}
-
-/* HEADER */
-
-header{
-  height:90px;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 25px;
-  position:sticky;
-  top:0;
-  z-index:100;
-  box-shadow:0 2px 10px #ddd;
-}
-
-.logo{
-  font-size:32px;
-  font-weight:800;
-}
-
-.logo span{
-  color:#c9a000;
-}
-
-.header-btn{
-  width:55px;
-  height:55px;
-  border:0;
-  border-radius:50%;
-  background:#f5f5f5;
-  font-size:25px;
-  cursor:pointer;
-}
-
-/* PROFILE */
-
-.profile-card{
-  background:#fff;
-  margin:20px;
-  padding:25px;
-  border-radius:25px;
-  text-align:center;
-  box-shadow:0 4px 18px #ddd;
-}
-
-.profile-icon{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  background:#fff1b8;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:42px;
-  margin:auto;
-}
-
-.profile-card h2{
-  margin:12px 0 5px;
-}
-
-.profile-card p{
-  color:#888;
-  margin:0;
-}
-
-/* SECTION */
-
-.section-title{
-  margin:25px 20px 10px;
-  font-size:25px;
-  font-weight:800;
-}
-
-/* MENU */
-
-.menu{
-  background:#fff;
-  margin:0 20px;
-  border-radius:22px;
-  overflow:hidden;
-  box-shadow:0 4px 15px #ddd;
-}
-
-.menu-item{
-  display:flex;
-  align-items:center;
-  padding:18px;
-  border-bottom:1px solid #eee;
-  cursor:pointer;
-}
-
-.menu-item:last-child{
-  border-bottom:0;
-}
-
-.menu-icon{
-  width:60px;
-  height:60px;
-  border-radius:18px;
-  background:#fff2bd;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  margin-right:18px;
-}
-
-.menu-text{
-  flex:1;
-}
-
-.menu-text h3{
-  margin:0 0 5px;
-  font-size:18px;
-}
-
-.menu-text p{
-  margin:0;
-  color:#999;
-  font-size:14px;
-}
-
-.arrow{
-  font-size:32px;
-  color:#999;
-}
-
-/* ADMIN */
-
-#adminPanelItem{
-  display:none;
-}
-
-/* LOGOUT */
-
-.logout{
-  margin:25px 20px;
-  width:calc(100% - 40px);
-  border:0;
-  border-radius:15px;
-  padding:16px;
-  background:#c9a000;
-  color:#fff;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* BOTTOM NAV */
-
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:75px;
-  background:#fff;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  box-shadow:0 -2px 12px #ddd;
-  z-index:200;
-}
-
-.bottom-nav a{
-  text-decoration:none;
-  color:#777;
-  text-align:center;
-  font-size:12px;
-}
-
-.bottom-nav a div{
-  font-size:25px;
-  margin-bottom:3px;
-}
-
-.bottom-nav .active{
-  color:#c9a000;
-  font-weight:bold;
-}
-
-/* LANGUAGE MODAL */
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  z-index:999;
-  align-items:flex-end;
-}
-
-.modal-box{
-  width:100%;
-  background:#fff;
-  border-radius:28px 28px 0 0;
-  padding:25px;
-  animation:slideUp .25s ease;
-}
-
-@keyframes slideUp{
-  from{
-    transform:translateY(100%);
-  }
-  to{
-    transform:translateY(0);
-  }
-}
-
-.modal-box h2{
-  margin:0 0 20px;
-  text-align:center;
-}
-
-.language-btn{
-  width:100%;
-  padding:17px;
-  margin:7px 0;
-  border:0;
-  border-radius:14px;
-  background:#fff4c7;
-  font-size:17px;
-  text-align:left;
-  cursor:pointer;
-}
-
-.language-btn:hover{
-  background:#ffe88b;
-}
-
-.cancel-btn{
-  width:100%;
-  padding:15px;
-  margin-top:10px;
-  border:0;
-  border-radius:14px;
-  background:#eee;
-  font-size:16px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:500px){
-
-  header{
-    height:80px;
-    padding:0 18px;
-  }
-
-  .logo{
-    font-size:27px;
-  }
-
-  .header-btn{
-    width:50px;
-    height:50px;
-  }
-
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f5f5f5;color:#222;min-height:100vh;padding-bottom:90px}
+header{height:75px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px #0000001a}
+.logo{font-size:27px;font-weight:800}.logo span{color:#c9a000}
+.header-btn{width:45px;height:45px;border:0;border-radius:50%;background:#f4f4f4;font-size:22px}
+.profile-card{margin:18px;padding:25px 15px;background:#fff;border-radius:22px;text-align:center;box-shadow:0 4px 15px #00000014}
+.profile-icon{width:80px;height:80px;margin:auto;border-radius:50%;background:#fff1b5;display:flex;align-items:center;justify-content:center;font-size:40px}
+.profile-card h2{margin-top:12px;font-size:21px}.profile-card p{margin-top:6px;color:#888;font-size:14px}
+.section-title{margin:22px 18px 10px;font-size:21px;font-weight:800}
+.menu{margin:0 18px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 15px #00000012}
+.menu-item{display:flex;align-items:center;min-height:82px;padding:12px 15px;border-bottom:1px solid #eee;cursor:pointer}
+.menu-item:last-child{border-bottom:0}.menu-icon{width:52px;height:52px;border-radius:15px;background:#fff2bd;display:flex;align-items:center;justify-content:center;font-size:26px;margin-right:14px;flex-shrink:0}
+.menu-text{flex:1}.menu-text h3{font-size:17px;margin-bottom:5px}.menu-text p{color:#999;font-size:13px}
+.arrow{color:#999;font-size:30px;margin-left:8px}#adminPanelItem{display:none}
+.logout{width:calc(100% - 36px);margin:25px 18px;padding:15px;border:0;border-radius:14px;background:#c9a000;color:#fff;font-size:17px;font-weight:bold}
+.bottom-nav{position:fixed;left:0;bottom:0;width:100%;height:72px;background:#fff;display:flex;align-items:center;justify-content:space-around;box-shadow:0 -2px 12px #0000001f;z-index:500}
+.bottom-nav a{text-decoration:none;color:#777;text-align:center;font-size:11px}.bottom-nav a div{font-size:23px;margin-bottom:3px}.bottom-nav a.active{color:#c9a000;font-weight:bold}
+.modal{display:none;position:fixed;inset:0;background:#0000008c;z-index:1000;align-items:flex-end}
+.modal-box{width:100%;background:#fff;border-radius:25px 25px 0 0;padding:25px 18px 30px}
+.modal-title{text-align:center;font-size:21px;font-weight:bold;margin-bottom:18px}
+.language-btn{width:100%;border:0;padding:16px;margin:6px 0;border-radius:14px;background:#fff3bd;font-size:17px;text-align:left}
+.cancel-btn{width:100%;border:0;padding:15px;margin-top:10px;border-radius:14px;background:#eee;font-size:16px}
+body.dark{background:#111;color:#fff}
+body.dark header,body.dark .profile-card,body.dark .menu,body.dark .bottom-nav,body.dark .modal-box{background:#1d1d1d;color:#fff}
+body.dark .menu-item{border-color:#333}body.dark .menu-text p,body.dark .profile-card p{color:#aaa}
+body.dark .header-btn{background:#333;color:#fff}body.dark .menu-icon,body.dark .language-btn{background:#383214}
+body.dark .language-btn{color:#fff}body.dark .cancel-btn{background:#333;color:#fff}
+body.dark .bottom-nav a{color:#aaa}
+@media(max-width:400px){.logo{font-size:24px}.menu-text h3{font-size:16px}.menu-text p{font-size:12px}}
 </style>
-
 </head>
-
-
 <body>
-
-
-<!-- HEADER -->
-
 <header>
-
-<button class="header-btn"
-onclick="history.back()">
-←
-</button>
-
-<div class="logo">
-<span>Sayon</span>Mart
-</div>
-
-<button class="header-btn"
-onclick="location.href='cart.html'">
-🛒
-</button>
-
+<button class="header-btn" onclick="history.back()">←</button>
+<div class="logo"><span>Sayon</span>Mart</div>
+<button class="header-btn" onclick="location.href='cart.html'">🛒</button>
 </header>
 
-
-<!-- PROFILE -->
-
 <div class="profile-card">
-
-<div class="profile-icon">
-👤
+<div class="profile-icon">👤</div>
+<h2 id="profileName">Welcome to SayonMart</h2>
+<p id="profileEmail">Please login to your account</p>
 </div>
 
-<h2 id="profileName">
-Welcome to SayonMart
-</h2>
-
-<p id="profileEmail">
-Please login to your account
-</p>
-
-</div>
-
-
-<!-- QUICK MENU -->
-
-<div class="section-title"
-data-i18n="Quick Menu">
-Quick Menu
-</div>
-
+<div class="section-title" data-i18n="Quick Menu">Quick Menu</div>
 <div class="menu">
-
-
-<!-- ORDERS -->
-
-<div class="menu-item"
-onclick="location.href='order.html'">
-
-<div class="menu-icon">
-📦
+<div class="menu-item" onclick="location.href='order.html'"><div class="menu-icon">📦</div><div class="menu-text"><h3 data-i18n="My Orders">My Orders</h3><p data-i18n="View your orders">View your orders</p></div><div class="arrow">›</div></div>
+<div class="menu-item" onclick="location.href='products.html?wishlist=true'"><div class="menu-icon">❤️</div><div class="menu-text"><h3 data-i18n="Wishlist">Wishlist</h3><p data-i18n="Your saved products">Your saved products</p></div><div class="arrow">›</div></div>
+<div class="menu-item" onclick="location.href='cart.html'"><div class="menu-icon">🛒</div><div class="menu-text"><h3 data-i18n="Cart">Cart</h3><p data-i18n="Products in your cart">Products in your cart</p></div><div class="arrow">›</div></div>
 </div>
 
-<div class="menu-text">
-
-<h3 data-i18n="My Orders">
-My Orders
-</h3>
-
-<p data-i18n="View your orders">
-View your orders
-</p>
-
-</div>
-
-<div class="arrow">
-›
-</div>
-
-</div>
-
-
-<!-- WISHLIST -->
-
-<div class="menu-item"
-onclick="location.href='products.html?wishlist=true'">
-
-<div class="menu-icon">
-❤️
-</div>
-
-<div class="menu-text">
-
-<h3 data-i18n="Wishlist">
-Wishlist
-</h3>
-
-<p data-i18n="Your saved products">
-Your saved products
-</p>
-
-</div>
-
-<div class="arrow">
-›
-</div>
-
-</div>
-
-
-<!-- CART -->
-
-<div class="menu-item"
-onclick="location.href='cart.html'">
-
-<div class="menu-icon">
-🛒
-</div>
-
-<div class="menu-text">
-
-<h3 data-i18n="Cart">
-Cart
-</h3>
-
-<p data-i18n="Products in your cart">
-Products in your cart
-</p>
-
-</div>
-
-<div class="arrow">
-›
-</div>
-
-</div>
-
-</div>
-
-
-<!-- SETTINGS -->
-
-<div class="section-title"
-data-i18n="App Settings">
-App Settings
-</div>
-
+<div class="section-title" data-i18n="App Settings">App Settings</div>
 <div class="menu">
-
-
-<!-- LANGUAGE -->
-
-<div class="menu-item"
-onclick="openLanguage()">
-
-<div class="menu-icon">
-🌐
+<div class="menu-item" onclick="openLanguage()"><div class="menu-icon">🌐</div><div class="menu-text"><h3 data-i18n="Language">Language</h3><p id="languageName">English</p></div><div class="arrow">›</div></div>
+<div class="menu-item" onclick="toggleTheme()"><div class="menu-icon">🎨</div><div class="menu-text"><h3 data-i18n="Theme">Theme</h3><p id="themeName">Light</p></div><div class="arrow">›</div></div>
 </div>
 
-<div class="menu-text">
-
-<h3 data-i18n="Language">
-Language
-</h3>
-
-<p id="languageName">
-English
-</p>
-
-</div>
-
-<div class="arrow">
-›
-</div>
-
-</div>
-
-
-<!-- THEME -->
-
-<div class="menu-item"
-onclick="toggleTheme()">
-
-<div class="menu-icon">
-🎨
-</div>
-
-<div class="menu-text">
-
-<h3 data-i18n="Theme">
-Theme
-</h3>
-
-<p id="themeName">
-Light
-</p>
-
-</div>
-
-<div class="arrow">
-›
-</div>
-
-</div>
-
-</div>
-
-
-<!-- SUPPORT -->
-
-<div class="section-title"
-data-i18n="Support">
-Support
-</div>
-
+<div class="section-title" data-i18n="Support">Support</div>
 <div class="menu">
-
-
-<!-- HELP -->
-
-<div class="menu-item"
-onclick="location.href='help.html'">
-
-<div class="menu-icon">
-❓
+<div class="menu-item" onclick="location.href='help.html'"><div class="menu-icon">❓</div><div class="menu-text"><h3 data-i18n="Help Center">Help Center</h3><p data-i18n="Get help with your orders">Get help with your orders</p></div><div class="arrow">›</div></div>
+<div class="menu-item" onclick="location.href='contact.html'"><div class="menu-icon">📞</div><div class="menu-text"><h3 data-i18n="Contact Us">Contact Us</h3><p data-i18n="Contact SayonMart support">Contact SayonMart support</p></div><div class="arrow">›</div></div>
+<div class="menu-item" onclick="location.href='about.html'"><div class="menu-icon">ℹ️</div><div class="menu-text"><h3 data-i18n="About SayonMart">About SayonMart</h3><p data-i18n="About our shopping app">About our shopping app</p></div><div class="arrow">›</div></div>
+<div class="menu-item" id="adminPanelItem" onclick="location.href='admin.html'"><div class="menu-icon">🛠️</div><div class="menu-text"><h3 data-i18n="Admin Panel">Admin Panel</h3><p data-i18n="Manage SayonMart">Manage SayonMart</p></div><div class="arrow">›</div></div>
 </div>
 
-<div class="menu-text">
-
-<h3 data-i18n="Help Center">
-Help Center
-</h3>
-
-<p data-i18n="Get help with your orders">
-Get help with your orders
-</p>
-
-</div>
-
-<div class="arrow">
-›
-</div>
-
-</div>
-
-
-<!-- CONTACT -->
-
-<div class="menu-item"
-onclick="location.href='contact.html'">
-
-<div class="menu-icon">
-📞
-</div>
-
-<div class="menu-text">
-
-<h3 data-i18n="Contact Us">
-Contact Us
-</h3>
-
-<p data-i18n="Contact SayonMart support">
-Contact SayonMart support
-</p>
-
-</div>
-
-<div class="arrow">
-›
-</div>
-
-</div>
-
-
-<!-- ABOUT -->
-
-<div class="menu-item"
-onclick="location.href='about.html'">
-
-<div class="menu-icon">
-ℹ️
-</div>
-
-<div class="menu-text">
-
-<h3 data-i18n="About SayonMart">
-About SayonMart
-</h3>
-
-<p data-i18n="About our shopping app">
-About our shopping app
-</p>
-
-</div>
-
-<div class="arrow">
-›
-</div>
-
-</div>
-
-
-<!-- ADMIN -->
-
-<div class="menu-item"
-id="adminPanelItem"
-onclick="location.href='admin.html'">
-
-<div class="menu-icon">
-🛠️
-</div>
-
-<div class="menu-text">
-
-<h3 data-i18n="Admin Panel">
-Admin Panel
-</h3>
-
-<p data-i18n="Manage SayonMart">
-Manage SayonMart
-</p>
-
-</div>
-
-<div class="arrow">
-›
-</div>
-
-</div>
-
-</div>
-
-
-<!-- LOGOUT -->
-
-<button class="logout"
-id="logoutBtn"
-data-i18n="Logout">
-Logout
-</button>
-
-
-<!-- BOTTOM NAV -->
+<button class="logout" id="logoutBtn" data-i18n="Logout">Logout</button>
 
 <nav class="bottom-nav">
-
-<a href="index.html">
-
-<div>⌂</div>
-
-<span data-i18n="Home">
-Home
-</span>
-
-</a>
-
-
-<a href="products.html">
-
-<div>▦</div>
-
-<span data-i18n="Products">
-Products
-</span>
-
-</a>
-
-
-<a href="products.html?wishlist=true">
-
-<div>♡</div>
-
-<span data-i18n="Wishlist">
-Wishlist
-</span>
-
-</a>
-
-
-<a href="cart.html">
-
-<div>🛒</div>
-
-<span data-i18n="Cart">
-Cart
-</span>
-
-</a>
-
-
-<a href="profile.html"
-class="active">
-
-<div>♙</div>
-
-<span data-i18n="Profile">
-Profile
-</span>
-
-</a>
-
+<a href="index.html"><div>⌂</div><span data-i18n="Home">Home</span></a>
+<a href="products.html"><div>▦</div><span data-i18n="Products">Products</span></a>
+<a href="products.html?wishlist=true"><div>♡</div><span data-i18n="Wishlist">Wishlist</span></a>
+<a href="cart.html"><div>🛒</div><span data-i18n="Cart">Cart</span></a>
+<a href="profile.html" class="active"><div>♙</div><span data-i18n="Profile">Profile</span></a>
 </nav>
 
-
-<!-- LANGUAGE MODAL -->
-
-<div id="languageModal"
-class="modal">
-
+<div id="languageModal" class="modal">
 <div class="modal-box">
-
-<h2 data-i18n="Choose Language">
-Choose Language
-</h2>
-
-
-<button class="language-btn"
-onclick="selectLanguage('Bangla')">
-
-🇧🇩 বাংলা
-
-</button>
-
-
-<button class="language-btn"
-onclick="selectLanguage('Hindi')">
-
-🇮🇳 हिन्दी
-
-</button>
-
-
-<button class="language-btn"
-onclick="selectLanguage('English')">
-
-🇬🇧 English
-
-</button>
-
-
-<button class="cancel-btn"
-onclick="closeLanguage()"
-data-i18n="Cancel">
-
-Cancel
-
-</button>
-
+<div class="modal-title" data-i18n="Choose Language">Choose Language</div>
+<button class="language-btn" onclick="selectLanguage('Bangla')">🇧🇩 বাংলা</button>
+<button class="language-btn" onclick="selectLanguage('Hindi')">🇮🇳 हिन्दी</button>
+<button class="language-btn" onclick="selectLanguage('English')">🇬🇧 English</button>
+<button class="cancel-btn" onclick="closeLanguage()" data-i18n="Cancel">Cancel</button>
 </div>
-
 </div>
-
-
-<!-- FIREBASE + LANGUAGE -->
 
 <script type="module">
+import {auth} from "./firebase.js";
+import {onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import { auth } from "./firebase.js";
+const ADMIN_UID="fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
 
-import {
-  onAuthStateChanged,
-  signOut
+const translations={
+English:{
+"Quick Menu":"Quick Menu","My Orders":"My Orders","View your orders":"View your orders","Wishlist":"Wishlist","Your saved products":"Your saved products","Cart":"Cart","Products in your cart":"Products in your cart","App Settings":"App Settings","Language":"Language","Theme":"Theme","Light":"Light","Dark":"Dark","Support":"Support","Help Center":"Help Center","Get help with your orders":"Get help with your orders","Contact Us":"Contact Us","Contact SayonMart support":"Contact SayonMart support","About SayonMart":"About SayonMart","About our shopping app":"About our shopping app","Admin Panel":"Admin Panel","Manage SayonMart":"Manage SayonMart","Logout":"Logout","Home":"Home","Products":"Products","Profile":"Profile","Choose Language":"Choose Language","Cancel":"Cancel","Welcome to SayonMart":"Welcome to SayonMart","Please login to your account":"Please login to your account"},
+Bangla:{
+"Quick Menu":"দ্রুত মেনু","My Orders":"আমার অর্ডার","View your orders":"আপনার অর্ডার দেখুন","Wishlist":"উইশলিস্ট","Your saved products":"আপনার সেভ করা পণ্য","Cart":"কার্ট","Products in your cart":"আপনার কার্টের পণ্য","App Settings":"অ্যাপ সেটিংস","Language":"ভাষা","Theme":"থিম","Light":"লাইট","Dark":"ডার্ক","Support":"সহায়তা","Help Center":"হেল্প সেন্টার","Get help with your orders":"আপনার অর্ডার সংক্রান্ত সাহায্য নিন","Contact Us":"যোগাযোগ করুন","Contact SayonMart support":"SayonMart সাপোর্টে যোগাযোগ করুন","About SayonMart":"SayonMart সম্পর্কে","About our shopping app":"আমাদের শপিং অ্যাপ সম্পর্কে","Admin Panel":"অ্যাডমিন প্যানেল","Manage SayonMart":"SayonMart পরিচালনা করুন","Logout":"লগআউট","Home":"হোম","Products":"পণ্য","Profile":"প্রোফাইল","Choose Language":"ভাষা নির্বাচন করুন","Cancel":"বাতিল","Welcome to SayonMart":"SayonMart-এ স্বাগতম","Please login to your account":"আপনার অ্যাকাউন্টে লগইন করুন"},
+Hindi:{
+"Quick Menu":"त्वरित मेनू","My Orders":"मेरे ऑर्डर","View your orders":"अपने ऑर्डर देखें","Wishlist":"विशलिस्ट","Your saved products":"आपके सेव किए गए प्रोडक्ट्स","Cart":"कार्ट","Products in your cart":"आपके कार्ट के प्रोडक्ट्स","App Settings":"ऐप सेटिंग्स","Language":"भाषा","Theme":"थीम","Light":"लाइट","Dark":"डार्क","Support":"सहायता","Help Center":"हेल्प सेंटर","Get help with your orders":"अपने ऑर्डर के लिए सहायता लें","Contact Us":"हमसे संपर्क करें","Contact SayonMart support":"SayonMart सपोर्ट से संपर्क करें","About SayonMart":"SayonMart के बारे में","About our shopping app":"हमारे शॉपिंग ऐप के बारे में","Admin Panel":"एडमिन पैनल","Manage SayonMart":"SayonMart मैनेज करें","Logout":"लॉगआउट","Home":"होम","Products":"प्रोडक्ट्स","Profile":"प्रोफाइल","Choose Language":"भाषा चुनें","Cancel":"रद्द करें","Welcome to SayonMart":"SayonMart में आपका स्वागत है","Please login to your account":"अपने अकाउंट में लॉगिन करें"}
+};
+
+let currentLanguage=localStorage.getItem("sayonmart_language")||"English";
+
+function applyLanguage(){
+const lang=translations[currentLanguage]||translations.English;
+document.querySelectorAll("[data-i18n]").forEach(e=>{
+const k=e.getAttribute("data-i18n");
+if(lang[k])e.textContent=lang[k];
+});
+const names={Bangla:"বাংলা",Hindi:"हिन्दी",English:"English"};
+document.getElementById("languageName").textContent=names[currentLanguage];
+document.documentElement.lang=currentLanguage==="Bangla"?"bn":currentLanguage==="Hindi"?"hi":"en";
+updateThemeText();
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+window.selectLanguage=l=>{
+if(!translations[l])return;
+currentLanguage=l;
+localStorage.setItem("sayonmart_language",l);
+applyLanguage();
+closeLanguage();
+};
 
-/* =========================
-   ADMIN UID
-========================= */
+window.openLanguage=()=>{
+document.getElementById("languageModal").style.display="flex";
+};
 
-const ADMIN_UID =
-"fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+window.closeLanguage=()=>{
+document.getElementById("languageModal").style.display="none";
+};
 
+function updateThemeText(){
+const dark=document.body.classList.contains("dark");
+const lang=translations[currentLanguage];
+document.getElementById("themeName").textContent=dark?lang.Dark:lang.Light;
+}
 
-/* =========================
-   TRANSLATIONS
-========================= */
+window.toggleTheme=()=>{
+document.body.classList.toggle("dark");
+localStorage.setItem("sayonmart_theme",document.body.classList.contains("dark")?"dark":"light");
+updateThemeText();
+};
 
-const translations = {
+function loadTheme(){
+if((localStorage.getItem("sayonmart_theme")||"light")==="dark")
+document.body.classList.add("dark");
+updateThemeText();
+}
 
-English: {
+onAuthStateChanged(auth,user=>{
+if(user){
+document.getElementById("profileName").textContent=
+user.email?user.email.split("@")[0]:"SayonMart User";
+document.getElementById("profileEmail").textContent=user.email||"";
 
-"Quick Menu":"Quick Menu",
+if(user.uid===ADMIN_UID)
+document.getElementById("adminPanelItem").style.display="flex";
+}else{
+updateGuestText();
+}
+});
 
-"My Orders":"My Orders",
-"View your orders":"View your orders",
+function updateGuestText(){
+const l=translations[currentLanguage];
+document.getElementById("profileName").textContent=l["Welcome to SayonMart"];
+document.getElementById("profileEmail").textContent=l["Please login to your account"];
+}
 
-"Wishlist":"Wishlist",
-"Your saved products":"Your saved products",
+document.getElementById("logoutBtn").addEventListener("click",async()=>{
+try{
+await signOut(auth);
+location.href="login.html";
+}catch(e){
+alert(e.message);
+}
+});
 
-"Cart":"Cart",
-"Products in your cart":"Products in your cart",
-
-"App Settings":"App Settings",
-
-"Language":"Language",
-
-"Theme":"Theme",
-"Light":"Light",
-
-"Support":"Support",
-
-"Help Center":"Help Center",
-"Get help with your orders":
-"Get help with your orders",
-
-"Contact Us":"Contact Us",
-"Contact SayonMart support":
-"Contact SayonMart support",
-
-"About SayonMart":"About SayonMart",
-"About our shopping app":
-"About our shopping app",
-
-"Admin Panel":"Admin Panel",
-"Manage SayonMart":
-"Manage SayonMart",
-
-"Logout":"Logout",
-
-"Home":"Home",
-"Products":"Products",
-"Profile":"Profile",
-
-"Choose Language":"Choose Language",
-"Cancel":"Cancel"
-
-},
-
-
-Bangla: {
-
-"Quick Menu":"দ্রুত মেনু",
-
-"My Orders":"আমার অর্ডার",
-"View your orders":"আপনার অর্ডার দেখুন",
-
-"Wishlist":"উইশলিস্ট",
-"Your saved products":
-"আপনার সেভ করা পণ্য",
-
-"Cart":"কার্ট",
-"Products in your cart":
-"আপনার কার্টের পণ্য",
-
-"App Settings":"অ্যাপ সেটিংস",
-
-"Language":"ভাষা",
-
-"Theme":"থিম",
-"Light":"লাইট",
-
-"Support":"সহায়তা",
-
-"Help Center":"হেল্প সেন্টার",
-"Get help with your orders":
-"আপনার অর্ডার সংক্রান্ত সাহায্য নিন",
-
-"Contact Us":"যোগাযোগ করুন",
-"Contact SayonMart support":
-"SayonMart সাপোর্ট
+document.addEventListener("DOMContentLoaded",()=>{
+applyLanguage();
+loadTheme();
+updateGuestText();
+});
+</script>
+</body>
+</html>
