@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SayonMart Notifications</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f7f7f7;
+  color:#222;
+  padding-bottom:30px;
+}
+
+
+/* HEADER */
+
+.header{
+  background:#fff;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.back{
+  border:0;
+  background:none;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.header h2{
+  color:#e91e63;
+  font-size:21px;
+}
+
+
+/* TOP */
+
+.top{
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.top-title{
+  font-size:17px;
+  font-weight:bold;
+}
+
+.clear-btn{
+  border:0;
+  background:#e91e63;
+  color:#fff;
+  padding:9px 13px;
+  border-radius:8px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+
+/* NOTIFICATIONS */
+
+.container{
+  padding:0 15px;
+}
+
+.notification{
+  background:#fff;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+
+.notification.unread{
+  border-left:4px solid #e91e63;
+  background:#fff8fb;
+}
+
+.icon{
+  width:42px;
+  height:42px;
+  min-width:42px;
+  border-radius:12px;
+  background:#fff0f5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+}
+
+.content{
+  flex:1;
+}
+
+.title{
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.message{
+  font-size:14px;
+  color:#555;
+  line-height:1.5;
+}
+
+.time{
+  font-size:11px;
+  color:#999;
+  margin-top:7px;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  margin-top:10px;
+}
+
+.read-btn,
+.delete-btn{
+  border:0;
+  padding:7px 10px;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.read-btn{
+  background:#eee;
+}
+
+.delete-btn{
+  background:#ffe5e5;
+  color:#d00;
+}
+
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:60px 20px;
+  color:#888;
+}
+
+.empty-icon{
+  font-size:50px;
+  margin-bottom:12px;
+}
+
+.loading{
+  text-align:center;
+  padding:50px;
+  color:#777;
+}
+
+.error{
+  text-align:center;
+  padding:30px 15px;
+  color:#d00;
+  line-height:1.6;
+  word-break:break-word;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+<button class="back"
+onclick="history.back()">
+‹
+</button>
+
+<h2>🔔 Notifications</h2>
+
+</div>
+
+
+<!-- TOP -->
+
+<div class="top">
+
+<div class="top-title">
+My Notifications
+</div>
+
+<button class="clear-btn"
+onclick="clearAllNotifications()">
+Clear All
+</button>
+
+</div>
+
+
+<!-- NOTIFICATIONS -->
+
+<div class="container"
+id="notifications">
+
+<div class="loading">
+⏳ Notifications load হচ্ছে...
+</div>
+
+</div>
+
+
+
+<script type="module">
+
+import { auth, db }
+from "./firebase.js";
+
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  doc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+const notificationBox =
+document.getElementById("notifications");
+
+
+let currentUser = null;
+
+
+/* নিরাপদ HTML */
+
+function escapeHTML(value){
+
+  if(value === null || value === undefined){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* সময় */
+
+function getTime(createdAt){
+
+  if(!createdAt){
+    return "";
+  }
+
+  try{
+
+    let date;
+
+    if(createdAt.seconds){
+
+      date =
+      new Date(createdAt.seconds * 1000);
+
+    }else{
+
+      date = new Date(createdAt);
+
+    }
+
+    return date.toLocaleString();
+
+  }catch(error){
+
+    return "";
+
+  }
+
+}
+
+
+/* Notification load */
+
+async function loadNotifications(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  notificationBox.innerHTML = `
+    <div class="loading">
+      ⏳ Notifications load হচ্ছে...
+    </div>
+  `;
+
+
+  try{
+
+    const q = query(
+      collection(db,"notifications"),
+      where("userId","==",currentUser.uid)
+    );
+
+
+    const snapshot =
+    await getDocs(q);
+
+
+    if(snapshot.empty){
+
+      notificationBox.innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            🔔
+          </div>
+
+          <div>
+            এখনো কোনো notification নেই।
+          </div>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    let notifications = [];
+
+
+    snapshot.forEach((item)=>{
+
+      notifications.push({
+
+        id:item.id,
+
+        data:item.data()
+
+      });
+
+    });
+
+
+    /* নতুন notification আগে */
+
+    notifications.sort((a,b)=>{
+
+      const aTime =
+      a.data.createdAt?.seconds || 0;
+
+      const bTime =
+      b.data.createdAt?.seconds || 0;
+
+      return bTime - aTime;
+
+    });
+
+
+    let html = "";
+
+
+    notifications.forEach((item)=>{
+
+      const data = item.data;
+
+
+      const title =
+      data.title || "SayonMart";
+
+
+      const message =
+      data.message || "নতুন notification";
+
+
+      const icon =
+      data.icon || "🔔";
+
+
+      const read =
+      data.read === true;
+
+
+      const time =
+      getTime(data.createdAt);
+
+
+      html += `
+
+        <div class="notification ${read ? "" : "unread"}">
+
+          <div class="icon">
+            ${escapeHTML(icon)}
+          </div>
+
+
+          <div class="content">
+
+            <div class="title">
+              ${escapeHTML(title)}
+            </div>
+
+
+            <div class="message">
+              ${escapeHTML(message)}
+            </div>
+
+
+            <div class="time">
+              ${escapeHTML(time)}
+            </div>
+
+
+            <div class="actions">
+
+              ${
+                !read
+
+                ?
+
+                `<button
+                  class="read-btn"
+                  onclick="markAsRead('${item.id}')">
+                  ✓ Read
+                </button>`
+
+                :
+
+                `<button
+                  class="read-btn"
+                  disabled>
+                  ✓ Read
+                </button>`
+              }
+
+
+              <button
+                class="delete-btn"
+                onclick="deleteNotification('${item.id}')">
+                🗑 Delete
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+
+    notificationBox.innerHTML = html;
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    notificationBox.innerHTML = `
+
+      <div class="error">
+
+        ❌ Notification load করা যায়নি।
+
+        <br><br>
+
+        <b>${escapeHTML(error.code || "")}</b>
+
+        <br>
+
+        ${escapeHTML(error.message || "")}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* Read */
+
+window.markAsRead =
+async function(notificationId){
+
+  try{
+
+    await updateDoc(
+      doc(
+        db,
+        "notifications",
+        notificationId
+      ),
+      {
+        read:true
+      }
+    );
+
+
+    await loadNotifications();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Notification read করা যায়নি।\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* Delete */
+
+window.deleteNotification =
+async function(notificationId){
+
+  const ok =
+  confirm("এই notification মুছে ফেলবেন?");
+
+  if(!ok){
+    return;
+  }
+
+
+  try{
+
+    await deleteDoc(
+      doc(
+        db,
+        "notifications",
+        notificationId
+      )
+    );
+
+
+    await loadNotifications();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Notification delete করা যায়নি।\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* Clear All */
+
+window.clearAllNotifications =
+async function(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  const ok =
+  confirm(
+    "সব notification মুছে ফেলবেন?"
+  );
+
+
+  if(!ok){
+    return;
+  }
+
+
+  try{
+
+    const q = query(
+      collection(db,"notifications"),
+      where("userId","==",currentUser.uid)
+    );
+
+
+    const snapshot =
+    await getDocs(q);
+
+
+    for(const item of snapshot.docs){
+
+      await deleteDoc(
+        doc(
+          db,
+          "notifications",
+          item.id
+        )
+      );
+
+    }
+
+
+    await loadNotifications();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "সব notification মুছে ফেলা যায়নি।\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* Login check */
+
+onAuthStateChanged(
+  auth,
+  async (user)=>{
+
+    if(!user){
+
+      notificationBox.innerHTML = `
+
+        <div class="error">
+
+          ❌ আগে Login করুন।
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    currentUser = user;
+
+    await loadNotifications();
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>
