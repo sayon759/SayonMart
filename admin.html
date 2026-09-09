@@ -1,723 +1,479 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SayonMart Admin</title>
+<title>SayonMart Admin Panel</title>
 
 <style>
-
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 body{
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-color:#222;
-min-height:100vh;
+  font-family:Arial,sans-serif;
+  background:#f5f5f5;
+  color:#222;
+  padding-bottom:40px;
 }
 
 /* HEADER */
-
-.header{
-background:#fff;
-padding:20px 15px;
-text-align:center;
-border-bottom:1px solid #ddd;
-box-shadow:0 3px 15px rgba(0,0,0,.08);
-position:sticky;
-top:0;
-z-index:100;
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#fff;
+  border-bottom:2px solid #d4af37;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
-.header h1{
-color:#c99d00;
-font-size:30px;
-font-weight:800;
+.logo{
+  font-size:23px;
+  font-weight:bold;
+  color:#c49a00;
+}
+
+.admin-badge{
+  background:#fff7d6;
+  color:#9b7800;
+  border:1px solid #e5c84b;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
 }
 
 /* CONTAINER */
-
 .container{
-padding:22px 15px 50px;
-max-width:1000px;
-margin:auto;
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  padding:18px;
 }
 
-/* CARD */
-
+/* CARDS */
 .card{
-background:#fff;
-padding:22px;
-border-radius:20px;
-margin-bottom:22px;
-border:1px solid #e5e5e5;
-box-shadow:0 8px 30px rgba(0,0,0,.07);
-position:relative;
-}
-
-.card::before{
-content:"";
-position:absolute;
-left:0;
-top:0;
-width:100%;
-height:3px;
-background:#FFD000;
-border-radius:20px 20px 0 0;
+  background:#fff;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
+  border-top:4px solid #d4af37;
 }
 
 .card h2{
-color:#c99d00;
-margin-bottom:20px;
-font-size:25px;
+  color:#b18700;
+  margin-bottom:18px;
+  font-size:20px;
 }
 
-/* INPUT */
+/* INPUTS */
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+label{
+  font-size:13px;
+  font-weight:bold;
+  color:#555;
+}
 
 input,
 select,
 textarea{
-width:100%;
-padding:15px 16px;
-margin:9px 0;
-border:1px solid #ddd;
-border-radius:12px;
-background:#fafafa;
-color:#222;
-font-size:15px;
-outline:none;
-transition:.25s;
-}
-
-input::placeholder,
-textarea::placeholder{
-color:#999;
+  width:100%;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:10px;
+  padding:13px;
+  font-size:14px;
+  outline:none;
+  transition:.2s;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
-border-color:#e2b600;
-background:#fff;
-box-shadow:0 0 0 3px rgba(255,208,0,.12);
+  border-color:#d4af37;
+  box-shadow:0 0 0 3px rgba(212,175,55,.12);
 }
 
 textarea{
-min-height:110px;
-resize:vertical;
+  min-height:110px;
+  resize:vertical;
 }
 
-input[type="file"]{
-background:#fff;
-border:1px dashed #bbb;
-padding:12px;
+/* BUTTONS */
+.buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
 }
-
-/* SECTION */
-
-.section-title{
-color:#c99d00;
-font-size:16px;
-font-weight:bold;
-margin-top:18px;
-margin-bottom:5px;
-}
-
-.optional{
-color:#999;
-font-size:12px;
-margin:3px 0 8px;
-}
-
-/* BUTTON */
 
 button{
-width:100%;
-padding:15px;
-margin-top:11px;
-border:none;
-border-radius:12px;
-background:#FFD000;
-color:#222;
-font-weight:800;
-font-size:15px;
-cursor:pointer;
-transition:.2s;
-box-shadow:0 5px 15px rgba(218,174,0,.18);
+  border:none;
+  border-radius:10px;
+  padding:12px 18px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:14px;
 }
 
-button:hover{
-background:#eabd00;
-transform:translateY(-1px);
+.btn-gold{
+  background:#d4af37;
+  color:#fff;
 }
 
-button:active{
-transform:scale(.98);
+.btn-gold:hover{
+  background:#b9931e;
 }
 
-button.delete{
-background:#ef3d3d;
-color:#fff;
+.btn-light{
+  background:#f2f2f2;
+  color:#333;
 }
 
-button.edit{
-background:#2186e8;
-color:#fff;
+.btn-red{
+  background:#e53935;
+  color:#fff;
 }
 
-button.cancel{
-background:#eee;
-color:#555;
-border:1px solid #ddd;
+.btn-blue{
+  background:#1976d2;
+  color:#fff;
 }
 
-/* IMAGE PREVIEW */
-
-#previewContainer{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:14px;
+/* PREVIEW */
+#preview{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
 }
 
 .preview-img{
-width:82px;
-height:82px;
-object-fit:cover;
-border-radius:12px;
-border:2px solid #eee;
-background:#fafafa;
+  width:90px;
+  height:90px;
+  object-fit:cover;
+  border-radius:10px;
+  border:2px solid #eee;
 }
 
-.preview-img:hover{
-border-color:#FFD000;
+/* PRODUCT GRID */
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
 }
-
-/* PRODUCTS */
-
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:15px;
-}
-
-/* PRODUCT CARD */
 
 .product{
-background:#fff;
-padding:12px;
-border-radius:16px;
-border:1px solid #e5e5e5;
-cursor:pointer;
-transition:.25s;
-overflow:hidden;
-box-shadow:0 5px 18px rgba(0,0,0,.06);
-}
-
-.product:hover{
-transform:translateY(-4px);
-border-color:#e0b500;
-box-shadow:0 10px 25px rgba(0,0,0,.1);
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
 }
 
 .product img{
-width:100%;
-height:165px;
-object-fit:cover;
-border-radius:11px;
-background:#f3f3f3;
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  background:#eee;
 }
 
-.product h3{
-margin-top:10px;
-font-size:16px;
-color:#222;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
+.product-info{
+  padding:13px;
+}
+
+.product-name{
+  font-weight:bold;
+  font-size:15px;
+  margin-bottom:7px;
 }
 
 .price{
-color:#c99d00;
-font-weight:bold;
-font-size:17px;
-margin-top:7px;
+  color:#b18700;
+  font-size:18px;
+  font-weight:bold;
 }
 
 .old-price{
-color:#999;
-text-decoration:line-through;
-font-size:12px;
-margin-top:3px;
+  color:#999;
+  text-decoration:line-through;
+  font-size:13px;
+  margin-left:5px;
 }
 
 .discount{
-color:#0a9f52;
-font-size:12px;
-font-weight:bold;
-margin-top:4px;
+  display:inline-block;
+  background:#e9f7ec;
+  color:#16852c;
+  padding:4px 7px;
+  border-radius:5px;
+  font-size:11px;
+  margin-top:7px;
 }
 
 .category{
-color:#777;
-margin-top:5px;
-font-size:13px;
+  color:#777;
+  font-size:12px;
+  margin-top:6px;
 }
 
-/* SMALL BUTTONS */
-
-.small-btns{
-display:flex;
-gap:7px;
-margin-top:7px;
+.product-buttons{
+  display:flex;
+  gap:7px;
+  margin-top:12px;
 }
 
-.small-btns button{
-flex:1;
-padding:10px;
-font-size:12px;
-margin-top:4px;
+.product-buttons button{
+  flex:1;
+  padding:9px 5px;
+  font-size:12px;
+}
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  color:#777;
+  padding:30px;
 }
 
 /* MODAL */
-
 .modal{
-display:none;
-position:fixed;
-z-index:999;
-left:0;
-top:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.65);
-backdrop-filter:blur(5px);
-overflow:auto;
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:999;
+  background:rgba(0,0,0,.55);
+  padding:20px;
+  overflow-y:auto;
 }
 
-.modal-content{
-background:#fff;
-width:92%;
-max-width:850px;
-margin:30px auto;
-border-radius:20px;
-padding:20px;
-position:relative;
-border:1px solid #ddd;
-box-shadow:0 20px 60px rgba(0,0,0,.25);
+.modal-box{
+  background:#fff;
+  max-width:650px;
+  margin:40px auto;
+  border-radius:18px;
+  padding:22px;
+}
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
 }
 
 .close{
-position:absolute;
-right:17px;
-top:9px;
-width:38px;
-height:38px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-background:#f5f5f5;
-border:1px solid #ddd;
-font-size:27px;
-color:#333;
-cursor:pointer;
-z-index:10;
-}
-
-.close:hover{
-color:#c99d00;
-border-color:#FFD000;
-}
-
-/* MAIN IMAGE */
-
-.main-photo{
-width:100%;
-max-height:400px;
-object-fit:contain;
-background:#f7f7f7;
-border-radius:14px;
-margin-top:15px;
-border:1px solid #eee;
-}
-
-/* THUMBNAILS */
-
-.photo-thumbs{
-display:flex;
-gap:8px;
-overflow-x:auto;
-margin-top:10px;
-padding-bottom:6px;
-}
-
-.photo-thumbs img{
-width:68px;
-height:68px;
-object-fit:cover;
-border-radius:10px;
-border:2px solid #eee;
-cursor:pointer;
-flex-shrink:0;
-}
-
-.photo-thumbs img:hover{
-border-color:#FFD000;
-}
-
-/* DETAILS */
-
-.detail-title{
-color:#c99d00;
-font-size:26px;
-margin-top:18px;
-}
-
-.detail-price{
-color:#c99d00;
-font-size:23px;
-font-weight:bold;
-margin-top:8px;
-}
-
-.detail-old-price{
-color:#999;
-text-decoration:line-through;
-margin-top:5px;
-}
-
-.detail-discount{
-color:#0a9f52;
-font-weight:bold;
-margin-top:5px;
+  background:#eee;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  padding:0;
+  font-size:20px;
 }
 
 .detail-row{
-border-bottom:1px solid #eee;
-padding:13px 0;
-display:flex;
-justify-content:space-between;
-gap:15px;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
 }
 
-.detail-label{
-color:#888;
+.detail-row b{
+  color:#a47e00;
 }
 
-.detail-value{
-text-align:right;
-word-break:break-word;
-color:#333;
-}
-
-.description-box{
-margin-top:16px;
-padding:16px;
-background:#fafafa;
-border:1px solid #eee;
-border-radius:14px;
-line-height:1.6;
-color:#555;
-}
-
-.modal-buttons{
-display:flex;
-gap:10px;
-margin-top:16px;
-}
-
-.modal-buttons button{
-flex:1;
-}
-
-.loading{
-color:#999;
-text-align:center;
-padding:25px;
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-.header{
-padding:18px 10px;
-}
-
-.header h1{
-font-size:27px;
-}
-
-.container{
-padding:16px 10px 40px;
-}
-
-.card{
-padding:18px 15px;
-border-radius:18px;
-}
-
-.card h2{
-font-size:24px;
-}
-
-.products{
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-}
-
-.product{
-padding:9px;
-border-radius:14px;
-}
-
-.product img{
-height:145px;
-}
-
-.product h3{
-font-size:14px;
-}
-
-.price{
-font-size:15px;
-}
-
-.small-btns{
-flex-direction:column;
-gap:2px;
-}
-
-.small-btns button{
-padding:9px;
-}
-
-.modal-content{
-width:96%;
-margin:15px auto;
-padding:16px;
-border-radius:18px;
-}
-
+/* ADMIN INFO */
+.admin-info{
+  background:#fff9df;
+  border:1px solid #ead27b;
+  border-radius:10px;
+  padding:12px;
+  font-size:13px;
+  margin-bottom:15px;
 }
 
 /* SCROLLBAR */
-
 ::-webkit-scrollbar{
-width:5px;
-height:5px;
-}
-
-::-webkit-scrollbar-track{
-background:#f5f5f5;
+  width:8px;
 }
 
 ::-webkit-scrollbar-thumb{
-background:#ccc;
-border-radius:10px;
+  background:#d4af37;
+  border-radius:10px;
 }
 
-::-webkit-scrollbar-thumb:hover{
-background:#FFD000;
+/* MOBILE */
+@media(max-width:800px){
+  .products-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .product img{
+    height:150px;
+  }
 }
 
-::selection{
-background:#FFD000;
-color:#222;
-}
+@media(max-width:450px){
+  .container{
+    padding:12px;
+  }
 
+  .card{
+    padding:15px;
+  }
+
+  .product img{
+    height:135px;
+  }
+
+  .logo{
+    font-size:19px;
+  }
+
+  .admin-badge{
+    font-size:10px;
+  }
+}
 </style>
-
 </head>
 
 <body>
 
-<!-- HEADER -->
-
-<div class="header">
-<h1>🛒 SayonMart Admin</h1>
-</div>
-
+<header>
+  <div class="logo">SayonMart Admin</div>
+  <div class="admin-badge">ADMIN PANEL</div>
+</header>
 
 <div class="container">
 
-<!-- ADD PRODUCT -->
+<!-- ADMIN INFO -->
+<div class="admin-info">
+  🔐 <b>Admin Dashboard</b><br>
+  এখান থেকে Product Add, Edit, Delete এবং Product Details দেখা যাবে।
+</div>
 
+<!-- ADD PRODUCT -->
 <div class="card">
 
-<h2 id="formTitle">
-Add Product
-</h2>
+<h2 id="formTitle">➕ Add New Product</h2>
 
-<input
-id="productName"
-type="text"
-placeholder="Product Name"
->
+<div class="form-grid">
 
-<input
-id="productPrice"
-type="number"
-placeholder="Price"
->
+<div class="field">
+<label>Product Name *</label>
+<input id="productName" type="text" placeholder="Product Name">
+</div>
 
-<input
-id="productOldPrice"
-type="number"
-placeholder="Old Price (Optional)"
->
+<div class="field">
+<label>Price *</label>
+<input id="productPrice" type="number" placeholder="Price">
+</div>
 
-<input
-id="productDiscount"
-type="number"
-placeholder="Discount % (Optional)"
->
+<div class="field">
+<label>Old Price (Optional)</label>
+<input id="productOldPrice" type="number" placeholder="Old Price">
+</div>
 
+<div class="field">
+<label>Discount % (Optional)</label>
+<input id="productDiscount" type="number" placeholder="Discount %">
+</div>
 
+<div class="field">
+<label>Category *</label>
 <select id="productCategory">
-
-<option value="">
-Select Category
-</option>
-
-<option value="Fashion">
-Fashion
-</option>
-
-<option value="Shoes">
-Shoes
-</option>
-
-<option value="Mobiles">
-Mobiles
-</option>
-
-<option value="Watches">
-Watches
-</option>
-
-<option value="Electronics">
-Electronics
-</option>
-
-<option value="Other">
-Other
-</option>
-
+<option value="">Select Category</option>
+<option value="Fashion">Fashion</option>
+<option value="Shoes">Shoes</option>
+<option value="Mobiles">Mobiles</option>
+<option value="Watches">Watches</option>
+<option value="Electronics">Electronics</option>
+<option value="Other">Other</option>
 </select>
-
-
-<div class="section-title">
-🎨 Color
 </div>
 
-<input
-id="productColors"
-type="text"
-placeholder="Optional — Black, Blue, Red"
->
-
-<p class="optional">
-একাধিক Color দিতে comma ব্যবহার করুন।
-</p>
-
-
-<div class="section-title">
-📏 Size
+<div class="field">
+<label>Colors (Optional)</label>
+<input id="productColors"
+       type="text"
+       placeholder="Black, Blue, Red">
 </div>
 
-<input
-id="productSizes"
-type="text"
-placeholder="Optional — M, L, XL, XXL"
->
-
-<p class="optional">
-একাধিক Size দিতে comma ব্যবহার করুন।
-</p>
-
-
-<div class="section-title">
-📝 Description
+<div class="field">
+<label>Sizes (Optional)</label>
+<input id="productSizes"
+       type="text"
+       placeholder="M, L, XL, XXL">
 </div>
 
-<textarea
-id="productDescription"
-placeholder="Product Description (Optional)"
-></textarea>
+<div class="field full">
+<label>Product Description (Optional)</label>
+<textarea id="productDescription"
+          placeholder="Write product description..."></textarea>
+</div>
 
+<div class="field full">
+<label>Product Images *</label>
+<input id="productImage"
+       type="file"
+       accept="image/*"
+       multiple>
+</div>
 
-<input
-id="productImage"
-type="file"
-accept="image/*"
-multiple
->
+</div>
 
-<p style="
-color:#999;
-font-size:13px;
-margin-top:5px;
-">
-📷 সর্বোচ্চ ১০টি ছবি নির্বাচন করুন
-</p>
+<div id="preview"></div>
 
-
-<div id="previewContainer"></div>
-
-
-<button
-id="saveBtn"
-onclick="saveProduct()"
->
-➕ Add Product
+<div class="buttons">
+<button class="btn-gold" id="saveBtn" onclick="saveProduct()">
+💾 Save Product
 </button>
 
-
-<button
-id="cancelBtn"
-class="cancel"
-onclick="cancelEdit()"
-style="display:none;"
->
+<button class="btn-light" id="cancelBtn"
+        onclick="cancelEdit()"
+        style="display:none;">
 Cancel Edit
 </button>
+</div>
 
 </div>
 
 
-<!-- ALL PRODUCTS -->
-
+<!-- PRODUCTS -->
 <div class="card">
 
-<h2>
-All Products
-</h2>
+<h2>📦 All Products</h2>
 
-
-<input
-id="searchBox"
-type="text"
-placeholder="🔍 Search Product..."
-oninput="renderProducts()"
->
-
-
-<div
-id="products"
-class="products"
->
-
-<div class="loading">
-Loading...
-</div>
-
+<div id="productsGrid" class="products-grid">
+<div class="empty">Loading products...</div>
 </div>
 
 </div>
@@ -725,207 +481,17 @@ Loading...
 </div>
 
 
-<!-- PRODUCT DETAILS MODAL -->
+<!-- DETAILS MODAL -->
+<div id="detailsModal" class="modal">
 
-<div
-id="productModal"
-class="modal"
->
+<div class="modal-box">
 
-<div class="modal-content">
-
-<span
-class="close"
-onclick="closeModal()"
->
-×
-</span>
-
-
-<img
-id="detailMainImage"
-class="main-photo"
-style="display:none;"
->
-
-
-<div
-id="detailThumbs"
-class="photo-thumbs"
-></div>
-
-
-<h2
-id="detailName"
-class="detail-title"
-></h2>
-
-
-<div
-id="detailPrice"
-class="detail-price"
-></div>
-
-
-<div
-id="detailOldPrice"
-class="detail-old-price"
-></div>
-
-
-<div
-id="detailDiscount"
-class="detail-discount"
-></div>
-
-
-<!-- COLOR -->
-
-<div
-id="detailColorRow"
-class="detail-row"
-style="display:none;"
->
-
-<span class="detail-label">
-🎨 Color
-</span>
-
-<span
-id="detailColors"
-class="detail-value"
-></span>
-
+<div class="modal-header">
+<h2>Product Details</h2>
+<button class="close" onclick="closeModal()">×</button>
 </div>
 
-
-<!-- SIZE -->
-
-<div
-id="detailSizeRow"
-class="detail-row"
-style="display:none;"
->
-
-<span class="detail-label">
-📏 Size
-</span>
-
-<span
-id="detailSizes"
-class="detail-value"
-></span>
-
-</div>
-
-
-<div class="detail-row">
-
-<span class="detail-label">
-Category
-</span>
-
-<span
-id="detailCategory"
-class="detail-value"
-></span>
-
-</div>
-
-
-<div class="detail-row">
-
-<span class="detail-label">
-Product ID
-</span>
-
-<span
-id="detailId"
-class="detail-value"
-></span>
-
-</div>
-
-
-<div class="detail-row">
-
-<span class="detail-label">
-Added Date
-</span>
-
-<span
-id="detailDate"
-class="detail-value"
-></span>
-
-</div>
-
-
-<div class="detail-row">
-
-<span class="detail-label">
-Added By
-</span>
-
-<span
-id="detailAddedBy"
-class="detail-value"
-></span>
-
-</div>
-
-
-<div class="detail-row">
-
-<span class="detail-label">
-Total Photos
-</span>
-
-<span
-id="detailPhotoCount"
-class="detail-value"
-></span>
-
-</div>
-
-
-<!-- DESCRIPTION -->
-
-<div
-id="detailDescriptionBox"
-class="description-box"
-style="display:none;"
->
-
-<strong>
-📝 Description
-</strong>
-
-<p
-id="detailDescription"
-style="margin-top:8px;"
-></p>
-
-</div>
-
-
-<div class="modal-buttons">
-
-<button
-id="modalEditBtn"
-class="edit"
->
-✏️ Edit Product
-</button>
-
-<button
-id="modalDeleteBtn"
-class="delete"
->
-🗑️ Delete Product
-</button>
-
-</div>
+<div id="detailsContent"></div>
 
 </div>
 
@@ -934,1484 +500,1042 @@ class="delete"
 
 <script type="module">
 
-import {
-auth,
-db
-}
-from "./firebase.js";
-
+import { db, auth } from "./firebase.js";
 
 import {
-collection,
-addDoc,
-getDocs,
-updateDoc,
-deleteDoc,
-doc
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-let currentUser=null;
-
-let editId=null;
-
-let selectedImages=[];
-
-let allProducts=[];
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 /* =========================
-AUTH
+   ADMIN UID
 ========================= */
 
-auth.onAuthStateChanged(user=>{
+const ADMIN_UID = "fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
 
-if(!user){
 
-alert("Please Login First");
+/* =========================
+   VARIABLES
+========================= */
 
-window.location.href="login.html";
+let currentUser = null;
+let editingId = null;
+let selectedImages = [];
 
-return;
 
-}
+/* =========================
+   AUTH CHECK
+========================= */
 
-currentUser=user;
+onAuthStateChanged(auth, user => {
 
-loadProducts();
+  if(!user){
+
+    alert("Admin login required.");
+
+    window.location.href = "login.html";
+
+    return;
+  }
+
+  if(user.uid !== ADMIN_UID){
+
+    alert("You are not an admin.");
+
+    window.location.href = "index.html";
+
+    return;
+  }
+
+  currentUser = user;
+
+  loadProducts();
 
 });
 
 
 /* =========================
-IMAGE SELECT
-========================= */
-
-document
-.getElementById("productImage")
-.addEventListener(
-"change",
-async function(e){
-
-const files=
-Array.from(e.target.files);
-
-
-if(files.length>10){
-
-alert(
-"সর্বোচ্চ ১০টি ছবি নির্বাচন করতে পারবেন।"
-);
-
-this.value="";
-
-return;
-
-}
-
-
-selectedImages=[];
-
-
-const container=
-document.getElementById(
-"previewContainer"
-);
-
-container.innerHTML="";
-
-
-for(const file of files){
-
-if(
-!file.type.startsWith("image/")
-) continue;
-
-
-try{
-
-const image=
-await compressImage(file);
-
-
-selectedImages.push(image);
-
-
-const img=
-document.createElement("img");
-
-
-img.src=image;
-
-img.className="preview-img";
-
-
-container.appendChild(img);
-
-}
-
-catch(error){
-
-console.error(error);
-
-}
-
-}
-
-});
-
-
-/* =========================
-COMPRESS IMAGE
+   IMAGE COMPRESSION
 ========================= */
 
 function compressImage(file){
 
-return new Promise(
-(resolve,reject)=>{
+  return new Promise((resolve,reject)=>{
 
-const reader=
-new FileReader();
+    const reader = new FileReader();
 
+    reader.onload = event => {
 
-reader.onload=
-function(event){
+      const img = new Image();
 
-const img=
-new Image();
+      img.onload = ()=>{
 
+        const canvas = document.createElement("canvas");
 
-img.onload=
-function(){
+        const maxWidth = 900;
 
-const canvas=
-document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
 
-const maxSize=700;
+        if(width > maxWidth){
 
-let width=img.width;
+          height = height * maxWidth / width;
 
-let height=img.height;
+          width = maxWidth;
 
+        }
 
-if(width>height){
+        canvas.width = width;
+        canvas.height = height;
 
-if(width>maxSize){
+        const ctx = canvas.getContext("2d");
 
-height=
-height*maxSize/width;
+        ctx.drawImage(img,0,0,width,height);
 
-width=maxSize;
+        resolve(
+          canvas.toDataURL("image/jpeg",0.75)
+        );
 
-}
+      };
 
-}
+      img.onerror = reject;
 
-else{
+      img.src = event.target.result;
 
-if(height>maxSize){
+    };
 
-width=
-width*maxSize/height;
+    reader.onerror = reject;
 
-height=maxSize;
+    reader.readAsDataURL(file);
 
-}
-
-}
-
-
-canvas.width=width;
-
-canvas.height=height;
-
-
-const ctx=
-canvas.getContext("2d");
-
-
-ctx.drawImage(
-img,
-0,
-0,
-width,
-height
-);
-
-
-const result=
-canvas.toDataURL(
-"image/jpeg",
-0.65
-);
-
-
-resolve(result);
-
-};
-
-
-img.onerror=reject;
-
-img.src=event.target.result;
-
-};
-
-
-reader.onerror=reject;
-
-reader.readAsDataURL(file);
-
-});
+  });
 
 }
 
 
 /* =========================
-SAVE PRODUCT
+   IMAGE SELECT
 ========================= */
 
-window.saveProduct=
-async function(){
+document.getElementById("productImage")
+.addEventListener("change", async function(){
 
-if(!currentUser){
+  const files = Array.from(this.files);
 
-alert("Please login first");
+  if(files.length > 10){
 
-return;
+    alert("Maximum 10 images allowed.");
 
-}
+    this.value = "";
 
+    return;
+  }
 
-const name=
-document
-.getElementById("productName")
-.value
-.trim();
+  selectedImages = [];
 
+  document.getElementById("preview").innerHTML =
+    "<p>Processing images...</p>";
 
-const price=
-document
-.getElementById("productPrice")
-.value;
+  for(const file of files){
 
+    try{
 
-const oldPrice=
-document
-.getElementById("productOldPrice")
-.value;
+      const compressed =
+        await compressImage(file);
 
+      selectedImages.push(compressed);
 
-const discount=
-document
-.getElementById("productDiscount")
-.value;
+    }catch(error){
 
+      console.error(error);
 
-const category=
-document
-.getElementById("productCategory")
-.value;
+    }
 
+  }
 
-const colorsText=
-document
-.getElementById("productColors")
-.value
-.trim();
-
-
-const sizesText=
-document
-.getElementById("productSizes")
-.value
-.trim();
-
-
-const description=
-document
-.getElementById("productDescription")
-.value
-.trim();
-
-
-const colors=
-colorsText
-.split(",")
-.map(x=>x.trim())
-.filter(Boolean);
-
-
-const sizes=
-sizesText
-.split(",")
-.map(x=>x.trim())
-.filter(Boolean);
-
-
-if(!name){
-
-alert("Product name দিন");
-
-return;
-
-}
-
-
-if(!price){
-
-alert("Price দিন");
-
-return;
-
-}
-
-
-if(!category){
-
-alert("Category select করুন");
-
-return;
-
-}
-
-
-try{
-
-
-/* ADD */
-
-if(!editId){
-
-if(selectedImages.length===0){
-
-alert(
-"Gallery থেকে অন্তত ১টি ছবি select করুন"
-);
-
-return;
-
-}
-
-
-const productData={
-
-name:name,
-
-price:Number(price),
-
-category:category,
-
-image:selectedImages[0],
-
-images:selectedImages,
-
-createdAt:Date.now(),
-
-createdBy:currentUser.uid,
-
-createdByEmail:
-currentUser.email||""
-
-};
-
-
-if(oldPrice){
-
-productData.oldPrice=
-Number(oldPrice);
-
-}
-
-
-if(discount){
-
-productData.discount=
-Number(discount);
-
-}
-
-
-if(colors.length>0){
-
-productData.colors=
-colors;
-
-}
-
-
-if(sizes.length>0){
-
-productData.sizes=
-sizes;
-
-}
-
-
-if(description){
-
-productData.description=
-description;
-
-}
-
-
-await addDoc(
-collection(db,"products"),
-productData
-);
-
-
-alert("✅ Product Added!");
-
-}
-
-
-/* UPDATE */
-
-else{
-
-const updateData={
-
-name:name,
-
-price:Number(price),
-
-category:category,
-
-oldPrice:
-oldPrice
-?
-Number(oldPrice)
-:
-null,
-
-discount:
-discount
-?
-Number(discount)
-:
-null,
-
-colors:colors,
-
-sizes:sizes,
-
-description:description
-
-};
-
-
-if(selectedImages.length>0){
-
-updateData.image=
-selectedImages[0];
-
-updateData.images=
-selectedImages;
-
-}
-
-
-await updateDoc(
-doc(db,"products",editId),
-updateData
-);
-
-
-alert("✅ Product Updated!");
-
-}
-
-
-clearForm();
-
-loadProducts();
-
-}
-
-catch(error){
-
-console.error(error);
-
-alert(
-"Error: "+error.message
-);
-
-}
-
-};
-
-
-/* =========================
-LOAD PRODUCTS
-========================= */
-
-window.loadProducts=
-async function(){
-
-const box=
-document.getElementById(
-"products"
-);
-
-
-box.innerHTML=
-`
-<div class="loading">
-Loading...
-</div>
-`;
-
-
-try{
-
-const snapshot=
-await getDocs(
-collection(db,"products")
-);
-
-
-allProducts=[];
-
-
-snapshot.forEach(item=>{
-
-allProducts.push({
-
-id:item.id,
-
-data:item.data()
-
-});
-
-});
-
-
-renderProducts();
-
-}
-
-catch(error){
-
-console.error(error);
-
-box.innerHTML=
-`
-<p>
-Products load হচ্ছে না
-</p>
-`;
-
-}
-
-};
-
-
-/* =========================
-RENDER
-========================= */
-
-function renderProducts(){
-
-const box=
-document.getElementById(
-"products"
-);
-
-
-const search=
-document
-.getElementById("searchBox")
-.value
-.toLowerCase()
-.trim();
-
-
-box.innerHTML="";
-
-
-let count=0;
-
-
-allProducts.forEach(product=>{
-
-const p=
-product.data;
-
-
-if(
-search &&
-!String(p.name||"")
-.toLowerCase()
-.includes(search)
-){
-
-return;
-
-}
-
-
-count++;
-
-
-const images=
-getProductImages(p);
-
-
-const firstImage=
-images[0]||"";
-
-
-const div=
-document.createElement("div");
-
-
-div.className="product";
-
-
-div.onclick=
-function(){
-
-openDetails(
-product.id,
-p
-);
-
-};
-
-
-let priceHTML=
-`
-<div class="price">
-₹${p.price||0}
-</div>
-`;
-
-
-if(p.oldPrice){
-
-priceHTML+=
-`
-<div class="old-price">
-₹${p.oldPrice}
-</div>
-`;
-
-}
-
-
-if(p.discount){
-
-priceHTML+=
-`
-<div class="discount">
-${p.discount}% OFF
-</div>
-`;
-
-}
-
-
-div.innerHTML=`
-
-${
-firstImage
-?
-`<img src="${firstImage}">`
-:
-`
-<div style="
-height:165px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#f5f5f5;
-border-radius:11px;
-color:#aaa;
-">
-No Image
-</div>
-`
-}
-
-<h3>
-${escapeHTML(
-p.name||"Product"
-)}
-</h3>
-
-${priceHTML}
-
-<p class="category">
-${escapeHTML(
-p.category||""
-)}
-</p>
-
-<p style="
-color:#999;
-font-size:12px;
-margin-top:6px;
-">
-📷 ${images.length} photo(s)
-</p>
-
-<div class="small-btns">
-
-<button
-class="edit"
-onclick="
-event.stopPropagation();
-editProduct('${product.id}')
-"
->
-✏️ Edit
-</button>
-
-<button
-class="delete"
-onclick="
-event.stopPropagation();
-deleteProduct('${product.id}')
-"
->
-🗑️ Delete
-</button>
-
-</div>
-
-`;
-
-
-box.appendChild(div);
-
-});
-
-
-if(count===0){
-
-box.innerHTML=
-`
-<p>
-No Products Found
-</p>
-`;
-
-}
-
-}
-
-
-/* =========================
-GET IMAGES
-========================= */
-
-function getProductImages(p){
-
-if(
-Array.isArray(p.images) &&
-p.images.length>0
-){
-
-return p.images;
-
-}
-
-
-if(p.image){
-
-return[p.image];
-
-}
-
-
-return[];
-
-}
-
-
-/* =========================
-DETAILS
-========================= */
-
-window.openDetails=
-function(id,p){
-
-const images=
-getProductImages(p);
-
-
-const modal=
-document.getElementById(
-"productModal"
-);
-
-
-const mainImage=
-document.getElementById(
-"detailMainImage"
-);
-
-
-const thumbs=
-document.getElementById(
-"detailThumbs"
-);
-
-
-document.getElementById(
-"detailName"
-)
-.textContent=
-p.name||"Product";
-
-
-document.getElementById(
-"detailPrice"
-)
-.textContent=
-"₹"+(p.price||0);
-
-
-/* OLD PRICE */
-
-const oldPriceBox=
-document.getElementById(
-"detailOldPrice"
-);
-
-
-if(p.oldPrice){
-
-oldPriceBox.textContent=
-"₹"+p.oldPrice;
-
-oldPriceBox.style.display=
-"block";
-
-}
-
-else{
-
-oldPriceBox.textContent="";
-
-oldPriceBox.style.display=
-"none";
-
-}
-
-
-/* DISCOUNT */
-
-const discountBox=
-document.getElementById(
-"detailDiscount"
-);
-
-
-if(p.discount){
-
-discountBox.textContent=
-p.discount+"% OFF";
-
-discountBox.style.display=
-"block";
-
-}
-
-else{
-
-discountBox.textContent="";
-
-discountBox.style.display=
-"none";
-
-}
-
-
-/* COLOR */
-
-const colorRow=
-document.getElementById(
-"detailColorRow"
-);
-
-
-if(
-Array.isArray(p.colors)&&
-p.colors.length>0
-){
-
-document.getElementById(
-"detailColors"
-)
-.textContent=
-p.colors.join(", ");
-
-colorRow.style.display=
-"flex";
-
-}
-
-else{
-
-colorRow.style.display=
-"none";
-
-}
-
-
-/* SIZE */
-
-const sizeRow=
-document.getElementById(
-"detailSizeRow"
-);
-
-
-if(
-Array.isArray(p.sizes)&&
-p.sizes.length>0
-){
-
-document.getElementById(
-"detailSizes"
-)
-.textContent=
-p.sizes.join(", ");
-
-sizeRow.style.display=
-"flex";
-
-}
-
-else{
-
-sizeRow.style.display=
-"none";
-
-}
-
-
-/* OTHER */
-
-document.getElementById(
-"detailCategory"
-)
-.textContent=
-p.category||"-";
-
-
-document.getElementById(
-"detailId"
-)
-.textContent=id;
-
-
-let dateText="-";
-
-
-if(p.createdAt){
-
-dateText=
-new Date(
-p.createdAt
-)
-.toLocaleString();
-
-}
-
-
-document.getElementById(
-"detailDate"
-)
-.textContent=
-dateText;
-
-
-document.getElementById(
-"detailAddedBy"
-)
-.textContent=
-p.createdByEmail||
-p.createdBy||
-"-";
-
-
-document.getElementById(
-"detailPhotoCount"
-)
-.textContent=
-images.length;
-
-
-/* DESCRIPTION */
-
-const descriptionBox=
-document.getElementById(
-"detailDescriptionBox"
-);
-
-
-if(p.description){
-
-document.getElementById(
-"detailDescription"
-)
-.textContent=
-p.description;
-
-descriptionBox.style.display=
-"block";
-
-}
-
-else{
-
-descriptionBox.style.display=
-"none";
-
-}
-
-
-/* PHOTOS */
-
-thumbs.innerHTML="";
-
-
-if(images.length>0){
-
-mainImage.src=
-images[0];
-
-mainImage.style.display=
-"block";
-
-
-images.forEach(image=>{
-
-const thumb=
-document.createElement("img");
-
-
-thumb.src=image;
-
-
-thumb.onclick=
-function(){
-
-mainImage.src=image;
-
-};
-
-
-thumbs.appendChild(thumb);
-
-});
-
-}
-
-else{
-
-mainImage.style.display=
-"none";
-
-}
-
-
-/* BUTTONS */
-
-document.getElementById(
-"modalEditBtn"
-)
-.onclick=
-function(){
-
-closeModal();
-
-editProduct(id);
-
-};
-
-
-document.getElementById(
-"modalDeleteBtn"
-)
-.onclick=
-function(){
-
-closeModal();
-
-deleteProduct(id);
-
-};
-
-
-modal.style.display=
-"block";
-
-};
-
-
-/* =========================
-CLOSE MODAL
-========================= */
-
-window.closeModal=
-function(){
-
-document.getElementById(
-"productModal"
-)
-.style.display=
-"none";
-
-};
-
-
-window.addEventListener(
-"click",
-function(event){
-
-const modal=
-document.getElementById(
-"productModal"
-);
-
-
-if(event.target===modal){
-
-closeModal();
-
-}
+  showPreview();
 
 });
 
 
 /* =========================
-EDIT
-========================= */
-
-window.editProduct=
-async function(id){
-
-try{
-
-const found=
-allProducts.find(
-item=>item.id===id
-);
-
-
-if(!found)return;
-
-
-const p=
-found.data;
-
-
-document.getElementById(
-"productName"
-)
-.value=
-p.name||"";
-
-
-document.getElementById(
-"productPrice"
-)
-.value=
-p.price||"";
-
-
-document.getElementById(
-"productOldPrice"
-)
-.value=
-p.oldPrice||"";
-
-
-document.getElementById(
-"productDiscount"
-)
-.value=
-p.discount||"";
-
-
-document.getElementById(
-"productCategory"
-)
-.value=
-p.category||"";
-
-
-document.getElementById(
-"productColors"
-)
-.value=
-Array.isArray(p.colors)
-?
-p.colors.join(", ")
-:
-"";
-
-
-document.getElementById(
-"productSizes"
-)
-.value=
-Array.isArray(p.sizes)
-?
-p.sizes.join(", ")
-:
-"";
-
-
-document.getElementById(
-"productDescription"
-)
-.value=
-p.description||"";
-
-
-selectedImages=
-getProductImages(p);
-
-
-showPreview();
-
-
-editId=id;
-
-
-document.getElementById(
-"formTitle"
-)
-.innerText=
-"Edit Product";
-
-
-document.getElementById(
-"saveBtn"
-)
-.innerText=
-"💾 Update Product";
-
-
-document.getElementById(
-"cancelBtn"
-)
-.style.display=
-"block";
-
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-}
-
-catch(error){
-
-alert(error.message);
-
-}
-
-};
-
-
-/* =========================
-PREVIEW
+   SHOW PREVIEW
 ========================= */
 
 function showPreview(){
 
-const container=
-document.getElementById(
-"previewContainer"
-);
+  const preview =
+    document.getElementById("preview");
 
+  preview.innerHTML = "";
 
-container.innerHTML="";
+  selectedImages.forEach(image => {
 
+    const img = document.createElement("img");
 
-selectedImages.forEach(image=>{
+    img.src = image;
 
-const img=
-document.createElement("img");
+    img.className = "preview-img";
 
+    preview.appendChild(img);
 
-img.src=image;
-
-img.className=
-"preview-img";
-
-
-container.appendChild(img);
-
-});
+  });
 
 }
 
 
 /* =========================
-DELETE
+   SAVE PRODUCT
 ========================= */
 
-window.deleteProduct=
-async function(id){
+window.saveProduct = async function(){
 
-const ok=
-confirm(
-"এই product delete করবেন?"
-);
+  if(!currentUser){
+
+    alert("Please login.");
+
+    return;
+  }
+
+  const name =
+    document.getElementById("productName")
+    .value.trim();
+
+  const price =
+    document.getElementById("productPrice")
+    .value.trim();
+
+  const oldPrice =
+    document.getElementById("productOldPrice")
+    .value.trim();
+
+  const discount =
+    document.getElementById("productDiscount")
+    .value.trim();
+
+  const category =
+    document.getElementById("productCategory")
+    .value;
+
+  const colorsText =
+    document.getElementById("productColors")
+    .value.trim();
+
+  const sizesText =
+    document.getElementById("productSizes")
+    .value.trim();
+
+  const description =
+    document.getElementById("productDescription")
+    .value.trim();
 
 
-if(!ok)return;
+  /* VALIDATION */
+
+  if(!name){
+
+    alert("Product name দিন.");
+
+    return;
+  }
+
+  if(!price){
+
+    alert("Product price দিন.");
+
+    return;
+  }
+
+  if(!category){
+
+    alert("Category select করুন.");
+
+    return;
+  }
 
 
-try{
-
-await deleteDoc(
-doc(db,"products",id)
-);
-
-
-alert(
-"🗑️ Product Deleted"
-);
+  const colors =
+    colorsText
+    .split(",")
+    .map(x => x.trim())
+    .filter(Boolean);
 
 
-loadProducts();
+  const sizes =
+    sizesText
+    .split(",")
+    .map(x => x.trim())
+    .filter(Boolean);
 
-}
 
-catch(error){
+  try{
 
-alert(error.message);
+    document.getElementById("saveBtn").disabled = true;
 
-}
+    document.getElementById("saveBtn").innerText =
+      "Saving...";
+
+
+    /* =====================
+       EDIT PRODUCT
+    ===================== */
+
+    if(editingId){
+
+      const updateData = {
+
+        name:name,
+
+        price:Number(price),
+
+        category:category,
+
+        oldPrice:
+          oldPrice ? Number(oldPrice) : null,
+
+        discount:
+          discount ? Number(discount) : null,
+
+        colors:colors,
+
+        sizes:sizes,
+
+        description:description
+
+      };
+
+
+      if(selectedImages.length > 0){
+
+        updateData.image =
+          selectedImages[0];
+
+        updateData.images =
+          selectedImages;
+
+      }
+
+
+      await updateDoc(
+
+        doc(db,"products",editingId),
+
+        updateData
+
+      );
+
+
+      alert("✅ Product updated successfully.");
+
+    }
+
+    /* =====================
+       ADD PRODUCT
+    ===================== */
+
+    else{
+
+      if(selectedImages.length === 0){
+
+        alert("কমপক্ষে ১টি image দিন.");
+
+        document.getElementById("saveBtn")
+        .disabled = false;
+
+        document.getElementById("saveBtn")
+        .innerText = "💾 Save Product";
+
+        return;
+      }
+
+
+      const productData = {
+
+        name:name,
+
+        price:Number(price),
+
+        category:category,
+
+        image:selectedImages[0],
+
+        images:selectedImages,
+
+        createdAt:Date.now(),
+
+        createdBy:currentUser.uid,
+
+        createdByEmail:
+          currentUser.email || ""
+
+      };
+
+
+      if(oldPrice){
+
+        productData.oldPrice =
+          Number(oldPrice);
+
+      }
+
+
+      if(discount){
+
+        productData.discount =
+          Number(discount);
+
+      }
+
+
+      if(colors.length > 0){
+
+        productData.colors =
+          colors;
+
+      }
+
+
+      if(sizes.length > 0){
+
+        productData.sizes =
+          sizes;
+
+      }
+
+
+      if(description){
+
+        productData.description =
+          description;
+
+      }
+
+
+      await addDoc(
+
+        collection(db,"products"),
+
+        productData
+
+      );
+
+
+      alert("✅ Product added successfully.");
+
+    }
+
+
+    clearForm();
+
+    await loadProducts();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "❌ Error: " + error.message
+    );
+
+  }
+
+
+  document.getElementById("saveBtn")
+  .disabled = false;
+
+  document.getElementById("saveBtn")
+  .innerText =
+    editingId
+    ? "💾 Update Product"
+    : "💾 Save Product";
 
 };
 
 
 /* =========================
-CLEAR
+   LOAD PRODUCTS
+========================= */
+
+async function loadProducts(){
+
+  const grid =
+    document.getElementById("productsGrid");
+
+  grid.innerHTML =
+    '<div class="empty">Loading...</div>';
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"products")
+      );
+
+
+    grid.innerHTML = "";
+
+
+    if(snapshot.empty){
+
+      grid.innerHTML =
+        '<div class="empty">No products found.</div>';
+
+      return;
+
+    }
+
+
+    snapshot.forEach(item => {
+
+      const p = item.data();
+
+      const id = item.id;
+
+
+      const image =
+        p.image ||
+        (p.images && p.images[0]) ||
+        "https://via.placeholder.com/500";
+
+
+      const oldPrice =
+        p.oldPrice
+        ? `<span class="old-price">₹${p.oldPrice}</span>`
+        : "";
+
+
+      const discount =
+        p.discount
+        ? `<div class="discount">${p.discount}% OFF</div>`
+        : "";
+
+
+      const div =
+        document.createElement("div");
+
+      div.className = "product";
+
+
+      div.innerHTML = `
+
+        <img src="${escapeHTML(image)}">
+
+        <div class="product-info">
+
+          <div class="product-name">
+            ${escapeHTML(p.name || "Unnamed")}
+          </div>
+
+          <div class="price">
+            ₹${Number(p.price || 0).toLocaleString("en-IN")}
+            ${oldPrice}
+          </div>
+
+          ${discount}
+
+          <div class="category">
+            ${escapeHTML(p.category || "")}
+          </div>
+
+          <div class="product-buttons">
+
+            <button
+              class="btn-blue"
+              onclick="showDetails('${id}')">
+              👁️ View
+            </button>
+
+            <button
+              class="btn-gold"
+              onclick="editProduct('${id}')">
+              ✏️ Edit
+            </button>
+
+            <button
+              class="btn-red"
+              onclick="deleteProduct('${id}')">
+              🗑️
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+
+      grid.appendChild(div);
+
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    grid.innerHTML =
+      '<div class="empty">Failed to load products.</div>';
+
+  }
+
+}
+
+
+/* =========================
+   SHOW DETAILS
+========================= */
+
+window.showDetails = async function(id){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"products")
+      );
+
+
+    let product = null;
+
+
+    snapshot.forEach(item => {
+
+      if(item.id === id){
+
+        product = item.data();
+
+      }
+
+    });
+
+
+    if(!product) return;
+
+
+    let html = "";
+
+
+    html += `
+      <div class="detail-row">
+        <b>Name:</b>
+        ${escapeHTML(product.name || "")}
+      </div>
+    `;
+
+
+    html += `
+      <div class="detail-row">
+        <b>Price:</b>
+        ₹${product.price || 0}
+      </div>
+    `;
+
+
+    if(product.oldPrice){
+
+      html += `
+        <div class="detail-row">
+          <b>Old Price:</b>
+          ₹${product.oldPrice}
+        </div>
+      `;
+
+    }
+
+
+    if(product.discount){
+
+      html += `
+        <div class="detail-row">
+          <b>Discount:</b>
+          ${product.discount}%
+        </div>
+      `;
+
+    }
+
+
+    html += `
+      <div class="detail-row">
+        <b>Category:</b>
+        ${escapeHTML(product.category || "")}
+      </div>
+    `;
+
+
+    /* COLORS */
+
+    if(
+      Array.isArray(product.colors) &&
+      product.colors.length > 0
+    ){
+
+      html += `
+        <div class="detail-row">
+          <b>Colors:</b>
+          ${product.colors
+            .map(x=>escapeHTML(x))
+            .join(", ")}
+        </div>
+      `;
+
+    }
+
+
+    /* SIZES */
+
+    if(
+      Array.isArray(product.sizes) &&
+      product.sizes.length > 0
+    ){
+
+      html += `
+        <div class="detail-row">
+          <b>Sizes:</b>
+          ${product.sizes
+            .map(x=>escapeHTML(x))
+            .join(", ")}
+        </div>
+      `;
+
+    }
+
+
+    /* DESCRIPTION */
+
+    if(product.description){
+
+      html += `
+        <div class="detail-row">
+          <b>Description:</b><br><br>
+          ${escapeHTML(product.description)}
+        </div>
+      `;
+
+    }
+
+
+    /* IMAGES */
+
+    const images =
+      product.images ||
+      [product.image];
+
+
+    html += `
+      <div class="detail-row">
+        <b>Images:</b>
+        <div id="detailsImages"
+             style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+        </div>
+      </div>
+    `;
+
+
+    document.getElementById("detailsContent")
+    .innerHTML = html;
+
+
+    const imageBox =
+      document.getElementById("detailsImages");
+
+
+    images
+    .filter(Boolean)
+    .forEach(src => {
+
+      const img =
+        document.createElement("img");
+
+      img.src = src;
+
+      img.style.width = "90px";
+      img.style.height = "90px";
+      img.style.objectFit = "cover";
+      img.style.borderRadius = "10px";
+
+      imageBox.appendChild(img);
+
+    });
+
+
+    document.getElementById("detailsModal")
+    .style.display = "block";
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Unable to load details.");
+
+  }
+
+};
+
+
+/* =========================
+   EDIT PRODUCT
+========================= */
+
+window.editProduct = async function(id){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"products")
+      );
+
+
+    let product = null;
+
+
+    snapshot.forEach(item => {
+
+      if(item.id === id){
+
+        product = item.data();
+
+      }
+
+    });
+
+
+    if(!product) return;
+
+
+    editingId = id;
+
+
+    document.getElementById("productName")
+      .value = product.name || "";
+
+
+    document.getElementById("productPrice")
+      .value = product.price || "";
+
+
+    document.getElementById("productOldPrice")
+      .value = product.oldPrice || "";
+
+
+    document.getElementById("productDiscount")
+      .value = product.discount || "";
+
+
+    document.getElementById("productCategory")
+      .value = product.category || "";
+
+
+    document.getElementById("productColors")
+      .value =
+        Array.isArray(product.colors)
+        ? product.colors.join(", ")
+        : "";
+
+
+    document.getElementById("productSizes")
+      .value =
+        Array.isArray(product.sizes)
+        ? product.sizes.join(", ")
+        : "";
+
+
+    document.getElementById("productDescription")
+      .value =
+        product.description || "";
+
+
+    selectedImages =
+      product.images ||
+      (product.image ? [product.image] : []);
+
+
+    showPreview();
+
+
+    document.getElementById("formTitle")
+      .innerText =
+      "✏️ Edit Product";
+
+
+    document.getElementById("saveBtn")
+      .innerText =
+      "💾 Update Product";
+
+
+    document.getElementById("cancelBtn")
+      .style.display =
+      "block";
+
+
+    window.scrollTo({
+
+      top:0,
+
+      behavior:"smooth"
+
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Unable to edit product.");
+
+  }
+
+};
+
+
+/* =========================
+   DELETE PRODUCT
+========================= */
+
+window.deleteProduct = async function(id){
+
+  const ok =
+    confirm(
+      "এই product-টি delete করতে চান?"
+    );
+
+
+  if(!ok) return;
+
+
+  try{
+
+    await deleteDoc(
+      doc(db,"products",id)
+    );
+
+
+    alert("🗑️ Product deleted.");
+
+    await loadProducts();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Delete failed: " +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* =========================
+   CANCEL EDIT
+========================= */
+
+window.cancelEdit = function(){
+
+  clearForm();
+
+};
+
+
+/* =========================
+   CLEAR FORM
 ========================= */
 
 function clearForm(){
 
-document.getElementById(
-"productName"
-).value="";
+  editingId = null;
+
+  selectedImages = [];
 
 
-document.getElementById(
-"productPrice"
-).value="";
+  document.getElementById("productName")
+    .value = "";
+
+  document.getElementById("productPrice")
+    .value = "";
+
+  document.getElementById("productOldPrice")
+    .value = "";
+
+  document.getElementById("productDiscount")
+    .value = "";
+
+  document.getElementById("productCategory")
+    .value = "";
+
+  document.getElementById("productColors")
+    .value = "";
+
+  document.getElementById("productSizes")
+    .value = "";
+
+  document.getElementById("productDescription")
+    .value = "";
+
+  document.getElementById("productImage")
+    .value = "";
+
+  document.getElementById("preview")
+    .innerHTML = "";
 
 
-document.getElementById(
-"productOldPrice"
-).value="";
+  document.getElementById("formTitle")
+    .innerText =
+    "➕ Add New Product";
 
 
-document.getElementById(
-"productDiscount"
-).value="";
+  document.getElementById("saveBtn")
+    .innerText =
+    "💾 Save Product";
 
 
-document.getElementById(
-"productCategory"
-).value="";
-
-
-document.getElementById(
-"productColors"
-).value="";
-
-
-document.getElementById(
-"productSizes"
-).value="";
-
-
-document.getElementById(
-"productDescription"
-).value="";
-
-
-document.getElementById(
-"productImage"
-).value="";
-
-
-document.getElementById(
-"previewContainer"
-).innerHTML="";
-
-
-selectedImages=[];
-
-editId=null;
-
-
-document.getElementById(
-"formTitle"
-).innerText=
-"Add Product";
-
-
-document.getElementById(
-"saveBtn"
-).innerText=
-"➕ Add Product";
-
-
-document.getElementById(
-"cancelBtn"
-).style.display=
-"none";
+  document.getElementById("cancelBtn")
+    .style.display =
+    "none";
 
 }
 
 
 /* =========================
-CANCEL
+   CLOSE MODAL
 ========================= */
 
-window.cancelEdit=
-function(){
+window.closeModal = function(){
 
-clearForm();
+  document.getElementById("detailsModal")
+    .style.display = "none";
 
 };
 
 
 /* =========================
-ESCAPE HTML
+   ESCAPE HTML
 ========================= */
 
 function escapeHTML(value){
 
-return String(value)
-
-.replace(/&/g,"&amp;")
-
-.replace(/</g,"&lt;")
-
-.replace(/>/g,"&gt;")
-
-.replace(/"/g,"&quot;")
-
-.replace(/'/g,"&#039;");
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
