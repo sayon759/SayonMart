@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="bn">
+<!DOCTYPE html><html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SayonMart - Payment</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SayonMart - Payment</title><style>
 *{
   box-sizing:border-box;
   margin:0;
@@ -60,6 +55,11 @@ textarea{
   background:#292929;
   color:#fff;
   font-size:15px;
+}
+
+input:focus,
+textarea:focus{
+  outline:2px solid #e91e63;
 }
 
 textarea{
@@ -120,6 +120,18 @@ button{
   color:white;
 }
 
+.edit-btn{
+  background:#333;
+  color:#FFD700;
+  border:1px solid #FFD700;
+}
+
+.save-btn{
+  background:#333;
+  color:#FFD700;
+  border:1px solid #FFD700;
+}
+
 #upiBox{
   display:none;
 }
@@ -130,130 +142,260 @@ button{
   color:#00e676;
   font-weight:bold;
 }
-</style>
-</head>
 
-<body>
+#savedDeliveryAddress{
+  display:none;
+  background:#292929;
+  padding:15px;
+  border-radius:10px;
+  line-height:1.8;
+}
 
-<header>
+.address-line{
+  margin-bottom:5px;
+}
+
+.address-title{
+  color:#FFD700;
+  font-size:17px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+</style></head><body><header>
   💗 SayonMart Checkout
-</header>
+</header><div class="container">  <!-- DELIVERY -->  <div class="box"><h2>📦 Delivery Details</h2>
 
-<div class="container">
+<!-- SAVED ADDRESS -->
+<div id="savedDeliveryAddress">
 
-  <!-- DELIVERY -->
-  <div class="box">
-
-    <h2>📦 Delivery Details</h2>
-
-    <label>নাম</label>
-    <input id="name" type="text" placeholder="আপনার নাম">
-
-    <label>মোবাইল নম্বর</label>
-    <input id="phone" type="tel" placeholder="মোবাইল নম্বর">
-
-    <label>ঠিকানা</label>
-    <textarea id="address" placeholder="সম্পূর্ণ ঠিকানা লিখুন"></textarea>
-
+  <div class="address-title">
+    📍 Saved Address
   </div>
 
-
-  <!-- ORDER SUMMARY -->
-  <div class="box">
-
-    <h2>🛒 Order Summary</h2>
-
-    <div id="cartItems"></div>
-
-    <div class="summary">
-      <div>Subtotal: ₹<span id="subtotal">0</span></div>
-      <div>Delivery: ₹<span id="delivery">0</span></div>
-
-      <div class="total">
-        Total: ₹<span id="total">0</span>
-      </div>
-    </div>
-
+  <div class="address-line">
+    👤 <b>Name:</b>
+    <span id="savedName"></span>
   </div>
 
+  <div class="address-line">
+    📱 <b>Mobile:</b>
+    <span id="savedPhone"></span>
+  </div>
 
-  <!-- PAYMENT -->
-  <div class="box">
+  <div class="address-line">
+    📮 <b>PIN:</b>
+    <span id="savedPin"></span>
+  </div>
 
-    <h2>💳 Payment Method</h2>
+  <div class="address-line">
+    🏙️ <b>District:</b>
+    <span id="savedDistrict"></span>
+  </div>
 
-    <label class="payment-option">
-      <input
-        type="radio"
-        name="payment"
-        value="COD"
-        checked
-        onchange="paymentChanged()"
-      >
-      Cash on Delivery
-    </label>
+  <div class="address-line">
+    🏠 <b>Building/House:</b>
+    <span id="savedBuilding"></span>
+  </div>
 
+  <div class="address-line">
+    📍 <b>Local Area:</b>
+    <span id="savedArea"></span>
+  </div>
 
-    <label class="payment-option">
-      <input
-        type="radio"
-        name="payment"
-        value="UPI"
-        onchange="paymentChanged()"
-      >
-      UPI Payment
-    </label>
+  <button
+    type="button"
+    class="edit-btn"
+    onclick="editDeliveryAddress()"
+  >
+    ✏️ Edit Address
+  </button>
 
-
-    <!-- UPI -->
-    <div id="upiBox">
-
-      <p style="margin-top:15px;">
-        UPI ID:
-        <b>8016410311@axl</b>
-      </p>
-
-      <button
-        class="upi-btn"
-        onclick="payWithUPI()"
-      >
-        📱 Pay ₹<span id="upiAmount">0</span> with UPI
-      </button>
-
-      <button
-        class="order-btn"
-        onclick="confirmUPIPayment()"
-      >
-        ✅ আমি পেমেন্ট করেছি
-      </button>
-
-    </div>
+</div>
 
 
-    <!-- COD -->
-    <button
-      id="codButton"
-      class="order-btn"
-      onclick="placeCODOrder()"
-    >
-      🛍️ Place COD Order
-    </button>
+<!-- NEW ADDRESS -->
+<div id="newDeliveryAddress">
 
-    <button
-      class="cancel-btn"
-      onclick="history.back()"
-    >
-      ← Back
-    </button>
+  <label>নাম</label>
 
-    <div id="status"></div>
+  <input
+    id="name"
+    type="text"
+    placeholder="আপনার নাম"
+  >
+
+
+  <label>মোবাইল নম্বর</label>
+
+  <input
+    id="phone"
+    type="tel"
+    placeholder="মোবাইল নম্বর"
+    maxlength="10"
+  >
+
+
+  <label>PIN Code</label>
+
+  <input
+    id="pin"
+    type="text"
+    inputmode="numeric"
+    placeholder="6 digit PIN Code"
+    maxlength="6"
+  >
+
+
+  <label>District</label>
+
+  <input
+    id="district"
+    type="text"
+    placeholder="District"
+  >
+
+
+  <label>Building / House No.</label>
+
+  <input
+    id="building"
+    type="text"
+    placeholder="Building / House No."
+  >
+
+
+  <label>Local Area</label>
+
+  <textarea
+    id="area"
+    placeholder="Local Area / Village / Road"
+  ></textarea>
+
+
+  <button
+    type="button"
+    class="save-btn"
+    onclick="savePaymentAddress()"
+  >
+    💾 Save Address
+  </button>
+
+</div>
+
+  </div>  <!-- ORDER SUMMARY -->  <div class="box"><h2>🛒 Order Summary</h2>
+
+<div id="cartItems"></div>
+
+<div class="summary">
+
+  <div>
+    Subtotal:
+    ₹<span id="subtotal">0</span>
+  </div>
+
+  <div>
+    Delivery:
+    ₹<span id="delivery">0</span>
+  </div>
+
+  <div class="total">
+
+    Total:
+    ₹<span id="total">0</span>
 
   </div>
 
 </div>
 
+  </div>  <!-- PAYMENT -->  <div class="box"><h2>💳 Payment Method</h2>
 
-<script type="module">
+<label class="payment-option">
+
+  <input
+    type="radio"
+    name="payment"
+    value="COD"
+    checked
+    onchange="paymentChanged()"
+  >
+
+  Cash on Delivery
+
+</label>
+
+
+<label class="payment-option">
+
+  <input
+    type="radio"
+    name="payment"
+    value="UPI"
+    onchange="paymentChanged()"
+  >
+
+  UPI Payment
+
+</label>
+
+
+<!-- UPI -->
+<div id="upiBox">
+
+  <p style="margin-top:15px;">
+
+    UPI ID:
+    <b>8016410311@axl</b>
+
+  </p>
+
+
+  <button
+    class="upi-btn"
+    onclick="payWithUPI()"
+  >
+
+    📱 Pay ₹<span id="upiAmount">0</span> with UPI
+
+  </button>
+
+
+  <button
+    class="order-btn"
+    onclick="confirmUPIPayment()"
+  >
+
+    ✅ আমি পেমেন্ট করেছি
+
+  </button>
+
+</div>
+
+
+<!-- COD -->
+<button
+  id="codButton"
+  class="order-btn"
+  onclick="placeCODOrder()"
+>
+
+  🛍️ Place COD Order
+
+</button>
+
+
+<button
+  class="cancel-btn"
+  onclick="history.back()"
+>
+
+  ← Back
+
+</button>
+
+
+<div id="status"></div>
+
+  </div></div><script type="module">
 
 import { auth, db } from "./firebase.js";
 
@@ -269,9 +411,11 @@ import {
 
 
 let currentUser = null;
+
 let cart = [];
 
-const UPI_ID = "8016410311@axl";
+const UPI_ID =
+  "8016410311@axl";
 
 
 // ==========================
@@ -284,14 +428,329 @@ onAuthStateChanged(auth, user => {
 
     alert("আগে Login করুন");
 
-    location.href = "login.html";
+    location.href =
+      "login.html";
 
     return;
+
   }
 
   currentUser = user;
 
 });
+
+
+// ==========================
+// SAVED ADDRESS
+// ==========================
+
+function loadSavedAddress(){
+
+  const saved =
+    localStorage.getItem(
+      "sayonmartAddress"
+    );
+
+
+  if(!saved){
+
+    document.getElementById(
+      "savedDeliveryAddress"
+    ).style.display = "none";
+
+    document.getElementById(
+      "newDeliveryAddress"
+    ).style.display = "block";
+
+    return;
+
+  }
+
+
+  try{
+
+    const data =
+      JSON.parse(saved);
+
+
+    // Show saved address
+
+    document.getElementById(
+      "savedName"
+    ).textContent =
+      data.name || "";
+
+
+    document.getElementById(
+      "savedPhone"
+    ).textContent =
+      data.mobile || "";
+
+
+    document.getElementById(
+      "savedPin"
+    ).textContent =
+      data.pin || "";
+
+
+    document.getElementById(
+      "savedDistrict"
+    ).textContent =
+      data.district || "";
+
+
+    document.getElementById(
+      "savedBuilding"
+    ).textContent =
+      data.building || "";
+
+
+    document.getElementById(
+      "savedArea"
+    ).textContent =
+      data.area || "";
+
+
+    // Put data into form too
+
+    document.getElementById(
+      "name"
+    ).value =
+      data.name || "";
+
+
+    document.getElementById(
+      "phone"
+    ).value =
+      data.mobile || "";
+
+
+    document.getElementById(
+      "pin"
+    ).value =
+      data.pin || "";
+
+
+    document.getElementById(
+      "district"
+    ).value =
+      data.district || "";
+
+
+    document.getElementById(
+      "building"
+    ).value =
+      data.building || "";
+
+
+    document.getElementById(
+      "area"
+    ).value =
+      data.area || "";
+
+
+    document.getElementById(
+      "savedDeliveryAddress"
+    ).style.display =
+      "block";
+
+
+    document.getElementById(
+      "newDeliveryAddress"
+    ).style.display =
+      "none";
+
+
+  }catch(error){
+
+    console.log(
+      "Address load error:",
+      error
+    );
+
+  }
+
+}
+
+
+// ==========================
+// SAVE ADDRESS
+// ==========================
+
+window.savePaymentAddress =
+function(){
+
+  const name =
+    document.getElementById(
+      "name"
+    ).value.trim();
+
+
+  const mobile =
+    document.getElementById(
+      "phone"
+    ).value.trim();
+
+
+  const pin =
+    document.getElementById(
+      "pin"
+    ).value.trim();
+
+
+  const district =
+    document.getElementById(
+      "district"
+    ).value.trim();
+
+
+  const building =
+    document.getElementById(
+      "building"
+    ).value.trim();
+
+
+  const area =
+    document.getElementById(
+      "area"
+    ).value.trim();
+
+
+  if(
+    !name ||
+    !mobile ||
+    !pin ||
+    !district ||
+    !building ||
+    !area
+  ){
+
+    alert(
+      "⚠️ সব Address তথ্য পূরণ করুন।"
+    );
+
+    return;
+
+  }
+
+
+  if(!/^\d{10}$/.test(mobile)){
+
+    alert(
+      "⚠️ সঠিক 10 digit Mobile Number দিন।"
+    );
+
+    return;
+
+  }
+
+
+  if(!/^\d{6}$/.test(pin)){
+
+    alert(
+      "⚠️ সঠিক 6 digit PIN Code দিন।"
+    );
+
+    return;
+
+  }
+
+
+  const address = {
+
+    name: name,
+
+    mobile: mobile,
+
+    pin: pin,
+
+    district: district,
+
+    building: building,
+
+    area: area
+
+  };
+
+
+  localStorage.setItem(
+    "sayonmartAddress",
+    JSON.stringify(address)
+  );
+
+
+  alert(
+    "✅ Address Save হয়েছে!"
+  );
+
+
+  loadSavedAddress();
+
+};
+
+
+// ==========================
+// EDIT ADDRESS
+// ==========================
+
+window.editDeliveryAddress =
+function(){
+
+  document.getElementById(
+    "savedDeliveryAddress"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "newDeliveryAddress"
+  ).style.display =
+    "block";
+
+};
+
+
+// ==========================
+// GET ADDRESS TEXT
+// ==========================
+
+function getFullAddress(){
+
+  const pin =
+    document.getElementById(
+      "pin"
+    ).value.trim();
+
+
+  const district =
+    document.getElementById(
+      "district"
+    ).value.trim();
+
+
+  const building =
+    document.getElementById(
+      "building"
+    ).value.trim();
+
+
+  const area =
+    document.getElementById(
+      "area"
+    ).value.trim();
+
+
+  return (
+    building +
+    ", " +
+    area +
+    ", " +
+    district +
+    ", PIN - " +
+    pin
+  );
+
+}
 
 
 // ==========================
@@ -302,7 +761,10 @@ function loadCart(){
 
   try{
 
-    cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart =
+      JSON.parse(
+        localStorage.getItem("cart")
+      ) || [];
 
   }catch(e){
 
@@ -312,13 +774,20 @@ function loadCart(){
 
 
   if(!Array.isArray(cart)){
+
     cart = [];
+
   }
 
 
   let subtotal = 0;
 
-  const box = document.getElementById("cartItems");
+
+  const box =
+    document.getElementById(
+      "cartItems"
+    );
+
 
   box.innerHTML = "";
 
@@ -338,19 +807,27 @@ function loadCart(){
     const price =
       Number(item.price) || 0;
 
+
     const quantity =
       Number(item.quantity) || 1;
 
+
     const amount =
       price * quantity;
+
 
     subtotal += amount;
 
 
     const div =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
-    div.style.padding = "8px 0";
+
+    div.style.padding =
+      "8px 0";
+
 
     div.innerHTML = `
       ${escapeHTML(item.name || "Product")}
@@ -358,28 +835,43 @@ function loadCart(){
       = ₹${amount}
     `;
 
+
     box.appendChild(div);
 
   });
 
 
   const delivery =
-    subtotal >= 499 ? 0 : 40;
+    subtotal >= 499
+      ? 0
+      : 40;
+
 
   const total =
     subtotal + delivery;
 
 
-  document.getElementById("subtotal").textContent =
+  document.getElementById(
+    "subtotal"
+  ).textContent =
     subtotal;
 
-  document.getElementById("delivery").textContent =
+
+  document.getElementById(
+    "delivery"
+  ).textContent =
     delivery;
 
-  document.getElementById("total").textContent =
+
+  document.getElementById(
+    "total"
+  ).textContent =
     total;
 
-  document.getElementById("upiAmount").textContent =
+
+  document.getElementById(
+    "upiAmount"
+  ).textContent =
     total;
 
 }
@@ -392,11 +884,31 @@ function loadCart(){
 function escapeHTML(text){
 
   return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
@@ -405,7 +917,8 @@ function escapeHTML(text){
 // PAYMENT CHANGE
 // ==========================
 
-window.paymentChanged = function(){
+window.paymentChanged =
+function(){
 
   const method =
     document.querySelector(
@@ -414,23 +927,34 @@ window.paymentChanged = function(){
 
 
   const upiBox =
-    document.getElementById("upiBox");
+    document.getElementById(
+      "upiBox"
+    );
+
 
   const codButton =
-    document.getElementById("codButton");
+    document.getElementById(
+      "codButton"
+    );
 
 
   if(method === "UPI"){
 
-    upiBox.style.display = "block";
+    upiBox.style.display =
+      "block";
 
-    codButton.style.display = "none";
+
+    codButton.style.display =
+      "none";
 
   }else{
 
-    upiBox.style.display = "none";
+    upiBox.style.display =
+      "none";
 
-    codButton.style.display = "block";
+
+    codButton.style.display =
+      "block";
 
   }
 
@@ -444,16 +968,39 @@ window.paymentChanged = function(){
 function validateDetails(){
 
   const name =
-    document.getElementById("name")
-      .value.trim();
+    document.getElementById(
+      "name"
+    ).value.trim();
+
 
   const phone =
-    document.getElementById("phone")
-      .value.trim();
+    document.getElementById(
+      "phone"
+    ).value.trim();
 
-  const address =
-    document.getElementById("address")
-      .value.trim();
+
+  const pin =
+    document.getElementById(
+      "pin"
+    ).value.trim();
+
+
+  const district =
+    document.getElementById(
+      "district"
+    ).value.trim();
+
+
+  const building =
+    document.getElementById(
+      "building"
+    ).value.trim();
+
+
+  const area =
+    document.getElementById(
+      "area"
+    ).value.trim();
 
 
   if(!name){
@@ -465,18 +1012,55 @@ function validateDetails(){
   }
 
 
-  if(!phone){
+  if(!/^\d{10}$/.test(phone)){
 
-    alert("মোবাইল নম্বর লিখুন");
+    alert(
+      "সঠিক 10 digit Mobile Number দিন"
+    );
 
     return false;
 
   }
 
 
-  if(!address){
+  if(!/^\d{6}$/.test(pin)){
 
-    alert("ঠিকানা লিখুন");
+    alert(
+      "সঠিক 6 digit PIN Code দিন"
+    );
+
+    return false;
+
+  }
+
+
+  if(!district){
+
+    alert(
+      "District লিখুন"
+    );
+
+    return false;
+
+  }
+
+
+  if(!building){
+
+    alert(
+      "Building / House No. লিখুন"
+    );
+
+    return false;
+
+  }
+
+
+  if(!area){
+
+    alert(
+      "Local Area লিখুন"
+    );
 
     return false;
 
@@ -485,7 +1069,9 @@ function validateDetails(){
 
   if(cart.length === 0){
 
-    alert("Cart খালি");
+    alert(
+      "Cart খালি"
+    );
 
     return false;
 
@@ -494,11 +1080,37 @@ function validateDetails(){
 
   if(!currentUser){
 
-    alert("আগে Login করুন");
+    alert(
+      "আগে Login করুন"
+    );
 
     return false;
 
   }
+
+
+  // Save address automatically
+  const address = {
+
+    name: name,
+
+    mobile: phone,
+
+    pin: pin,
+
+    district: district,
+
+    building: building,
+
+    area: area
+
+  };
+
+
+  localStorage.setItem(
+    "sayonmartAddress",
+    JSON.stringify(address)
+  );
 
 
   return true;
@@ -520,8 +1132,10 @@ function getTotals(){
     const price =
       Number(item.price) || 0;
 
+
     const quantity =
       Number(item.quantity) || 1;
+
 
     subtotal +=
       price * quantity;
@@ -530,16 +1144,21 @@ function getTotals(){
 
 
   const delivery =
-    subtotal >= 499 ? 0 : 40;
+    subtotal >= 499
+      ? 0
+      : 40;
+
 
   const total =
     subtotal + delivery;
 
 
   return {
+
     subtotal,
     delivery,
     total
+
   };
 
 }
@@ -549,10 +1168,13 @@ function getTotals(){
 // UPI PAYMENT
 // ==========================
 
-window.payWithUPI = function(){
+window.payWithUPI =
+function(){
 
   if(!validateDetails()){
+
     return;
+
   }
 
 
@@ -574,14 +1196,20 @@ window.payWithUPI = function(){
 
   const upiURL =
     "upi://pay" +
-    "?pa=" + encodeURIComponent(UPI_ID) +
-    "&pn=" + encodeURIComponent(name) +
-    "&am=" + encodeURIComponent(amount) +
+    "?pa=" +
+    encodeURIComponent(UPI_ID) +
+    "&pn=" +
+    encodeURIComponent(name) +
+    "&am=" +
+    encodeURIComponent(amount) +
     "&cu=INR" +
-    "&tn=" + encodeURIComponent(note);
+    "&tn=" +
+    encodeURIComponent(note);
 
 
-  document.getElementById("status").textContent =
+  document.getElementById(
+    "status"
+  ).textContent =
     "UPI App খোলা হচ্ছে...";
 
 
@@ -595,24 +1223,30 @@ window.payWithUPI = function(){
 // COD ORDER
 // ==========================
 
-window.placeCODOrder = async function(){
+window.placeCODOrder =
+async function(){
 
   if(!validateDetails()){
+
     return;
+
   }
 
 
   const name =
-    document.getElementById("name")
-      .value.trim();
+    document.getElementById(
+      "name"
+    ).value.trim();
+
 
   const phone =
-    document.getElementById("phone")
-      .value.trim();
+    document.getElementById(
+      "phone"
+    ).value.trim();
+
 
   const address =
-    document.getElementById("address")
-      .value.trim();
+    getFullAddress();
 
 
   const totals =
@@ -621,45 +1255,83 @@ window.placeCODOrder = async function(){
 
   try{
 
-    document.getElementById("status").textContent =
+    document.getElementById(
+      "status"
+    ).textContent =
       "Order তৈরি হচ্ছে...";
 
 
-    for(const item of cart){
+    for(
+      const item of cart
+    ){
 
       const price =
         Number(item.price) || 0;
 
+
       const quantity =
         Number(item.quantity) || 1;
+
 
       const subtotal =
         price * quantity;
 
 
       await addDoc(
-        collection(db,"orders"),
+        collection(
+          db,
+          "orders"
+        ),
         {
 
-          userId: currentUser.uid,
+          userId:
+            currentUser.uid,
 
-          name: name,
+          name:
+            name,
 
-          phone: phone,
+          phone:
+            phone,
 
-          address: address,
+          address:
+            address,
+
+          pin:
+            document.getElementById(
+              "pin"
+            ).value.trim(),
+
+          district:
+            document.getElementById(
+              "district"
+            ).value.trim(),
+
+          building:
+            document.getElementById(
+              "building"
+            ).value.trim(),
+
+          area:
+            document.getElementById(
+              "area"
+            ).value.trim(),
 
           productName:
-            item.name || "Product",
+            item.name ||
+            "Product",
 
           productImage:
-            item.image || "",
+            item.image ||
+            "",
 
-          price: price,
+          price:
+            price,
 
-          quantity: quantity,
+          quantity:
+            quantity,
 
-          subtotal: subtotal,
+          subtotal:
+            subtotal,
 
           delivery:
             totals.delivery,
@@ -685,7 +1357,9 @@ window.placeCODOrder = async function(){
     }
 
 
-    localStorage.removeItem("cart");
+    localStorage.removeItem(
+      "cart"
+    );
 
 
     alert(
@@ -701,13 +1375,17 @@ window.placeCODOrder = async function(){
 
     console.error(error);
 
+
     alert(
       "❌ Order তৈরি হয়নি: " +
       error.message
     );
 
-    document.getElementById("status")
-      .textContent = "";
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "";
 
   }
 
@@ -718,24 +1396,30 @@ window.placeCODOrder = async function(){
 // CONFIRM UPI
 // ==========================
 
-window.confirmUPIPayment = async function(){
+window.confirmUPIPayment =
+async function(){
 
   if(!validateDetails()){
+
     return;
+
   }
 
 
   const name =
-    document.getElementById("name")
-      .value.trim();
+    document.getElementById(
+      "name"
+    ).value.trim();
+
 
   const phone =
-    document.getElementById("phone")
-      .value.trim();
+    document.getElementById(
+      "phone"
+    ).value.trim();
+
 
   const address =
-    document.getElementById("address")
-      .value.trim();
+    getFullAddress();
 
 
   const totals =
@@ -749,30 +1433,41 @@ window.confirmUPIPayment = async function(){
 
 
   if(!confirmPay){
+
     return;
+
   }
 
 
   try{
 
-    document.getElementById("status").textContent =
+    document.getElementById(
+      "status"
+    ).textContent =
       "Order তৈরি হচ্ছে...";
 
 
-    for(const item of cart){
+    for(
+      const item of cart
+    ){
 
       const price =
         Number(item.price) || 0;
 
+
       const quantity =
         Number(item.quantity) || 1;
+
 
       const subtotal =
         price * quantity;
 
 
       await addDoc(
-        collection(db,"orders"),
+        collection(
+          db,
+          "orders"
+        ),
         {
 
           userId:
@@ -787,11 +1482,33 @@ window.confirmUPIPayment = async function(){
           address:
             address,
 
+          pin:
+            document.getElementById(
+              "pin"
+            ).value.trim(),
+
+          district:
+            document.getElementById(
+              "district"
+            ).value.trim(),
+
+          building:
+            document.getElementById(
+              "building"
+            ).value.trim(),
+
+          area:
+            document.getElementById(
+              "area"
+            ).value.trim(),
+
           productName:
-            item.name || "Product",
+            item.name ||
+            "Product",
 
           productImage:
-            item.image || "",
+            item.image ||
+            "",
 
           price:
             price,
@@ -826,7 +1543,9 @@ window.confirmUPIPayment = async function(){
     }
 
 
-    localStorage.removeItem("cart");
+    localStorage.removeItem(
+      "cart"
+    );
 
 
     alert(
@@ -842,13 +1561,17 @@ window.confirmUPIPayment = async function(){
 
     console.error(error);
 
+
     alert(
       "❌ Order তৈরি হয়নি: " +
       error.message
     );
 
-    document.getElementById("status")
-      .textContent = "";
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "";
 
   }
 
@@ -861,7 +1584,7 @@ window.confirmUPIPayment = async function(){
 
 loadCart();
 
-</script>
+loadSavedAddress();
 
-</body>
+</script></body>
 </html>
