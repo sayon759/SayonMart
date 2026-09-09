@@ -8,45 +8,30 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>SayonMart Confirm Orders</title>
+<title>SayonMart - Confirm Orders</title>
 
 <style>
 
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 body{
+  margin:0;
+  background:#111;
+  color:#fff;
   font-family:Arial,sans-serif;
-  background:#f7f7f7;
-  color:#222;
   padding-bottom:30px;
 }
 
 .header{
-  background:#fff;
-  padding:15px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  box-shadow:0 2px 10px rgba(0,0,0,.08);
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.back{
-  border:0;
-  background:none;
-  font-size:28px;
-  cursor:pointer;
-}
-
-.header h2{
-  color:#e91e63;
-  font-size:20px;
+  background:#000;
+  color:#FFD700;
+  padding:18px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  border-bottom:1px solid #333;
 }
 
 .container{
@@ -55,79 +40,127 @@ body{
 
 .loading{
   text-align:center;
-  padding:30px;
-  color:#777;
+  color:#FFD700;
+  padding:40px;
 }
 
 .empty{
-  background:#fff;
-  padding:30px 15px;
   text-align:center;
-  border-radius:14px;
-  color:#777;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  color:#aaa;
+  padding:50px 10px;
 }
 
 .order-card{
-  background:#fff;
-  border-radius:15px;
-  padding:16px;
-  margin-bottom:15px;
-  box-shadow:0 2px 10px rgba(0,0,0,.07);
+  background:#1b1b1b;
+  border:1px solid #333;
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:18px;
 }
 
-.order-title{
-  font-size:18px;
-  font-weight:bold;
-  margin-bottom:10px;
+.order-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
 
-.info{
-  margin:7px 0;
-  color:#555;
-  line-height:1.5;
+.order-id{
+  color:#FFD700;
+  font-size:13px;
 }
 
 .status{
-  display:inline-block;
   padding:6px 10px;
   border-radius:20px;
-  font-size:13px;
+  font-size:11px;
   font-weight:bold;
-  margin:8px 0;
 }
 
 .pending{
-  background:#fff3cd;
-  color:#856404;
+  background:#4b3b00;
+  color:#FFD700;
 }
 
 .confirmed{
-  background:#d4edda;
-  color:#155724;
+  background:#063d25;
+  color:#4cff9b;
 }
 
 .cancelled{
-  background:#f8d7da;
-  color:#721c24;
+  background:#4a1111;
+  color:#ff7070;
 }
 
-button.confirm{
-  width:100%;
-  border:0;
-  background:#e91e63;
-  color:#fff;
-  padding:13px;
+.product{
+  display:flex;
+  gap:12px;
+  margin-top:14px;
+  background:#111;
+  padding:10px;
+  border-radius:12px;
+}
+
+.product img{
+  width:75px;
+  height:75px;
+  object-fit:cover;
   border-radius:10px;
+}
+
+.product h3{
+  margin:5px 0;
+  font-size:16px;
+}
+
+.product p{
+  margin:5px 0;
+  color:#bbb;
+  font-size:13px;
+}
+
+.total{
+  color:#FFD700;
+  font-size:18px;
+  font-weight:bold;
+  margin-top:12px;
+}
+
+.info{
+  margin-top:10px;
+  color:#ccc;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.confirm-btn{
+  width:100%;
+  margin-top:15px;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#FFD700;
+  color:#000;
   font-size:16px;
   font-weight:bold;
   cursor:pointer;
-  margin-top:10px;
 }
 
-button.confirm:disabled{
-  background:#aaa;
+.confirm-btn:disabled{
+  background:#555;
+  color:#aaa;
   cursor:not-allowed;
+}
+
+.back{
+  position:absolute;
+  left:12px;
+  top:13px;
+  background:none;
+  border:0;
+  color:#FFD700;
+  font-size:28px;
+  cursor:pointer;
 }
 
 </style>
@@ -140,23 +173,24 @@ button.confirm:disabled{
 
 <div class="header">
 
-<button class="back"
+<button
+class="back"
 onclick="history.back()">
 ‹
 </button>
 
-<h2>✅ Confirm Orders</h2>
+✅ Confirm Orders
 
 </div>
 
 
 <div class="container">
 
-<div id="orders">
+<div
+id="orders"
+class="loading">
 
-<div class="loading">
-Order লোড হচ্ছে...
-</div>
+Loading Orders...
 
 </div>
 
@@ -165,56 +199,81 @@ Order লোড হচ্ছে...
 
 <script type="module">
 
-import { auth, db }
+
+import {
+  db,
+  auth
+}
 from "./firebase.js";
+
+
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  doc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 import {
   onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import {
-  collection,
-  getDocs,
-  doc,
-  updateDoc
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-/* তোমার Admin UID */
+/*
+  তোমার Admin UID
+*/
 
 const ADMIN_UID =
 "fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
 
 
-const ordersBox =
+const ordersDiv =
 document.getElementById("orders");
 
 
-/* Admin check */
+/*
+  ADMIN CHECK
+*/
 
-onAuthStateChanged(auth, async (user)=>{
+onAuthStateChanged(
+  auth,
+  async(user)=>{
 
-  if(!user || user.uid !== ADMIN_UID){
+    if(
+      !user ||
+      user.uid !== ADMIN_UID
+    ){
 
-    ordersBox.innerHTML = `
-      <div class="empty">
-        🚫 Access Denied
-        <br><br>
-        এই পেজটি শুধু Admin-এর জন্য।
-      </div>
-    `;
+      ordersDiv.innerHTML=`
 
-    return;
+        <div class="empty">
+
+          🚫 Access Denied
+
+          <br><br>
+
+          এই পেজটি শুধু Admin-এর জন্য।
+
+        </div>
+
+      `;
+
+      return;
+    }
+
+
+    loadOrders();
+
   }
-
-  loadOrders();
-
-});
+);
 
 
-/* Orders load */
+/*
+  LOAD ALL ORDERS
+*/
 
 async function loadOrders(){
 
@@ -225,126 +284,299 @@ async function loadOrders(){
         collection(db,"orders")
       );
 
+
+    ordersDiv.innerHTML="";
+
+
     if(snapshot.empty){
 
-      ordersBox.innerHTML = `
+      ordersDiv.innerHTML=`
+
         <div class="empty">
-          📦 এখনো কোনো Order নেই।
+
+          📭 কোনো Order নেই।
+
         </div>
+
       `;
 
       return;
     }
 
 
-    ordersBox.innerHTML = "";
+    let orders=[];
 
 
-    snapshot.forEach((item)=>{
+    snapshot.forEach(
+      orderDoc=>{
 
-      const data = item.data();
+        orders.push({
 
-      const orderId = item.id;
+          id:orderDoc.id,
+
+          data:orderDoc.data()
+
+        });
+
+      }
+    );
+
+
+    /*
+      Newest first
+    */
+
+    orders.sort((a,b)=>{
+
+      const aTime =
+        a.data.createdAt?.seconds || 0;
+
+      const bTime =
+        b.data.createdAt?.seconds || 0;
+
+      return bTime-aTime;
+
+    });
+
+
+    /*
+      SHOW ORDERS
+    */
+
+    orders.forEach(item=>{
+
+      const order =
+        item.data;
+
+      const id =
+        item.id;
+
 
       const status =
-        data.status || "Pending";
+        order.status || "Pending";
 
 
-      const statusClass =
-        status.toLowerCase() === "confirmed"
-        ? "confirmed"
-        : status.toLowerCase() === "cancelled"
-        ? "cancelled"
-        : "pending";
+      const productName =
+        order.productName ||
+        "Product";
+
+
+      const image =
+        order.productImage ||
+        "https://via.placeholder.com/100";
+
+
+      const price =
+        Number(order.price || 0);
+
+
+      const quantity =
+        Number(order.quantity || 1);
+
+
+      const total =
+        Number(
+          order.total ||
+          price * quantity
+        );
+
+
+      let statusClass =
+        String(status)
+        .toLowerCase()
+        .replaceAll(" ","-");
 
 
       const card =
         document.createElement("div");
 
-      card.className="order-card";
+
+      card.className=
+        "order-card";
 
 
-      card.innerHTML = `
+      card.innerHTML=`
 
-        <div class="order-title">
-          📦 Order
+        <div class="order-top">
+
+          <div class="order-id">
+
+            Order #${esc(
+              id.substring(0,8)
+            )}
+
+          </div>
+
+
+          <div class="
+            status
+            ${statusClass}
+          ">
+
+            ${esc(status)}
+
+          </div>
+
         </div>
 
-        <div class="info">
-          👤 <b>Name:</b>
-          ${data.name || "নাম নেই"}
+
+        <div class="product">
+
+          <img
+            src="${esc(image)}"
+            onerror="
+              this.onerror=null;
+              this.src='https://via.placeholder.com/100';
+            "
+          >
+
+
+          <div>
+
+            <h3>
+
+              ${esc(productName)}
+
+            </h3>
+
+
+            <p>
+
+              💰 Price:
+              ₹${price}
+
+            </p>
+
+
+            <p>
+
+              🔢 Quantity:
+              ${quantity}
+
+            </p>
+
+          </div>
+
         </div>
 
+
         <div class="info">
+
+          👤 <b>Customer:</b>
+          ${esc(order.name || "N/A")}
+
+          <br>
+
           📞 <b>Phone:</b>
-          ${data.phone || "ফোন নেই"}
-        </div>
+          ${esc(order.phone || "N/A")}
 
-        <div class="info">
+          <br>
+
           📍 <b>Address:</b>
-          ${data.address || "ঠিকানা নেই"}
+          ${esc(order.address || "N/A")}
+
         </div>
 
-        <div class="info">
-          🛒 <b>Product:</b>
-          ${data.product || data.products || "Product details নেই"}
+
+        <div class="total">
+
+          Total: ₹${total}
+
         </div>
 
-        <div class="info">
-          💰 <b>Total:</b>
-          ₹${data.total || data.price || "0"}
-        </div>
-
-        <div class="status ${statusClass}">
-          Status: ${status}
-        </div>
 
         ${
-          status.toLowerCase() === "pending"
+          status === "Pending"
+
           ?
-          `<button class="confirm"
-          data-id="${orderId}">
+
+          `
+
+          <button
+            class="confirm-btn"
+            data-id="${escAttr(id)}">
+
             ✅ Confirm Order
-          </button>`
+
+          </button>
+
+          `
+
           :
+
+          status === "Confirmed"
+
+          ?
+
+          `
+
+          <button
+            class="confirm-btn"
+            disabled>
+
+            ✅ Already Confirmed
+
+          </button>
+
+          `
+
+          :
+
           ""
+
         }
 
       `;
 
 
-      ordersBox.appendChild(card);
+      ordersDiv.appendChild(card);
 
     });
 
 
-    /* Confirm button */
+    /*
+      CONFIRM BUTTON
+    */
 
     document
-      .querySelectorAll(".confirm")
-      .forEach((button)=>{
+    .querySelectorAll(".confirm-btn")
+    .forEach(button=>{
 
-        button.addEventListener(
-          "click",
-          ()=>confirmOrder(
-            button.dataset.id,
-            button
-          )
-        );
-
-      });
+      if(
+        button.disabled
+      ) return;
 
 
-  }catch(error){
+      button.addEventListener(
+        "click",
+        ()=>confirmOrder(
+          button.dataset.id,
+          button
+        )
+      );
+
+    });
+
+
+  }
+
+  catch(error){
 
     console.error(error);
 
-    ordersBox.innerHTML = `
+
+    ordersDiv.innerHTML=`
+
       <div class="empty">
-        ❌ Order load হয়নি।
+
+        ❌ Orders Load Failed
+
         <br><br>
-        ${error.message}
+
+        ${esc(error.message)}
+
       </div>
+
     `;
 
   }
@@ -352,7 +584,9 @@ async function loadOrders(){
 }
 
 
-/* Confirm Order */
+/*
+  CONFIRM ORDER
+*/
 
 async function confirmOrder(
   orderId,
@@ -361,8 +595,9 @@ async function confirmOrder(
 
   const ok =
     confirm(
-      "এই Order Confirm করতে চান?"
+      "আপনি কি এই Order Confirm করতে চান?"
     );
+
 
   if(!ok) return;
 
@@ -376,10 +611,17 @@ async function confirmOrder(
   try{
 
     await updateDoc(
-      doc(db,"orders",orderId),
+
+      doc(
+        db,
+        "orders",
+        orderId
+      ),
+
       {
         status:"Confirmed"
       }
+
     );
 
 
@@ -388,17 +630,25 @@ async function confirmOrder(
     );
 
 
+    /*
+      আবার Orders load
+    */
+
     loadOrders();
 
 
-  }catch(error){
+  }
+
+  catch(error){
 
     console.error(error);
 
+
     alert(
-      "❌ Confirm করা যায়নি।\n"+
+      "❌ Order Confirm করা যায়নি।\n\n"+
       error.message
     );
+
 
     button.disabled=false;
 
@@ -406,6 +656,32 @@ async function confirmOrder(
       "✅ Confirm Order";
 
   }
+
+}
+
+
+/*
+  SECURITY HELPERS
+*/
+
+function esc(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escAttr(value){
+
+  return String(value ?? "")
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'")
+    .replace(/\n/g," ");
 
 }
 
