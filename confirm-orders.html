@@ -486,7 +486,7 @@ async function loadOrders(){
 
 
         ${
-          status === "Pending"
+          String(status).trim().toLowerCase() === "pending"
 
           ?
 
