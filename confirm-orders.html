@@ -1,547 +1,790 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Confirm Orders - SayonMart</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-    }
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    header {
-      background: #000;
-      color: #FFD700;
-      padding: 18px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-      border-bottom: 1px solid #333;
-    }
+<title>Confirm Orders - SayonMart</title>
 
-    .top {
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
+<style>
 
-    .count {
-      color: #FFD700;
-      font-size: 16px;
-    }
+*{
+  box-sizing:border-box;
+}
 
-    .refresh {
-      background: #FFD700;
-      color: #000;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#111;
+  color:white;
+}
 
-    #orders {
-      padding: 10px;
-    }
+header{
+  background:#000;
+  color:#FFD700;
+  padding:18px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  border-bottom:1px solid #333;
+}
 
-    .order {
-      background: #1d1d1d;
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
+.top{
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
 
-    .order-id {
-      color: #999;
-      font-size: 12px;
-      margin-bottom: 10px;
-      word-break: break-all;
-    }
+.count{
+  color:#FFD700;
+  font-size:16px;
+}
 
-    .product {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      border-bottom: 1px solid #333;
-      padding-bottom: 12px;
-      margin-bottom: 12px;
-    }
+.refresh{
+  background:#FFD700;
+  color:#000;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .product img {
-      width: 75px;
-      height: 75px;
-      object-fit: cover;
-      border-radius: 8px;
-      background: #333;
-    }
+#orders{
+  padding:10px;
+}
 
-    .product-name {
-      font-size: 18px;
-      font-weight: bold;
-    }
+.order{
+  background:#1d1d1d;
+  border:1px solid #333;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:15px;
+}
 
-    .info {
-      line-height: 1.7;
-      font-size: 14px;
-    }
+.order-id{
+  color:#999;
+  font-size:12px;
+  margin-bottom:10px;
+  word-break:break-all;
+}
 
-    .info b {
-      color: #FFD700;
-    }
+.product{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  border-bottom:1px solid #333;
+  padding-bottom:12px;
+  margin-bottom:12px;
+}
 
-    .status {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 6px;
-      background: #333;
-      margin-top: 8px;
-    }
+.product img{
+  width:75px;
+  height:75px;
+  object-fit:cover;
+  border-radius:8px;
+  background:#333;
+}
 
-    .confirm-btn {
-      width: 100%;
-      margin-top: 12px;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background: #00c853;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.product-name{
+  font-size:18px;
+  font-weight:bold;
+}
 
-    .confirm-btn:disabled {
-      opacity: 0.6;
-    }
+.info{
+  line-height:1.7;
+  font-size:14px;
+}
 
-    .confirmed {
-      color: #00e676;
-      font-weight: bold;
-      margin-top: 12px;
-      display: block;
-    }
+.info b{
+  color:#FFD700;
+}
 
-    .loading,
-    .empty,
-    .error {
-      text-align: center;
-      padding: 30px 15px;
-    }
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:6px;
+  background:#333;
+  margin-top:8px;
+}
 
-    .error {
-      color: #ff5252;
-      line-height: 1.6;
-      word-break: break-word;
-    }
-  </style>
+.confirm-btn{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#00c853;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.confirm-btn:disabled{
+  opacity:.6;
+}
+
+.confirmed{
+  color:#00e676;
+  font-weight:bold;
+  margin-top:12px;
+  display:block;
+}
+
+.loading,
+.empty,
+.error{
+  text-align:center;
+  padding:30px 15px;
+}
+
+.error{
+  color:#ff5252;
+  line-height:1.6;
+  word-break:break-word;
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <header>
-    🛒 SayonMart - Confirm Orders
-  </header>
 
-  <div class="top">
-    <div class="count" id="orderCount">
-      Orders: 0
-    </div>
+<header>
+🛒 SayonMart - Confirm Orders
+</header>
 
-    <button class="refresh" onclick="loadOrders()">
-      🔄 Refresh
-    </button>
-  </div>
 
-  <div id="orders">
+<div class="top">
+
+<div class="count"
+id="orderCount">
+Orders: 0
+</div>
+
+<button class="refresh"
+onclick="loadOrders()">
+🔄 Refresh
+</button>
+
+</div>
+
+
+<div id="orders">
+
+<div class="loading">
+Loading orders...
+</div>
+
+</div>
+
+
+
+<script type="module">
+
+
+import { auth, db }
+from "./firebase.js";
+
+
+import {
+
+  collection,
+  getDocs,
+  updateDoc,
+  addDoc,
+  doc,
+  serverTimestamp
+
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+import {
+
+  onAuthStateChanged
+
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+
+/* ADMIN UID */
+
+const ADMIN_UID =
+"fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+
+
+
+const ordersDiv =
+document.getElementById("orders");
+
+
+const orderCount =
+document.getElementById("orderCount");
+
+
+
+/* নিরাপদ text */
+
+function escapeHTML(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+
+/* LOAD ORDERS */
+
+window.loadOrders =
+async function(){
+
+  ordersDiv.innerHTML = `
+
     <div class="loading">
-      Loading orders...
+      ⏳ Loading orders...
     </div>
-  </div>
+
+  `;
 
 
-  <script type="module">
+  try{
 
-    import { auth, db } from "./firebase.js";
-
-    import {
-      collection,
-      getDocs,
-      updateDoc,
-      doc
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    import {
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    const snapshot =
+    await getDocs(
+      collection(db,"orders")
+    );
 
 
-    const ADMIN_UID = "fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+    orderCount.textContent =
+    "Orders: " + snapshot.size;
 
 
-    const ordersDiv = document.getElementById("orders");
-    const orderCount = document.getElementById("orderCount");
+    if(snapshot.empty){
 
+      ordersDiv.innerHTML = `
 
-    // নিরাপদভাবে text দেখানোর জন্য
-    function escapeHTML(value) {
+        <div class="empty">
+          📦 কোনো order পাওয়া যায়নি।
+        </div>
 
-      if (value === null || value === undefined) {
-        return "";
-      }
+      `;
 
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      return;
+
     }
 
 
-    // Firebase থেকে সব order আনা
-    window.loadOrders = async function () {
+    let orders=[];
 
-      ordersDiv.innerHTML = `
-        <div class="loading">
-          ⏳ Loading orders...
-        </div>
-      `;
 
-      try {
+    snapshot.forEach((orderDoc)=>{
 
-        const snapshot = await getDocs(
-          collection(db, "orders")
-        );
+      orders.push({
 
+        id:orderDoc.id,
 
-        orderCount.textContent =
-          "Orders: " + snapshot.size;
+        data:orderDoc.data()
 
-
-        if (snapshot.empty) {
-
-          ordersDiv.innerHTML = `
-            <div class="empty">
-              📦 কোনো order পাওয়া যায়নি।
-            </div>
-          `;
-
-          return;
-        }
-
-
-        let orders = [];
-
-
-        snapshot.forEach((orderDoc) => {
-
-          orders.push({
-            id: orderDoc.id,
-            data: orderDoc.data()
-          });
-
-        });
-
-
-        // নতুন order আগে দেখাবে
-        orders.sort((a, b) => {
-
-          const aTime =
-            a.data.createdAt?.seconds || 0;
-
-          const bTime =
-            b.data.createdAt?.seconds || 0;
-
-          return bTime - aTime;
-
-        });
-
-
-        let html = "";
-
-
-        orders.forEach((order) => {
-
-          const data = order.data;
-
-          const id = order.id;
-
-          const productName =
-            data.productName || "Product";
-
-          const image =
-            data.productImage || "";
-
-          const name =
-            data.name || "Not available";
-
-          const phone =
-            data.phone || "Not available";
-
-          const address =
-            data.address || "Not available";
-
-          const price =
-            Number(data.price || 0);
-
-          const quantity =
-            Number(data.quantity || 1);
-
-          const total =
-            Number(data.total || 0);
-
-          const paymentMethod =
-            data.paymentMethod || "Not available";
-
-          const paymentStatus =
-            data.paymentStatus || "Not available";
-
-          const status =
-            data.status || "Pending";
-
-
-          html += `
-
-            <div class="order">
-
-              <div class="order-id">
-                Order ID: ${escapeHTML(id)}
-              </div>
-
-
-              <div class="product">
-
-                ${
-                  image
-                  ?
-                  `<img src="${escapeHTML(image)}"
-                        onerror="this.style.display='none'">`
-                  :
-                  `<img src=""
-                        style="display:none">`
-                }
-
-                <div>
-
-                  <div class="product-name">
-                    ${escapeHTML(productName)}
-                  </div>
-
-                  <div>
-                    Quantity: ${quantity}
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="info">
-
-                <div>
-                  <b>Customer:</b>
-                  ${escapeHTML(name)}
-                </div>
-
-                <div>
-                  <b>Phone:</b>
-                  ${escapeHTML(phone)}
-                </div>
-
-                <div>
-                  <b>Address:</b>
-                  ${escapeHTML(address)}
-                </div>
-
-                <div>
-                  <b>Price:</b>
-                  ₹${price}
-                </div>
-
-                <div>
-                  <b>Total:</b>
-                  ₹${total}
-                </div>
-
-                <div>
-                  <b>Payment:</b>
-                  ${escapeHTML(paymentMethod)}
-                </div>
-
-                <div>
-                  <b>Payment Status:</b>
-                  ${escapeHTML(paymentStatus)}
-                </div>
-
-                <div class="status">
-                  Status:
-                  ${escapeHTML(status)}
-                </div>
-
-              </div>
-
-
-              ${
-                status === "Pending"
-
-                ?
-
-                `<button
-                  class="confirm-btn"
-                  onclick="confirmOrder('${escapeHTML(id)}', this)">
-                  ✅ Confirm Order
-                </button>`
-
-                :
-
-                `<span class="confirmed">
-                  ✅ Order Confirmed
-                </span>`
-              }
-
-            </div>
-
-          `;
-
-        });
-
-
-        ordersDiv.innerHTML = html;
-
-
-      } catch (error) {
-
-        console.error(error);
-
-
-        ordersDiv.innerHTML = `
-
-          <div class="error">
-
-            ❌ Orders load করতে সমস্যা হয়েছে।
-
-            <br><br>
-
-            <b>Error:</b>
-            ${escapeHTML(error.code || "unknown")}
-
-            <br>
-
-            ${escapeHTML(error.message || "")}
-
-          </div>
-
-        `;
-
-      }
-
-    };
-
-
-    // Order Confirm করা
-    window.confirmOrder = async function (
-      orderId,
-      button
-    ) {
-
-      if (!confirm("এই order টি Confirm করবেন?")) {
-        return;
-      }
-
-
-      try {
-
-        button.disabled = true;
-
-        button.textContent =
-          "⏳ Confirming...";
-
-
-        await updateDoc(
-          doc(db, "orders", orderId),
-          {
-            status: "Confirmed"
-          }
-        );
-
-
-        alert("✅ Order Confirm হয়েছে!");
-
-
-        await loadOrders();
-
-
-      } catch (error) {
-
-        console.error(error);
-
-        alert(
-          "❌ Confirm করা যায়নি:\n" +
-          error.message
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-          "✅ Confirm Order";
-
-      }
-
-    };
-
-
-    // Admin login check
-    onAuthStateChanged(auth, async (user) => {
-
-      if (!user) {
-
-        alert("আগে Admin account দিয়ে Login করুন।");
-
-        location.href = "login.html";
-
-        return;
-
-      }
-
-
-      if (user.uid !== ADMIN_UID) {
-
-        ordersDiv.innerHTML = `
-
-          <div class="error">
-
-            ❌ Access Denied
-
-            <br><br>
-
-            এই page শুধু Admin ব্যবহার করতে পারবে।
-
-          </div>
-
-        `;
-
-        return;
-
-      }
-
-
-      // Admin হলে orders load করবে
-      await loadOrders();
+      });
 
     });
 
-  </script>
+
+
+    /* নতুন order আগে */
+
+    orders.sort((a,b)=>{
+
+      const aTime =
+      a.data.createdAt?.seconds || 0;
+
+      const bTime =
+      b.data.createdAt?.seconds || 0;
+
+      return bTime-aTime;
+
+    });
+
+
+
+    let html="";
+
+
+
+    orders.forEach((order)=>{
+
+      const data=order.data;
+
+      const id=order.id;
+
+
+      const productName =
+      data.productName || "Product";
+
+
+      const image =
+      data.productImage || "";
+
+
+      const name =
+      data.name || "Not available";
+
+
+      const phone =
+      data.phone || "Not available";
+
+
+      const address =
+      data.address || "Not available";
+
+
+      const price =
+      Number(data.price || 0);
+
+
+      const quantity =
+      Number(data.quantity || 1);
+
+
+      const total =
+      Number(data.total || 0);
+
+
+      const paymentMethod =
+      data.paymentMethod || "Not available";
+
+
+      const paymentStatus =
+      data.paymentStatus || "Not available";
+
+
+      const status =
+      data.status || "Pending";
+
+
+
+      html += `
+
+        <div class="order">
+
+
+          <div class="order-id">
+
+            Order ID:
+            ${escapeHTML(id)}
+
+          </div>
+
+
+
+          <div class="product">
+
+
+            ${
+              image
+
+              ?
+
+              `<img
+                src="${escapeHTML(image)}"
+                onerror="this.style.display='none'"
+              >`
+
+              :
+
+              ""
+
+            }
+
+
+            <div>
+
+              <div class="product-name">
+
+                ${escapeHTML(productName)}
+
+              </div>
+
+
+              <div>
+
+                Quantity:
+                ${quantity}
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+
+          <div class="info">
+
+
+            <div>
+
+              <b>Customer:</b>
+              ${escapeHTML(name)}
+
+            </div>
+
+
+            <div>
+
+              <b>Phone:</b>
+              ${escapeHTML(phone)}
+
+            </div>
+
+
+            <div>
+
+              <b>Address:</b>
+              ${escapeHTML(address)}
+
+            </div>
+
+
+            <div>
+
+              <b>Price:</b>
+              ₹${price}
+
+            </div>
+
+
+            <div>
+
+              <b>Total:</b>
+              ₹${total}
+
+            </div>
+
+
+            <div>
+
+              <b>Payment:</b>
+              ${escapeHTML(paymentMethod)}
+
+            </div>
+
+
+            <div>
+
+              <b>Payment Status:</b>
+              ${escapeHTML(paymentStatus)}
+
+            </div>
+
+
+            <div class="status">
+
+              Status:
+              ${escapeHTML(status)}
+
+            </div>
+
+
+          </div>
+
+
+
+          ${
+            status === "Pending"
+
+            ?
+
+            `<button
+              class="confirm-btn"
+              onclick="confirmOrder('${id}',this)">
+              ✅ Confirm Order
+            </button>`
+
+            :
+
+            `<span class="confirmed">
+              ✅ Order Confirmed
+            </span>`
+
+          }
+
+
+        </div>
+
+      `;
+
+    });
+
+
+
+    ordersDiv.innerHTML=html;
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    ordersDiv.innerHTML=`
+
+      <div class="error">
+
+        ❌ Orders load করতে সমস্যা হয়েছে।
+
+        <br><br>
+
+        <b>Error:</b>
+
+        ${escapeHTML(error.code || "unknown")}
+
+        <br>
+
+        ${escapeHTML(error.message || "")}
+
+      </div>
+
+    `;
+
+  }
+
+};
+
+
+
+
+/* CONFIRM ORDER */
+
+window.confirmOrder =
+async function(orderId,button){
+
+
+  if(
+    !confirm(
+      "এই order টি Confirm করবেন?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+
+  try{
+
+
+    button.disabled=true;
+
+    button.textContent=
+    "⏳ Confirming...";
+
+
+
+    /* আগে order document আনা */
+
+    const snapshot =
+    await getDocs(
+      collection(db,"orders")
+    );
+
+
+    let orderData=null;
+
+
+    snapshot.forEach((item)=>{
+
+      if(item.id===orderId){
+
+        orderData=item.data();
+
+      }
+
+    });
+
+
+
+    if(!orderData){
+
+      throw new Error(
+        "Order পাওয়া যায়নি।"
+      );
+
+    }
+
+
+
+    /* Order Confirm */
+
+    await updateDoc(
+
+      doc(
+        db,
+        "orders",
+        orderId
+      ),
+
+      {
+        status:"Confirmed"
+      }
+
+    );
+
+
+
+    /* CUSTOMER NOTIFICATION */
+
+    if(orderData.userId){
+
+      await addDoc(
+
+        collection(
+          db,
+          "notifications"
+        ),
+
+        {
+
+          userId:
+          orderData.userId,
+
+          title:
+          "Order Confirmed ✅",
+
+          message:
+          `আপনার "${orderData.productName || "Product"}" order টি Confirm হয়েছে।`,
+
+          icon:
+          "📦",
+
+          orderId:
+          orderId,
+
+          read:
+          false,
+
+          createdAt:
+          serverTimestamp()
+
+        }
+
+      );
+
+    }
+
+
+
+    alert(
+      "✅ Order Confirm হয়েছে!\n\n🔔 Customer-এর notification তৈরি হয়েছে।"
+    );
+
+
+    await loadOrders();
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    alert(
+      "❌ কাজটি করা যায়নি:\n\n" +
+      error.message
+    );
+
+
+    button.disabled=false;
+
+    button.textContent=
+    "✅ Confirm Order";
+
+  }
+
+};
+
+
+
+/* ADMIN LOGIN CHECK */
+
+onAuthStateChanged(
+  auth,
+  async(user)=>{
+
+
+    if(!user){
+
+      alert(
+        "আগে Admin account দিয়ে Login করুন।"
+      );
+
+      location.href=
+      "login.html";
+
+      return;
+
+    }
+
+
+
+    if(
+      user.uid !== ADMIN_UID
+    ){
+
+      ordersDiv.innerHTML=`
+
+        <div class="error">
+
+          ❌ Access Denied
+
+          <br><br>
+
+          এই page শুধু Admin ব্যবহার করতে পারবে।
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+
+    /* Admin */
+
+    await loadOrders();
+
+  }
+
+);
+
+</script>
+
 
 </body>
+
 </html>
