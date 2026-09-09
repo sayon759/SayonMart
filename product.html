@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Product Details - SayonMart</title>
+<title>Product - SayonMart</title>
 
 <style>
 *{
@@ -16,7 +15,7 @@ body{
   font-family:Arial,sans-serif;
   background:#fff;
   color:#222;
-  padding-bottom:80px;
+  padding-bottom:75px;
 }
 
 header{
@@ -46,10 +45,7 @@ header{
   margin:auto;
 }
 
-/* IMAGE */
-
 .image-box{
-  background:white;
   padding:10px;
 }
 
@@ -57,14 +53,13 @@ header{
   width:100%;
   height:390px;
   object-fit:contain;
-  background:#fff;
 }
 
 .thumbs{
   display:flex;
   gap:8px;
   overflow-x:auto;
-  padding:8px 2px;
+  padding:8px 0;
 }
 
 .thumb{
@@ -73,25 +68,20 @@ header{
   object-fit:cover;
   border:2px solid #ddd;
   border-radius:8px;
-  flex-shrink:0;
-  cursor:pointer;
 }
 
 .thumb.active{
   border:3px solid #111;
 }
 
-/* RATING */
-
 .rating-box{
-  padding:10px 18px;
+  padding:12px 18px;
   border-bottom:8px solid #f5f5f5;
 }
 
 .rating{
-  display:inline-block;
   background:#008a45;
-  color:white;
+  color:#fff;
   padding:5px 9px;
   border-radius:5px;
   font-weight:bold;
@@ -101,8 +91,6 @@ header{
   color:#777;
   margin-left:8px;
 }
-
-/* PRODUCT */
 
 .product-info{
   padding:15px 18px;
@@ -123,8 +111,8 @@ header{
 
 .price-row{
   display:flex;
-  align-items:center;
   gap:10px;
+  align-items:center;
   flex-wrap:wrap;
 }
 
@@ -134,26 +122,23 @@ header{
 }
 
 .old-price{
-  font-size:19px;
   color:#888;
   text-decoration:line-through;
+  font-size:18px;
 }
 
 .discount{
   color:#008a45;
-  font-size:18px;
   font-weight:bold;
 }
 
 .offer{
   margin-top:15px;
+  padding:12px;
   background:#e5f8ed;
   border-radius:10px;
-  padding:12px;
   font-weight:bold;
 }
-
-/* COLOR */
 
 .section{
   padding:18px;
@@ -166,10 +151,6 @@ header{
   margin-bottom:12px;
 }
 
-.color-name{
-  font-weight:normal;
-}
-
 .color-list{
   display:flex;
   gap:10px;
@@ -178,11 +159,10 @@ header{
 
 .color-btn{
   min-width:70px;
-  padding:7px;
-  background:white;
+  background:#fff;
   border:2px solid #ddd;
-  border-radius:10px;
-  cursor:pointer;
+  border-radius:9px;
+  padding:6px;
 }
 
 .color-btn.selected{
@@ -190,10 +170,10 @@ header{
 }
 
 .color-btn img{
-  width:60px;
-  height:70px;
+  width:58px;
+  height:65px;
   object-fit:cover;
-  border-radius:7px;
+  border-radius:6px;
 }
 
 .color-text{
@@ -201,22 +181,19 @@ header{
   margin-top:4px;
 }
 
-/* SIZE */
-
 .size-list{
   display:flex;
-  gap:12px;
+  gap:10px;
   flex-wrap:wrap;
 }
 
 .size-btn{
-  min-width:75px;
-  height:52px;
-  background:white;
+  min-width:65px;
+  height:48px;
+  background:#fff;
   border:2px solid #ddd;
-  border-radius:10px;
-  font-size:17px;
-  cursor:pointer;
+  border-radius:8px;
+  font-size:16px;
 }
 
 .size-btn.selected{
@@ -225,37 +202,26 @@ header{
 }
 
 .size-chart{
+  float:right;
   color:#1769d1;
-  font-weight:bold;
-  margin-left:10px;
+  font-size:14px;
   cursor:pointer;
 }
-
-/* DELIVERY */
 
 .delivery{
   padding:18px;
   border-bottom:8px solid #f5f5f5;
 }
 
-.delivery-title{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:14px;
-}
-
 .delivery-box{
   background:#f5f7f9;
-  padding:15px;
+  padding:14px;
   border-radius:10px;
 }
 
 .delivery-row{
-  padding:8px 0;
-  font-size:16px;
+  padding:7px 0;
 }
-
-/* SELLER */
 
 .seller-box{
   padding:18px;
@@ -272,26 +238,19 @@ header{
   color:#008a45;
 }
 
-/* DESCRIPTION */
-
 .description{
   padding:18px;
   border-bottom:8px solid #f5f5f5;
 }
 
 .description p{
-  line-height:1.6;
   color:#555;
+  line-height:1.6;
 }
-
-/* BENEFITS */
 
 .benefits{
-  padding-left:22px;
   line-height:2;
 }
-
-/* RECOMMEND */
 
 .more{
   padding:18px;
@@ -304,17 +263,15 @@ header{
 }
 
 .rec{
-  min-width:155px;
+  min-width:150px;
   border:1px solid #ddd;
   border-radius:10px;
   padding:8px;
-  background:white;
-  cursor:pointer;
 }
 
 .rec img{
   width:100%;
-  height:140px;
+  height:130px;
   object-fit:contain;
 }
 
@@ -326,19 +283,16 @@ header{
 
 .rec-price{
   font-weight:bold;
-  font-size:17px;
   margin-top:5px;
 }
 
-/* BOTTOM */
-
 .bottom{
   position:fixed;
-  bottom:0;
   left:0;
   right:0;
+  bottom:0;
   height:70px;
-  background:white;
+  background:#fff;
   display:flex;
   gap:8px;
   padding:10px;
@@ -352,18 +306,15 @@ header{
   border-radius:8px;
   font-size:16px;
   font-weight:bold;
-  cursor:pointer;
 }
 
 .cart{
   background:#fff;
   border:2px solid #111 !important;
-  color:#111;
 }
 
 .buy{
   background:#FFD700;
-  color:#111;
 }
 
 .loading{
@@ -374,10 +325,8 @@ header{
 .error{
   text-align:center;
   padding:40px 20px;
-  color:#d00000;
+  color:red;
 }
-
-/* SIZE POPUP */
 
 .modal{
   display:none;
@@ -392,29 +341,25 @@ header{
 .modal-box{
   background:white;
   width:90%;
-  max-width:450px;
-  border-radius:12px;
+  max-width:430px;
   padding:20px;
-  max-height:80vh;
-  overflow:auto;
+  border-radius:12px;
 }
 
-.modal-close{
+.close{
   float:right;
   font-size:25px;
-  cursor:pointer;
 }
 
-.size-table{
+table{
   width:100%;
   border-collapse:collapse;
   margin-top:15px;
 }
 
-.size-table th,
-.size-table td{
+th,td{
   border:1px solid #ddd;
-  padding:10px;
+  padding:9px;
   text-align:center;
 }
 </style>
@@ -423,47 +368,42 @@ header{
 <body>
 
 <header>
-  <a href="index.html" class="back">←</a>
-  SayonMart
+<a href="index.html" class="back">←</a>
+SayonMart
 </header>
 
 <div id="content" class="container">
   <div class="loading">Product loading...</div>
 </div>
 
-<!-- SIZE CHART -->
 <div id="sizeModal" class="modal">
   <div class="modal-box">
 
-    <span class="modal-close" onclick="closeSizeChart()">×</span>
+    <span class="close" onclick="closeSizeChart()">×</span>
 
     <h2>Size Chart</h2>
 
-    <table class="size-table">
+    <table>
       <tr>
         <th>Size</th>
         <th>Chest</th>
         <th>Length</th>
       </tr>
-
       <tr>
         <td>M</td>
         <td>38</td>
         <td>28</td>
       </tr>
-
       <tr>
         <td>L</td>
         <td>40</td>
         <td>29</td>
       </tr>
-
       <tr>
         <td>XL</td>
         <td>42</td>
         <td>30</td>
       </tr>
-
       <tr>
         <td>XXL</td>
         <td>44</td>
@@ -474,839 +414,789 @@ header{
   </div>
 </div>
 
-<!-- BOTTOM BUTTON -->
 <div class="bottom" id="bottomBar" style="display:none">
 
-  <button class="cart" id="cartBtn">
-    🛒 Add to Cart
-  </button>
+<button class="cart" id="cartBtn">
+🛒 Add to Cart
+</button>
 
-  <button class="buy" id="buyBtn">
-    Buy Now
-  </button>
+<button class="buy" id="buyBtn">
+Buy Now
+</button>
+
+</div>
+
+<script type="module">
+
+import {db} from "./firebase.js";
+
+import {
+collection,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const content =
+document.getElementById("content");
+
+const bottomBar =
+document.getElementById("bottomBar");
+
+const productId =
+new URLSearchParams(location.search).get("id");
+
+let currentProduct=null;
+
+let selectedSize="";
+
+let selectedColor="";
+
+
+function money(value){
+
+let n=Number(value);
+
+return isNaN(n) ? "₹"+value : "₹"+n;
+
+}
+
+
+function escapeHTML(value){
+
+return String(value ?? "")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/* CATEGORY */
+
+function getCategory(product){
+
+return String(
+product.category ||
+product.type ||
+""
+).toLowerCase();
+
+}
+
+
+/* কোন product-এ size লাগবে */
+
+function hasSize(category){
+
+return (
+category.includes("fashion") ||
+category.includes("shirt") ||
+category.includes("tshirt") ||
+category.includes("t-shirt") ||
+category.includes("dress") ||
+category.includes("pant") ||
+category.includes("clothing") ||
+category.includes("জামা") ||
+category.includes("পোশাক") ||
+category.includes("shoe") ||
+category.includes("shoes") ||
+category.includes("জুতা")
+);
+
+}
+
+
+/* Shoes না জামা */
+
+function getSizes(product,category){
+
+if(
+category.includes("shoe") ||
+category.includes("shoes") ||
+category.includes("জুতা")
+){
+
+return ["6","7","8","9","10"];
+
+}
+
+if(hasSize(category)){
+
+return ["M","L","XL","XXL"];
+
+}
+
+return [];
+
+}
+
+
+/* PRODUCT */
+
+function showProduct(product,allProducts){
+
+currentProduct=product;
+
+const category=getCategory(product);
+
+const image=
+product.image ||
+product.imageUrl ||
+"https://via.placeholder.com/500";
+
+
+const name=
+product.name ||
+"Product";
+
+
+const price=
+product.price ?? 0;
+
+
+const oldPrice=
+product.oldPrice;
+
+
+const discount=
+product.discount;
+
+
+const rating=
+product.rating || "4.5";
+
+
+const reviews=
+product.reviews || "0";
+
+
+const description=
+product.description ||
+"এই পণ্যের কোনো বিবরণ দেওয়া হয়নি।";
+
+
+const seller=
+product.seller ||
+"SayonMart Seller";
+
+
+const delivery=
+product.delivery ||
+"5-7 দিনের মধ্যে";
+
+
+/* IMAGES */
+
+let images=[];
+
+if(Array.isArray(product.images)){
+
+images=product.images;
+
+}
+
+images=[
+image,
+...images
+];
+
+images=[
+...new Set(images)
+];
+
+
+/* COLORS */
+
+let colors=[];
+
+if(Array.isArray(product.colors)){
+
+colors=product.colors;
+
+}
+
+
+/* SIZES */
+
+let sizes=
+getSizes(product,category);
+
+
+/* যদি Firebase-এ custom size থাকে */
+
+if(
+Array.isArray(product.sizes) &&
+product.sizes.length>0 &&
+hasSize(category)
+){
+
+sizes=product.sizes;
+
+}
+
+
+/* RELATED */
+
+const related=
+allProducts
+.filter(p=>p.id!==product.id)
+.slice(0,8);
+
+
+/* COLOR */
+
+selectedColor=
+colors.length ? colors[0] : "";
+
+
+/* HTML */
+
+content.innerHTML=`
+
+<div class="image-box">
+
+<img
+id="mainImage"
+class="main-img"
+src="${escapeHTML(images[0])}"
+>
+
+<div class="thumbs">
+
+${images.map((img,i)=>`
+
+<img
+class="thumb ${i===0?"active":""}"
+src="${escapeHTML(img)}"
+onclick="changeImage('${escapeHTML(img)}',this)"
+>
+
+`).join("")}
+
+</div>
 
 </div>
 
 
-<script type="module">
+<div class="rating-box">
 
-import { db } from "./firebase.js";
+<span class="rating">
+★ ${escapeHTML(rating)}
+</span>
 
-import {
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+<span class="review-count">
+${escapeHTML(reviews)} Ratings & Reviews
+</span>
 
-
-const content = document.getElementById("content");
-const bottomBar = document.getElementById("bottomBar");
-
-const params = new URLSearchParams(location.search);
-
-const productId = params.get("id");
-
-let currentProduct = null;
-
-let selectedSize = "";
-
-let selectedColor = "";
+</div>
 
 
-/* MONEY */
+<div class="product-info">
 
-function money(value){
+<div class="seller">
+${escapeHTML(seller)}
+</div>
 
-  const n = Number(value);
+<div class="title">
+${escapeHTML(name)}
+</div>
 
-  if(isNaN(n)){
-    return "₹" + value;
-  }
+<div class="price-row">
 
-  return "₹" + n;
+<span class="price">
+${money(price)}
+</span>
+
+${
+oldPrice
+?
+`<span class="old-price">
+${money(oldPrice)}
+</span>`
+:""
+}
+
+${
+discount
+?
+`<span class="discount">
+${escapeHTML(discount)}% OFF
+</span>`
+:""
+}
+
+</div>
+
+<div class="offer">
+🏷️ Special offer available
+</div>
+
+</div>
+
+
+${
+colors.length
+?
+`
+
+<div class="section">
+
+<div class="section-title">
+Color:
+<span id="selectedColor">
+${escapeHTML(selectedColor)}
+</span>
+</div>
+
+<div class="color-list">
+
+${colors.map((color,i)=>`
+
+<button
+class="color-btn ${i===0?"selected":""}"
+data-color="${escapeHTML(color)}"
+onclick="selectColor('${escapeHTML(color)}','${escapeHTML(images[i]||image)}')"
+>
+
+<img src="${escapeHTML(images[i]||image)}">
+
+<div class="color-text">
+${escapeHTML(color)}
+</div>
+
+</button>
+
+`).join("")}
+
+</div>
+
+</div>
+
+`
+:""
 }
 
 
-/* SECURITY */
+/* SIZE ONLY IF NEEDED */
 
-function escapeHTML(value){
+${
+sizes.length
+?
+`
 
-  return String(value ?? "")
+<div class="section">
 
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+<div class="section-title">
+
+Select Size
+
+<span
+class="size-chart"
+onclick="openSizeChart()"
+>
+Size Chart
+</span>
+
+</div>
+
+<div class="size-list">
+
+${sizes.map(size=>`
+
+<button
+class="size-btn"
+data-size="${escapeHTML(size)}"
+onclick="selectSize('${escapeHTML(size)}')"
+>
+
+${escapeHTML(size)}
+
+</button>
+
+`).join("")}
+
+</div>
+
+</div>
+
+`
+:""
 }
 
 
-/* ADD CART */
+<div class="delivery">
 
-function addToCart(product){
+<h3>Delivery Details</h3>
 
-  let cart =
-    JSON.parse(localStorage.getItem("cart") || "[]");
+<div class="delivery-box">
 
+<div class="delivery-row">
+📍 Delivery address
+</div>
 
-  const old =
-    cart.find(x => x.id === product.id);
+<div class="delivery-row">
+🚚 Delivery by ${escapeHTML(delivery)}
+</div>
 
+<div class="delivery-row">
+💵 Cash on Delivery available
+</div>
 
-  if(old){
+</div>
 
-    old.quantity =
-      (old.quantity || 1) + 1;
-
-  }else{
-
-    cart.push({
-
-      id: product.id,
-
-      name: product.name || "Product",
-
-      price: Number(product.price) || 0,
-
-      image:
-        product.image ||
-        product.imageUrl ||
-        "",
-
-      quantity: 1,
-
-      size: selectedSize,
-
-      color: selectedColor
-
-    });
-
-  }
+</div>
 
 
-  localStorage.setItem(
-    "cart",
-    JSON.stringify(cart)
-  );
+<div class="seller-box">
+
+<div class="seller-name">
+🏪 ${escapeHTML(seller)}
+</div>
+
+<div class="seller-rating">
+★ 4.2 Seller Rating
+</div>
+
+</div>
 
 
-  alert("Product cart-এ যোগ হয়েছে!");
+<div class="description">
 
-}
+<h3>Product Description</h3>
+
+<p>
+${escapeHTML(description)}
+</p>
+
+<h3>Benefits</h3>
+
+<ul class="benefits">
+
+<li>ভালো মানের পণ্য</li>
+
+<li>সহজে অর্ডার করুন</li>
+
+<li>SayonMart থেকে কিনুন</li>
+
+</ul>
+
+</div>
 
 
-/* BUY NOW */
+<div class="more">
 
-function buyNow(product){
+<h3>More Products</h3>
 
-  addToCart(product);
+<div class="recommendations">
 
-  location.href = "payment.html";
+${related.map(p=>{
+
+const img=
+p.image ||
+p.imageUrl ||
+"https://via.placeholder.com/300";
+
+return `
+
+<div
+class="rec"
+onclick="openProduct('${escapeHTML(p.id)}')"
+>
+
+<img src="${escapeHTML(img)}">
+
+<div class="rec-name">
+${escapeHTML(p.name||"Product")}
+</div>
+
+<div class="rec-price">
+${money(p.price??0)}
+</div>
+
+</div>
+
+`;
+
+}).join("")}
+
+</div>
+
+</div>
+
+`;
+
+
+bottomBar.style.display="flex";
+
+
+document.getElementById("cartBtn").onclick=()=>{
+
+addToCart(currentProduct);
+
+};
+
+
+document.getElementById("buyBtn").onclick=()=>{
+
+addToCart(currentProduct);
+
+location.href="payment.html";
+
+};
 
 }
 
 
 /* IMAGE */
 
-window.changeImage = function(src,element){
+window.changeImage=function(src,element){
 
-  document.getElementById("mainImage").src = src;
+document.getElementById("mainImage").src=src;
 
-  document
-    .querySelectorAll(".thumb")
-    .forEach(x => x.classList.remove("active"));
+document
+.querySelectorAll(".thumb")
+.forEach(x=>x.classList.remove("active"));
 
-  if(element){
-
-    element.classList.add("active");
-
-  }
+element.classList.add("active");
 
 };
 
 
 /* SIZE */
 
-window.selectSize = function(size){
+window.selectSize=function(size){
 
-  selectedSize = size;
+selectedSize=size;
 
-  document
-    .querySelectorAll(".size-btn")
-    .forEach(btn => {
+document
+.querySelectorAll(".size-btn")
+.forEach(btn=>{
 
-      btn.classList.remove("selected");
+btn.classList.remove("selected");
 
-      if(btn.dataset.size === size){
+if(btn.dataset.size===size){
 
-        btn.classList.add("selected");
+btn.classList.add("selected");
 
-      }
+}
 
-    });
+});
 
 };
 
 
 /* COLOR */
 
-window.selectColor = function(color,image){
+window.selectColor=function(color,image){
 
-  selectedColor = color;
+selectedColor=color;
 
-  document.getElementById("selectedColor").innerText = color;
+document.getElementById(
+"selectedColor"
+).innerText=color;
 
-  if(image){
+document.getElementById(
+"mainImage"
+).src=image;
 
-    document.getElementById("mainImage").src = image;
+document
+.querySelectorAll(".color-btn")
+.forEach(btn=>{
 
-  }
+btn.classList.remove("selected");
 
-  document
-    .querySelectorAll(".color-btn")
-    .forEach(btn => {
+if(btn.dataset.color===color){
 
-      btn.classList.remove("selected");
+btn.classList.add("selected");
 
-      if(btn.dataset.color === color){
+}
 
-        btn.classList.add("selected");
-
-      }
-
-    });
+});
 
 };
 
 
 /* SIZE CHART */
 
-window.openSizeChart = function(){
+window.openSizeChart=function(){
 
-  document.getElementById("sizeModal").style.display = "flex";
-
-};
-
-
-window.closeSizeChart = function(){
-
-  document.getElementById("sizeModal").style.display = "none";
+document.getElementById(
+"sizeModal"
+).style.display="flex";
 
 };
 
 
-/* SHOW PRODUCT */
+window.closeSizeChart=function(){
 
-function showProduct(product,allProducts){
+document.getElementById(
+"sizeModal"
+).style.display="none";
 
-  currentProduct = product;
+};
 
 
-  const image =
-    product.image ||
-    product.imageUrl ||
-    "https://via.placeholder.com/500";
+/* RELATED */
 
+window.openProduct=function(id){
 
-  const name =
-    product.name ||
-    "Product";
+location.href=
+"product.html?id="+
+encodeURIComponent(id);
 
+};
 
-  const price =
-    product.price ?? 0;
 
+/* CART */
 
-  const oldPrice =
-    product.oldPrice;
+function addToCart(product){
 
+let cart=
+JSON.parse(
+localStorage.getItem("cart")||"[]"
+);
 
-  const discount =
-    product.discount;
 
+let item=
+cart.find(x=>x.id===product.id);
 
-  const rating =
-    product.rating || "4.5";
 
+if(item){
 
-  const reviews =
-    product.reviews || "0";
+item.quantity=
+(item.quantity||1)+1;
 
+}else{
 
-  const description =
-    product.description ||
-    "এই পণ্যের কোনো বিবরণ দেওয়া হয়নি।";
+cart.push({
 
+id:product.id,
 
-  const seller =
-    product.seller ||
-    "SayonMart Seller";
+name:product.name||"Product",
 
+price:Number(product.price)||0,
 
-  const sellerRating =
-    product.sellerRating ||
-    "4.2";
+image:
+product.image||
+product.imageUrl||
+"",
 
+quantity:1,
 
-  const delivery =
-    product.delivery ||
-    "5-7 দিনের মধ্যে";
+size:selectedSize,
 
+color:selectedColor
 
-  const benefits =
-    Array.isArray(product.benefits)
+});
 
-      ? product.benefits
+}
 
-      : [
 
-          "ভালো মানের পণ্য",
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
 
-          "সহজে অর্ডার করুন",
 
-          "SayonMart থেকে কিনুন"
-
-        ];
-
-
-  /* IMAGES */
-
-  let images = [];
-
-  if(Array.isArray(product.images)){
-
-    images = product.images;
-
-  }
-
-
-  images = [
-    image,
-    ...images
-  ];
-
-
-  images =
-    [...new Set(images)]
-    .filter(Boolean);
-
-
-  /* COLORS */
-
-  let colors =
-    Array.isArray(product.colors)
-      ? product.colors
-      : ["Grey","Green","Pink"];
-
-
-  /* SIZES */
-
-  let sizes =
-    Array.isArray(product.sizes)
-      ? product.sizes
-      : ["M","L","XL","XXL"];
-
-
-  selectedColor =
-    colors[0] || "";
-
-
-  /* RELATED */
-
-  const related =
-    allProducts
-
-      .filter(p => p.id !== product.id)
-
-      .slice(0,10);
-
-
-  content.innerHTML = `
-
-    <!-- IMAGE -->
-
-    <div class="image-box">
-
-      <img
-        id="mainImage"
-        class="main-img"
-        src="${escapeHTML(images[0])}"
-        alt="${escapeHTML(name)}"
-      >
-
-      <div class="thumbs">
-
-        ${images.map((img,index)=>`
-
-          <img
-
-            class="thumb ${index === 0 ? "active" : ""}"
-
-            src="${escapeHTML(img)}"
-
-            onclick="changeImage(
-              '${escapeHTML(img)}',
-              this
-            )"
-
-          >
-
-        `).join("")}
-
-      </div>
-
-    </div>
-
-
-    <!-- RATING -->
-
-    <div class="rating-box">
-
-      <span class="rating">
-        ★ ${escapeHTML(rating)}
-      </span>
-
-      <span class="review-count">
-        ${escapeHTML(reviews)} Ratings & Reviews
-      </span>
-
-    </div>
-
-
-    <!-- PRODUCT INFO -->
-
-    <div class="product-info">
-
-      <div class="seller">
-        ${escapeHTML(seller)}
-      </div>
-
-      <div class="title">
-        ${escapeHTML(name)}
-      </div>
-
-
-      <div class="price-row">
-
-        <span class="price">
-          ${money(price)}
-        </span>
-
-        ${
-          oldPrice
-          ?
-          `<span class="old-price">
-            ${money(oldPrice)}
-          </span>`
-          :
-          ""
-        }
-
-        ${
-          discount
-          ?
-          `<span class="discount">
-            ↓${escapeHTML(discount)}%
-          </span>`
-          :
-          ""
-        }
-
-      </div>
-
-
-      <div class="offer">
-        🏷️ Special offer available for you
-      </div>
-
-    </div>
-
-
-    <!-- COLOR -->
-
-    <div class="section">
-
-      <div class="section-title">
-
-        Selected Color:
-        <span
-          class="color-name"
-          id="selectedColor"
-        >
-          ${escapeHTML(selectedColor)}
-        </span>
-
-      </div>
-
-
-      <div class="color-list">
-
-        ${colors.map((color,index)=>{
-
-          const colorImage =
-            images[index] || image;
-
-          return `
-
-            <button
-
-              class="color-btn ${
-                index === 0 ? "selected" : ""
-              }"
-
-              data-color="${escapeHTML(color)}"
-
-              onclick="selectColor(
-                '${escapeHTML(color)}',
-                '${escapeHTML(colorImage)}'
-              )"
-
-            >
-
-              <img
-                src="${escapeHTML(colorImage)}"
-              >
-
-              <div class="color-text">
-                ${escapeHTML(color)}
-              </div>
-
-            </button>
-
-          `;
-
-        }).join("")}
-
-      </div>
-
-    </div>
-
-
-    <!-- SIZE -->
-
-    <div class="section">
-
-      <div class="section-title">
-
-        Select Size
-
-        <span
-          class="size-chart"
-          onclick="openSizeChart()"
-        >
-          Size Chart
-        </span>
-
-      </div>
-
-
-      <div class="size-list">
-
-        ${sizes.map(size=>`
-
-          <button
-
-            class="size-btn"
-
-            data-size="${escapeHTML(size)}"
-
-            onclick="selectSize(
-              '${escapeHTML(size)}'
-            )"
-
-          >
-
-            ${escapeHTML(size)}
-
-          </button>
-
-        `).join("")}
-
-      </div>
-
-    </div>
-
-
-    <!-- DELIVERY -->
-
-    <div class="delivery">
-
-      <div class="delivery-title">
-        Delivery details
-      </div>
-
-      <div class="delivery-box">
-
-        <div class="delivery-row">
-          📍 Enter your delivery address
-        </div>
-
-        <div class="delivery-row">
-          🚚 Delivery by ${escapeHTML(delivery)}
-        </div>
-
-        <div class="delivery-row">
-          💵 Cash on Delivery available
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- SELLER -->
-
-    <div class="seller-box">
-
-      <div class="seller-name">
-        🏪 Fulfilled by ${escapeHTML(seller)}
-      </div>
-
-      <div class="seller-rating">
-        ★ ${escapeHTML(sellerRating)}
-        Seller Rating
-      </div>
-
-    </div>
-
-
-    <!-- DESCRIPTION -->
-
-    <div class="description">
-
-      <h3>Product Description</h3>
-
-      <p>
-        ${escapeHTML(description)}
-      </p>
-
-
-      <h3>Benefits</h3>
-
-      <ul class="benefits">
-
-        ${benefits.map(b=>`
-
-          <li>
-            ${escapeHTML(b)}
-          </li>
-
-        `).join("")}
-
-      </ul>
-
-    </div>
-
-
-    <!-- MORE PRODUCTS -->
-
-    <div class="more">
-
-      <h3>More Products</h3>
-
-      <div class="recommendations">
-
-        ${
-          related.length
-
-          ?
-
-          related.map(p=>{
-
-            const img =
-              p.image ||
-              p.imageUrl ||
-              "https://via.placeholder.com/300";
-
-
-            return `
-
-              <div
-                class="rec"
-                data-id="${escapeHTML(p.id)}"
-              >
-
-                <img
-                  src="${escapeHTML(img)}"
-                >
-
-                <div class="rec-name">
-
-                  ${escapeHTML(
-                    p.name || "Product"
-                  )}
-
-                </div>
-
-                <div class="rec-price">
-
-                  ${money(
-                    p.price ?? 0
-                  )}
-
-                </div>
-
-              </div>
-
-            `;
-
-          }).join("")
-
-          :
-
-          "<p>আর কোনো product নেই।</p>"
-        }
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  /* RELATED CLICK */
-
-  document
-    .querySelectorAll(".rec")
-    .forEach(card=>{
-
-      card.addEventListener(
-        "click",
-        ()=>{
-
-          location.href =
-            "product.html?id=" +
-            encodeURIComponent(
-              card.dataset.id
-            );
-
-        }
-      );
-
-    });
-
-
-  /* BUTTONS */
-
-  document.getElementById(
-    "cartBtn"
-  ).onclick = ()=>{
-
-    addToCart(currentProduct);
-
-  };
-
-
-  document.getElementById(
-    "buyBtn"
-  ).onclick = ()=>{
-
-    buyNow(currentProduct);
-
-  };
-
-
-  bottomBar.style.display = "flex";
+alert("Product cart-এ যোগ হয়েছে!");
 
 }
 
 
 /* LOAD */
 
-async function load(){
+async function loadProduct(){
 
-  if(!productId){
+if(!productId){
 
-    content.innerHTML = `
+content.innerHTML=`
 
-      <div class="error">
+<div class="error">
 
-        Product ID পাওয়া যায়নি।
+Product ID পাওয়া যায়নি।
 
-        <br><br>
+</div>
 
-        Home থেকে আবার product-এ চাপুন।
+`;
 
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(db,"products")
-      );
-
-
-    const allProducts =
-      snapshot.docs.map(
-        d => ({
-          id:d.id,
-          ...d.data()
-        })
-      );
-
-
-    const product =
-      allProducts.find(
-        p => p.id === productId
-      );
-
-
-    if(!product){
-
-      content.innerHTML = `
-
-        <div class="error">
-
-          Product পাওয়া যায়নি।
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    showProduct(
-      product,
-      allProducts
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-
-    content.innerHTML = `
-
-      <div class="error">
-
-        Product load হয়নি।
-
-        <br><br>
-
-        Internet/Firebase connection
-        check করুন।
-
-      </div>
-
-    `;
-
-  }
+return;
 
 }
 
 
-load();
+try{
+
+const snapshot=
+await getDocs(
+collection(db,"products")
+);
+
+
+const products=
+snapshot.docs.map(doc=>({
+
+id:doc.id,
+...doc.data()
+
+}));
+
+
+const product=
+products.find(
+p=>p.id===productId
+);
+
+
+if(!product){
+
+content.innerHTML=`
+
+<div class="error">
+
+Product পাওয়া যায়নি।
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+showProduct(
+product,
+products
+);
+
+
+}catch(error){
+
+console.error(error);
+
+content.innerHTML=`
+
+<div class="error">
+
+Product load হয়নি।
+
+<br><br>
+
+Internet/Firebase connection check করুন।
+
+</div>
+
+`;
+
+}
+
+}
+
+
+loadProduct();
 
 </script>
 
