@@ -5,12 +5,10 @@
 
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<title>SayonMart - My Orders</title>
-
+<title>SayonMart - Admin Orders</title>
 
 <style>
 
@@ -23,7 +21,7 @@ body{
   background:#111;
   color:#fff;
   font-family:Arial,sans-serif;
-  padding-bottom:80px;
+  padding-bottom:30px;
 }
 
 .header{
@@ -38,6 +36,18 @@ body{
 
 .container{
   padding:15px;
+}
+
+.loading{
+  text-align:center;
+  color:#FFD700;
+  padding:40px;
+}
+
+.empty{
+  text-align:center;
+  color:#aaa;
+  padding:50px 10px;
 }
 
 .order-card{
@@ -65,7 +75,6 @@ body{
   border-radius:20px;
   font-size:11px;
   font-weight:bold;
-  text-align:center;
 }
 
 .pending{
@@ -78,33 +87,10 @@ body{
   color:#4cff9b;
 }
 
-.packed{
-  background:#34205c;
-  color:#c99cff;
-}
-
-.shipped{
-  background:#073b55;
-  color:#4dcfff;
-}
-
-.out-for-delivery{
-  background:#573700;
-  color:#ffb84d;
-}
-
-.delivered{
-  background:#183d08;
-  color:#7dff4d;
-}
-
 .cancelled{
   background:#4a1111;
   color:#ff7070;
 }
-
-
-/* Product */
 
 .product{
   display:flex;
@@ -133,161 +119,47 @@ body{
   font-size:13px;
 }
 
+.info{
+  margin-top:12px;
+  color:#ccc;
+  font-size:14px;
+  line-height:1.6;
+}
+
 .total{
   color:#FFD700;
   font-size:18px;
   font-weight:bold;
+  margin-top:12px;
 }
 
-
-/* Tracking */
-
-.tracking{
-  margin-top:20px;
-  padding-top:15px;
-  border-top:1px solid #333;
-}
-
-.track-title{
-  color:#FFD700;
-  font-weight:bold;
-  margin-bottom:20px;
-}
-
-.steps{
-  display:flex;
-  justify-content:space-between;
-  position:relative;
-}
-
-.steps:before{
-  content:"";
-  position:absolute;
-  top:15px;
-  left:6%;
-  right:6%;
-  height:3px;
-  background:#444;
-  z-index:0;
-}
-
-.step{
-  text-align:center;
-  width:16.66%;
-  position:relative;
-  z-index:1;
-}
-
-.circle{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:#333;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:13px;
-}
-
-.step.done .circle{
-  background:#4cff9b;
-  color:#000;
-}
-
-.step.current .circle{
+.confirm-btn{
+  width:100%;
+  margin-top:15px;
+  padding:14px;
+  border:0;
+  border-radius:10px;
   background:#FFD700;
   color:#000;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.step p{
-  font-size:8px;
-  color:#777;
-  margin-top:7px;
-  line-height:1.2;
+.confirm-btn:disabled{
+  background:#555;
+  color:#aaa;
 }
-
-.step.done p,
-.step.current p{
-  color:#fff;
-}
-
-
-/* Details */
 
 .details-btn{
   width:100%;
   padding:12px;
-  margin-top:15px;
+  margin-top:10px;
   border:0;
   border-radius:10px;
   background:#333;
   color:#fff;
   font-weight:bold;
-}
-
-
-/* Empty */
-
-.empty{
-  text-align:center;
-  color:#aaa;
-  padding:50px 10px;
-}
-
-.loading{
-  text-align:center;
-  color:#FFD700;
-  padding:40px;
-}
-
-
-/* Bottom */
-
-.bottom{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:65px;
-  background:#000;
-  border-top:1px solid #333;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:100;
-}
-
-.bottom a{
-  text-decoration:none;
-  color:#888;
-  text-align:center;
-  font-size:11px;
-}
-
-.bottom a div{
-  font-size:21px;
-  margin-bottom:3px;
-}
-
-.bottom a.active{
-  color:#FFD700;
-}
-
-
-/* Mobile */
-
-@media(max-width:380px){
-
-  .step p{
-    font-size:7px;
-  }
-
-  .circle{
-    width:27px;
-    height:27px;
-  }
-
 }
 
 </style>
@@ -299,47 +171,23 @@ body{
 
 
 <div class="header">
-📦 My Orders
+
+📦 Admin Orders
+
 </div>
 
 
 <div class="container">
 
-<div id="orders" class="loading">
+<div
+id="orders"
+class="loading">
+
 Loading Orders...
-</div>
 
 </div>
 
-
-<nav class="bottom">
-
-<a href="index.html">
-<div>⌂</div>
-Home
-</a>
-
-<a href="products.html">
-<div>▦</div>
-Products
-</a>
-
-<a href="cart.html">
-<div>🛒</div>
-Cart
-</a>
-
-<a href="order.html" class="active">
-<div>📦</div>
-Orders
-</a>
-
-<a href="profile.html">
-<div>♙</div>
-Profile
-</a>
-
-</nav>
+</div>
 
 
 <script type="module">
@@ -355,8 +203,8 @@ from "./firebase.js";
 import {
   collection,
   getDocs,
-  query,
-  where
+  updateDoc,
+  doc
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -367,72 +215,61 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
+/* ADMIN UID */
+
+const ADMIN_UID =
+"fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+
+
 const ordersDiv =
 document.getElementById("orders");
 
 
-/*
-  AUTH
-*/
+/* ADMIN CHECK */
 
 onAuthStateChanged(
-  auth,
-  async (user)=>{
+auth,
+async(user)=>{
 
-    if(!user){
+  if(
+    !user ||
+    user.uid !== ADMIN_UID
+  ){
 
-      ordersDiv.innerHTML=`
+    ordersDiv.innerHTML=`
 
-        <div class="empty">
+      <div class="empty">
 
-          🔒 Please Login First
+        🚫 Access Denied
 
-          <br><br>
+        <br><br>
 
-          <button
-            onclick="location.href='login.html'"
-            style="
-              padding:12px 25px;
-              background:#FFD700;
-              border:0;
-              border-radius:10px;
-              font-weight:bold;
-            "
-          >
-            Login
-          </button>
+        এই পেজটি শুধু Admin-এর জন্য।
 
-        </div>
+      </div>
 
-      `;
+    `;
 
-      return;
-    }
-
-
-    loadOrders(user.uid);
+    return;
 
   }
-);
 
 
-/*
-  LOAD ORDERS
-*/
+  loadOrders();
 
-async function loadOrders(uid){
+});
+
+
+/* LOAD ORDERS */
+
+async function loadOrders(){
 
   try{
 
-    const q =
-      query(
-        collection(db,"orders"),
-        where("userId","==",uid)
-      );
-
-
     const snapshot =
-      await getDocs(q);
+      await getDocs(
+        collection(db,"orders")
+      );
 
 
     ordersDiv.innerHTML="";
@@ -444,28 +281,14 @@ async function loadOrders(uid){
 
         <div class="empty">
 
-          📭 No Orders Yet
-
-          <br><br>
-
-          <button
-            onclick="location.href='products.html'"
-            style="
-              padding:12px 25px;
-              background:#FFD700;
-              border:0;
-              border-radius:10px;
-              font-weight:bold;
-            "
-          >
-            Start Shopping
-          </button>
+          📭 কোনো Order নেই।
 
         </div>
 
       `;
 
       return;
+
     }
 
 
@@ -487,9 +310,7 @@ async function loadOrders(uid){
     );
 
 
-    /*
-      Newest first
-    */
+    /* Newest first */
 
     orders.sort((a,b)=>{
 
@@ -504,9 +325,7 @@ async function loadOrders(uid){
     });
 
 
-    /*
-      SHOW
-    */
+    /* SHOW */
 
     orders.forEach(item=>{
 
@@ -518,7 +337,9 @@ async function loadOrders(uid){
 
 
       const status =
-        order.status || "Pending";
+        String(
+          order.status || "Pending"
+        ).trim();
 
 
       const productName =
@@ -546,166 +367,199 @@ async function loadOrders(uid){
         );
 
 
-      ordersDiv.innerHTML += `
-
-        <div class="order-card">
-
-
-          <div class="order-top">
-
-            <div class="order-id">
-              Order #${esc(id.substring(0,8))}
-            </div>
-
-            <div class="
-              status
-              ${statusClass(status)}
-            ">
-              ${esc(status)}
-            </div>
-
-          </div>
+      const statusClass =
+        status
+        .toLowerCase()
+        .replaceAll(" ","-");
 
 
-          <div class="product">
+      const card =
+        document.createElement(
+          "div"
+        );
 
-            <img
-              src="${esc(image)}"
-              onerror="
-                this.onerror=null;
-                this.src='https://via.placeholder.com/100';
-              "
-            >
 
-            <div>
+      card.className=
+        "order-card";
 
-              <h3>
-                ${esc(productName)}
-              </h3>
 
-              <p>
-                💰 ₹${price}
-              </p>
+      card.innerHTML=`
 
-              <p>
-                🔢 Quantity: ${quantity}
-              </p>
+        <div class="order-top">
 
-            </div>
+          <div class="order-id">
+
+            Order #${esc(
+              id.substring(0,8)
+            )}
 
           </div>
 
 
-          <p class="total">
-            Total: ₹${total}
-          </p>
+          <div class="
+            status
+            ${statusClass}
+          ">
 
+            ${esc(status)}
 
-          ${
-            status === "Cancelled"
-
-            ?
-
-            `
-
-            <div class="tracking">
-
-              <div class="track-title">
-                ❌ Order Cancelled
-              </div>
-
-            </div>
-
-            `
-
-            :
-
-            `
-
-            <div class="tracking">
-
-              <div class="track-title">
-                🚚 Order Tracking
-              </div>
-
-
-              <div class="steps">
-
-
-                ${trackingStep(
-                  "Pending",
-                  status,
-                  1
-                )}
-
-
-                ${trackingStep(
-                  "Confirmed",
-                  status,
-                  2
-                )}
-
-
-                ${trackingStep(
-                  "Packed",
-                  status,
-                  3
-                )}
-
-
-                ${trackingStep(
-                  "Shipped",
-                  status,
-                  4
-                )}
-
-
-                ${trackingStep(
-                  "Out for Delivery",
-                  status,
-                  5
-                )}
-
-
-                ${trackingStep(
-                  "Delivered",
-                  status,
-                  6
-                )}
-
-
-              </div>
-
-            </div>
-
-            `
-
-          }
-
-
-          <button
-            class="details-btn"
-            onclick="showDetails(
-              '${escAttr(id)}',
-              '${escAttr(productName)}',
-              '${escAttr(order.name || "N/A")}',
-              '${escAttr(order.phone || "N/A")}',
-              '${escAttr(order.address || "N/A")}',
-              '${escAttr(status)}',
-              '${total}'
-            )"
-          >
-            👁️ View Order Details
-          </button>
-
+          </div>
 
         </div>
 
+
+        <div class="product">
+
+          <img
+            src="${esc(image)}"
+            onerror="
+              this.onerror=null;
+              this.src='https://via.placeholder.com/100';
+            "
+          >
+
+
+          <div>
+
+            <h3>
+              ${esc(productName)}
+            </h3>
+
+            <p>
+              💰 Price: ₹${price}
+            </p>
+
+            <p>
+              🔢 Quantity: ${quantity}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="info">
+
+          👤 <b>Customer:</b>
+          ${esc(order.name || "N/A")}
+
+          <br>
+
+          📞 <b>Phone:</b>
+          ${esc(order.phone || "N/A")}
+
+          <br>
+
+          📍 <b>Address:</b>
+          ${esc(order.address || "N/A")}
+
+        </div>
+
+
+        <div class="total">
+
+          Total: ₹${total}
+
+        </div>
+
+
+        <!-- CONFIRM BUTTON -->
+
+        ${
+          status.toLowerCase() === "pending"
+
+          ?
+
+          `
+
+          <button
+            class="confirm-btn"
+            data-id="${escAttr(id)}">
+
+            ✅ Confirm Order
+
+          </button>
+
+          `
+
+          :
+
+          status.toLowerCase() === "confirmed"
+
+          ?
+
+          `
+
+          <button
+            class="confirm-btn"
+            disabled>
+
+            ✅ Order Confirmed
+
+          </button>
+
+          `
+
+          :
+
+          ""
+
+        }
+
+
+        <button
+          class="details-btn"
+          data-details="${escAttr(id)}">
+
+          👁️ View Details
+
+        </button>
+
+
       `;
+
+
+      ordersDiv.appendChild(card);
+
+    });
+
+
+    /* BUTTON EVENTS */
+
+    document
+    .querySelectorAll(
+      ".confirm-btn:not(:disabled)"
+    )
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        ()=>confirmOrder(
+          button.dataset.id,
+          button
+        )
+      );
+
+    });
+
+
+    document
+    .querySelectorAll(
+      ".details-btn"
+    )
+    .forEach(button=>{
+
+      button.addEventListener(
+        "click",
+        ()=>showDetails(
+          button.dataset.details
+        )
+      );
 
     });
 
   }
+
 
   catch(error){
 
@@ -731,156 +585,156 @@ async function loadOrders(uid){
 }
 
 
-/*
-  TRACKING
-*/
+/* CONFIRM */
 
-function trackingStep(
-  name,
-  currentStatus,
-  stepNumber
+async function confirmOrder(
+  orderId,
+  button
 ){
 
-  const current =
-    getStep(currentStatus);
+  const ok =
+    confirm(
+      "এই Order Confirm করতে চান?"
+    );
 
 
-  let className = "";
+  if(!ok) return;
 
 
-  if(stepNumber < current){
+  button.disabled=true;
 
-    className = "done";
+  button.innerText=
+    "Confirm হচ্ছে...";
+
+
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "orders",
+        orderId
+      ),
+
+      {
+        status:"Confirmed"
+      }
+
+    );
+
+
+    alert(
+      "✅ Order Confirm হয়েছে!"
+    );
+
+
+    loadOrders();
 
   }
 
-  else if(stepNumber === current){
+  catch(error){
 
-    className = "current";
+    console.error(error);
+
+
+    alert(
+      "❌ Confirm করা যায়নি।\n\n"+
+      error.message
+    );
+
+
+    button.disabled=false;
+
+    button.innerText=
+      "✅ Confirm Order";
 
   }
 
+}
 
-  return `
 
-    <div class="step ${className}">
+/* DETAILS */
 
-      <div class="circle">
+async function showDetails(orderId){
 
-        ${
-          stepNumber <= current
-          ? "✓"
-          : stepNumber
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"orders")
+      );
+
+
+    let found=null;
+
+
+    snapshot.forEach(
+      item=>{
+
+        if(item.id===orderId){
+
+          found=item.data();
+
         }
 
-      </div>
-
-      <p>
-        ${esc(name)}
-      </p>
-
-    </div>
-
-  `;
-
-}
+      }
+    );
 
 
-/*
-  STATUS NUMBER
-*/
+    if(!found){
 
-function getStep(status){
+      alert("Order পাওয়া যায়নি।");
 
-  switch(status){
+      return;
 
-    case "Pending":
-      return 1;
-
-    case "Confirmed":
-      return 2;
-
-    case "Packed":
-      return 3;
-
-    case "Shipped":
-      return 4;
-
-    case "Out for Delivery":
-      return 5;
-
-    case "Delivered":
-      return 6;
-
-    default:
-      return 0;
-
-  }
-
-}
+    }
 
 
-/*
-  STATUS CSS CLASS
-*/
-
-function statusClass(status){
-
-  return String(status)
-    .toLowerCase()
-    .replaceAll(" ","-");
-
-}
-
-
-/*
-  DETAILS
-*/
-
-window.showDetails =
-function(
-  id,
-  product,
-  customer,
-  phone,
-  address,
-  status,
-  total
-){
-
-  alert(
+    alert(
 
 `📦 ORDER DETAILS
 
 Order ID:
-${id}
+${orderId}
 
 📦 Product:
-${product}
+${found.productName || "N/A"}
 
 👤 Customer:
-${customer}
+${found.name || "N/A"}
 
 📞 Phone:
-${phone}
+${found.phone || "N/A"}
 
 📍 Address:
-${address}
+${found.address || "N/A"}
 
-📦 Status:
-${status}
+🔢 Quantity:
+${found.quantity || 1}
 
 💰 Total:
-₹${total}`
+₹${found.total || found.price || 0}
 
-  );
+📦 Status:
+${found.status || "Pending"}`
 
-};
+    );
+
+  }
+
+  catch(error){
+
+    alert(
+      "Details load হয়নি।"
+    );
+
+  }
+
+}
 
 
-/*
-  SECURITY HELPERS
-*/
+/* SECURITY HELPERS */
 
 function esc(value){
 
@@ -905,5 +759,7 @@ function escAttr(value){
 
 </script>
 
+
 </body>
+
 </html>
