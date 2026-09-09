@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SayonMart - Address</title><style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#111;
+  color:white;
+}
+
+header{
+  background:#000;
+  padding:18px;
+  text-align:center;
+  color:#FFD700;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.container{
+  padding:20px;
+}
+
+.card{
+  background:#1c1c1c;
+  padding:20px;
+  border-radius:12px;
+  max-width:500px;
+  margin:auto;
+}
+
+h2{
+  margin-top:0;
+  color:#FFD700;
+}
+
+label{
+  display:block;
+  margin-top:15px;
+  margin-bottom:6px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:none;
+  border-radius:8px;
+  background:#2b2b2b;
+  color:white;
+  font-size:15px;
+}
+
+input:focus{
+  outline:2px solid #FFD700;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  border:none;
+  border-radius:8px;
+  background:#FFD700;
+  color:#000;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.editBtn{
+  background:#333;
+  color:#FFD700;
+  border:1px solid #FFD700;
+}
+
+.saved{
+  display:none;
+}
+
+.addressBox{
+  background:#252525;
+  padding:15px;
+  border-radius:10px;
+  line-height:1.7;
+}
+
+.row{
+  margin-bottom:5px;
+}
+
+.small{
+  color:#aaa;
+  font-size:13px;
+  margin-top:10px;
+}
+</style></head><body><header>
+  📍 SayonMart Address
+</header><div class="container">  <!-- Saved Address -->  <div class="card saved" id="savedAddress"><h2>Saved Address</h2>
+
+<div class="addressBox">
+  <div class="row"><b>Name:</b> <span id="showName"></span></div>
+  <div class="row"><b>Mobile:</b> <span id="showMobile"></span></div>
+  <div class="row"><b>PIN:</b> <span id="showPin"></span></div>
+  <div class="row"><b>District:</b> <span id="showDistrict"></span></div>
+  <div class="row"><b>Building/House:</b> <span id="showBuilding"></span></div>
+  <div class="row"><b>Local Area:</b> <span id="showArea"></span></div>
+</div>
+
+<button onclick="useAddress()">
+  ✅ Use This Address
+</button>
+
+<button class="editBtn" onclick="editAddress()">
+  ✏️ Edit Address
+</button>
+
+<div class="small">
+  Address ঠিক থাকলে "Use This Address" চাপো।
+</div>
+
+  </div>  <!-- Address Form -->  <div class="card" id="addressForm"><h2 id="formTitle">Add New Address</h2>
+
+<label>Name</label>
+<input type="text" id="name" placeholder="আপনার নাম">
+
+<label>Mobile No.</label>
+<input type="tel" id="mobile" placeholder="Mobile Number" maxlength="10">
+
+<label>PIN Code</label>
+<input type="number" id="pin" placeholder="PIN Code" maxlength="6">
+
+<label>District</label>
+<input type="text" id="district" placeholder="District">
+
+<label>Building / House No.</label>
+<input type="text" id="building" placeholder="Building / House No.">
+
+<label>Local Area</label>
+<input type="text" id="area" placeholder="Local Area / Village / Road">
+
+<button onclick="saveAddress()">
+  💾 Save Address
+</button>
+
+  </div></div><script>
+
+function loadAddress(){
+
+  const saved = localStorage.getItem("sayonmartAddress");
+
+  if(!saved){
+    document.getElementById("addressForm").style.display="block";
+    document.getElementById("savedAddress").style.display="none";
+    return;
+  }
+
+  const data = JSON.parse(saved);
+
+  document.getElementById("showName").innerText = data.name;
+  document.getElementById("showMobile").innerText = data.mobile;
+  document.getElementById("showPin").innerText = data.pin;
+  document.getElementById("showDistrict").innerText = data.district;
+  document.getElementById("showBuilding").innerText = data.building;
+  document.getElementById("showArea").innerText = data.area;
+
+  document.getElementById("savedAddress").style.display="block";
+  document.getElementById("addressForm").style.display="none";
+}
+
+
+function saveAddress(){
+
+  const name = document.getElementById("name").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+  const pin = document.getElementById("pin").value.trim();
+  const district = document.getElementById("district").value.trim();
+  const building = document.getElementById("building").value.trim();
+  const area = document.getElementById("area").value.trim();
+
+  if(!name || !mobile || !pin || !district || !building || !area){
+    alert("⚠️ সব Address তথ্য পূরণ করুন।");
+    return;
+  }
+
+  if(mobile.length !== 10){
+    alert("⚠️ সঠিক 10 digit Mobile Number দিন।");
+    return;
+  }
+
+  if(pin.length !== 6){
+    alert("⚠️ সঠিক 6 digit PIN Code দিন।");
+    return;
+  }
+
+  const address = {
+    name:name,
+    mobile:mobile,
+    pin:pin,
+    district:district,
+    building:building,
+    area:area
+  };
+
+  localStorage.setItem(
+    "sayonmartAddress",
+    JSON.stringify(address)
+  );
+
+  alert("✅ Address Save হয়েছে!");
+
+  loadAddress();
+}
+
+
+function editAddress(){
+
+  const saved = localStorage.getItem("sayonmartAddress");
+
+  if(!saved) return;
+
+  const data = JSON.parse(saved);
+
+  document.getElementById("name").value = data.name;
+  document.getElementById("mobile").value = data.mobile;
+  document.getElementById("pin").value = data.pin;
+  document.getElementById("district").value = data.district;
+  document.getElementById("building").value = data.building;
+  document.getElementById("area").value = data.area;
+
+  document.getElementById("formTitle").innerText =
+    "Edit Address";
+
+  document.getElementById("savedAddress").style.display="none";
+  document.getElementById("addressForm").style.display="block";
+}
+
+
+function useAddress(){
+
+  localStorage.setItem(
+    "addressSelected",
+    "true"
+  );
+
+  alert("✅ Address Selected!");
+
+  // Payment page-এ যাবে
+  window.location.href="payment.html";
+}
+
+
+loadAddress();
+
+</script></body>
+</html>
