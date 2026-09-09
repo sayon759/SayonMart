@@ -1,229 +1,489 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profile - SayonMart</title>
+<meta name="theme-color" content="#ffffff">
+
+<title>SayonMart - Profile & Settings</title>
 
 <style>
 *{
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  margin:0;
-  background:#111;
-  color:#fff;
-  padding-bottom:85px;
+    background:#f5f5f5;
+    color:#222;
+    padding-bottom:90px;
 }
 
+/* HEADER */
+
 .header{
-  height:70px;
-  background:#000;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
-  border-bottom:1px solid #333;
+    position:sticky;
+    top:0;
+    z-index:100;
+    height:64px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    padding:0 15px;
+    gap:14px;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.back-btn{
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:50%;
+    background:#f5f5f5;
+    font-size:21px;
+    cursor:pointer;
 }
 
 .logo{
-  font-size:27px;
-  font-weight:bold;
+    font-size:21px;
+    font-weight:800;
+    color:#c99a00;
 }
 
 .logo span{
-  color:#FFD600;
+    color:#222;
 }
 
-.header-icon{
-  font-size:25px;
-  cursor:pointer;
+.header-space{
+    flex:1;
 }
+
+.header-cart{
+    position:relative;
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:50%;
+    background:#f5f5f5;
+    font-size:19px;
+}
+
+/* MAIN */
+
+.container{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+    padding:15px;
+}
+
+/* PROFILE */
 
 .profile-card{
-  margin:18px;
-  padding:22px;
-  background:#1c1c1c;
-  border:1px solid #444;
-  border-radius:22px;
-  display:flex;
-  align-items:center;
-  gap:17px;
+    background:#fff;
+    border-radius:22px;
+    padding:25px 20px;
+    text-align:center;
+    border-top:4px solid #d3a500;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
 .avatar{
-  width:75px;
-  height:75px;
-  border-radius:50%;
-  background:#292929;
-  border:2px solid #FFD600;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:40px;
+    width:86px;
+    height:86px;
+    margin:auto;
+    border-radius:50%;
+    background:#fff3bf;
+    border:3px solid #d3a500;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
 }
 
-.name{
-  font-size:21px;
-  font-weight:bold;
+.profile-name{
+    margin-top:12px;
+    font-size:21px;
+    font-weight:800;
 }
 
-.phone{
-  color:#aaa;
-  margin-top:7px;
+.profile-email{
+    margin-top:5px;
+    color:#888;
+    font-size:13px;
+    word-break:break-word;
 }
 
-.verified{
-  color:#FFD600;
-  font-size:13px;
-  margin-top:8px;
+.login-btn{
+    margin-top:16px;
+    padding:11px 25px;
+    border:0;
+    border-radius:10px;
+    background:#d3a500;
+    color:#fff;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.stats{
-  margin:18px;
-  padding:17px 5px;
-  background:#202020;
-  border-radius:18px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  text-align:center;
+/* QUICK MENU */
+
+.quick-menu{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:15px;
 }
 
-.stat{
-  border-right:1px solid #444;
+.quick-card{
+    background:#fff;
+    border-radius:16px;
+    padding:15px 5px;
+    text-align:center;
+    box-shadow:0 2px 9px rgba(0,0,0,.07);
+    cursor:pointer;
+    position:relative;
 }
 
-.stat:last-child{
-  border:none;
+.quick-card:active{
+    transform:scale(.97);
 }
 
-.stat-icon{
-  font-size:23px;
+.quick-icon{
+    font-size:27px;
 }
 
-.stat-title{
-  color:#aaa;
-  font-size:12px;
-  margin-top:5px;
+.quick-title{
+    margin-top:7px;
+    font-size:11px;
+    font-weight:bold;
 }
 
-.stat-number{
-  font-weight:bold;
-  margin-top:5px;
+.quick-number{
+    display:inline-block;
+    margin-top:5px;
+    min-width:18px;
+    padding:2px 6px;
+    border-radius:10px;
+    background:#d3a500;
+    color:#fff;
+    font-size:9px;
 }
 
-.member{
-  margin:18px;
-  padding:18px;
-  background:#202020;
-  border-radius:18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-
-.member h3{
-  margin:0 0 6px;
-  font-size:16px;
-}
-
-.member p{
-  margin:0;
-  color:#999;
-  font-size:12px;
-}
-
-.join{
-  background:#FFD600;
-  border:0;
-  border-radius:9px;
-  padding:11px 16px;
-  font-weight:bold;
-}
+/* SECTION */
 
 .section{
-  margin:22px 18px 10px;
-  color:#999;
-  font-size:15px;
+    margin-top:22px;
 }
 
-.menu{
-  margin:0 18px;
-  background:#202020;
-  border-radius:18px;
-  overflow:hidden;
+.section-title{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:10px;
 }
 
-.menu-item{
-  min-height:62px;
-  padding:15px 17px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid #363636;
-  cursor:pointer;
+/* SETTINGS */
+
+.settings-box{
+    background:#fff;
+    border-radius:17px;
+    overflow:hidden;
+    box-shadow:0 2px 9px rgba(0,0,0,.06);
 }
 
-.menu-item:last-child{
-  border-bottom:none;
+.setting{
+    min-height:64px;
+    display:flex;
+    align-items:center;
+    padding:11px 14px;
+    gap:12px;
+    border-bottom:1px solid #eeeeee;
+    cursor:pointer;
 }
 
-.left{
-  display:flex;
-  align-items:center;
-  gap:17px;
+.setting:last-child{
+    border-bottom:0;
 }
 
-.menu-icon{
-  width:28px;
-  text-align:center;
-  font-size:22px;
+.setting-icon{
+    width:40px;
+    height:40px;
+    flex-shrink:0;
+    border-radius:11px;
+    background:#fff4c9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
 }
 
-.menu-name{
-  font-size:16px;
+.setting-info{
+    flex:1;
+}
+
+.setting-name{
+    font-size:14px;
+    font-weight:bold;
+}
+
+.setting-description{
+    margin-top:3px;
+    color:#999;
+    font-size:10px;
 }
 
 .arrow{
-  color:#999;
-  font-size:25px;
+    color:#999;
+    font-size:22px;
 }
 
-.logout{
-  color:#ff5555;
+/* SWITCH */
+
+.switch{
+    width:46px;
+    height:25px;
+    background:#d8d8d8;
+    border-radius:20px;
+    position:relative;
+    flex-shrink:0;
+    transition:.2s;
 }
 
-.bottom{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:70px;
-  background:#1b1b1b;
-  border-top:1px solid #444;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:10;
+.switch::after{
+    content:"";
+    position:absolute;
+    width:19px;
+    height:19px;
+    left:3px;
+    top:3px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 1px 4px rgba(0,0,0,.3);
+    transition:.2s;
 }
 
-.nav{
-  text-align:center;
-  color:#999;
-  font-size:11px;
-  cursor:pointer;
+.switch.active{
+    background:#d3a500;
+}
+
+.switch.active::after{
+    left:24px;
+}
+
+/* ACCOUNT DETAILS */
+
+.account-details{
+    background:#fff;
+    border-radius:17px;
+    padding:16px;
+    box-shadow:0 2px 9px rgba(0,0,0,.06);
+}
+
+.detail-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+}
+
+.detail-row:last-child{
+    border-bottom:0;
+}
+
+.detail-label{
+    color:#888;
+}
+
+.detail-value{
+    font-weight:bold;
+    text-align:right;
+    max-width:60%;
+    word-break:break-word;
+}
+
+/* LOGOUT */
+
+.logout-btn{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    background:#fff;
+    border:1px solid #e04444;
+    border-radius:12px;
+    color:#d83232;
+    font-weight:bold;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.logout-btn:active{
+    transform:scale(.98);
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    color:#aaa;
+    font-size:10px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:70px;
+    background:#fff;
+    border-top:1px solid #eee;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    z-index:999;
+    box-shadow:0 -3px 15px rgba(0,0,0,.08);
+}
+
+.nav-item{
+    min-width:55px;
+    text-align:center;
+    color:#777;
+    font-size:10px;
+    cursor:pointer;
+    position:relative;
 }
 
 .nav-icon{
-  font-size:23px;
-  margin-bottom:3px;
+    font-size:21px;
+    margin-bottom:3px;
 }
 
-.nav.active{
-  color:#FFD600;
+.nav-item.active{
+    color:#c99a00;
+    font-weight:bold;
+}
+
+.nav-badge{
+    position:absolute;
+    top:-4px;
+    right:7px;
+    min-width:16px;
+    height:16px;
+    padding:0 4px;
+    border-radius:10px;
+    background:#e53935;
+    color:#fff;
+    font-size:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:2000;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+    background:#fff;
+    border-radius:22px 22px 0 0;
+    padding:20px;
+    animation:slideUp .25s ease;
+}
+
+@keyframes slideUp{
+    from{
+        transform:translateY(100%);
+    }
+    to{
+        transform:translateY(0);
+    }
+}
+
+.modal-title{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.modal-option{
+    padding:14px;
+    border:1px solid #eee;
+    border-radius:11px;
+    margin-top:8px;
+    cursor:pointer;
+}
+
+.modal-close{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    border:0;
+    border-radius:10px;
+    background:#d3a500;
+    color:#fff;
+    font-weight:bold;
+}
+
+/* DESKTOP */
+
+@media(min-width:700px){
+
+    .container{
+        padding:25px;
+    }
+
+    .profile-card{
+        padding:30px;
+    }
+
+    .bottom-nav{
+        max-width:650px;
+        left:50%;
+        transform:translateX(-50%);
+        border:1px solid #eee;
+        border-bottom:0;
+        border-radius:18px 18px 0 0;
+    }
+}
+
+/* SMALL PHONE */
+
+@media(max-width:360px){
+
+    .container{
+        padding:10px;
+    }
+
+    .profile-card{
+        padding:20px 12px;
+    }
+
+    .quick-menu{
+        gap:7px;
+    }
+
+    .quick-card{
+        padding:12px 3px;
+    }
 }
 </style>
 </head>
@@ -232,269 +492,651 @@ body{
 
 <!-- HEADER -->
 
-<div class="header">
+<header class="header">
 
-  <div class="header-icon">☰</div>
+    <button class="back-btn" onclick="goHome()">
+        ←
+    </button>
 
-  <div class="logo">
-    Sayon<span>Mart</span>
-  </div>
-
-  <div class="header-icon" onclick="location.href='cart.html'">
-    🛒
-  </div>
-
-</div>
-
-
-<!-- PROFILE -->
-
-<div class="profile-card">
-
-  <div class="avatar">
-    👤
-  </div>
-
-  <div>
-
-    <div class="name" id="userName">
-      SayonMart User
+    <div class="logo">
+        Sayon<span>Mart</span>
     </div>
 
-    <div class="phone" id="userPhone">
-      Loading...
+    <div class="header-space"></div>
+
+    <button class="header-cart" onclick="goCart()">
+        🛒
+    </button>
+
+</header>
+
+
+<main class="container">
+
+    <!-- PROFILE CARD -->
+
+    <section class="profile-card">
+
+        <div class="avatar">
+            👤
+        </div>
+
+        <div
+            id="userName"
+            class="profile-name">
+            Welcome to SayonMart
+        </div>
+
+        <div
+            id="userEmail"
+            class="profile-email">
+            Login to manage your account
+        </div>
+
+        <button
+            id="loginButton"
+            class="login-btn"
+            onclick="goLogin()">
+
+            Login / Sign Up
+
+        </button>
+
+    </section>
+
+
+    <!-- QUICK MENU -->
+
+    <section class="quick-menu">
+
+        <div
+            class="quick-card"
+            onclick="goOrders()">
+
+            <div class="quick-icon">
+                📦
+            </div>
+
+            <div class="quick-title">
+                My Orders
+            </div>
+
+            <span class="quick-number">
+                View
+            </span>
+
+        </div>
+
+
+        <div
+            class="quick-card"
+            onclick="goWishlist()">
+
+            <div class="quick-icon">
+                ❤️
+            </div>
+
+            <div class="quick-title">
+                Wishlist
+            </div>
+
+            <span
+                id="wishlistCount"
+                class="quick-number">
+                0
+            </span>
+
+        </div>
+
+
+        <div
+            class="quick-card"
+            onclick="goCart()">
+
+            <div class="quick-icon">
+                🛒
+            </div>
+
+            <div class="quick-title">
+                My Cart
+            </div>
+
+            <span
+                id="cartCount"
+                class="quick-number">
+                0
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACCOUNT -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Account
+        </div>
+
+        <div class="settings-box">
+
+            <div
+                class="setting"
+                onclick="goOrders()">
+
+                <div class="setting-icon">
+                    📦
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        My Orders
+                    </div>
+
+                    <div class="setting-description">
+                        View your orders and order status
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <div
+                class="setting"
+                onclick="goWishlist()">
+
+                <div class="setting-icon">
+                    ❤️
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        Wishlist
+                    </div>
+
+                    <div class="setting-description">
+                        Products you saved
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <div
+                class="setting"
+                onclick="goCart()">
+
+                <div class="setting-icon">
+                    🛒
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        Shopping Cart
+                    </div>
+
+                    <div class="setting-description">
+                        View products in your cart
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- APP SETTINGS -->
+
+    <section class="section">
+
+        <div class="section-title">
+            App Settings
+        </div>
+
+        <div class="settings-box">
+
+            <!-- NOTIFICATIONS -->
+
+            <div class="setting">
+
+                <div class="setting-icon">
+                    🔔
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        Notifications
+                    </div>
+
+                    <div class="setting-description">
+                        Receive shopping notifications
+                    </div>
+
+                </div>
+
+                <div
+                    id="notificationSwitch"
+                    class="switch active"
+                    onclick="toggleNotification()">
+                </div>
+
+            </div>
+
+
+            <!-- SOUND -->
+
+            <div class="setting">
+
+                <div class="setting-icon">
+                    🔊
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        Sound
+                    </div>
+
+                    <div class="setting-description">
+                        App sound effects
+                    </div>
+
+                </div>
+
+                <div
+                    id="soundSwitch"
+                    class="switch"
+                    onclick="toggleSound()">
+                </div>
+
+            </div>
+
+
+            <!-- LANGUAGE -->
+
+            <div
+                class="setting"
+                onclick="openLanguage()">
+
+                <div class="setting-icon">
+                    🌐
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        Language
+                    </div>
+
+                    <div
+                        id="languageText"
+                        class="setting-description">
+                        English
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <!-- THEME -->
+
+            <div
+                class="setting"
+                onclick="openTheme()">
+
+                <div class="setting-icon">
+                    🎨
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        Theme
+                    </div>
+
+                    <div
+                        id="themeText"
+                        class="setting-description">
+                        Light
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUPPORT -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Support & Information
+        </div>
+
+        <div class="settings-box">
+
+            <div
+                class="setting"
+                onclick="openHelp()">
+
+                <div class="setting-icon">
+                    ❓
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        Help Center
+                    </div>
+
+                    <div class="setting-description">
+                        Get help with your shopping
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <div
+                class="setting"
+                onclick="openContact()">
+
+                <div class="setting-icon">
+                    📞
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        Contact Us
+                    </div>
+
+                    <div class="setting-description">
+                        Contact SayonMart support
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <div
+                class="setting"
+                onclick="openAbout()">
+
+                <div class="setting-icon">
+                    ℹ️
+                </div>
+
+                <div class="setting-info">
+
+                    <div class="setting-name">
+                        About SayonMart
+                    </div>
+
+                    <div class="setting-description">
+                        Version 1.0
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACCOUNT INFORMATION -->
+
+    <section class="section">
+
+        <div class="section-title">
+            Account Information
+        </div>
+
+        <div class="account-details">
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Status
+                </span>
+
+                <span
+                    id="accountStatus"
+                    class="detail-value">
+                    Guest
+                </span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Email
+                </span>
+
+                <span
+                    id="accountEmail"
+                    class="detail-value">
+                    Not logged in
+                </span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    App
+                </span>
+
+                <span class="detail-value">
+                    SayonMart
+                </span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Version
+                </span>
+
+                <span class="detail-value">
+                    1.0
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- LOGOUT -->
+
+    <button
+        id="logoutButton"
+        class="logout-btn"
+        style="display:none"
+        onclick="logout()">
+
+        🚪 Logout
+
+    </button>
+
+
+    <div class="footer">
+        © 2026 SayonMart • All Rights Reserved
     </div>
 
-    <div class="verified">
-      ✓ Verified Account
+</main>
+
+
+<!-- MODAL -->
+
+<div
+    id="modal"
+    class="modal"
+    onclick="closeModalOutside(event)">
+
+    <div class="modal-box">
+
+        <div
+            id="modalTitle"
+            class="modal-title">
+            Settings
+        </div>
+
+        <div id="modalContent"></div>
+
+        <button
+            class="modal-close"
+            onclick="closeModal()">
+
+            Close
+
+        </button>
+
     </div>
-
-  </div>
-
-</div>
-
-
-<!-- STATS -->
-
-<div class="stats">
-
-  <div class="stat">
-    <div class="stat-icon">📦</div>
-    <div class="stat-title">Orders</div>
-    <div class="stat-number">0</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-icon">♥</div>
-    <div class="stat-title">Wishlist</div>
-    <div class="stat-number">0</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-icon">🛒</div>
-    <div class="stat-title">Cart</div>
-    <div class="stat-number" id="cartCount">0</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-icon">₹</div>
-    <div class="stat-title">SayonCash</div>
-    <div class="stat-number">₹0</div>
-  </div>
-
-</div>
-
-
-<!-- MEMBER -->
-
-<div class="member">
-
-  <div>
-    <h3>⭐ SayonMart Member</h3>
-    <p>Get exclusive offers and benefits</p>
-  </div>
-
-  <button class="join" onclick="alert('Coming Soon!')">
-    Join
-  </button>
-
-</div>
-
-
-<!-- MY ACCOUNT -->
-
-<div class="section">
-  My Account
-</div>
-
-<div class="menu">
-
-  <div class="menu-item" onclick="location.href='order.html'">
-
-    <div class="left">
-      <span class="menu-icon">📦</span>
-      <span class="menu-name">My Orders</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
-
-
-  <div class="menu-item" onclick="alert('Wishlist coming soon!')">
-
-    <div class="left">
-      <span class="menu-icon">♥</span>
-      <span class="menu-name">Wishlist</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
-
-
-  <div class="menu-item" onclick="alert('Address feature coming soon!')">
-
-    <div class="left">
-      <span class="menu-icon">📍</span>
-      <span class="menu-name">My Addresses</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
-
-
-  <div class="menu-item" onclick="alert('SayonCash coming soon!')">
-
-    <div class="left">
-      <span class="menu-icon">₹</span>
-      <span class="menu-name">SayonCash</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
-
-
-  <div class="menu-item" onclick="location.href='payment.html'">
-
-    <div class="left">
-      <span class="menu-icon">💳</span>
-      <span class="menu-name">Payment Methods</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
-
-</div>
-
-
-<!-- MORE OPTIONS -->
-
-<div class="section">
-  More Options
-</div>
-
-<div class="menu">
-
-  <div class="menu-item" onclick="alert('Notifications coming soon!')">
-
-    <div class="left">
-      <span class="menu-icon">🔔</span>
-      <span class="menu-name">Notifications</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
-
-
-  <!-- SETTINGS -->
-
-  <div class="menu-item" onclick="location.href='settings.html'">
-
-    <div class="left">
-      <span class="menu-icon">⚙️</span>
-      <span class="menu-name">Settings</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
-
-
-  <div class="menu-item" onclick="alert('Help & Support coming soon!')">
-
-    <div class="left">
-      <span class="menu-icon">🎧</span>
-      <span class="menu-name">Help & Support</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
-
-
-  <div class="menu-item" onclick="alert('SayonMart Online Shopping App')">
-
-    <div class="left">
-      <span class="menu-icon">ⓘ</span>
-      <span class="menu-name">About SayonMart</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
-
-
-  <!-- LOGOUT -->
-
-  <div class="menu-item logout" onclick="logout()">
-
-    <div class="left">
-      <span class="menu-icon">🚪</span>
-      <span class="menu-name">Logout</span>
-    </div>
-
-    <span class="arrow">›</span>
-
-  </div>
 
 </div>
 
 
 <!-- BOTTOM NAV -->
 
-<div class="bottom">
+<nav class="bottom-nav">
 
-  <div class="nav" onclick="location.href='index.html'">
-    <div class="nav-icon">⌂</div>
-    Home
-  </div>
+    <div
+        class="nav-item"
+        onclick="goHome()">
 
-  <div class="nav" onclick="location.href='products.html'">
-    <div class="nav-icon">▦</div>
-    Products
-  </div>
+        <div class="nav-icon">
+            ⌂
+        </div>
 
-  <div class="nav" onclick="location.href='products.html'">
-    <div class="nav-icon">⌕</div>
-    Search
-  </div>
+        Home
 
-  <div class="nav" onclick="location.href='cart.html'">
-    <div class="nav-icon">🛒</div>
-    Cart
-  </div>
+    </div>
 
-  <div class="nav active">
-    <div class="nav-icon">👤</div>
-    Profile
-  </div>
 
-</div>
+    <div
+        class="nav-item"
+        onclick="goProducts()">
+
+        <div class="nav-icon">
+            ▦
+        </div>
+
+        Products
+
+    </div>
+
+
+    <div
+        class="nav-item"
+        onclick="goWishlist()">
+
+        <span
+            id="wishlistBadge"
+            class="nav-badge"
+            style="display:none">
+            0
+        </span>
+
+        <div class="nav-icon">
+            ♡
+        </div>
+
+        Wishlist
+
+    </div>
+
+
+    <div
+        class="nav-item"
+        onclick="goCart()">
+
+        <span
+            id="cartBadge"
+            class="nav-badge"
+            style="display:none">
+            0
+        </span>
+
+        <div class="nav-icon">
+            🛒
+        </div>
+
+        Cart
+
+    </div>
+
+
+    <div class="nav-item active">
+
+        <div class="nav-icon">
+            ♙
+        </div>
+
+        Profile
+
+    </div>
+
+</nav>
 
 
 <script type="module">
@@ -502,69 +1144,665 @@ body{
 import { auth } from "./firebase.js";
 
 import {
-  onAuthStateChanged,
-  signOut
+    onAuthStateChanged,
+    signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-/* USER */
+/* =========================
+   USER LOGIN STATUS
+========================= */
 
-onAuthStateChanged(auth,(user)=>{
+onAuthStateChanged(auth, user => {
 
-  if(user){
+    const userName =
+        document.getElementById("userName");
 
-    document.getElementById("userPhone").innerText =
-      user.phoneNumber || "Mobile verified";
+    const userEmail =
+        document.getElementById("userEmail");
 
-  }else{
+    const loginButton =
+        document.getElementById("loginButton");
 
-    document.getElementById("userPhone").innerText =
-      "Not logged in";
+    const logoutButton =
+        document.getElementById("logoutButton");
 
-  }
+    const accountStatus =
+        document.getElementById("accountStatus");
+
+    const accountEmail =
+        document.getElementById("accountEmail");
+
+
+    if(user){
+
+        userName.textContent =
+            user.displayName ||
+            "SayonMart User";
+
+        userEmail.textContent =
+            user.email ||
+            "Account active";
+
+        loginButton.style.display =
+            "none";
+
+        logoutButton.style.display =
+            "block";
+
+        accountStatus.textContent =
+            "Logged In";
+
+        accountStatus.style.color =
+            "#168447";
+
+        accountEmail.textContent =
+            user.email ||
+            "Not available";
+
+    }else{
+
+        userName.textContent =
+            "Welcome to SayonMart";
+
+        userEmail.textContent =
+            "Login to manage your account";
+
+        loginButton.style.display =
+            "inline-block";
+
+        logoutButton.style.display =
+            "none";
+
+        accountStatus.textContent =
+            "Guest";
+
+        accountStatus.style.color =
+            "#c99a00";
+
+        accountEmail.textContent =
+            "Not logged in";
+
+    }
 
 });
 
 
-/* CART */
+/* =========================
+   LOCAL STORAGE
+========================= */
 
-const cart =
-  JSON.parse(localStorage.getItem("cart")) || [];
+function getWishlist(){
 
-let total = 0;
+    return JSON.parse(
+        localStorage.getItem(
+            "sayonmart_wishlist"
+        )
+    ) || [];
 
-cart.forEach(item=>{
-
-  total += item.quantity || 1;
-
-});
-
-document.getElementById("cartCount").innerText =
-  total;
+}
 
 
-/* LOGOUT */
+function getCart(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "sayonmart_cart"
+        )
+    ) || [];
+
+}
+
+
+/* =========================
+   COUNTS
+========================= */
+
+function updateCounts(){
+
+    const wishlist =
+        getWishlist();
+
+    const cart =
+        getCart();
+
+
+    const wishlistCount =
+        document.getElementById(
+            "wishlistCount"
+        );
+
+    const wishlistBadge =
+        document.getElementById(
+            "wishlistBadge"
+        );
+
+
+    const cartCount =
+        document.getElementById(
+            "cartCount"
+        );
+
+    const cartBadge =
+        document.getElementById(
+            "cartBadge"
+        );
+
+
+    wishlistCount.textContent =
+        wishlist.length;
+
+
+    cartCount.textContent =
+        cart.reduce(
+            (total,item) =>
+                total +
+                Number(item.quantity || 1),
+            0
+        );
+
+
+    if(wishlist.length > 0){
+
+        wishlistBadge.style.display =
+            "flex";
+
+        wishlistBadge.textContent =
+            wishlist.length > 99
+            ? "99+"
+            : wishlist.length;
+
+    }else{
+
+        wishlistBadge.style.display =
+            "none";
+
+    }
+
+
+    const totalCart =
+        cart.reduce(
+            (total,item) =>
+                total +
+                Number(item.quantity || 1),
+            0
+        );
+
+
+    if(totalCart > 0){
+
+        cartBadge.style.display =
+            "flex";
+
+        cartBadge.textContent =
+            totalCart > 99
+            ? "99+"
+            : totalCart;
+
+    }else{
+
+        cartBadge.style.display =
+            "none";
+
+    }
+
+}
+
+
+updateCounts();
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+window.goHome = function(){
+
+    window.location.href =
+        "index.html";
+
+};
+
+
+window.goProducts = function(){
+
+    window.location.href =
+        "products.html";
+
+};
+
+
+window.goCart = function(){
+
+    window.location.href =
+        "cart.html";
+
+};
+
+
+window.goWishlist = function(){
+
+    window.location.href =
+        "products.html?wishlist=true";
+
+};
+
+
+window.goOrders = function(){
+
+    window.location.href =
+        "order.html";
+
+};
+
+
+window.goLogin = function(){
+
+    window.location.href =
+        "login.html";
+
+};
+
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+window.toggleNotification = function(){
+
+    const sw =
+        document.getElementById(
+            "notificationSwitch"
+        );
+
+    sw.classList.toggle("active");
+
+    const enabled =
+        sw.classList.contains("active");
+
+    localStorage.setItem(
+        "sayonmart_notifications",
+        enabled
+    );
+
+};
+
+
+/* LOAD NOTIFICATION */
+
+const savedNotification =
+    localStorage.getItem(
+        "sayonmart_notifications"
+    );
+
+
+if(savedNotification === "false"){
+
+    document
+        .getElementById(
+            "notificationSwitch"
+        )
+        .classList.remove("active");
+
+}
+
+
+/* =========================
+   SOUND
+========================= */
+
+window.toggleSound = function(){
+
+    const sw =
+        document.getElementById(
+            "soundSwitch"
+        );
+
+    sw.classList.toggle("active");
+
+    const enabled =
+        sw.classList.contains("active");
+
+    localStorage.setItem(
+        "sayonmart_sound",
+        enabled
+    );
+
+};
+
+
+const savedSound =
+    localStorage.getItem(
+        "sayonmart_sound"
+    );
+
+
+if(savedSound === "true"){
+
+    document
+        .getElementById(
+            "soundSwitch"
+        )
+        .classList.add("active");
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+window.openModal = function(title,content){
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent = title;
+
+    document.getElementById(
+        "modalContent"
+    ).innerHTML = content;
+
+    document.getElementById(
+        "modal"
+    ).classList.add("show");
+
+};
+
+
+window.closeModal = function(){
+
+    document.getElementById(
+        "modal"
+    ).classList.remove("show");
+
+};
+
+
+window.closeModalOutside = function(event){
+
+    if(event.target.id === "modal"){
+
+        closeModal();
+
+    }
+
+};
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+window.openLanguage = function(){
+
+    openModal(
+        "🌐 Choose Language",
+
+        `
+        <div
+            class="modal-option"
+            onclick="setLanguage('English')">
+            🇬🇧 English
+        </div>
+
+        <div
+            class="modal-option"
+            onclick="setLanguage('বাংলা')">
+            🇮🇳 বাংলা
+        </div>
+
+        <div
+            class="modal-option"
+            onclick="setLanguage('हिन्दी')">
+            🇮🇳 हिन्दी
+        </div>
+        `
+    );
+
+};
+
+
+window.setLanguage = function(language){
+
+    document.getElementById(
+        "languageText"
+    ).textContent = language;
+
+    localStorage.setItem(
+        "sayonmart_language",
+        language
+    );
+
+    closeModal();
+
+};
+
+
+/* LOAD LANGUAGE */
+
+const savedLanguage =
+    localStorage.getItem(
+        "sayonmart_language"
+    );
+
+
+if(savedLanguage){
+
+    document.getElementById(
+        "languageText"
+    ).textContent =
+        savedLanguage;
+
+}
+
+
+/* =========================
+   THEME
+========================= */
+
+window.openTheme = function(){
+
+    openModal(
+        "🎨 Choose Theme",
+
+        `
+        <div
+            class="modal-option"
+            onclick="setTheme('Light')">
+            ☀️ Light
+        </div>
+
+        <div
+            class="modal-option"
+            onclick="setTheme('System')">
+            📱 System
+        </div>
+        `
+    );
+
+};
+
+
+window.setTheme = function(theme){
+
+    document.getElementById(
+        "themeText"
+    ).textContent = theme;
+
+    localStorage.setItem(
+        "sayonmart_theme",
+        theme
+    );
+
+    closeModal();
+
+};
+
+
+const savedTheme =
+    localStorage.getItem(
+        "sayonmart_theme"
+    );
+
+
+if(savedTheme){
+
+    document.getElementById(
+        "themeText"
+    ).textContent =
+        savedTheme;
+
+}
+
+
+/* =========================
+   HELP
+========================= */
+
+window.openHelp = function(){
+
+    openModal(
+        "❓ Help Center",
+
+        `
+        <div class="modal-option">
+            🛒 How to place an order
+        </div>
+
+        <div class="modal-option">
+            📦 How to check my order
+        </div>
+
+        <div class="modal-option">
+            💳 Payment help
+        </div>
+
+        <div class="modal-option">
+            🚚 Delivery information
+        </div>
+        `
+    );
+
+};
+
+
+/* =========================
+   CONTACT
+========================= */
+
+window.openContact = function(){
+
+    openModal(
+        "📞 Contact SayonMart",
+
+        `
+        <div class="modal-option">
+            📧 Email Support
+        </div>
+
+        <div class="modal-option">
+            💬 Customer Support
+        </div>
+
+        <div class="modal-option">
+            🕘 Support Hours: 9 AM - 9 PM
+        </div>
+        `
+    );
+
+};
+
+
+/* =========================
+   ABOUT
+========================= */
+
+window.openAbout = function(){
+
+    openModal(
+        "ℹ️ About SayonMart",
+
+        `
+        <div
+            style="
+                text-align:center;
+                padding:10px;
+            ">
+
+            <div
+                style="
+                    font-size:45px;
+                    margin-bottom:10px;
+                ">
+                🛍️
+            </div>
+
+            <h2>
+                SayonMart
+            </h2>
+
+            <p
+                style="
+                    color:#888;
+                    margin-top:7px;
+                    font-size:13px;
+                ">
+                Your simple online shopping app.
+            </p>
+
+            <p
+                style="
+                    color:#aaa;
+                    margin-top:12px;
+                    font-size:11px;
+                ">
+                Version 1.0
+            </p>
+
+        </div>
+        `
+    );
+
+};
+
+
+/* =========================
+   LOGOUT
+========================= */
 
 window.logout = async function(){
 
-  if(!confirm("আপনি কি Logout করতে চান?")){
-    return;
-  }
+    const confirmLogout =
+        confirm(
+            "Are you sure you want to logout?"
+        );
 
-  try{
+    if(!confirmLogout){
 
-    await signOut(auth);
+        return;
 
-    localStorage.removeItem("user");
-    localStorage.removeItem("cart");
+    }
 
-    location.href="login.html";
 
-  }catch(error){
+    try{
 
-    alert("Logout failed: " + error.message);
+        await signOut(auth);
 
-  }
+        alert(
+            "Logged out successfully"
+        );
+
+        window.location.href =
+            "index.html";
+
+    }catch(error){
+
+        alert(
+            "Logout failed: " +
+            error.message
+        );
+
+    }
 
 };
 
