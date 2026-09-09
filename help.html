@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SayonMart - Help Center</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222}
+.header{background:#fff;padding:16px;position:sticky;top:0;z-index:5;box-shadow:0 2px 10px #0001;display:flex;align-items:center;gap:12px}
+.back{font-size:25px;text-decoration:none;color:#c99d00}.title{font-size:20px;font-weight:700;color:#c99d00}
+.container{padding:18px;max-width:700px;margin:auto}.hero{background:#fff;border-radius:18px;padding:20px;box-shadow:0 5px 18px #00000012;margin-bottom:16px;border-top:4px solid #d4af37}
+h2{margin:4px 0 8px}.hero p{color:#666}.search{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;font-size:15px;margin:10px 0 18px}
+.faq{background:#fff;border-radius:14px;margin:10px 0;box-shadow:0 3px 12px #00000010;overflow:hidden}
+.question{padding:17px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between}
+.answer{display:none;padding:0 17px 17px;color:#666;line-height:1.6}.faq.open .answer{display:block}
+.lang{float:right;border:0;background:#fff8d9;padding:7px 10px;border-radius:8px;color:#8b6b00}
+</style>
+</head>
+<body>
+<div class="header"><a class="back" href="profile.html">‹</a><div class="title" data-i18n="help">Help Center</div></div>
+<div class="container">
+<div class="hero"><button class="lang" onclick="cycleLanguage()">🌐 <span id="langName">English</span></button>
+<h2 data-i18n="welcome">How can we help?</h2><p data-i18n="intro">Find answers to common questions about SayonMart.</p>
+<input class="search" id="search" placeholder="Search help..." oninput="filterFAQ()">
+</div>
+<div id="faqs">
+<div class="faq"><div class="question" onclick="toggle(this)" data-i18n="q1">How do I place an order? <span>＋</span></div><div class="answer" data-i18n="a1">Open a product, choose the available options, add it to your cart and complete checkout.</div></div>
+<div class="faq"><div class="question" onclick="toggle(this)" data-i18n="q2">How can I check my orders? <span>＋</span></div><div class="answer" data-i18n="a2">Go to Profile and open My Orders to view your order information.</div></div>
+<div class="faq"><div class="question" onclick="toggle(this)" data-i18n="q3">How can I change my language? <span>＋</span></div><div class="answer" data-i18n="a3">Go to Profile → Language and select Bangla, Hindi or English.</div></div>
+<div class="faq"><div class="question" onclick="toggle(this)" data-i18n="q4">I need more help. <span>＋</span></div><div class="answer" data-i18n="a4">Use Contact Us to send your question or message to SayonMart support.</div></div>
+</div>
+</div>
+<script>
+const T={
+en:{help:"Help Center",welcome:"How can we help?",intro:"Find answers to common questions about SayonMart.",
+q1:"How do I place an order?",a1:"Open a product, choose the available options, add it to your cart and complete checkout.",
+q2:"How can I check my orders?",a2:"Go to Profile and open My Orders to view your order information.",
+q3:"How can I change my language?",a3:"Go to Profile → Language and select Bangla, Hindi or English.",
+q4:"I need more help.",a4:"Use Contact Us to send your question or message to SayonMart support."},
+bn:{help:"হেল্প সেন্টার",welcome:"কীভাবে সাহায্য করতে পারি?",intro:"SayonMart সম্পর্কে সাধারণ প্রশ্নের উত্তর এখানে পাওয়া যাবে.",
+q1:"কীভাবে অর্ডার করব?",a1:"একটি পণ্য খুলুন, প্রয়োজনীয় অপশন বেছে কার্টে যোগ করুন এবং Checkout সম্পূর্ণ করুন.",
+q2:"আমার অর্ডার কীভাবে দেখব?",a2:"Profile থেকে My Orders খুললে আপনার অর্ডারের তথ্য দেখতে পারবেন.",
+q3:"ভাষা কীভাবে পরিবর্তন করব?",a3:"Profile → Language গিয়ে বাংলা, হিন্দি অথবা English নির্বাচন করুন.",
+q4:"আমার আরও সাহায্য দরকার.",a4:"Contact Us ব্যবহার করে SayonMart Support-এ আপনার প্রশ্ন বা বার্তা পাঠান."},
+hi:{help:"हेल्प सेंटर",welcome:"हम आपकी कैसे मदद कर सकते हैं?",intro:"SayonMart के बारे में सामान्य सवालों के जवाब यहाँ मिलेंगे.",
+q1:"ऑर्डर कैसे करें?",a1:"प्रोडक्ट खोलें, उपलब्ध विकल्प चुनें, कार्ट में जोड़ें और Checkout पूरा करें.",
+q2:"अपने ऑर्डर कैसे देखें?",a2:"Profile में जाकर My Orders खोलें और अपने ऑर्डर की जानकारी देखें.",
+q3:"भाषा कैसे बदलें?",a3:"Profile → Language में जाकर Bangla, Hindi या English चुनें.",
+q4:"मुझे और मदद चाहिए.",a4:"Contact Us से SayonMart Support को अपना सवाल या संदेश भेजें."}};
+let lang=localStorage.getItem("sayonmart_language")||"en";
+function apply(){document.querySelectorAll("[data-i18n]").forEach(e=>e.textContent=T[lang][e.dataset.i18n]||e.textContent);document.getElementById("langName").textContent={en:"English",bn:"বাংলা",hi:"हिन्दी"}[lang];document.documentElement.lang=lang}
+function cycleLanguage(){lang=lang==="en"?"bn":lang==="bn"?"hi":"en";localStorage.setItem("sayonmart_language",lang);apply()}
+function toggle(e){e.parentElement.classList.toggle("open")}
+function filterFAQ(){let q=document.getElementById("search").value.toLowerCase();document.querySelectorAll(".faq").forEach(x=>x.style.display=x.innerText.toLowerCase().includes(q)?"block":"none")}
+apply();
+</script>
+</body>
+</html>
