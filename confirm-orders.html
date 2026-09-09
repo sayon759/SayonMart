@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SayonMart Confirm Orders</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f7f7f7;
+  color:#222;
+  padding-bottom:30px;
+}
+
+.header{
+  background:#fff;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.back{
+  border:0;
+  background:none;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.header h2{
+  color:#e91e63;
+  font-size:20px;
+}
+
+.container{
+  padding:15px;
+}
+
+.loading{
+  text-align:center;
+  padding:30px;
+  color:#777;
+}
+
+.empty{
+  background:#fff;
+  padding:30px 15px;
+  text-align:center;
+  border-radius:14px;
+  color:#777;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+.order-card{
+  background:#fff;
+  border-radius:15px;
+  padding:16px;
+  margin-bottom:15px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);
+}
+
+.order-title{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.info{
+  margin:7px 0;
+  color:#555;
+  line-height:1.5;
+}
+
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.pending{
+  background:#fff3cd;
+  color:#856404;
+}
+
+.confirmed{
+  background:#d4edda;
+  color:#155724;
+}
+
+.cancelled{
+  background:#f8d7da;
+  color:#721c24;
+}
+
+button.confirm{
+  width:100%;
+  border:0;
+  background:#e91e63;
+  color:#fff;
+  padding:13px;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+button.confirm:disabled{
+  background:#aaa;
+  cursor:not-allowed;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+<button class="back"
+onclick="history.back()">
+‹
+</button>
+
+<h2>✅ Confirm Orders</h2>
+
+</div>
+
+
+<div class="container">
+
+<div id="orders">
+
+<div class="loading">
+Order লোড হচ্ছে...
+</div>
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+import { auth, db }
+from "./firebase.js";
+
+import {
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* তোমার Admin UID */
+
+const ADMIN_UID =
+"fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+
+
+const ordersBox =
+document.getElementById("orders");
+
+
+/* Admin check */
+
+onAuthStateChanged(auth, async (user)=>{
+
+  if(!user || user.uid !== ADMIN_UID){
+
+    ordersBox.innerHTML = `
+      <div class="empty">
+        🚫 Access Denied
+        <br><br>
+        এই পেজটি শুধু Admin-এর জন্য।
+      </div>
+    `;
+
+    return;
+  }
+
+  loadOrders();
+
+});
+
+
+/* Orders load */
+
+async function loadOrders(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"orders")
+      );
+
+    if(snapshot.empty){
+
+      ordersBox.innerHTML = `
+        <div class="empty">
+          📦 এখনো কোনো Order নেই।
+        </div>
+      `;
+
+      return;
+    }
+
+
+    ordersBox.innerHTML = "";
+
+
+    snapshot.forEach((item)=>{
+
+      const data = item.data();
+
+      const orderId = item.id;
+
+      const status =
+        data.status || "Pending";
+
+
+      const statusClass =
+        status.toLowerCase() === "confirmed"
+        ? "confirmed"
+        : status.toLowerCase() === "cancelled"
+        ? "cancelled"
+        : "pending";
+
+
+      const card =
+        document.createElement("div");
+
+      card.className="order-card";
+
+
+      card.innerHTML = `
+
+        <div class="order-title">
+          📦 Order
+        </div>
+
+        <div class="info">
+          👤 <b>Name:</b>
+          ${data.name || "নাম নেই"}
+        </div>
+
+        <div class="info">
+          📞 <b>Phone:</b>
+          ${data.phone || "ফোন নেই"}
+        </div>
+
+        <div class="info">
+          📍 <b>Address:</b>
+          ${data.address || "ঠিকানা নেই"}
+        </div>
+
+        <div class="info">
+          🛒 <b>Product:</b>
+          ${data.product || data.products || "Product details নেই"}
+        </div>
+
+        <div class="info">
+          💰 <b>Total:</b>
+          ₹${data.total || data.price || "0"}
+        </div>
+
+        <div class="status ${statusClass}">
+          Status: ${status}
+        </div>
+
+        ${
+          status.toLowerCase() === "pending"
+          ?
+          `<button class="confirm"
+          data-id="${orderId}">
+            ✅ Confirm Order
+          </button>`
+          :
+          ""
+        }
+
+      `;
+
+
+      ordersBox.appendChild(card);
+
+    });
+
+
+    /* Confirm button */
+
+    document
+      .querySelectorAll(".confirm")
+      .forEach((button)=>{
+
+        button.addEventListener(
+          "click",
+          ()=>confirmOrder(
+            button.dataset.id,
+            button
+          )
+        );
+
+      });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    ordersBox.innerHTML = `
+      <div class="empty">
+        ❌ Order load হয়নি।
+        <br><br>
+        ${error.message}
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* Confirm Order */
+
+async function confirmOrder(
+  orderId,
+  button
+){
+
+  const ok =
+    confirm(
+      "এই Order Confirm করতে চান?"
+    );
+
+  if(!ok) return;
+
+
+  button.disabled=true;
+
+  button.innerText=
+    "Confirm হচ্ছে...";
+
+
+  try{
+
+    await updateDoc(
+      doc(db,"orders",orderId),
+      {
+        status:"Confirmed"
+      }
+    );
+
+
+    alert(
+      "✅ Order Confirm হয়েছে!"
+    );
+
+
+    loadOrders();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "❌ Confirm করা যায়নি।\n"+
+      error.message
+    );
+
+    button.disabled=false;
+
+    button.innerText=
+      "✅ Confirm Order";
+
+  }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
