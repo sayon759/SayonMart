@@ -1,7 +1,17 @@
-<!DOCTYPE html><html lang="bn">
+<!DOCTYPE html>
+<html lang="bn">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SayonMart - Payment</title><style>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SayonMart - Payment</title>
+
+<style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -161,46 +171,92 @@ button{
   font-weight:bold;
   margin-bottom:8px;
 }
-</style></head><body><header>
-  💗 SayonMart Checkout
-</header><div class="container">  <!-- DELIVERY -->  <div class="box"><h2>📦 Delivery Details</h2>
+
+.cart-product{
+  padding:10px 0;
+  border-bottom:1px solid #333;
+}
+
+.cart-product:last-child{
+  border-bottom:0;
+}
+
+.cart-name{
+  font-weight:bold;
+}
+
+.cart-price{
+  color:#bbb;
+  font-size:14px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+💗 SayonMart Checkout
+</header>
+
+
+<div class="container">
+
+
+<!-- DELIVERY -->
+
+<div class="box">
+
+<h2>📦 Delivery Details</h2>
+
 
 <!-- SAVED ADDRESS -->
+
 <div id="savedDeliveryAddress">
 
   <div class="address-title">
     📍 Saved Address
   </div>
 
+
   <div class="address-line">
     👤 <b>Name:</b>
     <span id="savedName"></span>
   </div>
+
 
   <div class="address-line">
     📱 <b>Mobile:</b>
     <span id="savedPhone"></span>
   </div>
 
+
   <div class="address-line">
     📮 <b>PIN:</b>
     <span id="savedPin"></span>
   </div>
+
 
   <div class="address-line">
     🏙️ <b>District:</b>
     <span id="savedDistrict"></span>
   </div>
 
+
   <div class="address-line">
     🏠 <b>Building/House:</b>
     <span id="savedBuilding"></span>
   </div>
 
+
   <div class="address-line">
     📍 <b>Local Area:</b>
     <span id="savedArea"></span>
   </div>
+
 
   <button
     type="button"
@@ -214,171 +270,195 @@ button{
 
 
 <!-- NEW ADDRESS -->
+
 <div id="newDeliveryAddress">
 
-  <label>নাম</label>
 
-  <input
-    id="name"
-    type="text"
-    placeholder="আপনার নাম"
-  >
+<label>নাম</label>
 
-
-  <label>মোবাইল নম্বর</label>
-
-  <input
-    id="phone"
-    type="tel"
-    placeholder="মোবাইল নম্বর"
-    maxlength="10"
-  >
+<input
+  id="name"
+  type="text"
+  placeholder="আপনার নাম"
+/>
 
 
-  <label>PIN Code</label>
+<label>মোবাইল নম্বর</label>
 
-  <input
-    id="pin"
-    type="text"
-    inputmode="numeric"
-    placeholder="6 digit PIN Code"
-    maxlength="6"
-  >
-
-
-  <label>District</label>
-
-  <input
-    id="district"
-    type="text"
-    placeholder="District"
-  >
+<input
+  id="phone"
+  type="tel"
+  placeholder="মোবাইল নম্বর"
+  maxlength="10"
+/>
 
 
-  <label>Building / House No.</label>
+<label>PIN Code</label>
 
-  <input
-    id="building"
-    type="text"
-    placeholder="Building / House No."
-  >
-
-
-  <label>Local Area</label>
-
-  <textarea
-    id="area"
-    placeholder="Local Area / Village / Road"
-  ></textarea>
+<input
+  id="pin"
+  type="text"
+  inputmode="numeric"
+  placeholder="6 digit PIN Code"
+  maxlength="6"
+/>
 
 
-  <button
-    type="button"
-    class="save-btn"
-    onclick="savePaymentAddress()"
-  >
-    💾 Save Address
-  </button>
+<label>District</label>
+
+<input
+  id="district"
+  type="text"
+  placeholder="District"
+/>
+
+
+<label>Building / House No.</label>
+
+<input
+  id="building"
+  type="text"
+  placeholder="Building / House No."
+/>
+
+
+<label>Local Area</label>
+
+<textarea
+  id="area"
+  placeholder="Local Area / Village / Road"
+></textarea>
+
+
+<button
+  type="button"
+  class="save-btn"
+  onclick="savePaymentAddress()"
+>
+💾 Save Address
+</button>
+
 
 </div>
 
-  </div>  <!-- ORDER SUMMARY -->  <div class="box"><h2>🛒 Order Summary</h2>
+</div>
+
+
+<!-- ORDER SUMMARY -->
+
+<div class="box">
+
+<h2>🛒 Order Summary</h2>
+
 
 <div id="cartItems"></div>
 
+
 <div class="summary">
 
-  <div>
-    Subtotal:
-    ₹<span id="subtotal">0</span>
-  </div>
+<div>
+Subtotal:
+₹<span id="subtotal">0</span>
+</div>
 
-  <div>
-    Delivery:
-    ₹<span id="delivery">0</span>
-  </div>
 
-  <div class="total">
+<div>
+Delivery:
+₹<span id="delivery">0</span>
+</div>
 
-    Total:
-    ₹<span id="total">0</span>
 
-  </div>
+<div class="total">
+
+Total:
+₹<span id="total">0</span>
 
 </div>
 
-  </div>  <!-- PAYMENT -->  <div class="box"><h2>💳 Payment Method</h2>
+</div>
+
+</div>
+
+
+<!-- PAYMENT -->
+
+<div class="box">
+
+<h2>💳 Payment Method</h2>
+
 
 <label class="payment-option">
 
-  <input
-    type="radio"
-    name="payment"
-    value="COD"
-    checked
-    onchange="paymentChanged()"
-  >
+<input
+  type="radio"
+  name="payment"
+  value="COD"
+  checked
+  onchange="paymentChanged()"
+/>
 
-  Cash on Delivery
+Cash on Delivery
 
 </label>
 
 
 <label class="payment-option">
 
-  <input
-    type="radio"
-    name="payment"
-    value="UPI"
-    onchange="paymentChanged()"
-  >
+<input
+  type="radio"
+  name="payment"
+  value="UPI"
+  onchange="paymentChanged()"
+/>
 
-  UPI Payment
+UPI Payment
 
 </label>
 
 
 <!-- UPI -->
+
 <div id="upiBox">
 
-  <p style="margin-top:15px;">
+<p style="margin-top:15px;">
 
-    UPI ID:
-    <b>8016410311@axl</b>
+UPI ID:
+<b>8016410311@axl</b>
 
-  </p>
-
-
-  <button
-    class="upi-btn"
-    onclick="payWithUPI()"
-  >
-
-    📱 Pay ₹<span id="upiAmount">0</span> with UPI
-
-  </button>
+</p>
 
 
-  <button
-    class="order-btn"
-    onclick="confirmUPIPayment()"
-  >
+<button
+  class="upi-btn"
+  onclick="payWithUPI()"
+>
 
-    ✅ আমি পেমেন্ট করেছি
+📱 Pay ₹<span id="upiAmount">0</span> with UPI
 
-  </button>
+</button>
+
+
+<button
+  class="order-btn"
+  onclick="confirmUPIPayment()"
+>
+
+✅ আমি পেমেন্ট করেছি
+
+</button>
 
 </div>
 
 
 <!-- COD -->
+
 <button
   id="codButton"
   class="order-btn"
   onclick="placeCODOrder()"
 >
 
-  🛍️ Place COD Order
+🛍️ Place COD Order
 
 </button>
 
@@ -388,61 +468,83 @@ button{
   onclick="history.back()"
 >
 
-  ← Back
+← Back
 
 </button>
 
 
 <div id="status"></div>
 
-  </div></div><script type="module">
+</div>
 
-import { auth, db } from "./firebase.js";
+</div>
+
+
+<script type="module">
+
+
+import {
+  auth,
+  db
+}
+from "./firebase.js";
+
 
 import {
   collection,
   addDoc,
   serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 import {
   onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 let currentUser = null;
 
 let cart = [];
 
+
 const UPI_ID =
-  "8016410311@axl";
+"8016410311@axl";
 
 
-// ==========================
+// =====================================
 // LOAD USER
-// ==========================
+// =====================================
 
-onAuthStateChanged(auth, user => {
+onAuthStateChanged(
+  auth,
+  user => {
 
-  if(!user){
+    if(!user){
 
-    alert("আগে Login করুন");
+      alert(
+        "আগে Login করুন"
+      );
 
-    location.href =
-      "login.html";
+      location.href =
+        "login.html";
 
-    return;
+      return;
+
+    }
+
+    currentUser = user;
 
   }
-
-  currentUser = user;
-
-});
+);
 
 
-// ==========================
-// SAVED ADDRESS
-// ==========================
+// =====================================
+// LOAD SAVED ADDRESS
+// =====================================
 
 function loadSavedAddress(){
 
@@ -456,11 +558,15 @@ function loadSavedAddress(){
 
     document.getElementById(
       "savedDeliveryAddress"
-    ).style.display = "none";
+    ).style.display =
+      "none";
+
 
     document.getElementById(
       "newDeliveryAddress"
-    ).style.display = "block";
+    ).style.display =
+      "block";
+
 
     return;
 
@@ -472,8 +578,6 @@ function loadSavedAddress(){
     const data =
       JSON.parse(saved);
 
-
-    // Show saved address
 
     document.getElementById(
       "savedName"
@@ -510,8 +614,6 @@ function loadSavedAddress(){
     ).textContent =
       data.area || "";
 
-
-    // Put data into form too
 
     document.getElementById(
       "name"
@@ -564,7 +666,7 @@ function loadSavedAddress(){
   }catch(error){
 
     console.log(
-      "Address load error:",
+      "Address error:",
       error
     );
 
@@ -573,9 +675,9 @@ function loadSavedAddress(){
 }
 
 
-// ==========================
+// =====================================
 // SAVE ADDRESS
-// ==========================
+// =====================================
 
 window.savePaymentAddress =
 function(){
@@ -634,7 +736,9 @@ function(){
   }
 
 
-  if(!/^\d{10}$/.test(mobile)){
+  if(
+    !/^\d{10}$/.test(mobile)
+  ){
 
     alert(
       "⚠️ সঠিক 10 digit Mobile Number দিন।"
@@ -645,7 +749,9 @@ function(){
   }
 
 
-  if(!/^\d{6}$/.test(pin)){
+  if(
+    !/^\d{6}$/.test(pin)
+  ){
 
     alert(
       "⚠️ সঠিক 6 digit PIN Code দিন।"
@@ -658,17 +764,12 @@ function(){
 
   const address = {
 
-    name: name,
-
-    mobile: mobile,
-
-    pin: pin,
-
-    district: district,
-
-    building: building,
-
-    area: area
+    name,
+    mobile,
+    pin,
+    district,
+    building,
+    area
 
   };
 
@@ -689,9 +790,9 @@ function(){
 };
 
 
-// ==========================
+// =====================================
 // EDIT ADDRESS
-// ==========================
+// =====================================
 
 window.editDeliveryAddress =
 function(){
@@ -710,9 +811,9 @@ function(){
 };
 
 
-// ==========================
-// GET ADDRESS TEXT
-// ==========================
+// =====================================
+// FULL ADDRESS
+// =====================================
 
 function getFullAddress(){
 
@@ -753,9 +854,9 @@ function getFullAddress(){
 }
 
 
-// ==========================
+// =====================================
 // LOAD CART
-// ==========================
+// =====================================
 
 function loadCart(){
 
@@ -763,24 +864,25 @@ function loadCart(){
 
     cart =
       JSON.parse(
-        localStorage.getItem("cart")
+        localStorage.getItem(
+          "cart"
+        )
       ) || [];
 
-  }catch(e){
+  }catch(error){
 
     cart = [];
 
   }
 
 
-  if(!Array.isArray(cart)){
+  if(
+    !Array.isArray(cart)
+  ){
 
     cart = [];
 
   }
-
-
-  let subtotal = 0;
 
 
   const box =
@@ -792,54 +894,103 @@ function loadCart(){
   box.innerHTML = "";
 
 
-  if(cart.length === 0){
+  if(
+    cart.length === 0
+  ){
 
     box.innerHTML =
       "<p>আপনার Cart খালি।</p>";
+
+    updateTotals();
 
     return;
 
   }
 
 
-  cart.forEach(item => {
+  cart.forEach(
+    item => {
 
-    const price =
-      Number(item.price) || 0;
-
-
-    const quantity =
-      Number(item.quantity) || 1;
+      const price =
+        Number(item.price) || 0;
 
 
-    const amount =
-      price * quantity;
+      const quantity =
+        Number(item.quantity) || 1;
 
 
-    subtotal += amount;
+      const amount =
+        price * quantity;
 
 
-    const div =
-      document.createElement(
-        "div"
-      );
+      const div =
+        document.createElement(
+          "div"
+        );
 
 
-    div.style.padding =
-      "8px 0";
+      div.className =
+        "cart-product";
 
 
-    div.innerHTML = `
-      ${escapeHTML(item.name || "Product")}
-      × ${quantity}
-      = ₹${amount}
-    `;
+      div.innerHTML = `
+
+        <div class="cart-name">
+          ${escapeHTML(
+            item.name || "Product"
+          )}
+        </div>
+
+        <div class="cart-price">
+          ₹${price} × ${quantity}
+          = ₹${amount}
+        </div>
+
+      `;
 
 
-    box.appendChild(div);
+      box.appendChild(div);
 
-  });
+    }
+  );
 
+
+  updateTotals();
+
+}
+
+
+// =====================================
+// UPDATE TOTALS
+// =====================================
+
+function updateTotals(){
+
+  let subtotal = 0;
+
+
+  cart.forEach(
+    item => {
+
+      const price =
+        Number(item.price) || 0;
+
+
+      const quantity =
+        Number(item.quantity) || 1;
+
+
+      subtotal +=
+        price * quantity;
+
+    }
+  );
+
+
+  /*
+    Delivery পুরো cart-এর জন্য
+    একবারই হিসাব হবে
+  */
 
   const delivery =
     subtotal >= 499
@@ -877,9 +1028,9 @@ function loadCart(){
 }
 
 
-// ==========================
-// ESCAPE TEXT
-// ==========================
+// =====================================
+// ESCAPE HTML
+// =====================================
 
 function escapeHTML(text){
 
@@ -913,17 +1064,79 @@ function escapeHTML(text){
 }
 
 
-// ==========================
+// =====================================
+// GET TOTALS
+// =====================================
+
+function getTotals(){
+
+  let subtotal = 0;
+
+
+  cart.forEach(
+    item => {
+
+      const price =
+        Number(item.price) || 0;
+
+
+      const quantity =
+        Number(item.quantity) || 1;
+
+
+      subtotal +=
+        price * quantity;
+
+    }
+  );
+
+
+  const delivery =
+    subtotal >= 499
+      ? 0
+      : 40;
+
+
+  const total =
+    subtotal + delivery;
+
+
+  return {
+
+    subtotal:
+      subtotal,
+
+    delivery:
+      delivery,
+
+    total:
+      total
+
+  };
+
+}
+
+
+// =====================================
 // PAYMENT CHANGE
-// ==========================
+// =====================================
 
 window.paymentChanged =
 function(){
 
-  const method =
+  const selected =
     document.querySelector(
       'input[name="payment"]:checked'
-    ).value;
+    );
+
+
+  if(!selected){
+    return;
+  }
+
+
+  const method =
+    selected.value;
 
 
   const upiBox =
@@ -938,7 +1151,9 @@ function(){
     );
 
 
-  if(method === "UPI"){
+  if(
+    method === "UPI"
+  ){
 
     upiBox.style.display =
       "block";
@@ -961,9 +1176,9 @@ function(){
 };
 
 
-// ==========================
+// =====================================
 // VALIDATE
-// ==========================
+// =====================================
 
 function validateDetails(){
 
@@ -1005,14 +1220,18 @@ function validateDetails(){
 
   if(!name){
 
-    alert("নাম লিখুন");
+    alert(
+      "নাম লিখুন"
+    );
 
     return false;
 
   }
 
 
-  if(!/^\d{10}$/.test(phone)){
+  if(
+    !/^\d{10}$/.test(phone)
+  ){
 
     alert(
       "সঠিক 10 digit Mobile Number দিন"
@@ -1023,7 +1242,9 @@ function validateDetails(){
   }
 
 
-  if(!/^\d{6}$/.test(pin)){
+  if(
+    !/^\d{6}$/.test(pin)
+  ){
 
     alert(
       "সঠিক 6 digit PIN Code দিন"
@@ -1067,7 +1288,9 @@ function validateDetails(){
   }
 
 
-  if(cart.length === 0){
+  if(
+    cart.length === 0
+  ){
 
     alert(
       "Cart খালি"
@@ -1089,20 +1312,22 @@ function validateDetails(){
   }
 
 
-  // Save address automatically
+  /* Save address */
+
   const address = {
 
-    name: name,
+    name,
 
-    mobile: phone,
+    mobile:
+      phone,
 
-    pin: pin,
+    pin,
 
-    district: district,
+    district,
 
-    building: building,
+    building,
 
-    area: area
+    area
 
   };
 
@@ -1118,60 +1343,16 @@ function validateDetails(){
 }
 
 
-// ==========================
-// CALCULATE TOTAL
-// ==========================
-
-function getTotals(){
-
-  let subtotal = 0;
-
-
-  cart.forEach(item => {
-
-    const price =
-      Number(item.price) || 0;
-
-
-    const quantity =
-      Number(item.quantity) || 1;
-
-
-    subtotal +=
-      price * quantity;
-
-  });
-
-
-  const delivery =
-    subtotal >= 499
-      ? 0
-      : 40;
-
-
-  const total =
-    subtotal + delivery;
-
-
-  return {
-
-    subtotal,
-    delivery,
-    total
-
-  };
-
-}
-
-
-// ==========================
-// UPI PAYMENT
-// ==========================
+// =====================================
+// UPI
+// =====================================
 
 window.payWithUPI =
 function(){
 
-  if(!validateDetails()){
+  if(
+    !validateDetails()
+  ){
 
     return;
 
@@ -1186,25 +1367,30 @@ function(){
     totals.total;
 
 
-  const name =
-    "SayonMart";
-
-
-  const note =
-    "SayonMart Order";
-
-
   const upiURL =
     "upi://pay" +
+
     "?pa=" +
-    encodeURIComponent(UPI_ID) +
+    encodeURIComponent(
+      UPI_ID
+    ) +
+
     "&pn=" +
-    encodeURIComponent(name) +
+    encodeURIComponent(
+      "SayonMart"
+    ) +
+
     "&am=" +
-    encodeURIComponent(amount) +
+    encodeURIComponent(
+      amount
+    ) +
+
     "&cu=INR" +
+
     "&tn=" +
-    encodeURIComponent(note);
+    encodeURIComponent(
+      "SayonMart Order"
+    );
 
 
   document.getElementById(
@@ -1219,19 +1405,14 @@ function(){
 };
 
 
-// ==========================
-// COD ORDER
-// ==========================
+// =====================================
+// CREATE ORDERS
+// =====================================
 
-window.placeCODOrder =
-async function(){
-
-  if(!validateDetails()){
-
-    return;
-
-  }
-
+async function createOrders(
+  paymentMethod,
+  paymentStatus
+){
 
   const name =
     document.getElementById(
@@ -1253,6 +1434,155 @@ async function(){
     getTotals();
 
 
+  /*
+    গুরুত্বপূর্ণ:
+
+    একাধিক product থাকলে
+    প্রত্যেক order-এর total হবে:
+
+    product subtotal + তার delivery share
+
+    মোট cart total প্রতিটি order-এ
+    আর save হবে না।
+  */
+
+
+  const deliveryPerItem =
+    cart.length > 0
+      ? totals.delivery / cart.length
+      : 0;
+
+
+  for(
+    const item of cart
+  ){
+
+    const price =
+      Number(item.price) || 0;
+
+
+    const quantity =
+      Number(item.quantity) || 1;
+
+
+    const itemSubtotal =
+      price * quantity;
+
+
+    /*
+      Delivery charge ভাগ করা হচ্ছে
+      product অনুযায়ী।
+    */
+
+    const itemDelivery =
+      Math.round(
+        deliveryPerItem * 100
+      ) / 100;
+
+
+    const itemTotal =
+      itemSubtotal +
+      itemDelivery;
+
+
+    await addDoc(
+      collection(
+        db,
+        "orders"
+      ),
+      {
+
+        userId:
+          currentUser.uid,
+
+        name:
+          name,
+
+        phone:
+          phone,
+
+        address:
+          address,
+
+        pin:
+          document.getElementById(
+            "pin"
+          ).value.trim(),
+
+        district:
+          document.getElementById(
+            "district"
+          ).value.trim(),
+
+        building:
+          document.getElementById(
+            "building"
+          ).value.trim(),
+
+        area:
+          document.getElementById(
+            "area"
+          ).value.trim(),
+
+        productName:
+          item.name ||
+          "Product",
+
+        productImage:
+          item.image ||
+          "",
+
+        price:
+          price,
+
+        quantity:
+          quantity,
+
+        subtotal:
+          itemSubtotal,
+
+        delivery:
+          itemDelivery,
+
+        total:
+          itemTotal,
+
+        paymentMethod:
+          paymentMethod,
+
+        paymentStatus:
+          paymentStatus,
+
+        status:
+          "Pending",
+
+        createdAt:
+          serverTimestamp()
+
+      }
+    );
+
+  }
+
+}
+
+
+// =====================================
+// COD ORDER
+// =====================================
+
+window.placeCODOrder =
+async function(){
+
+  if(
+    !validateDetails()
+  ){
+
+    return;
+
+  }
+
+
   try{
 
     document.getElementById(
@@ -1261,100 +1591,10 @@ async function(){
       "Order তৈরি হচ্ছে...";
 
 
-    for(
-      const item of cart
-    ){
-
-      const price =
-        Number(item.price) || 0;
-
-
-      const quantity =
-        Number(item.quantity) || 1;
-
-
-      const subtotal =
-        price * quantity;
-
-
-      await addDoc(
-        collection(
-          db,
-          "orders"
-        ),
-        {
-
-          userId:
-            currentUser.uid,
-
-          name:
-            name,
-
-          phone:
-            phone,
-
-          address:
-            address,
-
-          pin:
-            document.getElementById(
-              "pin"
-            ).value.trim(),
-
-          district:
-            document.getElementById(
-              "district"
-            ).value.trim(),
-
-          building:
-            document.getElementById(
-              "building"
-            ).value.trim(),
-
-          area:
-            document.getElementById(
-              "area"
-            ).value.trim(),
-
-          productName:
-            item.name ||
-            "Product",
-
-          productImage:
-            item.image ||
-            "",
-
-          price:
-            price,
-
-          quantity:
-            quantity,
-
-          subtotal:
-            subtotal,
-
-          delivery:
-            totals.delivery,
-
-          total:
-            totals.total,
-
-          paymentMethod:
-            "COD",
-
-          paymentStatus:
-            "Cash on Delivery",
-
-          status:
-            "Pending",
-
-          createdAt:
-            serverTimestamp()
-
-        }
-      );
-
-    }
+    await createOrders(
+      "COD",
+      "Cash on Delivery"
+    );
 
 
     localStorage.removeItem(
@@ -1373,11 +1613,13 @@ async function(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     alert(
-      "❌ Order তৈরি হয়নি: " +
+      "❌ Order তৈরি হয়নি:\n" +
       error.message
     );
 
@@ -1392,38 +1634,20 @@ async function(){
 };
 
 
-// ==========================
-// CONFIRM UPI
-// ==========================
+// =====================================
+// CONFIRM UPI PAYMENT
+// =====================================
 
 window.confirmUPIPayment =
 async function(){
 
-  if(!validateDetails()){
+  if(
+    !validateDetails()
+  ){
 
     return;
 
   }
-
-
-  const name =
-    document.getElementById(
-      "name"
-    ).value.trim();
-
-
-  const phone =
-    document.getElementById(
-      "phone"
-    ).value.trim();
-
-
-  const address =
-    getFullAddress();
-
-
-  const totals =
-    getTotals();
 
 
   const confirmPay =
@@ -1447,100 +1671,10 @@ async function(){
       "Order তৈরি হচ্ছে...";
 
 
-    for(
-      const item of cart
-    ){
-
-      const price =
-        Number(item.price) || 0;
-
-
-      const quantity =
-        Number(item.quantity) || 1;
-
-
-      const subtotal =
-        price * quantity;
-
-
-      await addDoc(
-        collection(
-          db,
-          "orders"
-        ),
-        {
-
-          userId:
-            currentUser.uid,
-
-          name:
-            name,
-
-          phone:
-            phone,
-
-          address:
-            address,
-
-          pin:
-            document.getElementById(
-              "pin"
-            ).value.trim(),
-
-          district:
-            document.getElementById(
-              "district"
-            ).value.trim(),
-
-          building:
-            document.getElementById(
-              "building"
-            ).value.trim(),
-
-          area:
-            document.getElementById(
-              "area"
-            ).value.trim(),
-
-          productName:
-            item.name ||
-            "Product",
-
-          productImage:
-            item.image ||
-            "",
-
-          price:
-            price,
-
-          quantity:
-            quantity,
-
-          subtotal:
-            subtotal,
-
-          delivery:
-            totals.delivery,
-
-          total:
-            totals.total,
-
-          paymentMethod:
-            "UPI",
-
-          paymentStatus:
-            "Awaiting verification",
-
-          status:
-            "Pending",
-
-          createdAt:
-            serverTimestamp()
-
-        }
-      );
-
-    }
+    await createOrders(
+      "UPI",
+      "Awaiting verification"
+    );
 
 
     localStorage.removeItem(
@@ -1559,11 +1693,13 @@ async function(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     alert(
-      "❌ Order তৈরি হয়নি: " +
+      "❌ Order তৈরি হয়নি:\n" +
       error.message
     );
 
@@ -1578,13 +1714,16 @@ async function(){
 };
 
 
-// ==========================
+// =====================================
 // START
-// ==========================
+// =====================================
 
 loadCart();
 
 loadSavedAddress();
 
-</script></body>
+</script>
+
+
+</body>
 </html>
