@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SayonMart - Payment</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -20,854 +14,525 @@ content="width=device-width, initial-scale=1.0">
 
 body{
   font-family:Arial,sans-serif;
-  background:#111;
-  color:#fff;
-  padding-bottom:40px;
+  background:#f5f6f8;
+  color:#222;
 }
 
 header{
-  background:#e91e63;
-  padding:18px;
+  background:#fff;
+  padding:16px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
   text-align:center;
-  font-size:22px;
+}
+
+.logo{
+  font-size:23px;
   font-weight:bold;
+  color:#d4a900;
 }
 
 .container{
-  max-width:600px;
+  max-width:900px;
   margin:auto;
-  padding:20px;
+  padding:18px;
 }
 
-.box{
-  background:#1d1d1d;
-  border-radius:15px;
-  padding:18px;
+.title{
+  font-size:25px;
+  font-weight:bold;
   margin-bottom:18px;
 }
 
-h2{
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.card h2{
+  font-size:19px;
   margin-bottom:15px;
 }
 
-label{
-  display:block;
-  margin-top:12px;
-  margin-bottom:6px;
+.address-box{
+  background:#fffbea;
+  border:1px solid #f1d45a;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:12px;
 }
 
-input,
-textarea{
+.address-box p{
+  margin:7px 0;
+  font-size:14px;
+}
+
+.address-box strong{
+  color:#b28b00;
+}
+
+input,textarea{
   width:100%;
   padding:13px;
-  border:none;
-  border-radius:9px;
-  background:#292929;
-  color:#fff;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin-top:7px;
+  margin-bottom:12px;
   font-size:15px;
+  outline:none;
 }
 
-input:focus,
-textarea:focus{
-  outline:2px solid #e91e63;
+input:focus,textarea:focus{
+  border-color:#d4a900;
 }
 
-textarea{
-  min-height:90px;
-  resize:none;
+label{
+  font-size:14px;
+  font-weight:bold;
 }
 
-.summary{
-  line-height:2;
+button{
+  width:100%;
+  border:none;
+  border-radius:11px;
+  padding:14px;
   font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.total{
+.edit-btn{
+  background:#fff;
+  border:1px solid #d4a900;
+  color:#9b7800;
+  margin-top:8px;
+}
+
+.save-btn{
+  background:#d4a900;
+  color:#fff;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.item:last-child{
+  border-bottom:none;
+}
+
+.item img{
+  width:65px;
+  height:65px;
+  object-fit:cover;
+  border-radius:10px;
+  background:#eee;
+}
+
+.item-info{
+  flex:1;
+}
+
+.item-name{
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.item-qty{
+  color:#777;
+  font-size:13px;
+}
+
+.item-price{
+  font-weight:bold;
+}
+
+.total-row{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+}
+
+.grand-total{
+  border-top:1px solid #ddd;
+  margin-top:8px;
+  padding-top:14px;
   font-size:21px;
   font-weight:bold;
-  color:#ff4081;
-  border-top:1px solid #444;
-  margin-top:10px;
-  padding-top:10px;
+  color:#d4a900;
 }
 
 .payment-option{
-  background:#292929;
+  display:flex;
+  align-items:center;
+  gap:12px;
   padding:15px;
-  border-radius:10px;
-  margin-top:10px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  margin-bottom:10px;
   cursor:pointer;
 }
 
 .payment-option input{
   width:auto;
-  margin-right:8px;
+  margin:0;
+  accent-color:#d4a900;
 }
 
-button{
-  width:100%;
+.upi-box{
+  display:none;
+  background:#faf7ff;
+  border:1px solid #c9b2ff;
+  border-radius:12px;
   padding:15px;
-  border:none;
-  border-radius:10px;
-  font-size:17px;
+  margin-top:10px;
+}
+
+.upi-id{
+  font-size:18px;
   font-weight:bold;
-  margin-top:12px;
-  cursor:pointer;
+  margin:8px 0 15px;
+  color:#6337c9;
+  word-break:break-all;
 }
 
-.upi-btn{
-  background:#673ab7;
+.upi-pay-btn{
+  background:#6d35df;
   color:white;
+  margin-bottom:10px;
 }
 
-.order-btn{
+.paid-btn{
   background:#e91e63;
   color:white;
 }
 
-.cancel-btn{
-  background:#333;
+.place-btn{
+  background:#d4a900;
   color:white;
+  margin-top:5px;
 }
 
-.edit-btn{
-  background:#333;
-  color:#FFD700;
-  border:1px solid #FFD700;
+.back-btn{
+  background:#eee;
+  color:#333;
+  margin-top:10px;
 }
 
-.save-btn{
-  background:#333;
-  color:#FFD700;
-  border:1px solid #FFD700;
+.note{
+  font-size:13px;
+  color:#777;
+  margin-top:10px;
+  line-height:1.5;
 }
 
-#upiBox{
+/* SUCCESS */
+.success-screen{
   display:none;
-}
-
-#status{
+  min-height:75vh;
+  align-items:center;
+  justify-content:center;
   text-align:center;
-  margin-top:15px;
-  color:#00e676;
-  font-weight:bold;
 }
 
-#savedDeliveryAddress{
-  display:none;
-  background:#292929;
-  padding:15px;
-  border-radius:10px;
-  line-height:1.8;
+.success-card{
+  background:#fff;
+  border-radius:22px;
+  padding:35px 22px;
+  width:100%;
+  max-width:500px;
+  box-shadow:0 5px 25px rgba(0,0,0,.1);
 }
 
-.address-line{
-  margin-bottom:5px;
+.success-icon{
+  width:85px;
+  height:85px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  background:#e9f9ef;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:45px;
 }
 
-.address-title{
-  color:#FFD700;
-  font-size:17px;
-  font-weight:bold;
+.success-card h1{
+  color:#159447;
+  margin-bottom:10px;
+}
+
+.success-card p{
+  color:#666;
   margin-bottom:8px;
 }
 
-.cart-product{
-  padding:10px 0;
-  border-bottom:1px solid #333;
-}
-
-.cart-product:last-child{
-  border-bottom:0;
-}
-
-.cart-name{
+.order-id{
+  background:#f5f5f5;
+  border-radius:10px;
+  padding:12px;
+  margin:18px 0;
   font-weight:bold;
+  word-break:break-all;
 }
 
-.cart-price{
-  color:#bbb;
-  font-size:14px;
+.orders-btn{
+  background:#d4a900;
+  color:white;
+  margin-top:8px;
 }
 
+.shop-btn{
+  background:#eee;
+  color:#333;
+  margin-top:10px;
+}
+
+.loading{
+  opacity:.6;
+  pointer-events:none;
+}
 </style>
-
 </head>
-
 
 <body>
 
-
 <header>
-💗 SayonMart Checkout
+  <div class="logo">🛍️ SayonMart</div>
 </header>
 
+<div class="container" id="paymentPage">
 
-<div class="container">
+  <div class="title">💳 Checkout & Payment</div>
 
+  <!-- ADDRESS -->
+  <div class="card">
 
-<!-- DELIVERY -->
+    <h2>📍 Delivery Address</h2>
 
-<div class="box">
+    <div id="savedAddressBox" class="address-box" style="display:none;">
+      <p><strong>Saved Address</strong></p>
+      <div id="savedAddressText"></div>
 
-<h2>📦 Delivery Details</h2>
+      <button class="edit-btn" onclick="showAddressForm()">
+        ✏️ Edit Address
+      </button>
+    </div>
 
+    <div id="addressForm">
 
-<!-- SAVED ADDRESS -->
+      <label>নাম</label>
+      <input id="name" type="text" placeholder="আপনার নাম">
 
-<div id="savedDeliveryAddress">
+      <label>মোবাইল নম্বর</label>
+      <input id="phone" type="tel" placeholder="10 digit mobile number">
 
-  <div class="address-title">
-    📍 Saved Address
+      <label>PIN Code</label>
+      <input id="pin" type="text" placeholder="PIN Code">
+
+      <label>District</label>
+      <input id="district" type="text" placeholder="District">
+
+      <label>Building / House No.</label>
+      <input id="building" type="text" placeholder="House / Building">
+
+      <label>Local Area</label>
+      <textarea id="area" rows="3" placeholder="Local Area"></textarea>
+
+      <button class="save-btn" onclick="saveAddress()">
+        💾 Save Address
+      </button>
+
+    </div>
+
   </div>
 
 
-  <div class="address-line">
-    👤 <b>Name:</b>
-    <span id="savedName"></span>
+  <!-- ORDER SUMMARY -->
+  <div class="card">
+
+    <h2>🛒 Order Summary</h2>
+
+    <div id="cartItems"></div>
+
+    <div class="total-row">
+      <span>Subtotal</span>
+      <strong id="subtotal">₹0</strong>
+    </div>
+
+    <div class="total-row">
+      <span>Delivery</span>
+      <strong id="delivery">₹0</strong>
+    </div>
+
+    <div class="total-row grand-total">
+      <span>Total</span>
+      <strong id="total">₹0</strong>
+    </div>
+
   </div>
 
 
-  <div class="address-line">
-    📱 <b>Mobile:</b>
-    <span id="savedPhone"></span>
+  <!-- PAYMENT -->
+  <div class="card">
+
+    <h2>💰 Payment Method</h2>
+
+    <label class="payment-option">
+      <input
+        type="radio"
+        name="payment"
+        value="COD"
+        checked
+        onchange="changePayment()"
+      >
+      <span>💵 Cash on Delivery</span>
+    </label>
+
+    <label class="payment-option">
+      <input
+        type="radio"
+        name="payment"
+        value="UPI"
+        onchange="changePayment()"
+      >
+      <span>📱 UPI Payment</span>
+    </label>
+
+
+    <div id="upiBox" class="upi-box">
+
+      <div>UPI ID</div>
+
+      <div class="upi-id">
+        8016410311@axl
+      </div>
+
+      <button class="upi-pay-btn" onclick="payWithUPI()">
+        📱 Pay <span id="upiAmount">₹0</span> with UPI
+      </button>
+
+      <button class="paid-btn" onclick="confirmUPIPayment()">
+        ✅ আমি পেমেন্ট করেছি
+      </button>
+
+    </div>
+
+
+    <button
+      id="placeOrderBtn"
+      class="place-btn"
+      onclick="placeOrder()"
+    >
+      🛍️ Place COD Order
+    </button>
+
+    <button
+      class="back-btn"
+      onclick="window.location.href='cart.html'"
+    >
+      ← Back to Cart
+    </button>
+
+    <div class="note">
+      🔒 আপনার order তথ্য নিরাপদভাবে Firebase-এ সংরক্ষণ করা হবে।
+    </div>
+
   </div>
 
+</div>
 
-  <div class="address-line">
-    📮 <b>PIN:</b>
-    <span id="savedPin"></span>
+
+<!-- SUCCESS SCREEN -->
+
+<div class="container success-screen" id="successPage">
+
+  <div class="success-card">
+
+    <div class="success-icon">
+      ✅
+    </div>
+
+    <h1>Order Successful!</h1>
+
+    <p>🎉 আপনার order সফলভাবে নেওয়া হয়েছে।</p>
+
+    <p>আপনার order এখন My Orders-এ দেখতে পারবেন।</p>
+
+    <div class="order-id">
+      Order ID:
+      <br>
+      <span id="successOrderId">---</span>
+    </div>
+
+    <button
+      class="orders-btn"
+      onclick="window.location.href='order.html'"
+    >
+      📦 View My Orders
+    </button>
+
+    <button
+      class="shop-btn"
+      onclick="window.location.href='index.html'"
+    >
+      🛍️ Continue Shopping
+    </button>
+
   </div>
-
-
-  <div class="address-line">
-    🏙️ <b>District:</b>
-    <span id="savedDistrict"></span>
-  </div>
-
-
-  <div class="address-line">
-    🏠 <b>Building/House:</b>
-    <span id="savedBuilding"></span>
-  </div>
-
-
-  <div class="address-line">
-    📍 <b>Local Area:</b>
-    <span id="savedArea"></span>
-  </div>
-
-
-  <button
-    type="button"
-    class="edit-btn"
-    onclick="editDeliveryAddress()"
-  >
-    ✏️ Edit Address
-  </button>
-
-</div>
-
-
-<!-- NEW ADDRESS -->
-
-<div id="newDeliveryAddress">
-
-
-<label>নাম</label>
-
-<input
-  id="name"
-  type="text"
-  placeholder="আপনার নাম"
-/>
-
-
-<label>মোবাইল নম্বর</label>
-
-<input
-  id="phone"
-  type="tel"
-  placeholder="মোবাইল নম্বর"
-  maxlength="10"
-/>
-
-
-<label>PIN Code</label>
-
-<input
-  id="pin"
-  type="text"
-  inputmode="numeric"
-  placeholder="6 digit PIN Code"
-  maxlength="6"
-/>
-
-
-<label>District</label>
-
-<input
-  id="district"
-  type="text"
-  placeholder="District"
-/>
-
-
-<label>Building / House No.</label>
-
-<input
-  id="building"
-  type="text"
-  placeholder="Building / House No."
-/>
-
-
-<label>Local Area</label>
-
-<textarea
-  id="area"
-  placeholder="Local Area / Village / Road"
-></textarea>
-
-
-<button
-  type="button"
-  class="save-btn"
-  onclick="savePaymentAddress()"
->
-💾 Save Address
-</button>
-
-
-</div>
-
-</div>
-
-
-<!-- ORDER SUMMARY -->
-
-<div class="box">
-
-<h2>🛒 Order Summary</h2>
-
-
-<div id="cartItems"></div>
-
-
-<div class="summary">
-
-<div>
-Subtotal:
-₹<span id="subtotal">0</span>
-</div>
-
-
-<div>
-Delivery:
-₹<span id="delivery">0</span>
-</div>
-
-
-<div class="total">
-
-Total:
-₹<span id="total">0</span>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- PAYMENT -->
-
-<div class="box">
-
-<h2>💳 Payment Method</h2>
-
-
-<label class="payment-option">
-
-<input
-  type="radio"
-  name="payment"
-  value="COD"
-  checked
-  onchange="paymentChanged()"
-/>
-
-Cash on Delivery
-
-</label>
-
-
-<label class="payment-option">
-
-<input
-  type="radio"
-  name="payment"
-  value="UPI"
-  onchange="paymentChanged()"
-/>
-
-UPI Payment
-
-</label>
-
-
-<!-- UPI -->
-
-<div id="upiBox">
-
-<p style="margin-top:15px;">
-
-UPI ID:
-<b>8016410311@axl</b>
-
-</p>
-
-
-<button
-  class="upi-btn"
-  onclick="payWithUPI()"
->
-
-📱 Pay ₹<span id="upiAmount">0</span> with UPI
-
-</button>
-
-
-<button
-  class="order-btn"
-  onclick="confirmUPIPayment()"
->
-
-✅ আমি পেমেন্ট করেছি
-
-</button>
-
-</div>
-
-
-<!-- COD -->
-
-<button
-  id="codButton"
-  class="order-btn"
-  onclick="placeCODOrder()"
->
-
-🛍️ Place COD Order
-
-</button>
-
-
-<button
-  class="cancel-btn"
-  onclick="history.back()"
->
-
-← Back
-
-</button>
-
-
-<div id="status"></div>
-
-</div>
 
 </div>
 
 
 <script type="module">
 
-
-import {
-  auth,
-  db
-}
-from "./firebase.js";
-
+import { auth, db } from "./firebase.js";
 
 import {
   collection,
   addDoc,
   serverTimestamp
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-import {
-  onAuthStateChanged
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 let currentUser = null;
-
 let cart = [];
-
-
-const UPI_ID =
-"8016410311@axl";
-
-
-// =====================================
-// LOAD USER
-// =====================================
-
-onAuthStateChanged(
-  auth,
-  user => {
-
-    if(!user){
-
-      alert(
-        "আগে Login করুন"
-      );
-
-      location.href =
-        "login.html";
-
-      return;
-
-    }
-
-    currentUser = user;
-
-  }
-);
-
-
-// =====================================
-// LOAD SAVED ADDRESS
-// =====================================
-
-function loadSavedAddress(){
-
-  const saved =
-    localStorage.getItem(
-      "sayonmartAddress"
-    );
-
-
-  if(!saved){
-
-    document.getElementById(
-      "savedDeliveryAddress"
-    ).style.display =
-      "none";
-
-
-    document.getElementById(
-      "newDeliveryAddress"
-    ).style.display =
-      "block";
-
-
-    return;
-
-  }
-
-
-  try{
-
-    const data =
-      JSON.parse(saved);
-
-
-    document.getElementById(
-      "savedName"
-    ).textContent =
-      data.name || "";
-
-
-    document.getElementById(
-      "savedPhone"
-    ).textContent =
-      data.mobile || "";
-
-
-    document.getElementById(
-      "savedPin"
-    ).textContent =
-      data.pin || "";
-
-
-    document.getElementById(
-      "savedDistrict"
-    ).textContent =
-      data.district || "";
-
-
-    document.getElementById(
-      "savedBuilding"
-    ).textContent =
-      data.building || "";
-
-
-    document.getElementById(
-      "savedArea"
-    ).textContent =
-      data.area || "";
-
-
-    document.getElementById(
-      "name"
-    ).value =
-      data.name || "";
-
-
-    document.getElementById(
-      "phone"
-    ).value =
-      data.mobile || "";
-
-
-    document.getElementById(
-      "pin"
-    ).value =
-      data.pin || "";
-
-
-    document.getElementById(
-      "district"
-    ).value =
-      data.district || "";
-
-
-    document.getElementById(
-      "building"
-    ).value =
-      data.building || "";
-
-
-    document.getElementById(
-      "area"
-    ).value =
-      data.area || "";
-
-
-    document.getElementById(
-      "savedDeliveryAddress"
-    ).style.display =
-      "block";
-
-
-    document.getElementById(
-      "newDeliveryAddress"
-    ).style.display =
-      "none";
-
-
-  }catch(error){
-
-    console.log(
-      "Address error:",
-      error
-    );
-
-  }
-
-}
-
-
-// =====================================
-// SAVE ADDRESS
-// =====================================
-
-window.savePaymentAddress =
-function(){
-
-  const name =
-    document.getElementById(
-      "name"
-    ).value.trim();
-
-
-  const mobile =
-    document.getElementById(
-      "phone"
-    ).value.trim();
-
-
-  const pin =
-    document.getElementById(
-      "pin"
-    ).value.trim();
-
-
-  const district =
-    document.getElementById(
-      "district"
-    ).value.trim();
-
-
-  const building =
-    document.getElementById(
-      "building"
-    ).value.trim();
-
-
-  const area =
-    document.getElementById(
-      "area"
-    ).value.trim();
-
-
-  if(
-    !name ||
-    !mobile ||
-    !pin ||
-    !district ||
-    !building ||
-    !area
-  ){
-
-    alert(
-      "⚠️ সব Address তথ্য পূরণ করুন।"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !/^\d{10}$/.test(mobile)
-  ){
-
-    alert(
-      "⚠️ সঠিক 10 digit Mobile Number দিন।"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !/^\d{6}$/.test(pin)
-  ){
-
-    alert(
-      "⚠️ সঠিক 6 digit PIN Code দিন।"
-    );
-
-    return;
-
-  }
-
-
-  const address = {
-
-    name,
-    mobile,
-    pin,
-    district,
-    building,
-    area
-
-  };
-
-
-  localStorage.setItem(
-    "sayonmartAddress",
-    JSON.stringify(address)
-  );
-
-
-  alert(
-    "✅ Address Save হয়েছে!"
-  );
-
-
-  loadSavedAddress();
-
+let totals = {
+  subtotal: 0,
+  delivery: 0,
+  total: 0
 };
 
 
-// =====================================
-// EDIT ADDRESS
-// =====================================
+/* =========================
+   LOAD USER
+========================= */
 
-window.editDeliveryAddress =
-function(){
+auth.onAuthStateChanged((user) => {
 
-  document.getElementById(
-    "savedDeliveryAddress"
-  ).style.display =
-    "none";
+  currentUser = user;
+
+});
 
 
-  document.getElementById(
-    "newDeliveryAddress"
-  ).style.display =
-    "block";
-
-};
-
-
-// =====================================
-// FULL ADDRESS
-// =====================================
-
-function getFullAddress(){
-
-  const pin =
-    document.getElementById(
-      "pin"
-    ).value.trim();
-
-
-  const district =
-    document.getElementById(
-      "district"
-    ).value.trim();
-
-
-  const building =
-    document.getElementById(
-      "building"
-    ).value.trim();
-
-
-  const area =
-    document.getElementById(
-      "area"
-    ).value.trim();
-
-
-  return (
-    building +
-    ", " +
-    area +
-    ", " +
-    district +
-    ", PIN - " +
-    pin
-  );
-
-}
-
-
-// =====================================
-// LOAD CART
-// =====================================
+/* =========================
+   LOAD CART
+========================= */
 
 function loadCart(){
 
   try{
 
-    cart =
-      JSON.parse(
-        localStorage.getItem(
-          "cart"
-        )
-      ) || [];
+    cart = JSON.parse(
+      localStorage.getItem("cart") || "[]"
+    );
 
   }catch(error){
 
@@ -875,461 +540,256 @@ function loadCart(){
 
   }
 
-
-  if(
-    !Array.isArray(cart)
-  ){
-
+  if(!Array.isArray(cart)){
     cart = [];
-
   }
 
+  calculateTotals();
+  showCart();
+
+}
+
+
+/* =========================
+   CALCULATE TOTAL
+========================= */
+
+function calculateTotals(){
+
+  totals.subtotal = cart.reduce((sum,item)=>{
+
+    const price = Number(item.price) || 0;
+    const quantity = Number(item.quantity) || 1;
+
+    return sum + (price * quantity);
+
+  },0);
+
+
+  totals.delivery =
+    totals.subtotal >= 499
+      ? 0
+      : 40;
+
+
+  totals.total =
+    totals.subtotal + totals.delivery;
+
+
+  document.getElementById("subtotal").textContent =
+    "₹" + totals.subtotal;
+
+  document.getElementById("delivery").textContent =
+    totals.delivery === 0
+      ? "FREE"
+      : "₹" + totals.delivery;
+
+  document.getElementById("total").textContent =
+    "₹" + totals.total;
+
+  document.getElementById("upiAmount").textContent =
+    "₹" + totals.total;
+
+}
+
+
+/* =========================
+   SHOW CART
+========================= */
+
+function showCart(){
 
   const box =
-    document.getElementById(
-      "cartItems"
-    );
-
+    document.getElementById("cartItems");
 
   box.innerHTML = "";
 
 
-  if(
-    cart.length === 0
-  ){
+  if(cart.length === 0){
 
-    box.innerHTML =
-      "<p>আপনার Cart খালি।</p>";
-
-    updateTotals();
+    box.innerHTML = `
+      <p style="padding:15px 0;color:#777;">
+        আপনার cart খালি।
+      </p>
+    `;
 
     return;
 
   }
 
 
-  cart.forEach(
-    item => {
+  cart.forEach(item=>{
 
-      const price =
-        Number(item.price) || 0;
+    const price = Number(item.price) || 0;
+    const quantity = Number(item.quantity) || 1;
+    const itemTotal = price * quantity;
 
+    const div =
+      document.createElement("div");
 
-      const quantity =
-        Number(item.quantity) || 1;
-
-
-      const amount =
-        price * quantity;
+    div.className = "item";
 
 
-      const div =
-        document.createElement(
-          "div"
-        );
+    const img =
+      document.createElement("img");
+
+    img.src =
+      item.image ||
+      item.productImage ||
+      "https://via.placeholder.com/100";
+
+    img.onerror = function(){
+      this.src =
+        "https://via.placeholder.com/100";
+    };
 
 
-      div.className =
-        "cart-product";
+    const info =
+      document.createElement("div");
+
+    info.className = "item-info";
 
 
-      div.innerHTML = `
+    const name =
+      document.createElement("div");
 
-        <div class="cart-name">
-          ${escapeHTML(
-            item.name || "Product"
-          )}
-        </div>
+    name.className = "item-name";
 
-        <div class="cart-price">
-          ₹${price} × ${quantity}
-          = ₹${amount}
-        </div>
-
-      `;
+    name.textContent =
+      item.name ||
+      item.productName ||
+      "Product";
 
 
-      box.appendChild(div);
+    const qty =
+      document.createElement("div");
 
-    }
-  );
+    qty.className = "item-qty";
 
-
-  updateTotals();
-
-}
+    qty.textContent =
+      quantity + " × ₹" + price;
 
 
-// =====================================
-// UPDATE TOTALS
-// =====================================
-
-function updateTotals(){
-
-  let subtotal = 0;
+    info.appendChild(name);
+    info.appendChild(qty);
 
 
-  cart.forEach(
-    item => {
+    const priceDiv =
+      document.createElement("div");
 
-      const price =
-        Number(item.price) || 0;
+    priceDiv.className = "item-price";
 
-
-      const quantity =
-        Number(item.quantity) || 1;
+    priceDiv.textContent =
+      "₹" + itemTotal;
 
 
-      subtotal +=
-        price * quantity;
+    div.appendChild(img);
+    div.appendChild(info);
+    div.appendChild(priceDiv);
 
-    }
-  );
+    box.appendChild(div);
 
-
-  /*
-    Delivery পুরো cart-এর জন্য
-    একবারই হিসাব হবে
-  */
-
-  const delivery =
-    subtotal >= 499
-      ? 0
-      : 40;
-
-
-  const total =
-    subtotal + delivery;
-
-
-  document.getElementById(
-    "subtotal"
-  ).textContent =
-    subtotal;
-
-
-  document.getElementById(
-    "delivery"
-  ).textContent =
-    delivery;
-
-
-  document.getElementById(
-    "total"
-  ).textContent =
-    total;
-
-
-  document.getElementById(
-    "upiAmount"
-  ).textContent =
-    total;
+  });
 
 }
 
 
-// =====================================
-// ESCAPE HTML
-// =====================================
+/* =========================
+   ADDRESS
+========================= */
 
-function escapeHTML(text){
+function loadAddress(){
 
-  return String(text)
+  const saved =
+    localStorage.getItem("sayonmartAddress");
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
+  if(!saved) return;
 
 
-// =====================================
-// GET TOTALS
-// =====================================
+  try{
 
-function getTotals(){
+    const address =
+      JSON.parse(saved);
 
-  let subtotal = 0;
+    document.getElementById("name").value =
+      address.name || "";
 
+    document.getElementById("phone").value =
+      address.phone || "";
 
-  cart.forEach(
-    item => {
+    document.getElementById("pin").value =
+      address.pin || "";
 
-      const price =
-        Number(item.price) || 0;
+    document.getElementById("district").value =
+      address.district || "";
 
+    document.getElementById("building").value =
+      address.building || "";
 
-      const quantity =
-        Number(item.quantity) || 1;
-
-
-      subtotal +=
-        price * quantity;
-
-    }
-  );
+    document.getElementById("area").value =
+      address.area || "";
 
 
-  const delivery =
-    subtotal >= 499
-      ? 0
-      : 40;
+    showSavedAddress(address);
 
+  }catch(error){
 
-  const total =
-    subtotal + delivery;
+    console.log(error);
 
-
-  return {
-
-    subtotal:
-      subtotal,
-
-    delivery:
-      delivery,
-
-    total:
-      total
-
-  };
+  }
 
 }
 
 
-// =====================================
-// PAYMENT CHANGE
-// =====================================
+function showSavedAddress(address){
 
-window.paymentChanged =
-function(){
-
-  const selected =
-    document.querySelector(
-      'input[name="payment"]:checked'
-    );
+  document.getElementById(
+    "savedAddressBox"
+  ).style.display = "block";
 
 
-  if(!selected){
+  document.getElementById(
+    "addressForm"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "savedAddressText"
+  ).innerHTML = `
+    <p>👤 ${escapeHTML(address.name || "")}</p>
+    <p>📱 ${escapeHTML(address.phone || "")}</p>
+    <p>📮 ${escapeHTML(address.pin || "")}</p>
+    <p>🏢 ${escapeHTML(address.district || "")}</p>
+    <p>🏠 ${escapeHTML(address.building || "")}</p>
+    <p>📍 ${escapeHTML(address.area || "")}</p>
+  `;
+
+}
+
+
+function showAddressForm(){
+
+  document.getElementById(
+    "savedAddressBox"
+  ).style.display = "none";
+
+
+  document.getElementById(
+    "addressForm"
+  ).style.display = "block";
+
+}
+
+
+function saveAddress(){
+
+  const address =
+    getAddress();
+
+
+  if(!validateAddress(address)){
     return;
   }
-
-
-  const method =
-    selected.value;
-
-
-  const upiBox =
-    document.getElementById(
-      "upiBox"
-    );
-
-
-  const codButton =
-    document.getElementById(
-      "codButton"
-    );
-
-
-  if(
-    method === "UPI"
-  ){
-
-    upiBox.style.display =
-      "block";
-
-
-    codButton.style.display =
-      "none";
-
-  }else{
-
-    upiBox.style.display =
-      "none";
-
-
-    codButton.style.display =
-      "block";
-
-  }
-
-};
-
-
-// =====================================
-// VALIDATE
-// =====================================
-
-function validateDetails(){
-
-  const name =
-    document.getElementById(
-      "name"
-    ).value.trim();
-
-
-  const phone =
-    document.getElementById(
-      "phone"
-    ).value.trim();
-
-
-  const pin =
-    document.getElementById(
-      "pin"
-    ).value.trim();
-
-
-  const district =
-    document.getElementById(
-      "district"
-    ).value.trim();
-
-
-  const building =
-    document.getElementById(
-      "building"
-    ).value.trim();
-
-
-  const area =
-    document.getElementById(
-      "area"
-    ).value.trim();
-
-
-  if(!name){
-
-    alert(
-      "নাম লিখুন"
-    );
-
-    return false;
-
-  }
-
-
-  if(
-    !/^\d{10}$/.test(phone)
-  ){
-
-    alert(
-      "সঠিক 10 digit Mobile Number দিন"
-    );
-
-    return false;
-
-  }
-
-
-  if(
-    !/^\d{6}$/.test(pin)
-  ){
-
-    alert(
-      "সঠিক 6 digit PIN Code দিন"
-    );
-
-    return false;
-
-  }
-
-
-  if(!district){
-
-    alert(
-      "District লিখুন"
-    );
-
-    return false;
-
-  }
-
-
-  if(!building){
-
-    alert(
-      "Building / House No. লিখুন"
-    );
-
-    return false;
-
-  }
-
-
-  if(!area){
-
-    alert(
-      "Local Area লিখুন"
-    );
-
-    return false;
-
-  }
-
-
-  if(
-    cart.length === 0
-  ){
-
-    alert(
-      "Cart খালি"
-    );
-
-    return false;
-
-  }
-
-
-  if(!currentUser){
-
-    alert(
-      "আগে Login করুন"
-    );
-
-    return false;
-
-  }
-
-
-  /* Save address */
-
-  const address = {
-
-    name,
-
-    mobile:
-      phone,
-
-    pin,
-
-    district,
-
-    building,
-
-    area
-
-  };
 
 
   localStorage.setItem(
@@ -1337,199 +797,302 @@ function validateDetails(){
     JSON.stringify(address)
   );
 
+
+  showSavedAddress(address);
+
+
+  alert("✅ Address saved successfully!");
+
+}
+
+
+function getAddress(){
+
+  return {
+
+    name:
+      document.getElementById("name").value.trim(),
+
+    phone:
+      document.getElementById("phone").value.trim(),
+
+    pin:
+      document.getElementById("pin").value.trim(),
+
+    district:
+      document.getElementById("district").value.trim(),
+
+    building:
+      document.getElementById("building").value.trim(),
+
+    area:
+      document.getElementById("area").value.trim()
+
+  };
+
+}
+
+
+function validateAddress(address){
+
+  if(!address.name){
+    alert("নাম দিন");
+    return false;
+  }
+
+  if(!address.phone){
+    alert("মোবাইল নম্বর দিন");
+    return false;
+  }
+
+  if(!address.pin){
+    alert("PIN Code দিন");
+    return false;
+  }
+
+  if(!address.district){
+    alert("District দিন");
+    return false;
+  }
+
+  if(!address.building){
+    alert("Building / House No. দিন");
+    return false;
+  }
+
+  if(!address.area){
+    alert("Local Area দিন");
+    return false;
+  }
 
   return true;
 
 }
 
 
-// =====================================
-// UPI
-// =====================================
+/* =========================
+   PAYMENT CHANGE
+========================= */
 
-window.payWithUPI =
-function(){
+window.changePayment = function(){
 
-  if(
-    !validateDetails()
-  ){
+  const selected =
+    document.querySelector(
+      'input[name="payment"]:checked'
+    ).value;
+
+
+  const upiBox =
+    document.getElementById("upiBox");
+
+  const placeBtn =
+    document.getElementById("placeOrderBtn");
+
+
+  if(selected === "UPI"){
+
+    upiBox.style.display = "block";
+
+    placeBtn.style.display = "none";
+
+  }else{
+
+    upiBox.style.display = "none";
+
+    placeBtn.style.display = "block";
+
+    placeBtn.textContent =
+      "🛍️ Place COD Order";
+
+  }
+
+};
+
+
+/* =========================
+   UPI PAYMENT
+========================= */
+
+window.payWithUPI = function(){
+
+  const amount =
+    totals.total.toFixed(2);
+
+
+  const upiURL =
+    "upi://pay" +
+    "?pa=8016410311@axl" +
+    "&pn=SayonMart" +
+    "&am=" + amount +
+    "&cu=INR";
+
+
+  window.location.href = upiURL;
+
+};
+
+
+/* =========================
+   UPI CONFIRM
+========================= */
+
+window.confirmUPIPayment = async function(){
+
+  if(totals.total <= 0){
+
+    alert("Cart খালি।");
 
     return;
 
   }
 
 
-  const totals =
-    getTotals();
-
-
-  const amount =
-    totals.total;
-
-
-  const upiURL =
-    "upi://pay" +
-
-    "?pa=" +
-    encodeURIComponent(
-      UPI_ID
-    ) +
-
-    "&pn=" +
-    encodeURIComponent(
-      "SayonMart"
-    ) +
-
-    "&am=" +
-    encodeURIComponent(
-      amount
-    ) +
-
-    "&cu=INR" +
-
-    "&tn=" +
-    encodeURIComponent(
-      "SayonMart Order"
+  const ok =
+    confirm(
+      "আপনি কি UPI payment করেছেন?"
     );
 
 
-  document.getElementById(
-    "status"
-  ).textContent =
-    "UPI App খোলা হচ্ছে...";
+  if(!ok) return;
 
 
-  window.location.href =
-    upiURL;
+  await createOrders("UPI");
 
 };
 
 
-// =====================================
-// CREATE ORDERS
-// =====================================
+/* =========================
+   COD ORDER
+========================= */
 
-async function createOrders(
-  paymentMethod,
-  paymentStatus
-){
+window.placeOrder = async function(){
 
-  const name =
-    document.getElementById(
-      "name"
-    ).value.trim();
+  await createOrders("COD");
+
+};
 
 
-  const phone =
-    document.getElementById(
-      "phone"
-    ).value.trim();
+/* =========================
+   CREATE ORDERS
+========================= */
+
+async function createOrders(paymentMethod){
+
+  if(!currentUser){
+
+    alert(
+      "আগে Login করুন।"
+    );
+
+    window.location.href =
+      "login.html";
+
+    return;
+
+  }
+
+
+  if(cart.length === 0){
+
+    alert("আপনার cart খালি।");
+
+    window.location.href =
+      "cart.html";
+
+    return;
+
+  }
 
 
   const address =
-    getFullAddress();
+    getAddress();
 
 
-  const totals =
-    getTotals();
+  if(!validateAddress(address)){
+    showAddressForm();
+    return;
+  }
 
 
-  /*
-    গুরুত্বপূর্ণ:
-
-    একাধিক product থাকলে
-    প্রত্যেক order-এর total হবে:
-
-    product subtotal + তার delivery share
-
-    মোট cart total প্রতিটি order-এ
-    আর save হবে না।
-  */
+  const placeBtn =
+    document.getElementById(
+      "placeOrderBtn"
+    );
 
 
-  const deliveryPerItem =
-    cart.length > 0
-      ? totals.delivery / cart.length
-      : 0;
+  placeBtn.classList.add("loading");
 
 
-  for(
-    const item of cart
-  ){
-
-    const price =
-      Number(item.price) || 0;
-
-
-    const quantity =
-      Number(item.quantity) || 1;
-
-
-    const itemSubtotal =
-      price * quantity;
-
+  try{
 
     /*
-      Delivery charge ভাগ করা হচ্ছে
-      product অনুযায়ী।
+      IMPORTANT:
+      Delivery charge শুধু প্রথম order-এ দেওয়া হচ্ছে।
+      তাই সব order-এর total যোগ করলে
+      cart-এর exact total পাওয়া যাবে।
     */
 
-    const itemDelivery =
-      Math.round(
-        deliveryPerItem * 100
-      ) / 100;
+
+    let firstItem = true;
+    let firstOrderId = "";
 
 
-    const itemTotal =
-      itemSubtotal +
-      itemDelivery;
+    for(const item of cart){
+
+      const price =
+        Number(item.price) || 0;
+
+      const quantity =
+        Number(item.quantity) || 1;
+
+      const subtotal =
+        price * quantity;
 
 
-    await addDoc(
-      collection(
-        db,
-        "orders"
-      ),
-      {
+      const itemDelivery =
+        firstItem
+          ? totals.delivery
+          : 0;
+
+
+      const itemTotal =
+        subtotal + itemDelivery;
+
+
+      const orderData = {
 
         userId:
           currentUser.uid,
 
         name:
-          name,
+          address.name,
 
         phone:
-          phone,
-
-        address:
-          address,
+          address.phone,
 
         pin:
-          document.getElementById(
-            "pin"
-          ).value.trim(),
+          address.pin,
 
         district:
-          document.getElementById(
-            "district"
-          ).value.trim(),
+          address.district,
 
         building:
-          document.getElementById(
-            "building"
-          ).value.trim(),
+          address.building,
 
         area:
-          document.getElementById(
-            "area"
-          ).value.trim(),
+          address.area,
+
+        address:
+          `${address.building}, ${address.area}, ${address.district}, ${address.pin}`,
 
         productName:
           item.name ||
+          item.productName ||
           "Product",
 
         productImage:
           item.image ||
+          item.productImage ||
           "",
 
         price:
@@ -1539,7 +1102,7 @@ async function createOrders(
           quantity,
 
         subtotal:
-          itemSubtotal,
+          subtotal,
 
         delivery:
           itemDelivery,
@@ -1548,10 +1111,14 @@ async function createOrders(
           itemTotal,
 
         paymentMethod:
-          paymentMethod,
+          paymentMethod === "COD"
+            ? "Cash on Delivery"
+            : "UPI",
 
         paymentStatus:
-          paymentStatus,
+          paymentMethod === "COD"
+            ? "Cash on Delivery"
+            : "Awaiting verification",
 
         status:
           "Pending",
@@ -1559,171 +1126,90 @@ async function createOrders(
         createdAt:
           serverTimestamp()
 
+      };
+
+
+      const docRef =
+        await addDoc(
+          collection(db,"orders"),
+          orderData
+        );
+
+
+      if(!firstOrderId){
+        firstOrderId = docRef.id;
       }
+
+
+      firstItem = false;
+
+    }
+
+
+    /* Clear cart */
+
+    localStorage.removeItem("cart");
+
+
+    /* Show success screen */
+
+    document.getElementById(
+      "paymentPage"
+    ).style.display = "none";
+
+
+    document.getElementById(
+      "successPage"
+    ).style.display = "flex";
+
+
+    document.getElementById(
+      "successOrderId"
+    ).textContent =
+      firstOrderId;
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "❌ Order তৈরি করা যায়নি। আবার চেষ্টা করুন।\n\n" +
+      error.message
     );
+
+
+    placeBtn.classList.remove("loading");
 
   }
 
 }
 
 
-// =====================================
-// COD ORDER
-// =====================================
+/* =========================
+   HTML ESCAPE
+========================= */
 
-window.placeCODOrder =
-async function(){
+function escapeHTML(text){
 
-  if(
-    !validateDetails()
-  ){
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
-    return;
-
-  }
-
-
-  try{
-
-    document.getElementById(
-      "status"
-    ).textContent =
-      "Order তৈরি হচ্ছে...";
+}
 
 
-    await createOrders(
-      "COD",
-      "Cash on Delivery"
-    );
-
-
-    localStorage.removeItem(
-      "cart"
-    );
-
-
-    alert(
-      "✅ Order সফলভাবে তৈরি হয়েছে!"
-    );
-
-
-    location.href =
-      "order.html";
-
-
-  }catch(error){
-
-    console.error(
-      error
-    );
-
-
-    alert(
-      "❌ Order তৈরি হয়নি:\n" +
-      error.message
-    );
-
-
-    document.getElementById(
-      "status"
-    ).textContent =
-      "";
-
-  }
-
-};
-
-
-// =====================================
-// CONFIRM UPI PAYMENT
-// =====================================
-
-window.confirmUPIPayment =
-async function(){
-
-  if(
-    !validateDetails()
-  ){
-
-    return;
-
-  }
-
-
-  const confirmPay =
-    confirm(
-      "আপনি কি UPI পেমেন্ট সম্পন্ন করেছেন?"
-    );
-
-
-  if(!confirmPay){
-
-    return;
-
-  }
-
-
-  try{
-
-    document.getElementById(
-      "status"
-    ).textContent =
-      "Order তৈরি হচ্ছে...";
-
-
-    await createOrders(
-      "UPI",
-      "Awaiting verification"
-    );
-
-
-    localStorage.removeItem(
-      "cart"
-    );
-
-
-    alert(
-      "✅ Order তৈরি হয়েছে।\n\nUPI payment verification pending."
-    );
-
-
-    location.href =
-      "order.html";
-
-
-  }catch(error){
-
-    console.error(
-      error
-    );
-
-
-    alert(
-      "❌ Order তৈরি হয়নি:\n" +
-      error.message
-    );
-
-
-    document.getElementById(
-      "status"
-    ).textContent =
-      "";
-
-  }
-
-};
-
-
-// =====================================
-// START
-// =====================================
+/* =========================
+   START
+========================= */
 
 loadCart();
-
-loadSavedAddress();
+loadAddress();
 
 </script>
-
 
 </body>
 </html>
