@@ -1,122 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="bn">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<meta name="theme-color"
-content="#ffffff">
-
-<title>SayonMart - Home</title>
-
-<link rel="manifest"
-href="manifest.json">
-
-<script src="language.js"></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SayonMart</title>
 
 <style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,Helvetica,sans-serif;
-}
+*{box-sizing:border-box}
 
 body{
-  background:#f6f6f6;
-  color:#171717;
-  padding-bottom:80px;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f7f8fa;
+  color:#151515;
+  padding-bottom:78px;
 }
-
 
 /* HEADER */
-
-.header{
-  background:#fff;
-  padding:16px 15px 10px;
-  position:sticky;
-  top:0;
-  z-index:100;
-  box-shadow:0 2px 10px rgba(0,0,0,.08);
+header{
+  background:#111;
+  color:#fff;
+  padding:18px 16px 16px;
+  border-radius:0 0 26px 26px;
 }
 
-.topbar{
+.top{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:12px;
 }
 
 .logo{
-  font-size:22px;
-  font-weight:800;
-  color:#c99a00;
-}
-
-.logo span{
-  color:#222;
-}
-
-.header-icons{
-  display:flex;
-  gap:15px;
-}
-
-.icon-btn{
-  border:0;
-  background:#f7f7f7;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  font-size:19px;
-  cursor:pointer;
-}
-
-
-/* SEARCH */
-
-.search-box{
-  margin-top:13px;
-  background:#f5f5f5;
-  border-radius:13px;
-  padding:11px 14px;
   display:flex;
   align-items:center;
-  gap:9px;
+  gap:10px;
 }
 
-.search-box input{
+.logoIcon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  background:#ffd21f;
+  color:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  font-weight:bold;
+}
+
+.logoText b{
+  font-size:25px;
+}
+
+.logoText b span{
+  color:#ffd21f;
+}
+
+.logoText small{
+  display:block;
+  color:#aaa;
+  margin-top:2px;
+}
+
+.topBtns{
+  display:flex;
+  gap:8px;
+}
+
+.topBtns button{
+  border:0;
+  background:#222;
+  color:#fff;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  font-size:21px;
+}
+
+/* SEARCH */
+.search{
+  margin-top:17px;
+  background:#fff;
+  border-radius:28px;
+  padding:5px 7px 5px 16px;
+  display:flex;
+  align-items:center;
+}
+
+.search input{
+  flex:1;
   border:0;
   outline:0;
+  font-size:16px;
   background:transparent;
-  width:100%;
-  font-size:14px;
+  min-width:0;
 }
 
+.search button{
+  border:0;
+  background:#ffd21f;
+  width:48px;
+  height:44px;
+  border-radius:24px;
+  font-size:22px;
+}
 
 /* MAIN */
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:15px;
+main{
+  padding:16px;
 }
 
-
 /* BANNER */
-
 .banner{
   height:190px;
-  border-radius:18px;
+  border-radius:22px;
   overflow:hidden;
   position:relative;
-  background:#222;
-  box-shadow:0 5px 15px rgba(0,0,0,.15);
+  background:#ffe99a;
+  margin-bottom:12px;
 }
 
 .banner img{
@@ -126,438 +129,311 @@ body{
   display:block;
 }
 
-.banner-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    90deg,
-    rgba(0,0,0,.75),
-    rgba(0,0,0,.05)
-  );
-
-  display:flex;
-  align-items:center;
-  padding:25px;
-}
-
-.banner-text{
-  color:white;
-  max-width:230px;
-}
-
-.banner-text small{
-  color:#ffd21a;
-  font-weight:bold;
-}
-
-.banner-text h2{
-  font-size:25px;
-  margin:6px 0;
-}
-
-.banner-text p{
-  font-size:12px;
-  margin-bottom:12px;
-}
-
-.shop-btn{
-  background:#ffd21a;
-  color:#111;
-  border:0;
-  padding:9px 16px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-
-/* DOTS */
-
 .dots{
-  position:absolute;
-  bottom:8px;
-  left:50%;
-  transform:translateX(-50%);
   display:flex;
-  gap:5px;
+  gap:6px;
+  justify-content:center;
+  margin:9px 0 16px;
 }
 
 .dot{
-  width:7px;
-  height:7px;
-  background:#fff;
-  opacity:.5;
+  width:8px;
+  height:8px;
   border-radius:50%;
+  background:#d0d4da;
 }
 
 .dot.active{
-  opacity:1;
+  background:#ffd21f;
   width:20px;
-  border-radius:10px;
+  border-radius:8px;
 }
-
 
 /* SECTION */
-
-.section{
-  margin-top:24px;
-}
-
-.section-title{
+.sectionHead{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:13px;
+  margin:20px 2px 12px;
 }
 
-.section-title h2{
-  font-size:19px;
+.sectionHead h2{
+  font-size:20px;
+  margin:0;
 }
 
-.section-title a{
-  color:#b48700;
-  font-size:12px;
-  font-weight:bold;
-  cursor:pointer;
+.sectionHead a{
+  color:#555;
+  text-decoration:none;
+  font-size:14px;
 }
 
-
-/* CATEGORIES */
-
+/* CATEGORY */
 .categories{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:2px 1px 8px;
+  scrollbar-width:none;
 }
 
-.category{
-  background:white;
-  padding:10px 5px;
-  border-radius:14px;
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.cat{
+  min-width:78px;
   text-align:center;
-  box-shadow:0 2px 8px rgba(0,0,0,.06);
   cursor:pointer;
 }
 
-.category-icon{
-  width:48px;
-  height:48px;
+.catImg{
+  width:68px;
+  height:68px;
   margin:auto;
-  border-radius:50%;
-  background:#fff4c7;
+  border-radius:20px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:25px;
+  font-size:30px;
+  background:#eee;
 }
 
-.category p{
-  font-size:11px;
+.cat:nth-child(1) .catImg{background:#dceeff}
+.cat:nth-child(2) .catImg{background:#eee}
+.cat:nth-child(3) .catImg{background:#fff0b9}
+.cat:nth-child(4) .catImg{background:#ffdce9}
+.cat:nth-child(5) .catImg{background:#d8f5e9}
+.cat:nth-child(6) .catImg{background:#e6ddff}
+.cat:nth-child(7) .catImg{background:#dff5d8}
+
+.catName{
+  font-size:12px;
+  font-weight:bold;
   margin-top:7px;
+}
+
+/* FLASH SALE */
+.flash{
+  margin-top:15px;
+  padding:17px;
+  border-radius:20px;
+  background:linear-gradient(100deg,#ff4b4b,#ff2525);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.flash h2{
+  margin:0;
+  font-size:24px;
+}
+
+.flash p{
+  margin:4px 0 0;
+  color:#ffeaea;
+  font-size:13px;
+}
+
+.flash button{
+  border:0;
+  border-radius:20px;
+  background:#fff;
+  color:#e52a2a;
+  padding:10px 14px;
   font-weight:bold;
 }
 
-
 /* PRODUCTS */
-
 .products{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:12px;
 }
 
-.product-card{
+.card{
   background:#fff;
-  border-radius:15px;
+  border-radius:18px;
   overflow:hidden;
-  box-shadow:0 2px 9px rgba(0,0,0,.08);
-  position:relative;
-  cursor:pointer;
-}
-
-.product-img{
-  height:170px;
-  background:#f2f2f2;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);
   position:relative;
 }
 
-.product-img img{
+.cardImg{
+  height:155px;
+  background:#f1f2f4;
+  position:relative;
+}
+
+.cardImg img{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block;
 }
 
-.wishlist{
+/* LIKE */
+.wish{
   position:absolute;
-  right:9px;
-  top:9px;
-  width:32px;
-  height:32px;
+  right:8px;
+  top:8px;
   border:0;
+  background:#fff;
+  width:38px;
+  height:38px;
   border-radius:50%;
-  background:white;
-  box-shadow:0 2px 6px rgba(0,0,0,.12);
-  font-size:17px;
+  font-size:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
   cursor:pointer;
 }
 
-.product-info{
-  padding:10px;
+.wish.liked{
+  font-size:20px;
 }
 
-.product-name{
-  font-size:14px;
-  font-weight:bold;
+.cardBody{
+  padding:11px;
+}
+
+.card h3{
+  font-size:15px;
+  margin:0 0 7px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
-.rating{
-  color:#e2a900;
-  font-size:12px;
-  margin-top:6px;
-}
-
-.price-row{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  margin-top:7px;
-  flex-wrap:wrap;
-}
-
 .price{
-  color:#c18f00;
-  font-weight:800;
-  font-size:16px;
+  font-weight:bold;
+  font-size:18px;
 }
 
-.old-price{
-  color:#999;
-  text-decoration:line-through;
-  font-size:11px;
-}
-
-.discount{
-  background:#dff7e8;
-  color:#168447;
-  font-size:9px;
-  padding:3px 5px;
-  border-radius:5px;
+.add{
+  width:100%;
+  margin-top:9px;
+  border:0;
+  background:#ffd21f;
+  padding:10px;
+  border-radius:15px;
   font-weight:bold;
 }
 
-
 /* OFFER */
-
 .offer{
-  height:150px;
-  border-radius:17px;
-  overflow:hidden;
-  position:relative;
-
-  background:linear-gradient(
-    100deg,
-    #111,
-    #544000,
-    #111
-  );
-
+  margin-top:18px;
+  min-height:115px;
+  border-radius:20px;
+  padding:18px;
+  background:linear-gradient(100deg,#d7ffad,#b8f18b);
   display:flex;
   align-items:center;
-  padding:20px;
-
-  box-shadow:0 4px 12px rgba(0,0,0,.12);
+  justify-content:space-between;
+  overflow:hidden;
 }
 
-.offer h2{
-  color:#ffd21a;
-  font-size:23px;
+.offer b{
+  font-size:25px;
 }
 
 .offer p{
-  color:white;
-  font-size:12px;
-  margin:7px 0 13px;
+  margin:5px 0;
+  font-size:13px;
 }
 
+.offer .bags{
+  font-size:58px;
+}
 
-/* EMPTY */
-
+.loading,
 .empty{
   text-align:center;
-  padding:30px;
-  color:#888;
-  grid-column:1/-1;
+  padding:35px 10px;
+  color:#777;
 }
 
-
 /* BOTTOM NAV */
-
-.bottom-nav{
+.bottom{
   position:fixed;
-  bottom:0;
   left:0;
   right:0;
-  height:67px;
+  bottom:0;
+  height:70px;
   background:#fff;
-  border-top:1px solid #eee;
   display:flex;
   justify-content:space-around;
   align-items:center;
-  z-index:999;
-  box-shadow:0 -3px 15px rgba(0,0,0,.08);
+  box-shadow:0 -3px 15px rgba(0,0,0,.10);
+  z-index:50;
 }
 
-.nav-item{
-  text-align:center;
-  color:#777;
-  font-size:10px;
-  cursor:pointer;
-  position:relative;
+.nav{
+  border:0;
+  background:none;
+  color:#555;
+  font-size:11px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
 }
 
-.nav-icon{
-  font-size:21px;
-  margin-bottom:3px;
+.nav span{
+  font-size:22px;
 }
 
-.nav-item.active{
-  color:#d29e00;
+.nav.active{
+  color:#111;
   font-weight:bold;
 }
 
-.cart-badge{
-  position:absolute;
-  top:-5px;
-  right:10px;
-  background:#e53935;
-  color:#fff;
-  width:16px;
-  height:16px;
-  border-radius:50%;
-  font-size:9px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.nav.active span{
+  background:#ffd21f;
+  border-radius:13px;
+  padding:2px 9px;
 }
-
-
-/* LOADING */
-
-.loading{
-  text-align:center;
-  padding:30px;
-  color:#999;
-}
-
-
-/* LOADING SPINNER */
-
-.loading-spinner{
-  width:28px;
-  height:28px;
-  border:3px solid #eee;
-  border-top:3px solid #d29e00;
-  border-radius:50%;
-  animation:spin .7s linear infinite;
-  margin:0 auto 10px;
-}
-
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-
-/* DESKTOP */
 
 @media(min-width:700px){
-
-  .container{
-    padding:25px;
+  main{
+    max-width:900px;
+    margin:auto;
   }
 
   .products{
     grid-template-columns:repeat(4,1fr);
   }
 
-  .categories{
-    grid-template-columns:repeat(6,1fr);
-  }
-
-  .product-img{
-    height:220px;
-  }
-
   .banner{
-    height:280px;
+    height:260px;
   }
-
-  .banner-text h2{
-    font-size:35px;
-  }
-
 }
-
-
-/* SMALL PHONE */
-
-@media(max-width:360px){
-
-  .categories{
-    grid-template-columns:repeat(5,1fr);
-    gap:5px;
-  }
-
-  .category-icon{
-    width:40px;
-    height:40px;
-    font-size:20px;
-  }
-
-  .category p{
-    font-size:9px;
-  }
-
-  .product-img{
-    height:145px;
-  }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
+<header>
 
-<!-- HEADER -->
-
-<header class="header">
-
-  <div class="topbar">
+  <div class="top">
 
     <div class="logo">
-      🛍️ Sayon<span>Mart</span>
+
+      <div class="logoIcon">S</div>
+
+      <div class="logoText">
+        <b>Sayon<span>Mart</span></b>
+        <small>Better Products • Better Life</small>
+      </div>
+
     </div>
 
-    <div class="header-icons">
+    <div class="topBtns">
 
-      <button
-        class="icon-btn"
-        onclick="goWishlist()">
-        ♡
+      <button onclick="location.href='notifications.html'">
+        🔔
       </button>
 
-      <button
-        class="icon-btn"
-        onclick="goCart()">
+      <button onclick="location.href='cart.html'" id="cartTop">
         🛒
       </button>
 
@@ -566,98 +442,56 @@ body{
   </div>
 
 
-  <div class="search-box">
-
-    🔍
+  <div class="search">
 
     <input
-      id="searchInput"
-      type="text"
-      data-i18n-placeholder="Search products..."
-      placeholder="Search products..."
-      oninput="searchProducts()">
+      id="search"
+      type="search"
+      placeholder="পছন্দের পণ্য খুঁজুন..."
+      oninput="searchProduct()"
+    >
+
+    <button>⌕</button>
 
   </div>
 
 </header>
 
 
+<main>
 
-<main class="container">
-
-
-<!-- BANNER -->
-
-<section>
+  <!-- BANNER -->
 
   <div class="banner">
 
     <img
-      id="bannerImage"
-      src="https://picsum.photos/900/500?random=10"
+      id="banner"
+      src="https://picsum.photos/900/420?random=31"
       alt="SayonMart Offer"
-      fetchpriority="high">
-
-    <div class="banner-overlay">
-
-      <div class="banner-text">
-
-        <small data-i18n="SPECIAL OFFER">
-          SPECIAL OFFER
-        </small>
-
-        <h2 data-i18n="Smart Shopping">
-          Smart Shopping
-        </h2>
-
-        <p data-i18n="Best products at amazing prices.">
-          Best products at amazing prices.
-        </p>
-
-        <button
-          class="shop-btn"
-          onclick="scrollToProducts()"
-          data-i18n="Shop Now">
-
-          Shop Now
-
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="dots">
-
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-
-    </div>
+    >
 
   </div>
 
-</section>
+
+  <div class="dots">
+
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+
+  </div>
 
 
+  <!-- CATEGORY -->
 
-<!-- CATEGORIES -->
+  <div class="sectionHead">
 
-<section class="section">
+    <h2>Categories</h2>
 
-  <div class="section-title">
-
-    <h2 data-i18n="Categories">
-      Categories
-    </h2>
-
-    <a
-      onclick="goProducts()"
-      data-i18n="See All">
-
-      See All
-
+    <a href="products.html">
+      View All →
     </a>
 
   </div>
@@ -665,777 +499,483 @@ body{
 
   <div class="categories">
 
-
-    <div
-      class="category"
-      onclick="openCategory('Fashion')">
-
-      <div class="category-icon">
-        👕
-      </div>
-
-      <p data-i18n="Fashion">
-        Fashion
-      </p>
-
+    <div class="cat" onclick="openCategory('Mobiles')">
+      <div class="catImg">📱</div>
+      <div class="catName">Mobile</div>
     </div>
 
-
-
-    <div
-      class="category"
-      onclick="openCategory('Shoes')">
-
-      <div class="category-icon">
-        👟
-      </div>
-
-      <p data-i18n="Shoes">
-        Shoes
-      </p>
-
+    <div class="cat" onclick="openCategory('Electronics')">
+      <div class="catImg">🎧</div>
+      <div class="catName">Electronics</div>
     </div>
 
-
-
-    <div
-      class="category"
-      onclick="openCategory('Mobiles')">
-
-      <div class="category-icon">
-        📱
-      </div>
-
-      <p data-i18n="Mobiles">
-        Mobiles
-      </p>
-
+    <div class="cat" onclick="openCategory('Fashion')">
+      <div class="catImg">👕</div>
+      <div class="catName">Fashion</div>
     </div>
 
-
-
-    <div
-      class="category"
-      onclick="openCategory('Watches')">
-
-      <div class="category-icon">
-        ⌚
-      </div>
-
-      <p data-i18n="Watches">
-        Watches
-      </p>
-
+    <div class="cat" onclick="openCategory('Beauty')">
+      <div class="catImg">💄</div>
+      <div class="catName">Beauty</div>
     </div>
 
+    <div class="cat" onclick="openCategory('Home')">
+      <div class="catImg">🛋️</div>
+      <div class="catName">Home</div>
+    </div>
 
+    <div class="cat" onclick="openCategory('Shoes')">
+      <div class="catImg">👟</div>
+      <div class="catName">Shoes</div>
+    </div>
 
-    <div
-      class="category"
-      onclick="openCategory('Electronics')">
-
-      <div class="category-icon">
-        🎧
-      </div>
-
-      <p data-i18n="Electronics">
-        Electronics
-      </p>
-
+    <div class="cat" onclick="openCategory('Grocery')">
+      <div class="catImg">🛍️</div>
+      <div class="catName">Grocery</div>
     </div>
 
   </div>
 
-</section>
+
+  <!-- FLASH SALE -->
+
+  <div class="flash">
+
+    <div>
+      <h2>⚡ Flash Sale</h2>
+      <p>Limited Time Offer</p>
+    </div>
+
+    <button onclick="location.href='products.html'">
+      Shop Now →
+    </button>
+
+  </div>
 
 
+  <!-- TRENDING -->
 
-<!-- OFFER -->
+  <div class="sectionHead">
 
-<section class="section">
+    <h2>🔥 Trending Products</h2>
+
+    <a href="products.html">
+      View All →
+    </a>
+
+  </div>
+
+
+  <div id="products" class="products">
+
+    <div class="loading">
+      Products loading...
+    </div>
+
+  </div>
+
+
+  <!-- OFFER -->
 
   <div class="offer">
 
     <div>
 
-      <h2 data-i18n="Up To 70% OFF">
-        Up To 70% OFF
-      </h2>
+      <b>Up to 70% OFF</b>
 
-      <p data-i18n="Amazing deals on selected products">
-        Amazing deals on selected products
+      <p>
+        On selected products
       </p>
 
-      <button
-        class="shop-btn"
-        onclick="scrollToProducts()"
-        data-i18n="Shop Now">
+    </div>
 
-        Shop Now
-
-      </button>
-
+    <div class="bags">
+      🛍️
     </div>
 
   </div>
-
-</section>
-
-
-
-<!-- TRENDING -->
-
-<section
-  class="section"
-  id="productsSection">
-
-  <div class="section-title">
-
-    <h2>
-      🔥
-      <span data-i18n="Trending Products">
-        Trending Products
-      </span>
-    </h2>
-
-    <a
-      onclick="goProducts()"
-      data-i18n="See All">
-
-      See All
-
-    </a>
-
-  </div>
-
-
-  <div
-    id="trendingProducts"
-    class="products">
-
-    <div class="loading">
-
-      <div class="loading-spinner"></div>
-
-      <span data-i18n="Loading products...">
-        Loading products...
-      </span>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- NEW ARRIVALS -->
-
-<section class="section">
-
-  <div class="section-title">
-
-    <h2>
-      🆕
-      <span data-i18n="New Arrivals">
-        New Arrivals
-      </span>
-    </h2>
-
-    <a
-      onclick="goProducts()"
-      data-i18n="See All">
-
-      See All
-
-    </a>
-
-  </div>
-
-
-  <div
-    id="newProducts"
-    class="products">
-
-    <div class="loading">
-
-      <div class="loading-spinner"></div>
-
-      <span data-i18n="Loading...">
-        Loading...
-      </span>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- BEST DEALS -->
-
-<section class="section">
-
-  <div class="section-title">
-
-    <h2>
-      💰
-      <span data-i18n="Best Deals">
-        Best Deals
-      </span>
-    </h2>
-
-    <a
-      onclick="goProducts()"
-      data-i18n="See All">
-
-      See All
-
-    </a>
-
-  </div>
-
-
-  <div
-    id="discountProducts"
-    class="products">
-
-    <div class="loading">
-
-      <div class="loading-spinner"></div>
-
-      <span data-i18n="Loading...">
-        Loading...
-      </span>
-
-    </div>
-
-  </div>
-
-</section>
-
 
 </main>
 
 
-
 <!-- BOTTOM NAV -->
 
-<nav class="bottom-nav">
+<nav class="bottom">
+
+  <button
+    class="nav active"
+    onclick="location.href='index.html'"
+  >
+    <span>⌂</span>
+    Home
+  </button>
 
 
-  <div
-    class="nav-item active"
-    onclick="goHome()">
-
-    <div class="nav-icon">
-      ⌂
-    </div>
-
-    <span data-i18n="Home">
-      Home
-    </span>
-
-  </div>
+  <button
+    class="nav"
+    onclick="location.href='products.html'"
+  >
+    <span>▦</span>
+    Categories
+  </button>
 
 
-
-  <div
-    class="nav-item"
-    onclick="goProducts()">
-
-    <div class="nav-icon">
-      ▦
-    </div>
-
-    <span data-i18n="Categories">
-      Categories
-    </span>
-
-  </div>
+  <button
+    class="nav"
+    onclick="location.href='wishlist.html'"
+  >
+    <span>♡</span>
+    Wishlist
+  </button>
 
 
-
-  <div
-    class="nav-item"
-    onclick="goWishlist()">
-
-    <div class="nav-icon">
-      ♡
-    </div>
-
-    <span data-i18n="Wishlist">
-      Wishlist
-    </span>
-
-  </div>
+  <button
+    class="nav"
+    onclick="location.href='orders.html'"
+  >
+    <span>□</span>
+    Orders
+  </button>
 
 
-
-  <div
-    class="nav-item"
-    onclick="goCart()">
-
-    <span
-      id="cartBadge"
-      class="cart-badge"
-      style="display:none">
-
-      0
-
-    </span>
-
-    <div class="nav-icon">
-      🛒
-    </div>
-
-    <span data-i18n="Cart">
-      Cart
-    </span>
-
-  </div>
-
-
-
-  <div
-    class="nav-item"
-    onclick="goProfile()">
-
-    <div class="nav-icon">
-      ♙
-    </div>
-
-    <span data-i18n="Profile">
-      Profile
-    </span>
-
-  </div>
-
+  <button
+    class="nav"
+    onclick="location.href='settings.html'"
+  >
+    <span>♙</span>
+    Account
+  </button>
 
 </nav>
 
 
-
 <script type="module">
 
-
 import { db } from "./firebase.js";
-
 
 import {
   collection,
   getDocs,
-  query,
-  limit
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  limit,
+  query
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+
+const productsBox =
+  document.getElementById("products");
+
+
+const CACHE_KEY =
+  "sayonmart_products_cache";
 
 
 let allProducts = [];
 
 
-let cart =
-  JSON.parse(
-    localStorage.getItem("sayonmart_cart")
-  ) || [];
+/* SECURITY */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/[&<>"']/g, c => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[c]));
+
+}
 
 
-let wishlist =
-  JSON.parse(
-    localStorage.getItem("sayonmart_wishlist")
-  ) || [];
+function escapeAttr(value){
+
+  return escapeHTML(value)
+    .replace(/`/g,"&#096;");
+
+}
 
 
+/* CART */
 
-/* ================================
-   LOAD PRODUCTS - FAST
-================================ */
-
-async function loadProducts(){
+function getCart(){
 
   try{
 
-    /*
-      Home page-এ সব product একসাথে
-      download না করে maximum 24টি product
-      load করা হচ্ছে।
-    */
+    return JSON.parse(
+      localStorage.getItem("cart") || "[]"
+    );
 
-    const productsQuery =
-      query(
-        collection(db,"products"),
-        limit(24)
+  }catch{
+
+    return [];
+
+  }
+
+}
+
+
+function updateCartBadge(){
+
+  const cart = getCart();
+
+  const count =
+    cart.reduce(
+      (sum,item) =>
+        sum + (Number(item.quantity)||1),
+      0
+    );
+
+  const btn =
+    document.getElementById("cartTop");
+
+  if(btn){
+
+    btn.title =
+      `Cart ${count}`;
+
+  }
+
+}
+
+
+/* ADD CART */
+
+window.addToCart =
+function(id,name,price,image){
+
+  const cart = getCart();
+
+  const found =
+    cart.find(x => x.id === id);
+
+
+  if(found){
+
+    found.quantity =
+      (Number(found.quantity)||1) + 1;
+
+  }else{
+
+    cart.push({
+
+      id:id,
+
+      name:name,
+
+      price:Number(price)||0,
+
+      image:image,
+
+      quantity:1
+
+    });
+
+  }
+
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+
+  updateCartBadge();
+
+
+  alert("🛒 Cart-এ যোগ হয়েছে");
+
+};
+
+
+/* LIKE / WISHLIST */
+
+window.addWishlist =
+function(id,name,price,image,button){
+
+  let list = [];
+
+  try{
+
+    list =
+      JSON.parse(
+        localStorage.getItem("wishlist") || "[]"
       );
 
-
-    const snapshot =
-      await getDocs(productsQuery);
+  }catch{}
 
 
-    allProducts = [];
+  const index =
+    list.findIndex(
+      x => x.id === id
+    );
 
 
-    snapshot.forEach(docSnap => {
+  if(index === -1){
 
-      allProducts.push({
+    list.push({
 
-        id:docSnap.id,
+      id:id,
 
-        ...docSnap.data()
+      name:name,
 
-      });
+      price:Number(price)||0,
+
+      image:image
 
     });
 
 
-    displayHomeProducts();
+    if(button){
+
+      button.textContent = "♥";
+
+      button.classList.add("liked");
+
+      button.setAttribute(
+        "aria-label",
+        "Unlike"
+      );
+
+    }
 
 
-  }catch(error){
+    alert("❤️ Like করা হয়েছে");
 
-    console.error(
-      "Product loading error:",
-      error
-    );
+  }else{
 
-
-    document.getElementById(
-      "trendingProducts"
-    ).innerHTML =
-
-      `<div class="empty">
-        ${translate("Unable to load products.")}
-      </div>`;
-
-  }
-
-}
+    list.splice(index,1);
 
 
+    if(button){
 
-/* ================================
-   DATE / CREATED AT
-================================ */
+      button.textContent = "♡";
 
-function getCreatedTime(value){
+      button.classList.remove("liked");
 
-  if(!value){
-    return 0;
-  }
+      button.setAttribute(
+        "aria-label",
+        "Like"
+      );
+
+    }
 
 
-  if(
-    typeof value === "object" &&
-    value.seconds
-  ){
-
-    return Number(value.seconds) * 1000;
+    alert("💔 Like সরানো হয়েছে");
 
   }
 
 
-  if(
-    typeof value === "object" &&
-    typeof value.toMillis === "function"
-  ){
-
-    return value.toMillis();
-
-  }
-
-
-  if(typeof value === "number"){
-
-    return value;
-
-  }
-
-
-  return 0;
-
-}
-
-
-
-/* ================================
-   DISPLAY HOME PRODUCTS
-================================ */
-
-function displayHomeProducts(){
-
-  const trending =
-    allProducts
-      .slice(0,6);
-
-
-  const newest =
-    [...allProducts]
-      .sort(
-        (a,b) =>
-          getCreatedTime(b.createdAt) -
-          getCreatedTime(a.createdAt)
-      )
-      .slice(0,6);
-
-
-  const deals =
-    allProducts
-      .filter(
-        p => p.discount
-      )
-      .sort(
-        (a,b) =>
-          Number(b.discount || 0) -
-          Number(a.discount || 0)
-      )
-      .slice(0,6);
-
-
-  renderProducts(
-    "trendingProducts",
-    trending
+  localStorage.setItem(
+    "wishlist",
+    JSON.stringify(list)
   );
 
-
-  renderProducts(
-    "newProducts",
-    newest
-  );
+};
 
 
-  renderProducts(
-    "discountProducts",
-    deals
-  );
+/* RENDER PRODUCTS */
 
-}
+function renderProducts(list){
 
+  if(!list.length){
 
-
-/* ================================
-   RENDER PRODUCTS
-================================ */
-
-function renderProducts(
-  containerId,
-  products
-){
-
-  const container =
-    document.getElementById(
-      containerId
-    );
-
-
-  if(!products.length){
-
-    container.innerHTML =
-
-      `<div class="empty">
-        ${translate("No products available")}
-      </div>`;
+    productsBox.innerHTML =
+      '<div class="empty" style="grid-column:1/-1">কোনো Product পাওয়া যায়নি</div>';
 
     return;
 
   }
 
 
-  container.innerHTML =
+  productsBox.innerHTML =
+    list.map(p => {
 
-    products.map(product => {
+      const id =
+        escapeAttr(p.id);
 
+      const name =
+        escapeAttr(p.name);
 
       const image =
-
-        product.image ||
-
-        product.imageUrl ||
-
-        (
-          Array.isArray(product.images)
-          ? product.images[0]
-          : ""
-        ) ||
-
-        "https://via.placeholder.com/500";
-
+        escapeAttr(p.image);
 
       const price =
-        Number(
-          product.price || 0
-        );
+        Number(p.price)||0;
 
 
-      const oldPrice =
-        product.oldPrice
-        ? Number(product.oldPrice)
-        : null;
+      let liked = false;
 
 
-      const discount =
+      try{
 
-        product.discount
+        const wishlist =
+          JSON.parse(
+            localStorage.getItem("wishlist") || "[]"
+          );
 
-        ? Number(product.discount)
+        liked =
+          wishlist.some(
+            x => x.id === p.id
+          );
 
-        :
-
-        (
-          oldPrice &&
-          oldPrice > price
-
-          ?
-
-          Math.round(
-            (
-              (oldPrice-price) /
-              oldPrice
-            ) * 100
-          )
-
-          :
-
-          0
-        );
-
-
-      const rating =
-        product.rating || 4.5;
-
-
-      const safeName =
-        escapeHTML(
-          product.name ||
-          "Product"
-        );
-
-
-      const safeId =
-        encodeURIComponent(
-          product.id
-        );
-
-
-      const safeImage =
-        escapeAttribute(
-          image
-        );
+      }catch{}
 
 
       return `
 
-        <div
-          class="product-card"
-          onclick="openProduct('${safeId}')">
+        <div class="card">
 
-
-          <div class="product-img">
+          <div class="cardImg">
 
             <img
-              src="${safeImage}"
-              alt="${safeName}"
+              src="${image}"
+              alt="${name}"
               loading="lazy"
-              decoding="async">
+              onerror="this.src='https://picsum.photos/400/400?random=${encodeURIComponent(p.id)}'"
+            >
 
 
             <button
-              class="wishlist"
-              onclick="
-                event.stopPropagation();
-                toggleWishlist('${safeId}')
-              ">
-
-              ${
-                wishlist.includes(
-                  product.id
-                )
-                ? "❤️"
-                : "♡"
-              }
-
+              class="wish ${liked ? "liked" : ""}"
+              aria-label="${liked ? "Unlike" : "Like"}"
+              onclick="addWishlist(
+                '${id}',
+                '${name}',
+                ${price},
+                '${image}',
+                this
+              )"
+            >
+              ${liked ? "♥" : "♡"}
             </button>
 
           </div>
 
 
+          <div class="cardBody">
 
-          <div class="product-info">
+            <h3>
+              ${escapeHTML(p.name)}
+            </h3>
 
 
-            <div class="product-name">
-
-              ${safeName}
-
+            <div class="price">
+              ₹${price.toLocaleString("en-IN")}
             </div>
 
 
-
-            <div class="rating">
-
-              ⭐ ${rating}
-
-            </div>
-
-
-
-            <div class="price-row">
-
-
-              <span class="price">
-
-                ₹${price.toLocaleString("en-IN")}
-
-              </span>
-
-
-
-              ${
-                oldPrice
-
-                ?
-
-                `
-
-                <span class="old-price">
-
-                  ₹${oldPrice.toLocaleString("en-IN")}
-
-                </span>
-
-                `
-
-                :
-
-                ""
-              }
-
-
-
-              ${
-                discount > 0
-
-                ?
-
-                `
-
-                <span class="discount">
-
-                  ${discount}%
-                  ${translate("OFF") || "OFF"}
-
-                </span>
-
-                `
-
-                :
-
-                ""
-              }
-
-
-            </div>
+            <button
+              class="add"
+              onclick="addToCart(
+                '${id}',
+                '${name}',
+                ${price},
+                '${image}'
+              )"
+            >
+              🛒 Add to Cart
+            </button>
 
           </div>
 
@@ -1448,361 +988,171 @@ function renderProducts(
 }
 
 
+/* CACHE */
 
-/* ================================
-   SEARCH
-================================ */
+function loadProductsFromCache(){
 
-window.searchProducts = function(){
+  try{
 
-  const text =
-
-    document
-      .getElementById(
-        "searchInput"
-      )
-      .value
-      .toLowerCase()
-      .trim();
+    const cached =
+      JSON.parse(
+        localStorage.getItem(CACHE_KEY) || "[]"
+      );
 
 
-  if(!text){
+    if(
+      Array.isArray(cached) &&
+      cached.length
+    ){
 
-    displayHomeProducts();
+      allProducts = cached;
 
-    return;
+      renderProducts(
+        allProducts
+      );
+
+      return true;
+
+    }
+
+  }catch{}
+
+
+  return false;
+
+}
+
+
+function saveProductsToCache(data){
+
+  try{
+
+    localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify(data)
+    );
+
+  }catch{}
+
+}
+
+
+/* FIREBASE */
+
+async function loadProductsFromFirebase(){
+
+  try{
+
+    const q =
+      query(
+        collection(db,"products"),
+        limit(24)
+      );
+
+
+    const snap =
+      await getDocs(q);
+
+
+    const data =
+      snap.docs
+        .map(doc => ({
+          id:doc.id,
+          ...doc.data()
+        }))
+        .filter(p => p.name);
+
+
+    allProducts = data;
+
+
+    saveProductsToCache(data);
+
+
+    renderProducts(data);
+
+  }catch(error){
+
+    console.error(error);
+
+
+    if(!allProducts.length){
+
+      productsBox.innerHTML =
+        '<div class="empty" style="grid-column:1/-1">Product load করা যাচ্ছে না। Firebase connection check করুন।</div>';
+
+    }
 
   }
 
-
-  const result =
-
-    allProducts.filter(
-      product => {
+}
 
 
-        const name =
+/* SEARCH */
 
-          (
-            product.name || ""
-          )
-          .toLowerCase();
+window.searchProduct =
+function(){
 
-
-        const category =
-
-          (
-            product.category || ""
-          )
-          .toLowerCase();
+  const term =
+    document
+      .getElementById("search")
+      .value
+      .trim()
+      .toLowerCase();
 
 
-        return (
-
-          name.includes(text) ||
-
-          category.includes(text)
-
-        );
-
-      }
+  const filtered =
+    allProducts.filter(p =>
+      String(p.name || "")
+        .toLowerCase()
+        .includes(term)
     );
 
 
-  renderProducts(
-    "trendingProducts",
-    result
+  renderProducts(filtered);
+
+};
+
+
+/* CATEGORY */
+
+window.openCategory =
+function(category){
+
+  localStorage.setItem(
+    "selectedCategory",
+    category
   );
 
 
-  document.getElementById(
-    "newProducts"
-  ).innerHTML = "";
-
-
-  document.getElementById(
-    "discountProducts"
-  ).innerHTML = "";
-
-};
-
-
-
-/* ================================
-   PRODUCT
-================================ */
-
-window.openProduct = function(id){
-
-  window.location.href =
-    "product.html?id=" +
-    encodeURIComponent(id);
-
-};
-
-
-
-/* ================================
-   CATEGORY
-================================ */
-
-window.openCategory = function(category){
-
-  window.location.href =
-    "products.html?category=" +
-    encodeURIComponent(category);
-
-};
-
-
-
-/* ================================
-   NAVIGATION
-================================ */
-
-window.goHome = function(){
-
-  window.scrollTo({
-
-    top:0,
-
-    behavior:"smooth"
-
-  });
-
-};
-
-
-window.goProducts = function(){
-
-  window.location.href =
+  location.href =
     "products.html";
 
 };
 
 
-window.goCart = function(){
+/* START */
 
-  window.location.href =
-    "cart.html";
+updateCartBadge();
 
-};
+loadProductsFromCache();
 
+loadProductsFromFirebase();
 
-window.goWishlist = function(){
 
-  window.location.href =
-    "profile.html#wishlist";
-
-};
-
-
-window.goProfile = function(){
-
-  window.location.href =
-    "profile.html";
-
-};
-
-
-
-/* ================================
-   SHOP NOW
-================================ */
-
-window.scrollToProducts = function(){
-
-  document
-    .getElementById(
-      "productsSection"
-    )
-    .scrollIntoView({
-
-      behavior:"smooth"
-
-    });
-
-};
-
-
-
-/* ================================
-   WISHLIST
-================================ */
-
-window.toggleWishlist = function(id){
-
-  try{
-
-    id =
-      decodeURIComponent(id);
-
-  }catch(e){}
-
-
-  if(
-    wishlist.includes(id)
-  ){
-
-    wishlist =
-      wishlist.filter(
-        x => x !== id
-      );
-
-  }else{
-
-    wishlist.push(id);
-
-  }
-
-
-  localStorage.setItem(
-    "sayonmart_wishlist",
-    JSON.stringify(wishlist)
-  );
-
-
-  displayHomeProducts();
-
-};
-
-
-
-/* ================================
-   CART BADGE
-================================ */
-
-function updateCartBadge(){
-
-  const count =
-
-    cart.reduce(
-
-      (
-        total,
-        item
-      ) =>
-
-        total +
-
-        Number(
-          item.quantity || 1
-        ),
-
-      0
-
-    );
-
-
-  const badge =
-    document.getElementById(
-      "cartBadge"
-    );
-
-
-  if(count > 0){
-
-    badge.style.display =
-      "flex";
-
-
-    badge.textContent =
-      count > 99
-      ? "99+"
-      : count;
-
-  }else{
-
-    badge.style.display =
-      "none";
-
-  }
-
-}
-
-
-
-/* ================================
-   ESCAPE HTML
-================================ */
-
-function escapeHTML(text){
-
-  return String(text)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-
-function escapeAttribute(text){
-
-  return String(text)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    );
-
-}
-
-
-
-/* ================================
-   BANNER SLIDER
-================================ */
+/* BANNER SLIDER */
 
 const banners = [
 
-  "https://picsum.photos/900/500?random=10",
+  "https://picsum.photos/900/420?random=31",
 
-  "https://picsum.photos/900/500?random=11",
+  "https://picsum.photos/900/420?random=32",
 
-  "https://picsum.photos/900/500?random=12"
+  "https://picsum.photos/900/420?random=33",
+
+  "https://picsum.photos/900/420?random=34",
+
+  "https://picsum.photos/900/420?random=35"
 
 ];
 
@@ -1810,69 +1160,35 @@ const banners = [
 let bannerIndex = 0;
 
 
+const banner =
+  document.getElementById("banner");
+
+
+const dots =
+  document.querySelectorAll(".dot");
+
+
 setInterval(() => {
 
-
   bannerIndex =
-
-    (
-      bannerIndex + 1
-    ) %
-
+    (bannerIndex + 1) %
     banners.length;
 
 
-  const bannerImage =
-    document.getElementById(
-      "bannerImage"
-    );
-
-
-  bannerImage.src =
+  banner.src =
     banners[bannerIndex];
 
 
-  document
-    .querySelectorAll(".dot")
-    .forEach(
-      (dot,index) => {
+  dots.forEach((d,i) => {
 
-        dot.classList.toggle(
-          "active",
-          index === bannerIndex
-        );
-
-      }
+    d.classList.toggle(
+      "active",
+      i === bannerIndex
     );
 
+  });
 
-},4000);
-
-
-
-/* ================================
-   LANGUAGE CHANGE
-================================ */
-
-window.addEventListener(
-  "languageChanged",
-  function(){
-
-    displayHomeProducts();
-
-  }
-);
-
-
-
-/* ================================
-   START
-================================ */
-
-updateCartBadge();
-
-loadProducts();
-
+},3000);
 
 </script>
 
