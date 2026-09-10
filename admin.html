@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SayonMart Admin Panel</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -14,1532 +17,435 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:#f5f5f5;
-  color:#222;
-  padding-bottom:40px;
+  background:#111;
+  color:#fff;
+  min-height:100vh;
 }
 
-/* HEADER */
 header{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:#fff;
-  border-bottom:2px solid #d4af37;
-  padding:16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-
-.logo{
-  font-size:23px;
-  font-weight:bold;
-  color:#c49a00;
-}
-
-.admin-badge{
-  background:#fff7d6;
-  color:#9b7800;
-  border:1px solid #e5c84b;
-  padding:7px 12px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
-}
-
-/* CONTAINER */
-.container{
-  width:100%;
-  max-width:1100px;
-  margin:auto;
+  background:#000;
+  color:#FFD700;
   padding:18px;
-}
-
-/* CARDS */
-.card{
-  background:#fff;
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.07);
-  border-top:4px solid #d4af37;
-}
-
-.card h2{
-  color:#b18700;
-  margin-bottom:18px;
-  font-size:20px;
-}
-
-/* INPUTS */
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-label{
-  font-size:13px;
-  font-weight:bold;
-  color:#555;
-}
-
-input,
-select,
-textarea{
-  width:100%;
-  border:1px solid #ddd;
-  background:#fff;
-  border-radius:10px;
-  padding:13px;
-  font-size:14px;
-  outline:none;
-  transition:.2s;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:#d4af37;
-  box-shadow:0 0 0 3px rgba(212,175,55,.12);
-}
-
-textarea{
-  min-height:110px;
-  resize:vertical;
-}
-
-/* BUTTONS */
-.buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:18px;
-}
-
-button{
-  border:none;
-  border-radius:10px;
-  padding:12px 18px;
-  font-weight:bold;
-  cursor:pointer;
-  font-size:14px;
-}
-
-.btn-gold{
-  background:#d4af37;
-  color:#fff;
-}
-
-.btn-gold:hover{
-  background:#b9931e;
-}
-
-.btn-light{
-  background:#f2f2f2;
-  color:#333;
-}
-
-.btn-red{
-  background:#e53935;
-  color:#fff;
-}
-
-.btn-blue{
-  background:#1976d2;
-  color:#fff;
-}
-
-/* PREVIEW */
-#preview{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.preview-img{
-  width:90px;
-  height:90px;
-  object-fit:cover;
-  border-radius:10px;
-  border:2px solid #eee;
-}
-
-/* PRODUCT GRID */
-.products-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-}
-
-.product{
-  background:#fff;
-  border:1px solid #eee;
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:0 3px 12px rgba(0,0,0,.06);
-}
-
-.product img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  background:#eee;
-}
-
-.product-info{
-  padding:13px;
-}
-
-.product-name{
-  font-weight:bold;
-  font-size:15px;
-  margin-bottom:7px;
-}
-
-.price{
-  color:#b18700;
-  font-size:18px;
-  font-weight:bold;
-}
-
-.old-price{
-  color:#999;
-  text-decoration:line-through;
-  font-size:13px;
-  margin-left:5px;
-}
-
-.discount{
-  display:inline-block;
-  background:#e9f7ec;
-  color:#16852c;
-  padding:4px 7px;
-  border-radius:5px;
-  font-size:11px;
-  margin-top:7px;
-}
-
-.category{
-  color:#777;
-  font-size:12px;
-  margin-top:6px;
-}
-
-.product-buttons{
-  display:flex;
-  gap:7px;
-  margin-top:12px;
-}
-
-.product-buttons button{
-  flex:1;
-  padding:9px 5px;
-  font-size:12px;
-}
-
-/* EMPTY */
-.empty{
   text-align:center;
-  color:#777;
-  padding:30px;
+  font-size:24px;
+  font-weight:bold;
 }
 
-/* MODAL */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:999;
-  background:rgba(0,0,0,.55);
+.container{
+  max-width:600px;
+  margin:auto;
   padding:20px;
-  overflow-y:auto;
 }
 
-.modal-box{
-  background:#fff;
-  max-width:650px;
-  margin:40px auto;
-  border-radius:18px;
-  padding:22px;
+.box{
+  background:#1d1d1d;
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:20px;
 }
 
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.close{
-  background:#eee;
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  padding:0;
-  font-size:20px;
-}
-
-.detail-row{
-  padding:12px 0;
-  border-bottom:1px solid #eee;
-}
-
-.detail-row b{
-  color:#a47e00;
-}
-
-/* ADMIN INFO */
-.admin-info{
-  background:#fff9df;
-  border:1px solid #ead27b;
-  border-radius:10px;
-  padding:12px;
-  font-size:13px;
+h2{
+  color:#FFD700;
   margin-bottom:15px;
 }
 
-/* SCROLLBAR */
-::-webkit-scrollbar{
-  width:8px;
+label{
+  display:block;
+  margin-top:12px;
+  margin-bottom:6px;
 }
 
-::-webkit-scrollbar-thumb{
-  background:#d4af37;
+input{
+  width:100%;
+  padding:13px;
+  border:none;
+  border-radius:9px;
+  background:#292929;
+  color:white;
+  font-size:15px;
+}
+
+input:focus{
+  outline:2px solid #FFD700;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  margin-top:12px;
+  border:none;
   border-radius:10px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-/* MOBILE */
-@media(max-width:800px){
-  .products-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .field.full{
-    grid-column:auto;
-  }
-
-  .product img{
-    height:150px;
-  }
+.add-btn{
+  background:#FFD700;
+  color:#111;
 }
 
-@media(max-width:450px){
-  .container{
-    padding:12px;
-  }
-
-  .card{
-    padding:15px;
-  }
-
-  .product img{
-    height:135px;
-  }
-
-  .logo{
-    font-size:19px;
-  }
-
-  .admin-badge{
-    font-size:10px;
-  }
+.confirm-btn{
+  background:#00c853;
+  color:white;
 }
+
+.orders-btn{
+  background:#673ab7;
+  color:white;
+}
+
+.home-btn{
+  background:#333;
+  color:#FFD700;
+  border:1px solid #FFD700;
+}
+
+#status{
+  text-align:center;
+  margin-top:15px;
+  color:#00e676;
+  font-weight:bold;
+}
+
+.menu-title{
+  color:#FFD700;
+  margin-bottom:5px;
+}
+
+.menu-text{
+  color:#aaa;
+  font-size:14px;
+  margin-bottom:15px;
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-  <div class="logo">SayonMart Admin</div>
-  <div class="admin-badge">ADMIN PANEL</div>
+  🛒 SayonMart Admin Panel
 </header>
+
 
 <div class="container">
 
-<!-- ADMIN INFO -->
-<div class="admin-info">
-  🔐 <b>Admin Dashboard</b><br>
-  এখান থেকে Product Add, Edit, Delete এবং Product Details দেখা যাবে।
-</div>
 
-<!-- ADD PRODUCT -->
-<div class="card">
+  <!-- PRODUCT -->
+  <div class="box">
 
-<h2 id="formTitle">➕ Add New Product</h2>
+    <h2>➕ Add Product</h2>
 
-<div class="form-grid">
+    <label>
+      Product Name
+    </label>
 
-<div class="field">
-<label>Product Name *</label>
-<input id="productName" type="text" placeholder="Product Name">
-</div>
-
-<div class="field">
-<label>Price *</label>
-<input id="productPrice" type="number" placeholder="Price">
-</div>
-
-<div class="field">
-<label>Old Price (Optional)</label>
-<input id="productOldPrice" type="number" placeholder="Old Price">
-</div>
-
-<div class="field">
-<label>Discount % (Optional)</label>
-<input id="productDiscount" type="number" placeholder="Discount %">
-</div>
-
-<div class="field">
-<label>Category *</label>
-<select id="productCategory">
-<option value="">Select Category</option>
-<option value="Fashion">Fashion</option>
-<option value="Shoes">Shoes</option>
-<option value="Mobiles">Mobiles</option>
-<option value="Watches">Watches</option>
-<option value="Electronics">Electronics</option>
-<option value="Other">Other</option>
-</select>
-</div>
-
-<div class="field">
-<label>Colors (Optional)</label>
-<input id="productColors"
-       type="text"
-       placeholder="Black, Blue, Red">
-</div>
-
-<div class="field">
-<label>Sizes (Optional)</label>
-<input id="productSizes"
-       type="text"
-       placeholder="M, L, XL, XXL">
-</div>
-
-<div class="field full">
-<label>Product Description (Optional)</label>
-<textarea id="productDescription"
-          placeholder="Write product description..."></textarea>
-</div>
-
-<div class="field full">
-<label>Product Images *</label>
-<input id="productImage"
-       type="file"
-       accept="image/*"
-       multiple>
-</div>
-
-</div>
-
-<div id="preview"></div>
-
-<div class="buttons">
-<button class="btn-gold" id="saveBtn" onclick="saveProduct()">
-💾 Save Product
-</button>
-
-<button class="btn-light" id="cancelBtn"
-        onclick="cancelEdit()"
-        style="display:none;">
-Cancel Edit
-</button>
-</div>
-
-</div>
+    <input
+      id="productName"
+      type="text"
+      placeholder="Product Name"
+    >
 
 
-<!-- PRODUCTS -->
-<div class="card">
+    <label>
+      Product Price
+    </label>
 
-<h2>📦 All Products</h2>
-
-<div id="productsGrid" class="products-grid">
-<div class="empty">Loading products...</div>
-</div>
-
-</div>
-
-</div>
+    <input
+      id="productPrice"
+      type="number"
+      placeholder="Product Price"
+    >
 
 
-<!-- DETAILS MODAL -->
-<div id="detailsModal" class="modal">
+    <label>
+      Image URL
+    </label>
 
-<div class="modal-box">
+    <input
+      id="productImage"
+      type="text"
+      placeholder="https://..."
+    >
 
-<div class="modal-header">
-<h2>Product Details</h2>
-<button class="close" onclick="closeModal()">×</button>
-</div>
 
-<div id="detailsContent"></div>
+    <button
+      class="add-btn"
+      onclick="addProduct()"
+    >
+      ➕ Add Product
+    </button>
 
-</div>
+
+    <div id="status"></div>
+
+  </div>
+
+
+  <!-- ORDER MANAGEMENT -->
+  <div class="box">
+
+    <h2 class="menu-title">
+      📦 Order Management
+    </h2>
+
+    <p class="menu-text">
+      Customer-এর order এখান থেকে manage করুন।
+    </p>
+
+
+    <button
+      class="confirm-btn"
+      onclick="location.href='confirm-orders.html'"
+    >
+      ✅ Confirm Orders
+    </button>
+
+
+    <button
+      class="orders-btn"
+      onclick="location.href='admin-orders.html'"
+    >
+      📋 All Orders
+    </button>
+
+  </div>
+
+
+  <!-- HOME -->
+  <div class="box">
+
+    <button
+      class="home-btn"
+      onclick="location.href='index.html'"
+    >
+      🏠 Home
+    </button>
+
+  </div>
+
 
 </div>
 
 
 <script type="module">
 
-import { db, auth } from "./firebase.js";
+
+import { auth, db } from "./firebase.js";
+
 
 import {
   collection,
   addDoc,
-  getDocs,
-  doc,
-  updateDoc,
-  deleteDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 import {
   onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-/* =========================
+
+/* ==========================
    ADMIN UID
-========================= */
-
-const ADMIN_UID = "fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+========================== */
 
 
-/* =========================
-   VARIABLES
-========================= */
-
-let currentUser = null;
-let editingId = null;
-let selectedImages = [];
+const ADMIN_UID =
+"fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
 
 
-/* =========================
-   AUTH CHECK
-========================= */
+
+/* ==========================
+   CHECK ADMIN
+========================== */
+
 
 onAuthStateChanged(auth, user => {
 
-  if(!user){
+  if(
+    !user ||
+    user.uid !== ADMIN_UID
+  ){
 
-    alert("Admin login required.");
+    alert(
+      "❌ শুধু Admin এই page ব্যবহার করতে পারবেন।"
+    );
 
-    window.location.href = "login.html";
+    location.href =
+      "index.html";
 
-    return;
   }
-
-  if(user.uid !== ADMIN_UID){
-
-    alert("You are not an admin.");
-
-    window.location.href = "index.html";
-
-    return;
-  }
-
-  currentUser = user;
-
-  loadProducts();
 
 });
 
 
-/* =========================
-   IMAGE COMPRESSION
-========================= */
 
-function compressImage(file){
-
-  return new Promise((resolve,reject)=>{
-
-    const reader = new FileReader();
-
-    reader.onload = event => {
-
-      const img = new Image();
-
-      img.onload = ()=>{
-
-        const canvas = document.createElement("canvas");
-
-        const maxWidth = 900;
-
-        let width = img.width;
-        let height = img.height;
-
-        if(width > maxWidth){
-
-          height = height * maxWidth / width;
-
-          width = maxWidth;
-
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-
-        const ctx = canvas.getContext("2d");
-
-        ctx.drawImage(img,0,0,width,height);
-
-        resolve(
-          canvas.toDataURL("image/jpeg",0.75)
-        );
-
-      };
-
-      img.onerror = reject;
-
-      img.src = event.target.result;
-
-    };
-
-    reader.onerror = reject;
-
-    reader.readAsDataURL(file);
-
-  });
-
-}
+/* ==========================
+   ADD PRODUCT
+========================== */
 
 
-/* =========================
-   IMAGE SELECT
-========================= */
-
-document.getElementById("productImage")
-.addEventListener("change", async function(){
-
-  const files = Array.from(this.files);
-
-  if(files.length > 10){
-
-    alert("Maximum 10 images allowed.");
-
-    this.value = "";
-
-    return;
-  }
-
-  selectedImages = [];
-
-  document.getElementById("preview").innerHTML =
-    "<p>Processing images...</p>";
-
-  for(const file of files){
-
-    try{
-
-      const compressed =
-        await compressImage(file);
-
-      selectedImages.push(compressed);
-
-    }catch(error){
-
-      console.error(error);
-
-    }
-
-  }
-
-  showPreview();
-
-});
-
-
-/* =========================
-   SHOW PREVIEW
-========================= */
-
-function showPreview(){
-
-  const preview =
-    document.getElementById("preview");
-
-  preview.innerHTML = "";
-
-  selectedImages.forEach(image => {
-
-    const img = document.createElement("img");
-
-    img.src = image;
-
-    img.className = "preview-img";
-
-    preview.appendChild(img);
-
-  });
-
-}
-
-
-/* =========================
-   SAVE PRODUCT
-========================= */
-
-window.saveProduct = async function(){
-
-  if(!currentUser){
-
-    alert("Please login.");
-
-    return;
-  }
+window.addProduct =
+async function(){
 
   const name =
-    document.getElementById("productName")
-    .value.trim();
+    document
+      .getElementById("productName")
+      .value
+      .trim();
+
 
   const price =
-    document.getElementById("productPrice")
-    .value.trim();
-
-  const oldPrice =
-    document.getElementById("productOldPrice")
-    .value.trim();
-
-  const discount =
-    document.getElementById("productDiscount")
-    .value.trim();
-
-  const category =
-    document.getElementById("productCategory")
-    .value;
-
-  const colorsText =
-    document.getElementById("productColors")
-    .value.trim();
-
-  const sizesText =
-    document.getElementById("productSizes")
-    .value.trim();
-
-  const description =
-    document.getElementById("productDescription")
-    .value.trim();
+    Number(
+      document
+        .getElementById("productPrice")
+        .value
+    );
 
 
-  /* VALIDATION */
+  const image =
+    document
+      .getElementById("productImage")
+      .value
+      .trim();
+
+
 
   if(!name){
 
-    alert("Product name দিন.");
+    alert(
+      "Product Name দিন।"
+    );
 
     return;
-  }
 
-  if(!price){
-
-    alert("Product price দিন.");
-
-    return;
-  }
-
-  if(!category){
-
-    alert("Category select করুন.");
-
-    return;
   }
 
 
-  const colors =
-    colorsText
-    .split(",")
-    .map(x => x.trim())
-    .filter(Boolean);
 
-
-  const sizes =
-    sizesText
-    .split(",")
-    .map(x => x.trim())
-    .filter(Boolean);
-
-
-  try{
-
-    document.getElementById("saveBtn").disabled = true;
-
-    document.getElementById("saveBtn").innerText =
-      "Saving...";
-
-
-    /* =====================
-       EDIT PRODUCT
-    ===================== */
-
-    if(editingId){
-
-      const updateData = {
-
-        name:name,
-
-        price:Number(price),
-
-        category:category,
-
-        oldPrice:
-          oldPrice ? Number(oldPrice) : null,
-
-        discount:
-          discount ? Number(discount) : null,
-
-        colors:colors,
-
-        sizes:sizes,
-
-        description:description
-
-      };
-
-
-      if(selectedImages.length > 0){
-
-        updateData.image =
-          selectedImages[0];
-
-        updateData.images =
-          selectedImages;
-
-      }
-
-
-      await updateDoc(
-
-        doc(db,"products",editingId),
-
-        updateData
-
-      );
-
-
-      alert("✅ Product updated successfully.");
-
-    }
-
-    /* =====================
-       ADD PRODUCT
-    ===================== */
-
-    else{
-
-      if(selectedImages.length === 0){
-
-        alert("কমপক্ষে ১টি image দিন.");
-
-        document.getElementById("saveBtn")
-        .disabled = false;
-
-        document.getElementById("saveBtn")
-        .innerText = "💾 Save Product";
-
-        return;
-      }
-
-
-      const productData = {
-
-        name:name,
-
-        price:Number(price),
-
-        category:category,
-
-        image:selectedImages[0],
-
-        images:selectedImages,
-
-        createdAt:Date.now(),
-
-        createdBy:currentUser.uid,
-
-        createdByEmail:
-          currentUser.email || ""
-
-      };
-
-
-      if(oldPrice){
-
-        productData.oldPrice =
-          Number(oldPrice);
-
-      }
-
-
-      if(discount){
-
-        productData.discount =
-          Number(discount);
-
-      }
-
-
-      if(colors.length > 0){
-
-        productData.colors =
-          colors;
-
-      }
-
-
-      if(sizes.length > 0){
-
-        productData.sizes =
-          sizes;
-
-      }
-
-
-      if(description){
-
-        productData.description =
-          description;
-
-      }
-
-
-      await addDoc(
-
-        collection(db,"products"),
-
-        productData
-
-      );
-
-
-      alert("✅ Product added successfully.");
-
-    }
-
-
-    clearForm();
-
-    await loadProducts();
-
-
-  }catch(error){
-
-    console.error(error);
+  if(!price || price <= 0){
 
     alert(
-      "❌ Error: " + error.message
+      "সঠিক Product Price দিন।"
     );
 
-  }
-
-
-  document.getElementById("saveBtn")
-  .disabled = false;
-
-  document.getElementById("saveBtn")
-  .innerText =
-    editingId
-    ? "💾 Update Product"
-    : "💾 Save Product";
-
-};
-
-
-/* =========================
-   LOAD PRODUCTS
-========================= */
-
-async function loadProducts(){
-
-  const grid =
-    document.getElementById("productsGrid");
-
-  grid.innerHTML =
-    '<div class="empty">Loading...</div>';
-
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(db,"products")
-      );
-
-
-    grid.innerHTML = "";
-
-
-    if(snapshot.empty){
-
-      grid.innerHTML =
-        '<div class="empty">No products found.</div>';
-
-      return;
-
-    }
-
-
-    snapshot.forEach(item => {
-
-      const p = item.data();
-
-      const id = item.id;
-
-
-      const image =
-        p.image ||
-        (p.images && p.images[0]) ||
-        "https://via.placeholder.com/500";
-
-
-      const oldPrice =
-        p.oldPrice
-        ? `<span class="old-price">₹${p.oldPrice}</span>`
-        : "";
-
-
-      const discount =
-        p.discount
-        ? `<div class="discount">${p.discount}% OFF</div>`
-        : "";
-
-
-      const div =
-        document.createElement("div");
-
-      div.className = "product";
-
-
-      div.innerHTML = `
-
-        <img src="${escapeHTML(image)}">
-
-        <div class="product-info">
-
-          <div class="product-name">
-            ${escapeHTML(p.name || "Unnamed")}
-          </div>
-
-          <div class="price">
-            ₹${Number(p.price || 0).toLocaleString("en-IN")}
-            ${oldPrice}
-          </div>
-
-          ${discount}
-
-          <div class="category">
-            ${escapeHTML(p.category || "")}
-          </div>
-
-          <div class="product-buttons">
-
-            <button
-              class="btn-blue"
-              onclick="showDetails('${id}')">
-              👁️ View
-            </button>
-
-            <button
-              class="btn-gold"
-              onclick="editProduct('${id}')">
-              ✏️ Edit
-            </button>
-
-            <button
-              class="btn-red"
-              onclick="deleteProduct('${id}')">
-              🗑️
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-
-      grid.appendChild(div);
-
-    });
-
-
-  }catch(error){
-
-    console.error(error);
-
-    grid.innerHTML =
-      '<div class="empty">Failed to load products.</div>';
+    return;
 
   }
 
-}
 
 
-/* =========================
-   SHOW DETAILS
-========================= */
-
-window.showDetails = async function(id){
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(db,"products")
-      );
-
-
-    let product = null;
-
-
-    snapshot.forEach(item => {
-
-      if(item.id === id){
-
-        product = item.data();
-
-      }
-
-    });
-
-
-    if(!product) return;
-
-
-    let html = "";
-
-
-    html += `
-      <div class="detail-row">
-        <b>Name:</b>
-        ${escapeHTML(product.name || "")}
-      </div>
-    `;
-
-
-    html += `
-      <div class="detail-row">
-        <b>Price:</b>
-        ₹${product.price || 0}
-      </div>
-    `;
-
-
-    if(product.oldPrice){
-
-      html += `
-        <div class="detail-row">
-          <b>Old Price:</b>
-          ₹${product.oldPrice}
-        </div>
-      `;
-
-    }
-
-
-    if(product.discount){
-
-      html += `
-        <div class="detail-row">
-          <b>Discount:</b>
-          ${product.discount}%
-        </div>
-      `;
-
-    }
-
-
-    html += `
-      <div class="detail-row">
-        <b>Category:</b>
-        ${escapeHTML(product.category || "")}
-      </div>
-    `;
-
-
-    /* COLORS */
-
-    if(
-      Array.isArray(product.colors) &&
-      product.colors.length > 0
-    ){
-
-      html += `
-        <div class="detail-row">
-          <b>Colors:</b>
-          ${product.colors
-            .map(x=>escapeHTML(x))
-            .join(", ")}
-        </div>
-      `;
-
-    }
-
-
-    /* SIZES */
-
-    if(
-      Array.isArray(product.sizes) &&
-      product.sizes.length > 0
-    ){
-
-      html += `
-        <div class="detail-row">
-          <b>Sizes:</b>
-          ${product.sizes
-            .map(x=>escapeHTML(x))
-            .join(", ")}
-        </div>
-      `;
-
-    }
-
-
-    /* DESCRIPTION */
-
-    if(product.description){
-
-      html += `
-        <div class="detail-row">
-          <b>Description:</b><br><br>
-          ${escapeHTML(product.description)}
-        </div>
-      `;
-
-    }
-
-
-    /* IMAGES */
-
-    const images =
-      product.images ||
-      [product.image];
-
-
-    html += `
-      <div class="detail-row">
-        <b>Images:</b>
-        <div id="detailsImages"
-             style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
-        </div>
-      </div>
-    `;
-
-
-    document.getElementById("detailsContent")
-    .innerHTML = html;
-
-
-    const imageBox =
-      document.getElementById("detailsImages");
-
-
-    images
-    .filter(Boolean)
-    .forEach(src => {
-
-      const img =
-        document.createElement("img");
-
-      img.src = src;
-
-      img.style.width = "90px";
-      img.style.height = "90px";
-      img.style.objectFit = "cover";
-      img.style.borderRadius = "10px";
-
-      imageBox.appendChild(img);
-
-    });
-
-
-    document.getElementById("detailsModal")
-    .style.display = "block";
-
-
-  }catch(error){
-
-    console.error(error);
-
-    alert("Unable to load details.");
-
-  }
-
-};
-
-
-/* =========================
-   EDIT PRODUCT
-========================= */
-
-window.editProduct = async function(id){
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(db,"products")
-      );
-
-
-    let product = null;
-
-
-    snapshot.forEach(item => {
-
-      if(item.id === id){
-
-        product = item.data();
-
-      }
-
-    });
-
-
-    if(!product) return;
-
-
-    editingId = id;
-
-
-    document.getElementById("productName")
-      .value = product.name || "";
-
-
-    document.getElementById("productPrice")
-      .value = product.price || "";
-
-
-    document.getElementById("productOldPrice")
-      .value = product.oldPrice || "";
-
-
-    document.getElementById("productDiscount")
-      .value = product.discount || "";
-
-
-    document.getElementById("productCategory")
-      .value = product.category || "";
-
-
-    document.getElementById("productColors")
-      .value =
-        Array.isArray(product.colors)
-        ? product.colors.join(", ")
-        : "";
-
-
-    document.getElementById("productSizes")
-      .value =
-        Array.isArray(product.sizes)
-        ? product.sizes.join(", ")
-        : "";
-
-
-    document.getElementById("productDescription")
-      .value =
-        product.description || "";
-
-
-    selectedImages =
-      product.images ||
-      (product.image ? [product.image] : []);
-
-
-    showPreview();
-
-
-    document.getElementById("formTitle")
-      .innerText =
-      "✏️ Edit Product";
-
-
-    document.getElementById("saveBtn")
-      .innerText =
-      "💾 Update Product";
-
-
-    document.getElementById("cancelBtn")
-      .style.display =
-      "block";
-
-
-    window.scrollTo({
-
-      top:0,
-
-      behavior:"smooth"
-
-    });
-
-
-  }catch(error){
-
-    console.error(error);
-
-    alert("Unable to edit product.");
-
-  }
-
-};
-
-
-/* =========================
-   DELETE PRODUCT
-========================= */
-
-window.deleteProduct = async function(id){
-
-  const ok =
-    confirm(
-      "এই product-টি delete করতে চান?"
-    );
-
-
-  if(!ok) return;
-
-
-  try{
-
-    await deleteDoc(
-      doc(db,"products",id)
-    );
-
-
-    alert("🗑️ Product deleted.");
-
-    await loadProducts();
-
-
-  }catch(error){
-
-    console.error(error);
+  if(!image){
 
     alert(
-      "Delete failed: " +
+      "Image URL দিন।"
+    );
+
+    return;
+
+  }
+
+
+
+  try{
+
+    document
+      .getElementById("status")
+      .textContent =
+      "Product যোগ হচ্ছে...";
+
+
+
+    await addDoc(
+      collection(
+        db,
+        "products"
+      ),
+      {
+
+        name:
+          name,
+
+        price:
+          price,
+
+        image:
+          image,
+
+        createdAt:
+          serverTimestamp()
+
+      }
+    );
+
+
+
+    alert(
+      "✅ Product সফলভাবে Add হয়েছে!"
+    );
+
+
+
+    document
+      .getElementById("productName")
+      .value = "";
+
+
+
+    document
+      .getElementById("productPrice")
+      .value = "";
+
+
+
+    document
+      .getElementById("productImage")
+      .value = "";
+
+
+
+    document
+      .getElementById("status")
+      .textContent =
+      "✅ Product Added";
+
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    alert(
+      "❌ Product Add হয়নি:\n" +
       error.message
     );
 
+
+    document
+      .getElementById("status")
+      .textContent =
+      "";
+
   }
-
-};
-
-
-/* =========================
-   CANCEL EDIT
-========================= */
-
-window.cancelEdit = function(){
-
-  clearForm();
-
-};
-
-
-/* =========================
-   CLEAR FORM
-========================= */
-
-function clearForm(){
-
-  editingId = null;
-
-  selectedImages = [];
-
-
-  document.getElementById("productName")
-    .value = "";
-
-  document.getElementById("productPrice")
-    .value = "";
-
-  document.getElementById("productOldPrice")
-    .value = "";
-
-  document.getElementById("productDiscount")
-    .value = "";
-
-  document.getElementById("productCategory")
-    .value = "";
-
-  document.getElementById("productColors")
-    .value = "";
-
-  document.getElementById("productSizes")
-    .value = "";
-
-  document.getElementById("productDescription")
-    .value = "";
-
-  document.getElementById("productImage")
-    .value = "";
-
-  document.getElementById("preview")
-    .innerHTML = "";
-
-
-  document.getElementById("formTitle")
-    .innerText =
-    "➕ Add New Product";
-
-
-  document.getElementById("saveBtn")
-    .innerText =
-    "💾 Save Product";
-
-
-  document.getElementById("cancelBtn")
-    .style.display =
-    "none";
-
-}
-
-
-/* =========================
-   CLOSE MODAL
-========================= */
-
-window.closeModal = function(){
-
-  document.getElementById("detailsModal")
-    .style.display = "none";
-
-};
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHTML(value){
-
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
 
 }
 
 </script>
 
+
 </body>
+
 </html>
+
+এখন "admin.html" খুললে Add Product-এর নিচে "✅ Confirm Orders" button দেখা যাবে।
+
+ওই button চাপলে সরাসরি "confirm-orders.html" খুলবে, যেখানে Pending order-এর পাশে Confirm করার ব্যবস্থা থাকবে।
