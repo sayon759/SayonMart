@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#ffffff">
+
+<title>Upload Video - SayonMart</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#f5f5f5;
+  color:#222;
+  padding-bottom:30px;
+}
+
+.header{
+  background:#fff;
+  padding:15px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.back{
+  border:0;
+  background:#f5f5f5;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  font-size:20px;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:800;
+  color:#c99a00;
+}
+
+.logo span{
+  color:#222;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+h2{
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  font-size:14px;
+  margin:14px 0 7px;
+}
+
+input,
+textarea{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:12px;
+  outline:none;
+  font-size:14px;
+}
+
+textarea{
+  min-height:90px;
+  resize:none;
+}
+
+input:focus,
+textarea:focus{
+  border-color:#d2a000;
+}
+
+.preview{
+  width:100%;
+  max-height:500px;
+  background:#000;
+  border-radius:12px;
+  margin-top:15px;
+  display:none;
+}
+
+.upload-btn{
+  width:100%;
+  border:0;
+  background:#ffd21a;
+  color:#111;
+  padding:13px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:15px;
+  margin-top:18px;
+  cursor:pointer;
+}
+
+.upload-btn:disabled{
+  opacity:.6;
+}
+
+.progress-box{
+  display:none;
+  margin-top:15px;
+}
+
+.progress{
+  width:100%;
+  height:8px;
+  background:#eee;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  width:0%;
+  height:100%;
+  background:#d29e00;
+}
+
+.progress-text{
+  text-align:center;
+  font-size:12px;
+  color:#777;
+  margin-top:7px;
+}
+
+.message{
+  text-align:center;
+  margin-top:15px;
+  font-size:14px;
+}
+
+.info{
+  background:#fff8d8;
+  padding:10px;
+  border-radius:10px;
+  margin-top:15px;
+  font-size:12px;
+  color:#665400;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+  <div class="topbar">
+
+    <button
+      class="back"
+      onclick="goBack()">
+
+      ←
+
+    </button>
+
+    <div class="logo">
+
+      🎬 Sayon<span>Mart</span>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <div class="card">
+
+    <h2>Upload Video</h2>
+
+
+    <label>
+      Choose Video
+    </label>
+
+    <input
+      id="videoFile"
+      type="file"
+      accept="video/*">
+
+
+    <video
+      id="preview"
+      class="preview"
+      controls
+      playsinline>
+    </video>
+
+
+    <label>
+      Caption
+    </label>
+
+    <textarea
+      id="caption"
+      maxlength="300"
+      placeholder="ভিডিও সম্পর্কে কিছু লিখুন...">
+    </textarea>
+
+
+    <div class="info">
+
+      🎬 নিজের তৈরি বা share করার অনুমতি আছে
+      এমন ভিডিও upload করুন। অন্যের privacy বা
+      copyright লঙ্ঘন করে এমন ভিডিও upload করবেন না।
+
+    </div>
+
+
+    <button
+      id="uploadBtn"
+      class="upload-btn"
+      onclick="uploadVideo()">
+
+      ⬆️ Upload Video
+
+    </button>
+
+
+    <div
+      id="progressBox"
+      class="progress-box">
+
+      <div class="progress">
+
+        <div
+          id="progressBar"
+          class="progress-bar">
+        </div>
+
+      </div>
+
+      <div
+        id="progressText"
+        class="progress-text">
+
+        Uploading 0%
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="message"
+      class="message">
+    </div>
+
+  </div>
+
+</main>
+
+
+<script type="module">
+
+import {
+  auth,
+  db,
+  storage
+}
+from "./firebase.js";
+
+
+import {
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+
+let currentUser = null;
+
+
+/* ================================
+   AUTH CHECK
+================================ */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    currentUser = user;
+
+  }
+);
+
+
+/* ================================
+   VIDEO PREVIEW
+================================ */
+
+const videoFile =
+  document.getElementById(
+    "videoFile"
+  );
+
+
+const preview =
+  document.getElementById(
+    "preview"
+  );
+
+
+videoFile.addEventListener(
+  "change",
+  function(){
+
+    const file =
+      this.files[0];
+
+
+    if(!file){
+
+      preview.style.display =
+        "none";
+
+      return;
+
+    }
+
+
+    if(
+      !file.type.startsWith("video/")
+    ){
+
+      alert(
+        "শুধু video file নির্বাচন করুন।"
+      );
+
+      this.value = "";
+
+      preview.style.display =
+        "none";
+
+      return;
+
+    }
+
+
+    const url =
+      URL.createObjectURL(file);
+
+
+    preview.src = url;
+
+    preview.style.display =
+      "block";
+
+  }
+);
+
+
+/* ================================
+   UPLOAD
+================================ */
+
+window.uploadVideo = async function(){
+
+  const file =
+    videoFile.files[0];
+
+
+  const caption =
+    document
+      .getElementById("caption")
+      .value
+      .trim();
+
+
+  const button =
+    document.getElementById(
+      "uploadBtn"
+    );
+
+
+  const message =
+    document.getElementById(
+      "message"
+    );
+
+
+  const progressBox =
+    document.getElementById(
+      "progressBox"
+    );
+
+
+  const progressBar =
+    document.getElementById(
+      "progressBar"
+    );
+
+
+  const progressText =
+    document.getElementById(
+      "progressText"
+    );
+
+
+  /* LOGIN CHECK */
+
+  if(!currentUser){
+
+    alert(
+      "ভিডিও upload করতে আগে Login করুন।"
+    );
+
+    window.location.href =
+      "login.html";
+
+    return;
+
+  }
+
+
+  /* FILE CHECK */
+
+  if(!file){
+
+    alert(
+      "আগে একটি video নির্বাচন করুন।"
+    );
+
+    return;
+
+  }
+
+
+  /* SIZE CHECK */
+
+  const maxSize =
+    100 * 1024 * 1024;
+
+
+  if(file.size > maxSize){
+
+    alert(
+      "ভিডিওর size সর্বোচ্চ 100MB হতে পারবে।"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    button.disabled = true;
+
+    button.textContent =
+      "Uploading...";
+
+
+    progressBox.style.display =
+      "block";
+
+
+    message.textContent =
+      "";
+
+
+    /*
+      Unique file name
+    */
+
+    const fileName =
+      Date.now() +
+      "_" +
+      currentUser.uid +
+      "_" +
+      file.name
+        .replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
+        );
+
+
+    const storageRef =
+      ref(
+        storage,
+        "videos/" +
+        currentUser.uid +
+        "/" +
+        fileName
+      );
+
+
+    /*
+      Upload video
+    */
+
+    const uploadTask =
+      uploadBytesResumable(
+        storageRef,
+        file,
+        {
+          contentType:file.type
+        }
+      );
+
+
+    uploadTask.on(
+
+      "state_changed",
+
+      snapshot => {
+
+        const percent =
+
+          Math.round(
+
+            (
+              snapshot.bytesTransferred /
+              snapshot.totalBytes
+            ) * 100
+
+          );
+
+
+        progressBar.style.width =
+          percent + "%";
+
+
+        progressText.textContent =
+          "Uploading " +
+          percent +
+          "%";
+
+      },
+
+
+      error => {
+
+        console.error(
+          error
+        );
+
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "⬆️ Upload Video";
+
+
+        message.textContent =
+          "❌ Upload failed.";
+
+      },
+
+
+      async () => {
+
+        /*
+          Get video URL
+        */
+
+        const videoUrl =
+          await getDownloadURL(
+            uploadTask.snapshot.ref
+          );
+
+
+        /*
+          Save video information
+          in Firestore
+        */
+
+        await addDoc(
+          collection(db,"videos"),
+          {
+
+            userId:
+              currentUser.uid,
+
+            userName:
+              currentUser.displayName ||
+              currentUser.email ||
+              "SayonMart User",
+
+            videoUrl:
+              videoUrl,
+
+            caption:
+              caption,
+
+            likes:
+              0,
+
+            views:
+              0,
+
+            status:
+              "Published",
+
+            createdAt:
+              serverTimestamp()
+
+          }
+        );
+
+
+        message.textContent =
+          "✅ Video successfully uploaded!";
+
+
+        button.textContent =
+          "Uploaded ✓";
+
+
+        progressBar.style.width =
+          "100%";
+
+
+        progressText.textContent =
+          "Upload Complete";
+
+
+        /*
+          1.5 second পরে
+          Videos page
+        */
+
+        setTimeout(
+          () => {
+
+            window.location.href =
+              "videos.html";
+
+          },
+          1500
+        );
+
+      }
+
+    );
+
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "⬆️ Upload Video";
+
+
+    message.textContent =
+      "❌ কিছু সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+
+  }
+
+};
+
+
+/* ================================
+   BACK
+================================ */
+
+window.goBack = function(){
+
+  window.location.href =
+    "videos.html";
+
+};
+
+</script>
+
+</body>
+
+</html
