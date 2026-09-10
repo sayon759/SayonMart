@@ -1150,23 +1150,25 @@ async function createOrders(paymentMethod){
 
     localStorage.removeItem("cart");
 
+/* Order Successful Page */
 
-    /* Show success screen */
+localStorage.setItem(
+  "lastSayonMartOrder",
+  JSON.stringify({
+    orderId: firstOrderId,
+    total: totals.total,
+    delivery: totals.delivery,
+    paymentMethod:
+      paymentMethod === "COD"
+        ? "Cash on Delivery"
+        : "UPI"
+  })
+);
 
-    document.getElementById(
-      "paymentPage"
-    ).style.display = "none";
-
-
-    document.getElementById(
-      "successPage"
-    ).style.display = "flex";
-
-
-    document.getElementById(
-      "successOrderId"
-    ).textContent =
-      firstOrderId;
+window.location.href =
+  "order-success.html?orderId=" +
+  encodeURIComponent(firstOrderId);
+    
 
 
   }catch(error){
