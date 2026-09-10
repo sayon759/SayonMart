@@ -221,6 +221,18 @@
       margin-bottom:12px;
       display:none;
     }
+
+    .mode{
+      background:#fffbea;
+      border:1px solid #ffe58a;
+      color:#7a5b00;
+      padding:10px;
+      border-radius:9px;
+      margin-bottom:15px;
+      font-size:14px;
+      text-align:center;
+      font-weight:bold;
+    }
   </style>
 </head>
 
@@ -232,8 +244,13 @@
 
   <div id="errorBox" class="error"></div>
 
+  <div id="checkoutMode" class="mode">
+    🛍️ Order Checkout
+  </div>
+
   <!-- ADDRESS -->
   <div class="card">
+
     <h2>📍 Delivery Address</h2>
 
     <div id="savedAddress" class="address-box"></div>
@@ -241,77 +258,171 @@
     <div id="addressForm">
 
       <label>Name</label>
-      <input id="name" type="text" placeholder="আপনার নাম">
+
+      <input
+        id="name"
+        type="text"
+        placeholder="আপনার নাম"
+      >
 
       <label>Mobile Number</label>
-      <input id="mobile" type="tel" maxlength="10" placeholder="10 digit mobile number">
+
+      <input
+        id="mobile"
+        type="tel"
+        maxlength="10"
+        placeholder="10 digit mobile number"
+      >
 
       <label>PIN Code</label>
-      <input id="pin" type="tel" maxlength="6" placeholder="PIN Code">
+
+      <input
+        id="pin"
+        type="tel"
+        maxlength="6"
+        placeholder="PIN Code"
+      >
 
       <label>District</label>
-      <input id="district" type="text" placeholder="District">
+
+      <input
+        id="district"
+        type="text"
+        placeholder="District"
+      >
 
       <label>Building / House</label>
-      <input id="building" type="text" placeholder="House / Building">
+
+      <input
+        id="building"
+        type="text"
+        placeholder="House / Building"
+      >
 
       <label>Area / Village</label>
-      <input id="area" type="text" placeholder="Area / Village">
 
-      <button class="save-btn" id="saveAddressBtn">
+      <input
+        id="area"
+        type="text"
+        placeholder="Area / Village"
+      >
+
+      <button
+        class="save-btn"
+        id="saveAddressBtn">
+
         💾 Save Address
+
       </button>
 
     </div>
 
     <div class="address-buttons">
-      <button class="edit-btn" id="editAddressBtn">✏️ Edit</button>
-      <button class="use-btn" id="useAddressBtn">✅ Use This Address</button>
+
+      <button
+        class="edit-btn"
+        id="editAddressBtn">
+
+        ✏️ Edit
+
+      </button>
+
+      <button
+        class="use-btn"
+        id="useAddressBtn">
+
+        ✅ Use This Address
+
+      </button>
+
     </div>
+
   </div>
 
 
   <!-- PRODUCTS -->
+
   <div class="card">
+
     <h2>🛒 Order Summary</h2>
+
     <div id="products"></div>
 
     <div class="summary-row">
+
       <span>Subtotal</span>
+
       <span id="subtotal">₹0</span>
+
     </div>
 
     <div class="summary-row">
+
       <span>Delivery</span>
+
       <span id="delivery">₹0</span>
+
     </div>
 
     <div class="summary-row total">
+
       <span>Total</span>
+
       <span id="total">₹0</span>
+
     </div>
+
   </div>
 
 
   <!-- PAYMENT -->
+
   <div class="card">
+
     <h2>💳 Payment Method</h2>
 
-    <div class="payment-option active" id="codOption">
+    <div
+      class="payment-option active"
+      id="codOption">
+
       <label style="margin:0;">
-        <input type="radio" name="payment" value="COD" checked>
+
+        <input
+          type="radio"
+          name="payment"
+          value="COD"
+          checked
+        >
+
         💵 Cash on Delivery
+
       </label>
+
     </div>
 
-    <div class="payment-option" id="upiOption">
+
+    <div
+      class="payment-option"
+      id="upiOption">
+
       <label style="margin:0;">
-        <input type="radio" name="payment" value="UPI">
+
+        <input
+          type="radio"
+          name="payment"
+          value="UPI"
+        >
+
         📱 UPI Payment
+
       </label>
+
     </div>
 
-    <div class="upi-box" id="upiBox">
+
+    <div
+      class="upi-box"
+      id="upiBox">
 
       <b>UPI ID:</b>
 
@@ -319,27 +430,46 @@
         8016410311@axl
       </div>
 
-      <button class="pay-btn" id="upiPayBtn">
+      <button
+        class="pay-btn"
+        id="upiPayBtn">
+
         📱 Pay with UPI
+
       </button>
 
       <p class="note">
-        UPI payment করার পরে নিচের বাটনে চাপুন।
+
+        UPI payment করার পরে নিচের
+        বাটনে চাপুন।
+
       </p>
 
-      <button class="pay-btn" id="upiDoneBtn">
+      <button
+        class="pay-btn"
+        id="upiDoneBtn">
+
         ✅ আমি পেমেন্ট করেছি
+
       </button>
 
     </div>
+
   </div>
 
 
   <!-- PLACE ORDER -->
+
   <div class="card">
-    <button class="place-btn" id="placeOrderBtn">
+
+    <button
+      class="place-btn"
+      id="placeOrderBtn">
+
       🛍️ Place Order
+
     </button>
+
   </div>
 
 </div>
@@ -349,9 +479,11 @@
 
 import { auth, db } from "./firebase.js";
 
+
 import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 import {
   collection,
@@ -360,164 +492,409 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+// ======================================
+// VARIABLES
+// ======================================
+
 let currentUser = null;
+
 let cart = [];
+
 let selectedPayment = "COD";
+
 let orderCreating = false;
 
+let upiConfirmed = false;
 
-// -----------------------------
+
+// ======================================
+// CHECKOUT MODE
+// ======================================
+
+/*
+  buyNow = শুধু একটি product
+
+  cart = Cart-এর product
+*/
+
+let checkoutMode = "cart";
+
+
+// ======================================
 // ELEMENTS
-// -----------------------------
+// ======================================
 
-const productsDiv = document.getElementById("products");
-
-const subtotalEl = document.getElementById("subtotal");
-const deliveryEl = document.getElementById("delivery");
-const totalEl = document.getElementById("total");
-
-const errorBox = document.getElementById("errorBox");
-
-const savedAddressBox = document.getElementById("savedAddress");
-const addressForm = document.getElementById("addressForm");
-
-const nameInput = document.getElementById("name");
-const mobileInput = document.getElementById("mobile");
-const pinInput = document.getElementById("pin");
-const districtInput = document.getElementById("district");
-const buildingInput = document.getElementById("building");
-const areaInput = document.getElementById("area");
-
-const codOption = document.getElementById("codOption");
-const upiOption = document.getElementById("upiOption");
-const upiBox = document.getElementById("upiBox");
-
-const placeOrderBtn = document.getElementById("placeOrderBtn");
-const upiPayBtn = document.getElementById("upiPayBtn");
-const upiDoneBtn = document.getElementById("upiDoneBtn");
+const productsDiv =
+  document.getElementById("products");
 
 
-// -----------------------------
+const subtotalEl =
+  document.getElementById("subtotal");
+
+
+const deliveryEl =
+  document.getElementById("delivery");
+
+
+const totalEl =
+  document.getElementById("total");
+
+
+const errorBox =
+  document.getElementById("errorBox");
+
+
+const checkoutModeBox =
+  document.getElementById("checkoutMode");
+
+
+const savedAddressBox =
+  document.getElementById("savedAddress");
+
+
+const addressForm =
+  document.getElementById("addressForm");
+
+
+const nameInput =
+  document.getElementById("name");
+
+
+const mobileInput =
+  document.getElementById("mobile");
+
+
+const pinInput =
+  document.getElementById("pin");
+
+
+const districtInput =
+  document.getElementById("district");
+
+
+const buildingInput =
+  document.getElementById("building");
+
+
+const areaInput =
+  document.getElementById("area");
+
+
+const codOption =
+  document.getElementById("codOption");
+
+
+const upiOption =
+  document.getElementById("upiOption");
+
+
+const upiBox =
+  document.getElementById("upiBox");
+
+
+const placeOrderBtn =
+  document.getElementById("placeOrderBtn");
+
+
+const upiPayBtn =
+  document.getElementById("upiPayBtn");
+
+
+const upiDoneBtn =
+  document.getElementById("upiDoneBtn");
+
+
+// ======================================
 // ERROR
-// -----------------------------
+// ======================================
 
 function showError(message){
 
-  errorBox.textContent = message;
-  errorBox.style.display = "block";
+  errorBox.textContent =
+    message;
+
+  errorBox.style.display =
+    "block";
 
   window.scrollTo({
+
     top:0,
+
     behavior:"smooth"
+
   });
+
 }
+
 
 function hideError(){
-  errorBox.style.display = "none";
+
+  errorBox.style.display =
+    "none";
+
 }
 
 
-// -----------------------------
-// LOAD CART
-// -----------------------------
+// ======================================
+// LOAD CHECKOUT DATA
+// ======================================
 
-function loadCart(){
+function loadCheckoutData(){
+
+  /*
+    প্রথমে Buy Now check করবে।
+
+    Buy Now থাকলে শুধু ওই product
+    payment page-এ যাবে।
+
+    Buy Now না থাকলে Cart load হবে।
+  */
 
   try{
 
-    cart = JSON.parse(
-      localStorage.getItem("cart") || "[]"
+    const buyNowData =
+      localStorage.getItem(
+        "sayonmartBuyNow"
+      );
+
+
+    if(buyNowData){
+
+      const product =
+        JSON.parse(buyNowData);
+
+
+      if(
+        product &&
+        product.id &&
+        product.name
+      ){
+
+        checkoutMode =
+          "buyNow";
+
+
+        cart = [{
+
+          id: product.id,
+
+          name: product.name,
+
+          price:
+            Number(product.price) || 0,
+
+          image:
+            product.image ||
+            product.productImage ||
+            "",
+
+          quantity:
+            Number(product.quantity) || 1
+
+        }];
+
+
+        checkoutModeBox.textContent =
+          "🟠 Buy Now — শুধু এই Product";
+
+
+        return true;
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Buy Now data error:",
+      error
     );
 
-  }catch(e){
+  }
+
+
+  /*
+    Buy Now না থাকলে Cart।
+  */
+
+  checkoutMode =
+    "cart";
+
+
+  try{
+
+    cart =
+      JSON.parse(
+        localStorage.getItem(
+          "cart"
+        ) || "[]"
+      );
+
+  }catch(error){
 
     cart = [];
 
   }
+
 
   if(!Array.isArray(cart)){
+
     cart = [];
+
   }
+
 
   if(cart.length === 0){
 
-    window.location.href = "cart.html";
+    window.location.href =
+      "cart.html";
+
     return false;
+
   }
 
+
+  checkoutModeBox.textContent =
+    "🛒 Cart Checkout";
+
+
   return true;
+
 }
 
 
-// -----------------------------
+// ======================================
 // TOTAL
-// -----------------------------
+// ======================================
 
 function getSubtotal(){
 
-  return cart.reduce((sum,item)=>{
+  return cart.reduce(
+    (sum,item)=>{
 
-    const price = Number(item.price) || 0;
-    const quantity = Number(item.quantity) || 1;
+      const price =
+        Number(item.price) || 0;
 
-    return sum + (price * quantity);
+      const quantity =
+        Number(item.quantity) || 1;
 
-  },0);
+
+      return sum +
+        (price * quantity);
+
+    },
+    0
+  );
+
 }
 
 
 function getDelivery(){
 
-  const subtotal = getSubtotal();
+  const subtotal =
+    getSubtotal();
 
-  return subtotal >= 499 ? 0 : 40;
+
+  return subtotal >= 499
+    ? 0
+    : 40;
+
 }
 
 
 function getGrandTotal(){
 
-  return getSubtotal() + getDelivery();
+  return (
+    getSubtotal() +
+    getDelivery()
+  );
+
 }
 
 
-// -----------------------------
+// ======================================
 // SHOW PRODUCTS
-// -----------------------------
+// ======================================
 
 function showProducts(){
 
   productsDiv.innerHTML = "";
 
+
   cart.forEach(item=>{
 
-    const quantity = Number(item.quantity) || 1;
-    const price = Number(item.price) || 0;
+    const quantity =
+      Number(item.quantity) || 1;
 
-    const product = document.createElement("div");
-    product.className = "product";
 
-    const img = document.createElement("img");
+    const price =
+      Number(item.price) || 0;
 
-    img.src = item.image || item.productImage || "";
-    img.alt = item.name || item.productName || "Product";
 
-    const info = document.createElement("div");
-    info.className = "product-info";
+    const product =
+      document.createElement("div");
 
-    const name = document.createElement("div");
-    name.className = "product-name";
+
+    product.className =
+      "product";
+
+
+    const img =
+      document.createElement("img");
+
+
+    img.src =
+      item.image ||
+      item.productImage ||
+      "";
+
+
+    img.alt =
+      item.name ||
+      item.productName ||
+      "Product";
+
+
+    const info =
+      document.createElement("div");
+
+
+    info.className =
+      "product-info";
+
+
+    const name =
+      document.createElement("div");
+
+
+    name.className =
+      "product-name";
+
+
     name.textContent =
-      item.name || item.productName || "Product";
+      item.name ||
+      item.productName ||
+      "Product";
 
-    const details = document.createElement("div");
+
+    const details =
+      document.createElement("div");
+
 
     details.textContent =
-      "₹" + price + " × " + quantity;
+      "₹" +
+      price +
+      " × " +
+      quantity;
+
 
     info.appendChild(name);
+
     info.appendChild(details);
 
     product.appendChild(img);
+
     product.appendChild(info);
 
     productsDiv.appendChild(product);
@@ -525,123 +902,230 @@ function showProducts(){
   });
 
 
-  const subtotal = getSubtotal();
-  const delivery = getDelivery();
-  const total = getGrandTotal();
+  const subtotal =
+    getSubtotal();
 
-  subtotalEl.textContent = "₹" + subtotal;
+
+  const delivery =
+    getDelivery();
+
+
+  const total =
+    getGrandTotal();
+
+
+  subtotalEl.textContent =
+    "₹" + subtotal;
+
+
   deliveryEl.textContent =
-    delivery === 0 ? "FREE" : "₹" + delivery;
+    delivery === 0
+      ? "FREE"
+      : "₹" + delivery;
 
-  totalEl.textContent = "₹" + total;
+
+  totalEl.textContent =
+    "₹" + total;
+
 }
 
 
-// -----------------------------
+// ======================================
 // ADDRESS
-// -----------------------------
+// ======================================
 
 function getAddress(){
 
   return {
 
-    name: nameInput.value.trim(),
+    name:
+      nameInput.value.trim(),
 
-    phone: mobileInput.value.trim(),
+    phone:
+      mobileInput.value.trim(),
 
-    pin: pinInput.value.trim(),
+    pin:
+      pinInput.value.trim(),
 
-    district: districtInput.value.trim(),
+    district:
+      districtInput.value.trim(),
 
-    building: buildingInput.value.trim(),
+    building:
+      buildingInput.value.trim(),
 
-    area: areaInput.value.trim()
+    area:
+      areaInput.value.trim()
 
   };
 
 }
 
 
+// ======================================
+// VALIDATE ADDRESS
+// ======================================
+
 function validateAddress(){
 
-  const address = getAddress();
+  const address =
+    getAddress();
+
 
   if(!address.name){
-    showError("আপনার নাম দিন।");
+
+    showError(
+      "আপনার নাম দিন।"
+    );
+
     return false;
+
   }
 
-  if(!/^[0-9]{10}$/.test(address.phone)){
-    showError("সঠিক 10 digit mobile number দিন।");
+
+  if(
+    !/^[0-9]{10}$/.test(
+      address.phone
+    )
+  ){
+
+    showError(
+      "সঠিক 10 digit mobile number দিন।"
+    );
+
     return false;
+
   }
 
-  if(!/^[0-9]{6}$/.test(address.pin)){
-    showError("সঠিক 6 digit PIN Code দিন।");
+
+  if(
+    !/^[0-9]{6}$/.test(
+      address.pin
+    )
+  ){
+
+    showError(
+      "সঠিক 6 digit PIN Code দিন।"
+    );
+
     return false;
+
   }
+
 
   if(!address.district){
-    showError("District দিন।");
+
+    showError(
+      "District দিন।"
+    );
+
     return false;
+
   }
+
 
   if(!address.building){
-    showError("House / Building দিন।");
+
+    showError(
+      "House / Building দিন।"
+    );
+
     return false;
+
   }
+
 
   if(!address.area){
-    showError("Area / Village দিন।");
+
+    showError(
+      "Area / Village দিন।"
+    );
+
     return false;
+
   }
 
+
   return true;
+
 }
 
+
+// ======================================
+// SAVE ADDRESS
+// ======================================
 
 function saveAddress(){
 
   if(!validateAddress()){
+
     return;
+
   }
 
-  const address = getAddress();
+
+  const address =
+    getAddress();
+
 
   localStorage.setItem(
     "sayonmartAddress",
     JSON.stringify(address)
   );
 
+
   localStorage.setItem(
     "addressSelected",
     "true"
   );
 
+
   showSavedAddress();
 
-  alert("✅ Address Saved");
+
+  alert(
+    "✅ Address Saved"
+  );
 
 }
 
 
+// ======================================
+// SHOW SAVED ADDRESS
+// ======================================
+
 function showSavedAddress(){
 
   const saved =
-    localStorage.getItem("sayonmartAddress");
+    localStorage.getItem(
+      "sayonmartAddress"
+    );
+
 
   if(!saved){
-    savedAddressBox.style.display = "none";
+
+    savedAddressBox.style.display =
+      "none";
+
     return;
+
   }
+
 
   try{
 
-    const address = JSON.parse(saved);
+    const address =
+      JSON.parse(saved);
 
-    if(!address || !address.name){
+
+    if(
+      !address ||
+      !address.name
+    ){
+
       return;
+
     }
+
 
     savedAddressBox.textContent =
       address.name +
@@ -656,229 +1140,417 @@ function showSavedAddress(){
       " - " +
       address.pin;
 
-    savedAddressBox.style.display = "block";
 
-    nameInput.value = address.name || "";
-    mobileInput.value = address.phone || "";
-    pinInput.value = address.pin || "";
-    districtInput.value = address.district || "";
-    buildingInput.value = address.building || "";
-    areaInput.value = address.area || "";
+    savedAddressBox.style.display =
+      "block";
 
-  }catch(e){
 
-    console.log(e);
+    nameInput.value =
+      address.name || "";
+
+
+    mobileInput.value =
+      address.phone || "";
+
+
+    pinInput.value =
+      address.pin || "";
+
+
+    districtInput.value =
+      address.district || "";
+
+
+    buildingInput.value =
+      address.building || "";
+
+
+    areaInput.value =
+      address.area || "";
+
+
+  }catch(error){
+
+    console.log(error);
 
   }
 
 }
 
 
-document
-.getElementById("saveAddressBtn")
-.addEventListener("click",saveAddress);
-
-
-document
-.getElementById("editAddressBtn")
-.addEventListener("click",()=>{
-
-  addressForm.style.display = "block";
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-});
-
+// ======================================
+// ADDRESS BUTTONS
+// ======================================
 
 document
-.getElementById("useAddressBtn")
-.addEventListener("click",()=>{
-
-  if(!validateAddress()){
-    return;
-  }
-
-  localStorage.setItem(
-    "sayonmartAddress",
-    JSON.stringify(getAddress())
+  .getElementById(
+    "saveAddressBtn"
+  )
+  .addEventListener(
+    "click",
+    saveAddress
   );
 
-  localStorage.setItem(
-    "addressSelected",
-    "true"
+
+document
+  .getElementById(
+    "editAddressBtn"
+  )
+  .addEventListener(
+    "click",
+    ()=>{
+
+      addressForm.style.display =
+        "block";
+
+
+      window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+      });
+
+    }
   );
 
-  alert("✅ Address selected");
 
-});
+document
+  .getElementById(
+    "useAddressBtn"
+  )
+  .addEventListener(
+    "click",
+    ()=>{
+
+      if(!validateAddress()){
+
+        return;
+
+      }
 
 
-// -----------------------------
+      localStorage.setItem(
+        "sayonmartAddress",
+        JSON.stringify(
+          getAddress()
+        )
+      );
+
+
+      localStorage.setItem(
+        "addressSelected",
+        "true"
+      );
+
+
+      alert(
+        "✅ Address selected"
+      );
+
+    }
+  );
+
+
+// ======================================
 // PAYMENT METHOD
-// -----------------------------
+// ======================================
 
 function selectCOD(){
 
-  selectedPayment = "COD";
+  selectedPayment =
+    "COD";
 
-  codOption.classList.add("active");
-  upiOption.classList.remove("active");
 
-  upiBox.style.display = "none";
+  codOption.classList.add(
+    "active"
+  );
+
+
+  upiOption.classList.remove(
+    "active"
+  );
+
+
+  upiBox.style.display =
+    "none";
 
 }
 
 
 function selectUPI(){
 
-  selectedPayment = "UPI";
+  selectedPayment =
+    "UPI";
 
-  upiOption.classList.remove("active");
-  upiOption.classList.add("active");
 
-  codOption.classList.remove("active");
+  upiOption.classList.remove(
+    "active"
+  );
 
-  upiBox.style.display = "block";
+
+  upiOption.classList.add(
+    "active"
+  );
+
+
+  codOption.classList.remove(
+    "active"
+  );
+
+
+  upiBox.style.display =
+    "block";
 
 }
 
 
-codOption.addEventListener("click",selectCOD);
-upiOption.addEventListener("click",selectUPI);
+codOption.addEventListener(
+  "click",
+  selectCOD
+);
 
 
-// -----------------------------
+upiOption.addEventListener(
+  "click",
+  selectUPI
+);
+
+
+// ======================================
 // UPI PAYMENT
-// -----------------------------
+// ======================================
 
-upiPayBtn.addEventListener("click",()=>{
+upiPayBtn.addEventListener(
+  "click",
+  ()=>{
 
-  const total = getGrandTotal();
-
-  const upiURL =
-    "upi://pay" +
-    "?pa=8016410311@axl" +
-    "&pn=SayonMart" +
-    "&am=" + total +
-    "&cu=INR";
-
-  window.location.href = upiURL;
-
-});
+    const total =
+      getGrandTotal();
 
 
-let upiConfirmed = false;
+    const upiURL =
+      "upi://pay" +
+      "?pa=8016410311@axl" +
+      "&pn=SayonMart" +
+      "&am=" +
+      total +
+      "&cu=INR";
 
 
-upiDoneBtn.addEventListener("click",()=>{
+    window.location.href =
+      upiURL;
 
-  upiConfirmed = true;
-
-  alert(
-    "✅ UPI payment confirmation received.\n\nOrder এখন তৈরি করা যাবে।"
-  );
-
-});
+  }
+);
 
 
-// -----------------------------
+// ======================================
+// UPI DONE
+// ======================================
+
+upiDoneBtn.addEventListener(
+  "click",
+  ()=>{
+
+    upiConfirmed =
+      true;
+
+
+    alert(
+      "✅ UPI payment confirmation received.\n\nOrder এখন তৈরি করা যাবে।"
+    );
+
+  }
+);
+
+
+// ======================================
 // CREATE ORDERS
-// -----------------------------
+// ======================================
 
 async function createOrders(){
 
   hideError();
 
+
   if(orderCreating){
+
     return;
+
   }
+
 
   if(!currentUser){
 
-    window.location.href = "login.html";
+    window.location.href =
+      "login.html";
+
     return;
 
   }
 
-  if(!loadCart()){
+
+  /*
+    আবার checkout data check।
+
+    Buy Now হলে শুধু Buy Now product।
+  */
+
+  if(!loadCheckoutData()){
+
     return;
+
   }
+
+
+  if(!cart.length){
+
+    showError(
+      "Order করার জন্য কোনো product নেই।"
+    );
+
+    return;
+
+  }
+
 
   if(!validateAddress()){
+
     return;
+
   }
 
 
-  if(selectedPayment === "UPI" && !upiConfirmed){
+  if(
+    selectedPayment === "UPI" &&
+    !upiConfirmed
+  ){
 
     showError(
       "আগে UPI payment করুন এবং 'আমি পেমেন্ট করেছি' বাটনে চাপুন।"
     );
 
     return;
+
   }
 
 
-  orderCreating = true;
-
-  placeOrderBtn.disabled = true;
-  placeOrderBtn.textContent = "⏳ Order তৈরি হচ্ছে...";
+  orderCreating =
+    true;
 
 
-  const address = getAddress();
+  placeOrderBtn.disabled =
+    true;
 
-  const subtotal = getSubtotal();
-  const delivery = getDelivery();
-  const total = getGrandTotal();
+
+  placeOrderBtn.textContent =
+    "⏳ Order তৈরি হচ্ছে...";
+
+
+  const address =
+    getAddress();
+
+
+  const subtotal =
+    getSubtotal();
+
+
+  const delivery =
+    getDelivery();
+
+
+  const total =
+    getGrandTotal();
 
 
   try{
 
     const createdOrderIds = [];
 
-    for(let i=0; i<cart.length; i++){
 
-      const item = cart[i];
+    /*
+      প্রতিটি cart product-এর জন্য
+      আলাদা order document তৈরি হবে।
+
+      Buy Now mode-এ cart-এর মধ্যে
+      শুধু ১টা product আছে।
+
+      তাই Buy Now করলে শুধু ১টা order তৈরি হবে।
+    */
+
+    for(
+      let i = 0;
+      i < cart.length;
+      i++
+    ){
+
+      const item =
+        cart[i];
+
 
       const quantity =
-        Number(item.quantity) || 1;
+        Number(
+          item.quantity
+        ) || 1;
+
 
       const price =
-        Number(item.price) || 0;
+        Number(
+          item.price
+        ) || 0;
+
 
       const itemSubtotal =
         price * quantity;
 
+
       /*
-        Delivery charge প্রথম product-এর সাথে রাখা হচ্ছে।
-        এতে সব order-এর total যোগ করলে পুরো cart total হবে।
+        Delivery charge শুধু প্রথম
+        order-এর সাথে যোগ হবে।
       */
 
       const itemDelivery =
-        i === 0 ? delivery : 0;
+        i === 0
+          ? delivery
+          : 0;
+
 
       const itemTotal =
-        itemSubtotal + itemDelivery;
+        itemSubtotal +
+        itemDelivery;
 
 
       const orderData = {
 
-        userId: currentUser.uid,
+        userId:
+          currentUser.uid,
 
-        name: address.name,
 
-        phone: address.phone,
+        name:
+          address.name,
 
-        pin: address.pin,
 
-        district: address.district,
+        phone:
+          address.phone,
 
-        building: address.building,
 
-        area: address.area,
+        pin:
+          address.pin,
+
+
+        district:
+          address.district,
+
+
+        building:
+          address.building,
+
+
+        area:
+          address.area,
+
 
         address:
           address.building +
@@ -889,69 +1561,105 @@ async function createOrders(){
           " - " +
           address.pin,
 
+
         productName:
           item.name ||
           item.productName ||
           "Product",
+
 
         productImage:
           item.image ||
           item.productImage ||
           "",
 
-        price: price,
 
-        quantity: quantity,
+        price:
+          price,
 
-        subtotal: itemSubtotal,
 
-        delivery: itemDelivery,
+        quantity:
+          quantity,
 
-        total: itemTotal,
 
-        cartTotal: total,
+        subtotal:
+          itemSubtotal,
 
-        paymentMethod: selectedPayment,
+
+        delivery:
+          itemDelivery,
+
+
+        total:
+          itemTotal,
+
+
+        cartTotal:
+          total,
+
+
+        paymentMethod:
+          selectedPayment,
+
 
         paymentStatus:
           selectedPayment === "COD"
             ? "Cash on Delivery"
             : "Awaiting verification",
 
-        status: "Pending",
 
-        createdAt: serverTimestamp()
+        status:
+          "Pending",
+
+
+        createdAt:
+          serverTimestamp()
 
       };
 
 
-      const docRef = await addDoc(
-        collection(db,"orders"),
-        orderData
+      const docRef =
+        await addDoc(
+          collection(
+            db,
+            "orders"
+          ),
+          orderData
+        );
+
+
+      createdOrderIds.push(
+        docRef.id
       );
-
-
-      createdOrderIds.push(docRef.id);
 
     }
 
 
-    // Save last order information
+    // ==================================
+    // SAVE LAST ORDER
+    // ==================================
+
     localStorage.setItem(
       "lastSayonMartOrder",
       JSON.stringify({
 
-        orderId: createdOrderIds[0],
+        orderId:
+          createdOrderIds[0],
 
-        orderIds: createdOrderIds,
+        orderIds:
+          createdOrderIds,
 
-        total: total,
+        total:
+          total,
 
-        subtotal: subtotal,
+        subtotal:
+          subtotal,
 
-        delivery: delivery,
+        delivery:
+          delivery,
 
-        paymentMethod: selectedPayment,
+        paymentMethod:
+          selectedPayment,
 
         productName:
           cart[0].name ||
@@ -964,35 +1672,78 @@ async function createOrders(){
           "",
 
         quantity:
-          Number(cart[0].quantity) || 1,
+          Number(
+            cart[0].quantity
+          ) || 1,
 
-        address: address
+        address:
+          address
 
       })
     );
 
 
-    // Clear cart
-    localStorage.removeItem("cart");
+    // ==================================
+    // IMPORTANT: CLEAR ONLY CORRECT DATA
+    // ==================================
+
+    if(
+      checkoutMode === "buyNow"
+    ){
+
+      /*
+        Buy Now order হলে
+        শুধু Buy Now data মুছবে।
+
+        Cart-এর product থাকবে।
+      */
+
+      localStorage.removeItem(
+        "sayonmartBuyNow"
+      );
+
+    }else{
+
+      /*
+        Cart checkout হলে
+        পুরো Cart clear হবে।
+      */
+
+      localStorage.removeItem(
+        "cart"
+      );
+
+    }
 
 
-    // Separate Meesho-style success page
+    // ==================================
+    // SUCCESS PAGE
+    // ==================================
+
     window.location.href =
       "order-success.html?orderId=" +
-      encodeURIComponent(createdOrderIds[0]);
+      encodeURIComponent(
+        createdOrderIds[0]
+      );
 
 
   }catch(error){
 
     console.error(error);
 
+
     showError(
       "Order তৈরি করা যায়নি। আবার চেষ্টা করুন।"
     );
 
-    orderCreating = false;
 
-    placeOrderBtn.disabled = false;
+    orderCreating =
+      false;
+
+
+    placeOrderBtn.disabled =
+      false;
+
 
     placeOrderBtn.textContent =
       "🛍️ Place Order";
@@ -1002,34 +1753,58 @@ async function createOrders(){
 }
 
 
+// ======================================
+// PLACE ORDER
+// ======================================
+
 placeOrderBtn.addEventListener(
   "click",
   createOrders
 );
 
 
-// -----------------------------
+// ======================================
 // LOGIN CHECK
-// -----------------------------
+// ======================================
 
-onAuthStateChanged(auth,(user)=>{
+onAuthStateChanged(
+  auth,
+  (user)=>{
 
-  if(!user){
+    if(!user){
 
-    window.location.href = "login.html";
-    return;
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    currentUser =
+      user;
+
+
+    /*
+      Login হওয়ার পর checkout data
+      load হবে।
+
+      Buy Now থাকলে শুধু Buy Now।
+      না থাকলে Cart।
+    */
+
+    if(
+      loadCheckoutData()
+    ){
+
+      showProducts();
+
+      showSavedAddress();
+
+    }
 
   }
-
-  currentUser = user;
-
-  loadCart();
-
-  showProducts();
-
-  showSavedAddress();
-
-});
+);
 
 </script>
 
