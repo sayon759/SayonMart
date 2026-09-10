@@ -15,122 +15,249 @@
 
 body{
   margin:0;
-  background:#111;
-  color:#fff;
+  background:#f7f7f7;
+  color:#171717;
   font-family:Arial,sans-serif;
-  padding-bottom:80px;
+  padding-bottom:85px;
 }
+
+/* HEADER */
 
 .header{
-  background:#000;
-  color:#FFD700;
-  padding:18px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-  border-bottom:1px solid #333;
+  background:#fff;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  z-index:50;
 }
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.brand-icon{
+  width:45px;
+  height:45px;
+  border-radius:12px;
+  background:#FFD21F;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.brand-name{
+  font-size:24px;
+  font-weight:bold;
+}
+
+.brand-name span{
+  color:#FFD21F;
+}
+
+.header-icons{
+  display:flex;
+  gap:18px;
+  font-size:25px;
+}
+
+/* CONTAINER */
 
 .container{
-  padding:15px;
+  padding:18px 15px;
+  max-width:700px;
+  margin:auto;
 }
 
-.order-card{
-  background:#1b1b1b;
-  border:1px solid #333;
-  border-radius:16px;
-  padding:15px;
+/* TITLE */
+
+.page-title{
+  background:linear-gradient(120deg,#fff9dc,#fff);
+  border-radius:22px;
+  padding:22px 18px;
+  display:flex;
+  align-items:center;
+  gap:15px;
   margin-bottom:18px;
+}
+
+.title-icon{
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  background:#fff0b0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+}
+
+.page-title h1{
+  margin:0;
+  font-size:30px;
+}
+
+.page-title p{
+  margin:7px 0 0;
+  color:#666;
+  font-size:14px;
+}
+
+/* FILTER */
+
+.filters{
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+  padding-bottom:5px;
+  margin-bottom:18px;
+}
+
+.filters::-webkit-scrollbar{
+  display:none;
+}
+
+.filter{
+  flex:0 0 auto;
+  border:0;
+  background:#fff;
+  padding:12px 17px;
+  border-radius:25px;
+  font-size:14px;
+  font-weight:bold;
+  box-shadow:0 2px 10px #ddd;
+}
+
+.filter.active{
+  background:#FFD21F;
+  color:#111;
+}
+
+/* ORDER CARD */
+
+.order-card{
+  background:#fff;
+  border-radius:22px;
+  padding:16px;
+  margin-bottom:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.07);
+  border:1px solid #eee;
 }
 
 .order-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:10px;
 }
 
 .order-id{
-  color:#FFD700;
-  font-size:13px;
+  font-size:14px;
+  color:#333;
 }
 
-.status{
-  padding:6px 10px;
-  border-radius:20px;
+.order-id b{
+  color:#d89b00;
+}
+
+.order-date{
   font-size:12px;
+  color:#888;
+  margin-top:6px;
+}
+
+/* STATUS */
+
+.status{
+  padding:9px 13px;
+  border-radius:22px;
+  font-size:13px;
   font-weight:bold;
+  white-space:nowrap;
 }
 
 .pending{
-  background:#4b3b00;
-  color:#FFD700;
+  background:#fff0bd;
+  color:#9a7100;
 }
 
 .confirmed{
-  background:#063d25;
-  color:#4cff9b;
+  background:#ddf8e9;
+  color:#129653;
 }
 
 .shipped{
-  background:#073b55;
-  color:#4dcfff;
+  background:#dcefff;
+  color:#1476bd;
 }
 
 .delivered{
-  background:#183d08;
-  color:#7dff4d;
+  background:#dff8e8;
+  color:#119653;
 }
 
 .cancelled{
-  background:#4a1111;
-  color:#ff7070;
+  background:#ffe1e1;
+  color:#d33;
 }
+
+/* PRODUCT */
 
 .product{
   display:flex;
-  gap:12px;
-  margin-top:14px;
-  background:#111;
-  padding:10px;
-  border-radius:12px;
+  gap:15px;
+  align-items:center;
+  margin-top:18px;
 }
 
 .product img{
-  width:75px;
-  height:75px;
+  width:105px;
+  height:105px;
   object-fit:cover;
-  border-radius:10px;
+  border-radius:17px;
+  background:#f3f3f3;
+}
+
+.product-info{
+  flex:1;
 }
 
 .product h3{
-  margin:5px 0;
-  font-size:16px;
+  margin:0 0 8px;
+  font-size:18px;
 }
 
 .product p{
   margin:5px 0;
-  color:#bbb;
-  font-size:13px;
+  color:#666;
+  font-size:14px;
 }
 
-.total{
-  color:#FFD700;
-  font-size:18px;
+.price{
+  color:#e5a900 !important;
+  font-size:19px !important;
   font-weight:bold;
 }
 
-/* Tracking */
+/* TRACKING */
 
 .tracking{
   margin-top:20px;
-  padding-top:15px;
-  border-top:1px solid #333;
+  padding-top:18px;
+  border-top:1px solid #eee;
 }
 
 .track-title{
-  color:#FFD700;
+  font-size:17px;
   font-weight:bold;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .steps{
@@ -142,11 +269,11 @@ body{
 .steps:before{
   content:"";
   position:absolute;
-  top:15px;
+  top:16px;
   left:10%;
   right:10%;
   height:3px;
-  background:#444;
+  background:#ddd;
   z-index:0;
 }
 
@@ -158,75 +285,117 @@ body{
 }
 
 .circle{
-  width:30px;
-  height:30px;
+  width:33px;
+  height:33px;
   border-radius:50%;
-  background:#333;
+  background:#eee;
   margin:auto;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:14px;
-}
-
-.step.active .circle{
-  background:#FFD700;
-  color:#000;
+  font-size:15px;
+  color:#aaa;
 }
 
 .step.done .circle{
-  background:#4cff9b;
-  color:#000;
+  background:#22c77a;
+  color:#fff;
+  box-shadow:0 3px 8px rgba(34,199,122,.25);
 }
 
 .step p{
-  font-size:10px;
-  color:#aaa;
-  margin-top:7px;
+  font-size:11px;
+  color:#888;
+  margin:8px 0 0;
 }
 
-.step.active p,
 .step.done p{
-  color:#fff;
-}
-
-.details-btn{
-  width:100%;
-  padding:12px;
-  margin-top:15px;
-  border:0;
-  border-radius:10px;
-  background:#333;
-  color:#fff;
+  color:#222;
   font-weight:bold;
 }
 
+/* TOTAL + BUTTONS */
+
+.order-bottom{
+  margin-top:18px;
+  padding-top:15px;
+  border-top:1px solid #eee;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.total-label{
+  font-size:12px;
+  color:#777;
+}
+
+.total{
+  margin:4px 0 0;
+  font-size:23px;
+  font-weight:bold;
+  color:#111;
+}
+
+.details-btn{
+  border:1px solid #222;
+  background:#fff;
+  color:#111;
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:bold;
+  font-size:14px;
+}
+
+.details-btn:active{
+  transform:scale(.97);
+}
+
+/* EMPTY */
+
 .empty{
   text-align:center;
-  color:#aaa;
-  padding:50px 10px;
+  color:#777;
+  padding:70px 15px;
 }
+
+.empty-icon{
+  font-size:55px;
+  margin-bottom:15px;
+}
+
+.shop-btn{
+  padding:13px 25px;
+  background:#FFD21F;
+  border:0;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+/* LOADING */
 
 .loading{
   text-align:center;
-  color:#FFD700;
-  padding:40px;
+  color:#c49300;
+  padding:60px;
 }
 
-/* Bottom navigation */
+/* BOTTOM NAV */
 
 .bottom{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  height:65px;
-  background:#000;
-  border-top:1px solid #333;
+  height:72px;
+  background:#fff;
+  border-top:1px solid #eee;
   display:flex;
   justify-content:space-around;
   align-items:center;
   z-index:100;
+  box-shadow:0 -3px 15px rgba(0,0,0,.06);
 }
 
 .bottom a{
@@ -234,63 +403,147 @@ body{
   color:#888;
   text-align:center;
   font-size:11px;
+  min-width:55px;
 }
 
 .bottom a div{
-  font-size:21px;
-  margin-bottom:3px;
+  font-size:23px;
+  margin-bottom:4px;
 }
 
 .bottom a.active{
-  color:#FFD700;
+  color:#d99e00;
+  font-weight:bold;
+}
+
+@media(max-width:380px){
+
+  .page-title h1{
+    font-size:25px;
+  }
+
+  .product img{
+    width:85px;
+    height:85px;
+  }
+
+  .product h3{
+    font-size:16px;
+  }
+
+  .order-bottom{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .details-btn{
+    width:100%;
+  }
 }
 
 </style>
 </head>
 
-
 <body>
 
-<div class="header">
-📦 My Orders
-</div>
+<!-- HEADER -->
+
+<header class="header">
+
+  <div class="brand">
+    <div class="brand-icon">🛍️</div>
+
+    <div class="brand-name">
+      <span>Sayon</span>Mart
+    </div>
+  </div>
+
+  <div class="header-icons">
+    🔍
+    🔔
+  </div>
+
+</header>
 
 
 <div class="container">
 
-<div id="orders" class="loading">
-Loading Orders...
-</div>
+  <!-- PAGE TITLE -->
+
+  <div class="page-title">
+
+    <div class="title-icon">
+      📦
+    </div>
+
+    <div>
+      <h1>My Orders</h1>
+      <p>Track your orders and stay updated</p>
+    </div>
+
+  </div>
+
+
+  <!-- FILTER -->
+
+  <div class="filters">
+
+    <button class="filter active">
+      ▦ All Orders
+    </button>
+
+    <button class="filter">
+      ◷ Pending
+    </button>
+
+    <button class="filter">
+      🚚 Shipped
+    </button>
+
+    <button class="filter">
+      ✓ Delivered
+    </button>
+
+  </div>
+
+
+  <!-- ORDERS -->
+
+  <div id="orders" class="loading">
+    Loading Orders...
+  </div>
 
 </div>
 
+
+<!-- BOTTOM NAV -->
 
 <nav class="bottom">
 
-<a href="index.html">
-<div>⌂</div>
-Home
-</a>
+  <a href="index.html">
+    <div>⌂</div>
+    Home
+  </a>
 
-<a href="products.html">
-<div>▦</div>
-Products
-</a>
+  <a href="products.html">
+    <div>▦</div>
+    Products
+  </a>
 
-<a href="cart.html">
-<div>🛒</div>
-Cart
-</a>
+  <a href="cart.html">
+    <div>🛒</div>
+    Cart
+  </a>
 
-<a href="order.html" class="active">
-<div>📦</div>
-Orders
-</a>
+  <a href="order.html" class="active">
+    <div>📦</div>
+    Orders
+  </a>
 
-<a href="profile.html">
-<div>♙</div>
-Profile
-</a>
+  <a href="profile.html">
+    <div>♙</div>
+    Profile
+  </a>
 
 </nav>
 
@@ -322,21 +575,23 @@ onAuthStateChanged(auth, async (user)=>{
   if(!user){
 
     ordersDiv.innerHTML=`
+
       <div class="empty">
-        🔒 Please Login First
-        <br><br>
+
+        <div class="empty-icon">🔒</div>
+
+        <h3>Please Login First</h3>
+
+        <p>Login to see your orders.</p>
+
         <button
-          onclick="location.href='login.html'"
-          style="
-          padding:12px 25px;
-          background:#FFD700;
-          border:0;
-          border-radius:10px;
-          font-weight:bold;
-          ">
+          class="shop-btn"
+          onclick="location.href='login.html'">
           Login
         </button>
+
       </div>
+
     `;
 
     return;
@@ -351,10 +606,6 @@ onAuthStateChanged(auth, async (user)=>{
 async function loadOrders(uid){
 
   try{
-
-    /*
-      Only user's own orders
-    */
 
     const q = query(
       collection(db,"orders"),
@@ -372,21 +623,23 @@ async function loadOrders(uid){
     if(snapshot.empty){
 
       ordersDiv.innerHTML=`
+
         <div class="empty">
-          📭 No Orders Yet
-          <br><br>
+
+          <div class="empty-icon">📦</div>
+
+          <h3>No Orders Yet</h3>
+
+          <p>Your orders will appear here.</p>
+
           <button
-            onclick="location.href='products.html'"
-            style="
-            padding:12px 25px;
-            background:#FFD700;
-            border:0;
-            border-radius:10px;
-            font-weight:bold;
-            ">
+            class="shop-btn"
+            onclick="location.href='products.html'">
             Start Shopping
           </button>
+
         </div>
+
       `;
 
       return;
@@ -405,10 +658,6 @@ async function loadOrders(uid){
 
     });
 
-
-    /*
-      Newest orders first
-    */
 
     orders.sort((a,b)=>{
 
@@ -431,27 +680,21 @@ async function loadOrders(uid){
       const id =
       item.id;
 
-
       const status =
       order.status || "Pending";
-
 
       const productName =
       order.productName || "Product";
 
-
       const image =
       order.productImage ||
-      "https://via.placeholder.com/100";
-
+      "https://via.placeholder.com/200";
 
       const price =
       Number(order.price || 0);
 
-
       const quantity =
       Number(order.quantity || 1);
-
 
       const total =
       Number(
@@ -459,188 +702,206 @@ async function loadOrders(uid){
         price * quantity
       );
 
-
       const statusClass =
       status.toLowerCase();
+
+      const step =
+      getStep(status);
 
 
       ordersDiv.innerHTML += `
 
-      <div class="order-card">
+        <div class="order-card">
 
-        <div class="order-top">
+          <div class="order-top">
 
-          <div class="order-id">
-            Order #${id.substring(0,8)}
+            <div>
+
+              <div class="order-id">
+                Order ID:
+                <b>#${id.substring(0,8)}</b>
+              </div>
+
+              <div class="order-date">
+                Your SayonMart order
+              </div>
+
+            </div>
+
+            <div class="status ${statusClass}">
+              ${status}
+            </div>
+
           </div>
 
-          <div class="status ${statusClass}">
-            ${status}
+
+          <div class="product">
+
+            <img
+              src="${image}"
+              onerror="
+              this.src='https://via.placeholder.com/200'
+              "
+            >
+
+            <div class="product-info">
+
+              <h3>
+                ${productName}
+              </h3>
+
+              <p>
+                Quantity: ${quantity}
+              </p>
+
+              <p class="price">
+                ₹${price}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          ${
+            status === "Cancelled"
+
+            ?
+
+            `
+
+            <div class="tracking">
+
+              <div class="track-title">
+                ❌ Order Cancelled
+              </div>
+
+            </div>
+
+            `
+
+            :
+
+            `
+
+            <div class="tracking">
+
+              <div class="track-title">
+                🚚 Order Tracking
+              </div>
+
+
+              <div class="steps">
+
+                <div class="step ${
+                  step >= 1 ? "done" : ""
+                }">
+
+                  <div class="circle">
+                    ${step >= 1 ? "✓" : "1"}
+                  </div>
+
+                  <p>
+                    Pending
+                  </p>
+
+                </div>
+
+
+                <div class="step ${
+                  step >= 2 ? "done" : ""
+                }">
+
+                  <div class="circle">
+                    ${step >= 2 ? "✓" : "2"}
+                  </div>
+
+                  <p>
+                    Confirmed
+                  </p>
+
+                </div>
+
+
+                <div class="step ${
+                  step >= 3 ? "done" : ""
+                }">
+
+                  <div class="circle">
+                    ${step >= 3 ? "✓" : "3"}
+                  </div>
+
+                  <p>
+                    Shipped
+                  </p>
+
+                </div>
+
+
+                <div class="step ${
+                  step >= 4 ? "done" : ""
+                }">
+
+                  <div class="circle">
+                    ${step >= 4 ? "✓" : "4"}
+                  </div>
+
+                  <p>
+                    Delivered
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            `
+          }
+
+
+          <div class="order-bottom">
+
+            <div>
+
+              <div class="total-label">
+                Total Amount
+              </div>
+
+              <div class="total">
+                ₹${total}
+              </div>
+
+            </div>
+
+
+            <button
+              class="details-btn"
+              data-id="${id}"
+              data-product="${productName}"
+              data-customer="${order.name || "N/A"}"
+              data-phone="${order.phone || "N/A"}"
+              data-address="${order.address || "N/A"}"
+              data-status="${status}"
+              data-total="${total}"
+              onclick="showDetails(this)">
+
+              👁️ View Details
+
+            </button>
+
           </div>
 
         </div>
-
-
-        <div class="product">
-
-          <img
-            src="${image}"
-            onerror="
-            this.src='https://via.placeholder.com/100'
-            "
-          >
-
-          <div>
-
-            <h3>
-              ${productName}
-            </h3>
-
-            <p>
-              💰 ₹${price}
-            </p>
-
-            <p>
-              🔢 Quantity: ${quantity}
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <p class="total">
-          Total: ₹${total}
-        </p>
-
-
-        ${
-          status === "Cancelled"
-          ?
-
-          `
-          <div class="tracking">
-
-            <div class="track-title">
-              ❌ Order Cancelled
-            </div>
-
-          </div>
-          `
-
-          :
-
-          `
-
-          <div class="tracking">
-
-            <div class="track-title">
-              🚚 Order Tracking
-            </div>
-
-
-            <div class="steps">
-
-              <div class="step ${
-                getStep(status)>=1
-                ? "done"
-                : ""
-              }">
-
-                <div class="circle">
-                  ✓
-                </div>
-
-                <p>
-                  Pending
-                </p>
-
-              </div>
-
-
-              <div class="step ${
-                getStep(status)>=2
-                ? "done"
-                : ""
-              }">
-
-                <div class="circle">
-                  ✓
-                </div>
-
-                <p>
-                  Confirmed
-                </p>
-
-              </div>
-
-
-              <div class="step ${
-                getStep(status)>=3
-                ? "done"
-                : ""
-              }">
-
-                <div class="circle">
-                  ✓
-                </div>
-
-                <p>
-                  Shipped
-                </p>
-
-              </div>
-
-
-              <div class="step ${
-                getStep(status)>=4
-                ? "done"
-                : ""
-              }">
-
-                <div class="circle">
-                  ✓
-                </div>
-
-                <p>
-                  Delivered
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          `
-
-        }
-
-
-        <button
-          class="details-btn"
-          onclick="showDetails(
-            '${id}',
-            '${productName}',
-            '${order.name || "N/A"}',
-            '${order.phone || "N/A"}',
-            '${order.address || "N/A"}',
-            '${status}',
-            '${total}'
-          )"
-        >
-          👁️ View Order Details
-        </button>
-
-
-      </div>
 
       `;
 
     });
 
 
-  }catch(error){
+  }
+
+  catch(error){
 
     console.error(error);
 
@@ -648,11 +909,11 @@ async function loadOrders(uid){
 
       <div class="empty">
 
-        ❌ Orders Load Failed
+        <div class="empty-icon">⚠️</div>
 
-        <br><br>
+        <h3>Orders Load Failed</h3>
 
-        ${error.message}
+        <p>${error.message}</p>
 
       </div>
 
@@ -663,7 +924,7 @@ async function loadOrders(uid){
 }
 
 
-/* Tracking step */
+/* TRACKING */
 
 function getStep(status){
 
@@ -688,20 +949,34 @@ function getStep(status){
 }
 
 
-/* Details */
+/* DETAILS */
 
 window.showDetails =
-function(
-  id,
-  product,
-  customer,
-  phone,
-  address,
-  status,
-  total
-){
+function(button){
 
-alert(
+  const id =
+  button.dataset.id;
+
+  const product =
+  button.dataset.product;
+
+  const customer =
+  button.dataset.customer;
+
+  const phone =
+  button.dataset.phone;
+
+  const address =
+  button.dataset.address;
+
+  const status =
+  button.dataset.status;
+
+  const total =
+  button.dataset.total;
+
+
+  alert(
 
 `📦 ORDER DETAILS
 
@@ -726,7 +1001,7 @@ ${status}
 💰 Total:
 ₹${total}`
 
-);
+  );
 
 };
 
