@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#ffffff">
+
+<title>SayonMart Videos</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#f5f5f5;
+  color:#222;
+  padding-bottom:80px;
+}
+
+
+/* HEADER */
+
+.header{
+  background:#fff;
+  padding:15px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:800;
+  color:#c99a00;
+}
+
+.logo span{
+  color:#222;
+}
+
+.upload-btn{
+  border:0;
+  background:#ffd21a;
+  padding:9px 13px;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+
+/* VIDEO AREA */
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:12px;
+}
+
+
+/* VIDEO CARD */
+
+.video-card{
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:15px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.video-box{
+  width:100%;
+  background:#000;
+  aspect-ratio:9/16;
+  max-height:650px;
+}
+
+.video-box video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.video-info{
+  padding:12px;
+}
+
+.creator{
+  font-weight:bold;
+  font-size:14px;
+}
+
+.caption{
+  margin-top:6px;
+  font-size:13px;
+  color:#555;
+}
+
+.video-actions{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+.action{
+  border:0;
+  background:#f5f5f5;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+
+/* LOADING */
+
+.loading{
+  text-align:center;
+  padding:35px;
+  color:#888;
+}
+
+.spinner{
+  width:30px;
+  height:30px;
+  border:3px solid #eee;
+  border-top:3px solid #d29e00;
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+  margin:0 auto 10px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:40px 20px;
+  color:#888;
+}
+
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:67px;
+  background:#fff;
+  border-top:1px solid #eee;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:999;
+  box-shadow:0 -3px 15px rgba(0,0,0,.08);
+}
+
+.nav-item{
+  text-align:center;
+  color:#777;
+  font-size:10px;
+  cursor:pointer;
+}
+
+.nav-icon{
+  font-size:21px;
+  margin-bottom:3px;
+}
+
+.nav-item.active{
+  color:#d29e00;
+  font-weight:bold;
+}
+
+
+/* DESKTOP */
+
+@media(min-width:700px){
+
+  .container{
+    padding:20px;
+  }
+
+  .video-box{
+    max-height:700px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+  <div class="topbar">
+
+    <div class="logo">
+      🎬 Sayon<span>Mart</span>
+    </div>
+
+    <button
+      class="upload-btn"
+      onclick="goUpload()">
+
+      ＋ Upload
+
+    </button>
+
+  </div>
+
+</header>
+
+
+
+<main class="container">
+
+  <div id="videos">
+
+    <div class="loading">
+
+      <div class="spinner"></div>
+
+      Loading videos...
+
+    </div>
+
+  </div>
+
+</main>
+
+
+
+<nav class="bottom-nav">
+
+
+  <div
+    class="nav-item"
+    onclick="goHome()">
+
+    <div class="nav-icon">
+      ⌂
+    </div>
+
+    Home
+
+  </div>
+
+
+
+  <div
+    class="nav-item active">
+
+    <div class="nav-icon">
+      🎬
+    </div>
+
+    Videos
+
+  </div>
+
+
+
+  <div
+    class="nav-item"
+    onclick="goCart()">
+
+    <div class="nav-icon">
+      🛒
+    </div>
+
+    Cart
+
+  </div>
+
+
+
+  <div
+    class="nav-item"
+    onclick="goProfile()">
+
+    <div class="nav-icon">
+      ♙
+    </div>
+
+    Profile
+
+  </div>
+
+
+</nav>
+
+
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  limit
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const videoContainer =
+  document.getElementById("videos");
+
+
+/* ================================
+   LOAD VIDEOS
+================================ */
+
+async function loadVideos(){
+
+  try{
+
+    const q =
+      query(
+        collection(db,"videos"),
+        orderBy("createdAt","desc"),
+        limit(30)
+      );
+
+
+    const snapshot =
+      await getDocs(q);
+
+
+    if(snapshot.empty){
+
+      videoContainer.innerHTML =
+
+        `
+        <div class="empty">
+
+          🎬
+
+          <br><br>
+
+          এখনো কোনো ভিডিও নেই।
+
+          <br>
+
+          প্রথম ভিডিওটি তুমি upload করতে পারো।
+
+        </div>
+        `;
+
+      return;
+
+    }
+
+
+    videoContainer.innerHTML = "";
+
+
+    snapshot.forEach(docSnap => {
+
+      const video =
+        docSnap.data();
+
+
+      const videoUrl =
+        escapeAttribute(
+          video.videoUrl || ""
+        );
+
+
+      const userName =
+        escapeHTML(
+          video.userName ||
+          "SayonMart User"
+        );
+
+
+      const caption =
+        escapeHTML(
+          video.caption ||
+          ""
+        );
+
+
+      const likes =
+        Number(
+          video.likes || 0
+        );
+
+
+      const views =
+        Number(
+          video.views || 0
+        );
+
+
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "video-card";
+
+
+      card.innerHTML = `
+
+        <div class="video-box">
+
+          <video
+            src="${videoUrl}"
+            controls
+            playsinline
+            preload="metadata">
+          </video>
+
+        </div>
+
+
+        <div class="video-info">
+
+          <div class="creator">
+
+            👤 ${userName}
+
+          </div>
+
+
+          ${
+            caption
+            ?
+            `<div class="caption">
+              ${caption}
+            </div>`
+            :
+            ""
+          }
+
+
+          <div class="video-actions">
+
+            <button class="action">
+
+              ❤️ ${likes}
+
+            </button>
+
+
+            <button class="action">
+
+              👁️ ${views}
+
+            </button>
+
+
+            <button
+              class="action"
+              onclick="shareVideo(
+                '${encodeURIComponent(docSnap.id)}'
+              )">
+
+              🔗 Share
+
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+
+      videoContainer.appendChild(card);
+
+    });
+
+
+  }catch(error){
+
+    console.error(
+      "Video loading error:",
+      error
+    );
+
+
+    videoContainer.innerHTML =
+
+      `
+      <div class="empty">
+
+        ভিডিও load করা যাচ্ছে না।
+
+        <br><br>
+
+        আবার চেষ্টা করুন।
+
+      </div>
+      `;
+
+  }
+
+}
+
+
+/* ================================
+   SHARE
+================================ */
+
+window.shareVideo = function(id){
+
+  try{
+
+    id =
+      decodeURIComponent(id);
+
+  }catch(e){}
+
+
+  const url =
+    window.location.origin +
+    window.location.pathname +
+    "?video=" +
+    encodeURIComponent(id);
+
+
+  if(
+    navigator.share
+  ){
+
+    navigator.share({
+
+      title:"SayonMart Video",
+
+      url:url
+
+    }).catch(()=>{});
+
+  }else{
+
+    navigator.clipboard
+      .writeText(url)
+      .then(()=>{
+
+        alert(
+          "Video link copied!"
+        );
+
+      })
+      .catch(()=>{
+
+        alert(url);
+
+      });
+
+  }
+
+};
+
+
+/* ================================
+   NAVIGATION
+================================ */
+
+window.goHome = function(){
+
+  window.location.href =
+    "index.html";
+
+};
+
+
+window.goUpload = function(){
+
+  window.location.href =
+    "upload-video.html";
+
+};
+
+
+window.goCart = function(){
+
+  window.location.href =
+    "cart.html";
+
+};
+
+
+window.goProfile = function(){
+
+  window.location.href =
+    "profile.html";
+
+};
+
+
+/* ================================
+   SECURITY
+================================ */
+
+function escapeHTML(text){
+
+  return String(text)
+
+    .replace(/&/g,"&amp;")
+
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;")
+
+    .replace(/"/g,"&quot;")
+
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(text){
+
+  return String(text)
+
+    .replace(/&/g,"&amp;")
+
+    .replace(/"/g,"&quot;")
+
+    .replace(/'/g,"&#039;")
+
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;");
+
+}
+
+
+/* ================================
+   START
+================================ */
+
+loadVideos();
+
+</script>
+
+</body>
+
+</html>
