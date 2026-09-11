@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SayonMart - My Orders</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SayonMart - My Orders</title><style>
 *{box-sizing:border-box;}
 
 body{
@@ -336,27 +331,36 @@ body{
 }
 
 .details-btn,
-.cancel-btn{
+.cancel-btn,
+.review-btn{
   flex:1;
-  height:42px;
+  min-height:42px;
   border-radius:11px;
   font-size:12px;
   font-weight:bold;
   cursor:pointer;
+  border:1px solid #222;
 }
 
 .details-btn{
   background:#fff;
-  border:1px solid #222;
   color:#222;
 }
 
 .cancel-btn{
   background:#ffd21f;
-  border:1px solid #ffd21f;
+  border-color:#ffd21f;
+  color:#111;
 }
 
-.cancel-btn:disabled{
+.review-btn{
+  background:#ffd21f;
+  border-color:#ffd21f;
+  color:#111;
+}
+
+.cancel-btn:disabled,
+.review-btn:disabled{
   opacity:.5;
 }
 
@@ -534,145 +538,86 @@ body{
   }
 
 }
-</style>
-</head>
+</style></head><body><header class="header">  <div class="logo-area"><div class="logo-box">🛍️</div>
 
-<body>
+<div class="logo">
+  <span>Sayon</span>Mart
+</div>
 
-<header class="header">
+  </div>  <div class="header-icons"><span class="header-icon"
+  onclick="location.href='notifications.html'">
+  🔔
+</span>
 
-  <div class="logo-area">
+  </div></header><div class="container">  <div class="page-head"><div class="page-icon">📦</div>
 
-    <div class="logo-box">🛍️</div>
+<div>
+  <h1>My Orders</h1>
+  <p>Track your orders and stay updated</p>
+</div>
 
-    <div class="logo">
-      <span>Sayon</span>Mart
-    </div>
+  </div>  <div class="filters"><button class="filter active"
+  onclick="filterOrders('All',this)">
+  ▦ All Orders
+</button>
 
-  </div>
+<button class="filter"
+  onclick="filterOrders('Pending',this)">
+  ◷ Pending
+</button>
 
-  <div class="header-icons">
+<button class="filter"
+  onclick="filterOrders('Confirmed',this)">
+  ✓ Confirmed
+</button>
 
-    <span class="header-icon"
-      onclick="location.href='notifications.html'">
-      🔔
-    </span>
+<button class="filter"
+  onclick="filterOrders('Shipped',this)">
+  🚚 Shipped
+</button>
 
-  </div>
+<button class="filter"
+  onclick="filterOrders('Delivered',this)">
+  ✓ Delivered
+</button>
 
-</header>
+<button class="filter"
+  onclick="filterOrders('Cancelled',this)">
+  ❌ Cancelled
+</button>
 
-
-<div class="container">
-
-  <div class="page-head">
-
-    <div class="page-icon">📦</div>
-
-    <div>
-      <h1>My Orders</h1>
-      <p>Track your orders and stay updated</p>
-    </div>
-
-  </div>
-
-
-  <div class="filters">
-
-    <button class="filter active"
-      onclick="filterOrders('All',this)">
-      ▦ All Orders
-    </button>
-
-    <button class="filter"
-      onclick="filterOrders('Pending',this)">
-      ◷ Pending
-    </button>
-
-    <button class="filter"
-      onclick="filterOrders('Confirmed',this)">
-      ✓ Confirmed
-    </button>
-
-    <button class="filter"
-      onclick="filterOrders('Shipped',this)">
-      🚚 Shipped
-    </button>
-
-    <button class="filter"
-      onclick="filterOrders('Delivered',this)">
-      ✓ Delivered
-    </button>
-
-    <button class="filter"
-      onclick="filterOrders('Cancelled',this)">
-      ❌ Cancelled
-    </button>
-
-  </div>
-
-
-  <div id="orders" class="loading">
+  </div>  <div id="orders" class="loading">
     Loading Orders...
-  </div>
+  </div></div><div id="detailModal" class="modal">  <div class="modal-box"><div class="modal-head">
+
+  <h2>📦 Order Details</h2>
+
+  <button
+    class="close-btn"
+    onclick="closeDetails()">
+    ✕
+  </button>
 
 </div>
 
+<div id="detailContent"></div>
 
-<div id="detailModal" class="modal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <h2>📦 Order Details</h2>
-
-      <button
-        class="close-btn"
-        onclick="closeDetails()">
-        ✕
-      </button>
-
-    </div>
-
-    <div id="detailContent"></div>
-
-  </div>
-
-</div>
-
-
-<nav class="bottom">
-
-  <a href="index.html">
+  </div></div><nav class="bottom">  <a href="index.html">
     <div>⌂</div>
     Home
-  </a>
-
-  <a href="products.html">
+  </a>  <a href="products.html">
     <div>▦</div>
     Products
-  </a>
-
-  <a href="cart.html">
+  </a>  <a href="cart.html">
     <div>🛒</div>
     Cart
-  </a>
-
-  <a href="orders.html" class="active">
+  </a>  <a href="orders.html" class="active">
     <div>📦</div>
     Orders
-  </a>
-
-  <a href="profile.html">
+  </a>  <a href="profile.html">
     <div>♙</div>
     Profile
-  </a>
-
-</nav>
-
-
-<script type="module">
+  </a></nav><script type="module">
 
 import { db, auth } from "./firebase.js";
 
@@ -1020,6 +965,20 @@ function renderOrders(orders){
 
 
             ${
+              status === "Delivered"
+
+              ?
+
+              `
+              <button
+                class="review-btn"
+                onclick="giveReview('${id}','${order.productId || ""}')">
+                ⭐ Give Review
+              </button>
+              `
+
+              :
+
               status === "Pending"
 
               ?
@@ -1096,6 +1055,40 @@ function getStep(status){
 
   return 0;
 }
+
+
+/* GIVE REVIEW */
+
+window.giveReview =
+function(orderId, productId){
+
+  if(!currentUser){
+
+    alert(
+      "Please login first."
+    );
+
+    return;
+  }
+
+
+  if(!productId){
+
+    alert(
+      "এই পুরোনো order-এর Product ID নেই। নতুন order-এর জন্য Review করা যাবে।"
+    );
+
+    return;
+  }
+
+
+  location.href =
+    "review.html?orderId=" +
+    encodeURIComponent(orderId) +
+    "&productId=" +
+    encodeURIComponent(productId);
+
+};
 
 
 /* DETAILS */
@@ -1177,7 +1170,11 @@ window.cancelOrder =
 async function(orderId){
 
   if(!currentUser){
-    alert("Please login first.");
+
+    alert(
+      "Please login first."
+    );
+
     return;
   }
 
@@ -1187,20 +1184,30 @@ async function(orderId){
       "আপনি কি সত্যিই এই order টি cancel করতে চান?"
     );
 
+
   if(!confirmed){
+
     return;
+
   }
 
 
   try{
 
     const orderItem =
-      allOrders.find(item => item.id === orderId);
+      allOrders.find(
+        item => item.id === orderId
+      );
+
 
     if(!orderItem){
 
-      alert("Order পাওয়া যায়নি।");
+      alert(
+        "Order পাওয়া যায়নি।"
+      );
+
       return;
+
     }
 
 
@@ -1220,6 +1227,7 @@ async function(orderId){
       );
 
       return;
+
     }
 
 
@@ -1234,23 +1242,32 @@ async function(orderId){
       );
 
       return;
+
     }
 
 
     await updateDoc(
-      doc(db,"orders",orderId),
+      doc(
+        db,
+        "orders",
+        orderId
+      ),
       {
         status:"Cancelled"
       }
     );
 
 
-    alert("✅ Order Cancelled Successfully");
+    alert(
+      "✅ Order Cancelled Successfully"
+    );
 
 
     /* আবার orders load */
 
-    await loadOrders(currentUser.uid);
+    await loadOrders(
+      currentUser.uid
+    );
 
 
   }
@@ -1272,15 +1289,20 @@ async function(orderId){
 
 document
   .getElementById("detailModal")
-  .addEventListener("click",(e)=>{
+  .addEventListener(
+    "click",
+    (e)=>{
 
-    if(e.target.id === "detailModal"){
-      closeDetails();
+      if(
+        e.target.id === "detailModal"
+      ){
+
+        closeDetails();
+
+      }
+
     }
+  );
 
-  });
-
-</script>
-
-</body>
+</script></body>
 </html>
