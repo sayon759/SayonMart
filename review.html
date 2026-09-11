@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayonMart - Give Review</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#f5f6f8;
+  font-family:Arial,sans-serif;
+  color:#222;
+}
+
+.header{
+  height:62px;
+  background:#111;
+  color:#FFD700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:bold;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.back{
+  position:absolute;
+  left:15px;
+  color:#fff;
+  text-decoration:none;
+  font-size:28px;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:16px;
+}
+
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,.06);
+}
+
+.product{
+  display:flex;
+  gap:13px;
+  align-items:center;
+}
+
+.product img{
+  width:85px;
+  height:85px;
+  object-fit:cover;
+  border-radius:14px;
+  background:#eee;
+}
+
+.product-name{
+  font-size:17px;
+  font-weight:bold;
+}
+
+.product-order{
+  color:#888;
+  font-size:11px;
+  margin-top:6px;
+}
+
+.title{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.stars{
+  display:flex;
+  gap:5px;
+  margin-bottom:18px;
+}
+
+.star{
+  border:0;
+  background:none;
+  font-size:40px;
+  color:#ddd;
+  cursor:pointer;
+  padding:0;
+}
+
+.star.active{
+  color:#FFD21F;
+}
+
+textarea{
+  width:100%;
+  min-height:120px;
+  resize:none;
+  border:1px solid #ddd;
+  border-radius:13px;
+  padding:13px;
+  font-size:14px;
+  outline:none;
+}
+
+textarea:focus{
+  border-color:#FFD21F;
+}
+
+.photo-label{
+  display:block;
+  margin-top:15px;
+  border:2px dashed #ddd;
+  border-radius:15px;
+  padding:18px;
+  text-align:center;
+  cursor:pointer;
+  color:#666;
+}
+
+.photo-label strong{
+  display:block;
+  color:#222;
+  margin-bottom:5px;
+}
+
+#photo{
+  display:none;
+}
+
+.preview{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-top:12px;
+}
+
+.preview img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.submit{
+  width:100%;
+  height:50px;
+  border:0;
+  border-radius:13px;
+  background:#FFD21F;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.submit:disabled{
+  opacity:.5;
+}
+
+.note{
+  text-align:center;
+  color:#888;
+  font-size:11px;
+  margin-top:12px;
+}
+
+.loading{
+  text-align:center;
+  padding:50px;
+  color:#b98200;
+  font-weight:bold;
+}
+
+.error{
+  background:#fff;
+  border-radius:15px;
+  padding:25px;
+  text-align:center;
+  color:#d32f2f;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <a href="orders.html" class="back">←</a>
+  ⭐ Give Review
+</header>
+
+<div class="container">
+
+  <div id="loading" class="loading">
+    Loading...
+  </div>
+
+  <div id="reviewArea" style="display:none">
+
+    <div class="card">
+
+      <div class="product">
+
+        <img id="productImage"
+             src="https://via.placeholder.com/200">
+
+        <div>
+          <div id="productName" class="product-name">
+            Product
+          </div>
+
+          <div id="orderText" class="product-order">
+            Delivered Order
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        How was your product?
+      </div>
+
+      <div class="stars">
+
+        <button class="star" data-star="1">★</button>
+        <button class="star" data-star="2">★</button>
+        <button class="star" data-star="3">★</button>
+        <button class="star" data-star="4">★</button>
+        <button class="star" data-star="5">★</button>
+
+      </div>
+
+
+      <div class="title">
+        Write your review
+      </div>
+
+      <textarea
+        id="comment"
+        maxlength="500"
+        placeholder="Product কেমন হয়েছে লিখুন...">
+      </textarea>
+
+
+      <label class="photo-label" for="photo">
+
+        <strong>📷 Add Product Photo</strong>
+
+        নিজের তোলা product-এর ছবি যোগ করুন
+
+      </label>
+
+      <input
+        id="photo"
+        type="file"
+        accept="image/*"
+        multiple
+      >
+
+      <div id="preview" class="preview"></div>
+
+    </div>
+
+
+    <div class="card">
+
+      <button
+        id="submitBtn"
+        class="submit"
+        disabled>
+        ⭐ Submit Review
+      </button>
+
+      <div class="note">
+        আপনার review অন্য customers-দের product সম্পর্কে জানতে সাহায্য করবে।
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script type="module">
+
+import {db,auth,storage} from "./firebase.js";
+
+import {
+  doc,
+  getDoc,
+  addDoc,
+  collection,
+  serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+import {
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+const loading =
+document.getElementById("loading");
+
+const reviewArea =
+document.getElementById("reviewArea");
+
+const productImage =
+document.getElementById("productImage");
+
+const productName =
+document.getElementById("productName");
+
+const orderText =
+document.getElementById("orderText");
+
+const comment =
+document.getElementById("comment");
+
+const photo =
+document.getElementById("photo");
+
+const preview =
+document.getElementById("preview");
+
+const submitBtn =
+document.getElementById("submitBtn");
+
+
+const params =
+new URLSearchParams(location.search);
+
+
+const orderId =
+params.get("orderId");
+
+const productId =
+params.get("productId");
+
+const nameParam =
+params.get("name");
+
+const imageParam =
+params.get("image");
+
+
+let currentUser = null;
+let rating = 0;
+
+
+/* STAR */
+
+document.querySelectorAll(".star").forEach(star=>{
+
+  star.addEventListener("click",()=>{
+
+    rating =
+      Number(star.dataset.star);
+
+    document
+      .querySelectorAll(".star")
+      .forEach(s=>{
+
+        s.classList.toggle(
+          "active",
+          Number(s.dataset.star)<=rating
+        );
+
+      });
+
+    checkSubmit();
+
+  });
+
+});
+
+
+/* PHOTO PREVIEW */
+
+photo.addEventListener("change",()=>{
+
+  preview.innerHTML="";
+
+  [...photo.files].slice(0,3).forEach(file=>{
+
+    const reader =
+      new FileReader();
+
+    reader.onload=e=>{
+
+      const img =
+        document.createElement("img");
+
+      img.src=e.target.result;
+
+      preview.appendChild(img);
+
+    };
+
+    reader.readAsDataURL(file);
+
+  });
+
+});
+
+
+/* CHECK */
+
+function checkSubmit(){
+
+  submitBtn.disabled =
+    !(rating > 0);
+
+}
+
+
+/* LOGIN */
+
+onAuthStateChanged(auth,async(user)=>{
+
+  if(!user){
+
+    loading.innerHTML=`
+      <div class="error">
+        🔒 Please login first.
+        <br><br>
+        <button onclick="location.href='login.html'">
+          Login
+        </button>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  currentUser=user;
+
+  await loadData();
+
+});
+
+
+/* LOAD ORDER / PRODUCT */
+
+async function loadData(){
+
+  try{
+
+    let finalName =
+      nameParam || "Product";
+
+    let finalImage =
+      imageParam ||
+      "https://via.placeholder.com/200";
+
+
+    if(orderId){
+
+      const orderSnap =
+        await getDoc(
+          doc(db,"orders",orderId)
+        );
+
+      if(orderSnap.exists()){
+
+        const order =
+          orderSnap.data();
+
+        /* Security */
+
+        if(order.userId !== currentUser.uid){
+
+          throw new Error(
+            "এই order আপনার নয়।"
+          );
+
+        }
+
+        if(order.status !== "Delivered"){
+
+          throw new Error(
+            "শুধু Delivered order-এ review দেওয়া যাবে।"
+          );
+
+        }
+
+        finalName =
+          order.productName ||
+          finalName;
+
+        finalImage =
+          order.productImage ||
+          finalImage;
+
+      }
+
+    }
+
+
+    productName.innerText =
+      finalName;
+
+    productImage.src =
+      finalImage;
+
+    orderText.innerText =
+      orderId
+      ? "Delivered Order #" +
+        orderId.substring(0,8)
+      : "Delivered Order";
+
+
+    loading.style.display="none";
+
+    reviewArea.style.display="block";
+
+
+  }catch(error){
+
+    console.error(error);
+
+    loading.innerHTML=`
+      <div class="error">
+        ⚠️ ${escapeHTML(error.message)}
+        <br><br>
+        <button onclick="location.href='orders.html'">
+          Back to Orders
+        </button>
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* SUBMIT */
+
+submitBtn.addEventListener("click",async()=>{
+
+  if(!currentUser){
+
+    alert("Please login first.");
+
+    return;
+
+  }
+
+  if(!rating){
+
+    alert("একটি rating দিন।");
+
+    return;
+
+  }
+
+
+  submitBtn.disabled=true;
+
+  submitBtn.innerText =
+    "Uploading...";
+
+
+  try{
+
+    let imageUrls=[];
+
+
+    /* PHOTO UPLOAD */
+
+    const files =
+      [...photo.files].slice(0,3);
+
+
+    for(let i=0;i<files.length;i++){
+
+      const file=files[i];
+
+      if(!file.type.startsWith("image/")){
+
+        continue;
+
+      }
+
+
+      /* 5MB limit */
+
+      if(file.size > 5 * 1024 * 1024){
+
+        throw new Error(
+          "প্রতিটি photo 5MB-এর মধ্যে হতে হবে।"
+        );
+
+      }
+
+
+      const fileName =
+        Date.now()+"_"+i+"_"+file.name;
+
+      const storageRef =
+        ref(
+          storage,
+          "reviews/" +
+          currentUser.uid +
+          "/" +
+          fileName
+        );
+
+
+      await uploadBytes(
+        storageRef,
+        file
+      );
+
+
+      const url =
+        await getDownloadURL(
+          storageRef
+        );
+
+      imageUrls.push(url);
+
+    }
+
+
+    /* SAVE REVIEW */
+
+    await addDoc(
+      collection(db,"reviews"),
+      {
+        userId:currentUser.uid,
+
+        userName:
+          currentUser.displayName ||
+          currentUser.email ||
+          "Customer",
+
+        productId:
+          productId || "",
+
+        productName:
+          productName.innerText,
+
+        productImage:
+          productImage.src,
+
+        orderId:
+          orderId || "",
+
+        rating:rating,
+
+        comment:
+          comment.value.trim(),
+
+        photos:imageUrls,
+
+        createdAt:
+          serverTimestamp()
+      }
+    );
+
+
+    alert(
+      "✅ Review successfully submitted!"
+    );
+
+
+    location.href =
+      productId
+      ? "product.html?id="+
+        encodeURIComponent(productId)
+      : "orders.html";
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Review submit করা যায়নি:\n"+
+      error.message
+    );
+
+    submitBtn.disabled=false;
+
+    submitBtn.innerText =
+      "⭐ Submit Review";
+
+  }
+
+});
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
