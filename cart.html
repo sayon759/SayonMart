@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="bn">
+<!DOCTYPE html><html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SayonMart Cart</title>
-
-<style>
+<title>SayonMart Cart</title><style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
@@ -14,6 +12,7 @@ body{
   color:#222;
   padding-bottom:80px;
 }
+
 header{
   background:#e91e63;
   color:white;
@@ -24,9 +23,11 @@ header{
   top:0;
   z-index:10;
 }
+
 #cart{
   padding:10px;
 }
+
 .item{
   background:white;
   margin-bottom:10px;
@@ -36,6 +37,7 @@ header{
   gap:10px;
   box-shadow:0 1px 4px #ddd;
 }
+
 .item img{
   width:90px;
   height:90px;
@@ -43,24 +45,29 @@ header{
   border-radius:8px;
   background:#fafafa;
 }
+
 .info{
   flex:1;
 }
+
 .name{
   font-weight:bold;
   margin-bottom:5px;
 }
+
 .price{
   color:#e91e63;
   font-weight:bold;
   font-size:18px;
 }
+
 .qty{
   display:flex;
   align-items:center;
   gap:10px;
   margin-top:8px;
 }
+
 .qty button{
   width:30px;
   height:30px;
@@ -69,6 +76,7 @@ header{
   background:#eee;
   font-size:18px;
 }
+
 .delete{
   border:0;
   background:#ffebee;
@@ -76,24 +84,46 @@ header{
   padding:6px 9px;
   border-radius:6px;
 }
+
+.order-one{
+  width:100%;
+  border:0;
+  padding:10px;
+  background:#FFD21F;
+  color:#222;
+  border-radius:8px;
+  font-size:14px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
 .summary{
   background:white;
   margin:10px;
   padding:15px;
   border-radius:10px;
 }
+
 .row{
   display:flex;
   justify-content:space-between;
   margin:8px 0;
 }
+
 .total{
   border-top:1px solid #ddd;
   padding-top:10px;
   font-size:20px;
   font-weight:bold;
 }
-.checkout{
+
+.empty{
+  text-align:center;
+  padding:60px 20px;
+  color:#777;
+}
+
+.shop-btn{
   width:100%;
   border:0;
   padding:13px;
@@ -104,11 +134,7 @@ header{
   font-weight:bold;
   margin-top:10px;
 }
-.empty{
-  text-align:center;
-  padding:60px 20px;
-  color:#777;
-}
+
 .bottom{
   position:fixed;
   bottom:0;
@@ -121,32 +147,20 @@ header{
   padding:9px 0;
   z-index:20;
 }
+
 .bottom a{
   text-decoration:none;
   color:#555;
   font-size:13px;
   text-align:center;
 }
-</style>
-</head>
-
-<body>
-
-<header>🛒 SayonMart Cart</header>
-
-<div id="cart"></div>
-
-<div id="summary"></div>
-
-<div class="bottom">
+</style></head><body><header>🛒 SayonMart Cart</header><div id="cart"></div><div id="summary"></div><div class="bottom">
   <a href="index.html">🏠<br>Home</a>
   <a href="products.html">🛍️<br>Products</a>
   <a href="cart.html">🛒<br>Cart</a>
   <a href="order.html">📦<br>Orders</a>
   <a href="profile.html">👤<br>Profile</a>
-</div>
-
-<script>
+</div><script>
 
 const cartBox =
   document.getElementById("cart");
@@ -199,6 +213,12 @@ function getImage(item){
   if(item.image)
     return item.image;
 
+  if(item.imageUrl)
+    return item.imageUrl;
+
+  if(item.productImage)
+    return item.productImage;
+
   return "https://via.placeholder.com/150?text=Product";
 
 }
@@ -216,14 +236,21 @@ function showCart(){
 
     cartBox.innerHTML = `
       <div class="empty">
+
         <div style="font-size:55px">🛒</div>
+
         <h3>আপনার Cart খালি</h3>
+
         <p>Product যোগ করুন</p>
+
         <button
-          class="checkout"
+          class="shop-btn"
           onclick="location.href='products.html'">
+
           🛍️ Product দেখুন
+
         </button>
+
       </div>
     `;
 
@@ -295,6 +322,14 @@ function showCart(){
 
           </div>
 
+          <button
+            class="order-one"
+            onclick="orderThis(${index})">
+
+            🛍️ Order This
+
+          </button>
+
         </div>
 
       </div>
@@ -306,6 +341,12 @@ function showCart(){
 
   cartBox.innerHTML = html;
 
+
+  /*
+    Cart-এর সব product-এর মোট শুধু
+    দেখানোর জন্য রাখা হয়েছে।
+    Checkout এখানে থেকে হবে না।
+  */
 
   const delivery =
     subtotal >= 499 ? 0 : 40;
@@ -319,27 +360,33 @@ function showCart(){
     <div class="summary">
 
       <div class="row">
-        <span>Subtotal</span>
+        <span>Cart Subtotal</span>
         <b>₹${subtotal}</b>
       </div>
 
       <div class="row">
         <span>Delivery</span>
         <b>
-          ${delivery === 0 ? "FREE" : "₹" + delivery}
+          ${delivery === 0
+            ? "FREE"
+            : "₹" + delivery}
         </b>
       </div>
 
       <div class="row total">
-        <span>Total</span>
+        <span>Cart Total</span>
         <span>₹${grandTotal}</span>
       </div>
 
-      <button
-        class="checkout"
-        onclick="checkout()">
-        Proceed to Checkout →
-      </button>
+      <div style="
+        text-align:center;
+        color:#777;
+        font-size:12px;
+        margin-top:10px;
+      ">
+        উপরের যে product-টি Order করবেন,
+        শুধু সেটিই checkout হবে।
+      </div>
 
     </div>
 
@@ -389,6 +436,10 @@ function(index){
 
   const cart = getCart();
 
+  if(!cart[index])
+    return;
+
+
   cart.splice(index,1);
 
   saveCart(cart);
@@ -399,21 +450,51 @@ function(index){
 
 
 // ======================
-// CHECKOUT
+// ORDER ONLY THIS PRODUCT
 // ======================
 
-window.checkout =
-function(){
+window.orderThis =
+function(index){
 
   const cart = getCart();
 
-  if(!cart.length){
+  if(!cart[index]){
 
-    alert("Cart খালি");
+    alert("Product পাওয়া যায়নি।");
 
     return;
 
   }
+
+
+  const selectedProduct = {
+    id:
+      cart[index].id || "",
+
+    name:
+      cart[index].name || "Product",
+
+    price:
+      Number(cart[index].price || 0),
+
+    image:
+      getImage(cart[index]),
+
+    quantity:
+      Number(cart[index].quantity || 1)
+  };
+
+
+  /*
+    শুধু নির্বাচিত product
+    payment page-এ পাঠানো হবে।
+  */
+
+  localStorage.setItem(
+    "sayonmartBuyNow",
+    JSON.stringify(selectedProduct)
+  );
+
 
   location.href =
     "payment.html";
@@ -428,10 +509,15 @@ function(){
 function escapeHTML(text){
 
   return String(text)
+
     .replace(/&/g,"&amp;")
+
     .replace(/</g,"&lt;")
+
     .replace(/>/g,"&gt;")
+
     .replace(/"/g,"&quot;")
+
     .replace(/'/g,"&#039;");
 
 }
@@ -443,7 +529,5 @@ function escapeHTML(text){
 
 showCart();
 
-</script>
-
-</body>
+</script></body>
 </html>
