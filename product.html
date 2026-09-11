@@ -6,9 +6,7 @@
 <title>Product - SayonMart</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -45,9 +43,7 @@ header{
   margin:auto;
 }
 
-.image-box{
-  padding:10px;
-}
+.image-box{padding:10px}
 
 .main-img{
   width:100%;
@@ -70,9 +66,7 @@ header{
   border-radius:8px;
 }
 
-.thumb.active{
-  border:3px solid #111;
-}
+.thumb.active{border:3px solid #111}
 
 .rating-box{
   padding:12px 18px;
@@ -165,9 +159,7 @@ header{
   padding:6px;
 }
 
-.color-btn.selected{
-  border:3px solid #111;
-}
+.color-btn.selected{border:3px solid #111}
 
 .color-btn img{
   width:58px;
@@ -219,9 +211,7 @@ header{
   border-radius:10px;
 }
 
-.delivery-row{
-  padding:7px 0;
-}
+.delivery-row{padding:7px 0}
 
 .seller-box{
   padding:18px;
@@ -248,13 +238,9 @@ header{
   line-height:1.6;
 }
 
-.benefits{
-  line-height:2;
-}
+.benefits{line-height:2}
 
-.more{
-  padding:18px;
-}
+.more{padding:18px}
 
 .recommendations{
   display:flex;
@@ -286,6 +272,91 @@ header{
   margin-top:5px;
 }
 
+/* REVIEWS */
+
+.reviews-section{
+  padding:18px;
+  border-bottom:8px solid #f5f5f5;
+}
+
+.review-summary{
+  background:#f5f7f9;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.average-rating{
+  font-size:32px;
+  font-weight:bold;
+}
+
+.average-stars{
+  color:#f5b400;
+  font-size:22px;
+}
+
+.total-reviews{
+  color:#777;
+  margin-top:3px;
+}
+
+.review-card{
+  border-bottom:1px solid #ddd;
+  padding:15px 0;
+}
+
+.review-card:last-child{
+  border-bottom:0;
+}
+
+.review-user{
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.review-stars{
+  color:#f5b400;
+  font-size:18px;
+  margin-bottom:7px;
+}
+
+.review-text{
+  color:#444;
+  line-height:1.5;
+  margin-bottom:10px;
+  word-break:break-word;
+}
+
+.review-photos{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+}
+
+.review-photo{
+  width:100px;
+  height:100px;
+  object-fit:cover;
+  border-radius:8px;
+  border:1px solid #ddd;
+}
+
+.no-reviews{
+  text-align:center;
+  color:#777;
+  padding:20px 5px;
+}
+
+.review-loading{
+  text-align:center;
+  color:#777;
+  padding:15px;
+}
+
 .bottom{
   position:fixed;
   left:0;
@@ -313,9 +384,7 @@ header{
   border:2px solid #111 !important;
 }
 
-.buy{
-  background:#FFD700;
-}
+.buy{background:#FFD700}
 
 .loading{
   text-align:center;
@@ -432,24 +501,21 @@ import {db} from "./firebase.js";
 
 import {
 collection,
-getDocs
+getDocs,
+query,
+where
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-const content =
-document.getElementById("content");
+const content=document.getElementById("content");
+const bottomBar=document.getElementById("bottomBar");
 
-const bottomBar =
-document.getElementById("bottomBar");
-
-const productId =
+const productId=
 new URLSearchParams(location.search).get("id");
 
 let currentProduct=null;
-
 let selectedSize="";
-
 let selectedColor="";
 
 
@@ -474,8 +540,6 @@ return String(value ?? "")
 }
 
 
-/* CATEGORY */
-
 function getCategory(product){
 
 return String(
@@ -486,8 +550,6 @@ product.type ||
 
 }
 
-
-/* কোন product-এ size লাগবে */
 
 function hasSize(category){
 
@@ -508,8 +570,6 @@ category.includes("জুতা")
 
 }
 
-
-/* Shoes না জামা */
 
 function getSizes(product,category){
 
@@ -534,6 +594,235 @@ return [];
 }
 
 
+/* REVIEW STAR */
+
+function getStars(rating){
+
+let r=Number(rating)||0;
+
+let html="";
+
+for(let i=1;i<=5;i++){
+
+html += i<=r ? "★" : "☆";
+
+}
+
+return html;
+
+}
+
+
+/* LOAD REVIEWS */
+
+async function loadReviews(){
+
+const section=
+document.getElementById("reviewsSection");
+
+if(!section || !productId) return;
+
+section.innerHTML=`
+<div class="review-loading">
+Reviews loading...
+</div>
+`;
+
+try{
+
+const snapshot=
+await getDocs(
+query(
+collection(db,"reviews"),
+where("productId","==",productId)
+)
+);
+
+let reviews=
+snapshot.docs.map(doc=>({
+id:doc.id,
+...doc.data()
+}));
+
+
+/* newest first */
+
+reviews.sort((a,b)=>{
+
+const aTime=
+a.createdAt?.seconds ||
+0;
+
+const bTime=
+b.createdAt?.seconds ||
+0;
+
+return bTime-aTime;
+
+});
+
+
+let total=reviews.length;
+
+let average=0;
+
+if(total){
+
+average=
+reviews.reduce(
+(sum,r)=>sum+(Number(r.rating)||0),
+0
+)/total;
+
+}
+
+
+const roundedAverage=
+total ? average.toFixed(1) : "0.0";
+
+
+section.innerHTML=`
+
+<h3>Customer Reviews</h3>
+
+<div class="review-summary">
+
+<div>
+
+<div class="average-rating">
+${roundedAverage} ★
+</div>
+
+<div class="average-stars">
+${getStars(Math.round(average))}
+</div>
+
+</div>
+
+<div>
+
+<div class="total-reviews">
+${total} Customer Review${total===1?"":"s"}
+</div>
+
+<div style="color:#777;margin-top:5px">
+Verified customer reviews
+</div>
+
+</div>
+
+</div>
+
+
+${
+total===0
+?
+`
+<div class="no-reviews">
+এই পণ্যের কোনো review এখনো নেই।
+</div>
+`
+:
+reviews.map(review=>{
+
+const userName=
+escapeHTML(
+review.userName ||
+"Customer"
+);
+
+const comment=
+escapeHTML(
+review.comment ||
+""
+);
+
+const rating=
+Number(review.rating)||0;
+
+const photos=
+Array.isArray(review.photos)
+?
+review.photos
+:
+[];
+
+
+return `
+
+<div class="review-card">
+
+<div class="review-user">
+👤 ${userName}
+</div>
+
+<div class="review-stars">
+${getStars(rating)}
+</div>
+
+${
+comment
+?
+`
+<div class="review-text">
+${comment}
+</div>
+`
+:
+""
+}
+
+
+${
+photos.length
+?
+`
+<div class="review-photos">
+
+${photos.map(photo=>`
+
+<img
+class="review-photo"
+src="${escapeHTML(photo)}"
+loading="lazy"
+>
+
+`).join("")}
+
+</div>
+`
+:
+""
+}
+
+</div>
+
+`;
+
+}).join("")
+
+}
+`;
+
+}catch(error){
+
+console.error("Review load error:",error);
+
+section.innerHTML=`
+
+<h3>Customer Reviews</h3>
+
+<div class="no-reviews">
+Review load করা যায়নি।
+</div>
+
+`;
+
+}
+
+}
+
+
 /* PRODUCT */
 
 function showProduct(product,allProducts){
@@ -547,85 +836,59 @@ product.image ||
 product.imageUrl ||
 "https://via.placeholder.com/500";
 
-
 const name=
 product.name ||
 "Product";
 
-
 const price=
 product.price ?? 0;
-
 
 const oldPrice=
 product.oldPrice;
 
-
 const discount=
 product.discount;
-
 
 const rating=
 product.rating || "4.5";
 
-
 const reviews=
 product.reviews || "0";
-
 
 const description=
 product.description ||
 "এই পণ্যের কোনো বিবরণ দেওয়া হয়নি।";
 
-
 const seller=
 product.seller ||
 "SayonMart Seller";
-
 
 const delivery=
 product.delivery ||
 "5-7 দিনের মধ্যে";
 
 
-/* IMAGES */
-
 let images=[];
 
 if(Array.isArray(product.images)){
-
 images=product.images;
-
 }
 
-images=[
-image,
-...images
-];
+images=[image,...images];
 
-images=[
-...new Set(images)
-];
+images=[...new Set(images)];
 
-
-/* COLORS */
 
 let colors=[];
 
 if(Array.isArray(product.colors)){
-
 colors=product.colors;
-
 }
 
-
-/* SIZES */
 
 let sizes=
 getSizes(product,category);
 
-
-/* যদি Firebase-এ custom size থাকে */
 
 if(
 Array.isArray(product.sizes) &&
@@ -638,21 +901,15 @@ sizes=product.sizes;
 }
 
 
-/* RELATED */
-
 const related=
 allProducts
 .filter(p=>p.id!==product.id)
 .slice(0,8);
 
 
-/* COLOR */
-
 selectedColor=
 colors.length ? colors[0] : "";
 
-
-/* HTML */
 
 content.innerHTML=`
 
@@ -780,8 +1037,6 @@ ${escapeHTML(color)}
 }
 
 
-/* SIZE ONLY IF NEEDED */
-
 ${
 sizes.length
 ?
@@ -876,12 +1131,24 @@ ${escapeHTML(description)}
 <ul class="benefits">
 
 <li>ভালো মানের পণ্য</li>
-
 <li>সহজে অর্ডার করুন</li>
-
 <li>SayonMart থেকে কিনুন</li>
 
 </ul>
+
+</div>
+
+
+<!-- CUSTOMER REVIEWS -->
+
+<div
+id="reviewsSection"
+class="reviews-section"
+>
+
+<div class="review-loading">
+Reviews loading...
+</div>
 
 </div>
 
@@ -946,6 +1213,9 @@ addToCart(currentProduct);
 location.href="payment.html";
 
 };
+
+
+loadReviews();
 
 }
 
@@ -1059,10 +1329,8 @@ JSON.parse(
 localStorage.getItem("cart")||"[]"
 );
 
-
 let item=
 cart.find(x=>x.id===product.id);
-
 
 if(item){
 
@@ -1094,12 +1362,10 @@ color:selectedColor
 
 }
 
-
 localStorage.setItem(
 "cart",
 JSON.stringify(cart)
 );
-
 
 alert("Product cart-এ যোগ হয়েছে!");
 
