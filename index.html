@@ -553,10 +553,6 @@ height:145px;
 
 <body>
 
-<!-- =========================
-HEADER
-========================= -->
-
 <header class="header">
 
 <div class="topbar">
@@ -567,14 +563,12 @@ HEADER
 
 <div class="header-icons">
 
-<!-- WISHLIST - KEPT -->
 <button
 class="icon-btn"
 onclick="goWishlist()">
 ♡
 </button>
 
-<!-- CART -->
 <button
 class="icon-btn"
 onclick="goCart()">
@@ -603,10 +597,6 @@ oninput="searchProducts()">
 
 <main class="container">
 
-<!-- =========================
-HOME BANNER
-========================= -->
-
 <section>
 
 <div class="banner">
@@ -630,10 +620,6 @@ class="dots">
 
 </section>
 
-
-<!-- =========================
-CATEGORIES
-========================= -->
 
 <section class="section">
 
@@ -732,10 +718,6 @@ Electronics
 </section>
 
 
-<!-- =========================
-TRENDING
-========================= -->
-
 <section
 class="section"
 id="productsSection">
@@ -779,10 +761,6 @@ Loading products...
 </section>
 
 
-<!-- =========================
-NEW ARRIVALS
-========================= -->
-
 <section class="section">
 
 <div class="section-title">
@@ -823,10 +801,6 @@ Loading...
 
 </section>
 
-
-<!-- =========================
-BEST DEALS
-========================= -->
 
 <section class="section">
 
@@ -871,14 +845,7 @@ Loading...
 </main>
 
 
-<!-- =========================
-BOTTOM NAV
-Wishlist removed here
-========================= -->
-
 <nav class="bottom-nav">
-
-<!-- HOME -->
 
 <div
 class="nav-item active"
@@ -895,8 +862,6 @@ Home
 </div>
 
 
-<!-- CATEGORIES -->
-
 <div
 class="nav-item"
 onclick="goProducts()">
@@ -911,8 +876,6 @@ Categories
 
 </div>
 
-
-<!-- CART -->
 
 <div
 class="nav-item"
@@ -935,8 +898,6 @@ Cart
 
 </div>
 
-
-<!-- PROFILE -->
 
 <div
 class="nav-item"
@@ -970,6 +931,152 @@ query,
 limit
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* ================================
+SAYONMART NOTIFICATION
+================================ */
+
+import {
+getMessaging,
+getToken,
+onMessage
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
+
+
+const messaging = getMessaging();
+
+
+const SAYONMART_VAPID_KEY =
+"BMSDYPBD2fzKNjgei9_9yaILORieJd0wdp73biRXR3ai92m3z9-ZpSM5Hber87uAWqObKdRwHhi2MI94WlCQ67g";
+
+
+async function enableSayonMartNotifications(){
+
+if(!("Notification" in window)){
+
+console.log(
+"Notifications not supported"
+);
+
+return;
+
+}
+
+
+if(!("serviceWorker" in navigator)){
+
+console.log(
+"Service Worker not supported"
+);
+
+return;
+
+}
+
+
+try{
+
+const permission =
+await Notification.requestPermission();
+
+
+if(permission !== "granted"){
+
+console.log(
+"Notification permission denied"
+);
+
+return;
+
+}
+
+
+const registration =
+await navigator.serviceWorker.register(
+"./firebase-messaging-sw.js"
+);
+
+
+const token =
+await getToken(
+messaging,
+{
+vapidKey:
+SAYONMART_VAPID_KEY,
+
+serviceWorkerRegistration:
+registration
+}
+);
+
+
+if(token){
+
+console.log(
+"SayonMart FCM Token:",
+token
+);
+
+localStorage.setItem(
+"sayonmart_fcm_token",
+token
+);
+
+}
+
+}catch(error){
+
+console.error(
+"SayonMart notification error:",
+error
+);
+
+}
+
+}
+
+
+/* ================================
+FOREGROUND NOTIFICATION
+================================ */
+
+onMessage(
+messaging,
+(payload) => {
+
+console.log(
+"SayonMart notification:",
+payload
+);
+
+if(
+Notification.permission ===
+"granted"
+){
+
+const title =
+payload.notification?.title ||
+"SayonMart";
+
+
+const body =
+payload.notification?.body ||
+"SayonMart থেকে নতুন notification এসেছে।";
+
+
+new Notification(
+title,
+{
+body:body
+}
+);
+
+}
+
+}
+);
 
 
 /* ================================
@@ -1068,10 +1175,6 @@ data.createdAt
 );
 
 
-/* =========================
-SORT BANNERS
-========================= */
-
 homeBanners.sort(
 (a,b) => {
 
@@ -1086,10 +1189,6 @@ return aTime - bTime;
 }
 );
 
-
-/* =========================
-NO ADMIN BANNER
-========================= */
 
 if(
 homeBanners.length === 0
@@ -1278,10 +1377,6 @@ dot
 );
 
 
-/* =========================
-SHOP BUTTON
-========================= */
-
 slider
 .querySelectorAll(
 ".shop-btn"
@@ -1316,10 +1411,6 @@ link;
 }
 );
 
-
-/* =========================
-DOT CLICK
-========================= */
 
 dots
 .querySelectorAll(
@@ -2013,11 +2104,6 @@ window.location.href =
 };
 
 
-/* ================================
-WISHLIST
-Kept for header + product buttons
-================================ */
-
 window.goWishlist =
 function(){
 
@@ -2243,6 +2329,9 @@ updateCartBadge();
 loadHomeBanners();
 
 loadProducts();
+
+/* Notification চালু */
+enableSayonMartNotifications();
 
 </script>
 
