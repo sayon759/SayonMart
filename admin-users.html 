@@ -23,7 +23,7 @@ body{
   background:#f5f5f5;
   color:#222;
 }
- 
+
 header{
   background:#fff;
   border-bottom:2px solid #d4af37;
@@ -154,7 +154,6 @@ button{
 
 <body>
 
-
 <header>
 
   <div class="logo">
@@ -167,76 +166,68 @@ button{
 
 </header>
 
-
 <div class="container">
 
+  <div class="card">
 
-<div class="card">
+    <h2>👥 Customer Users</h2>
 
-  <h2>👥 Customer Users</h2>
+    <div class="total-box">
 
-  <div class="total-box">
+      <div
+        id="totalUsers"
+        class="total-number"
+      >
+        0
+      </div>
+
+      <div class="total-text">
+        Total Registered Users
+      </div>
+
+    </div>
 
     <div
-      id="totalUsers"
-      class="total-number"
+      id="userList"
+      class="loading"
     >
-      0
-    </div>
-
-    <div class="total-text">
-      Total Registered Users
+      Loading users...
     </div>
 
   </div>
 
 
-  <div
-    id="userList"
-    class="loading"
-  >
-    Loading users...
+  <div class="card">
+
+    <button
+      class="btn-gold"
+      onclick="location.href='./admin.html'"
+    >
+      ← Back to Admin Panel
+    </button>
+
   </div>
-
-</div>
-
-
-<div class="card">
-
-  <button
-    class="btn-gold"
-    onclick="location.href='admin.html'"
-  >
-    ← Back to Admin Panel
-  </button>
-
-</div>
-
 
 </div>
 
 
 <script type="module">
 
-
 import {
   db,
   auth
-}
-from "./firebase.js";
+} from "./firebase.js";
 
 
 import {
   collection,
   getDocs
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 import {
   onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 /* =========================
@@ -254,14 +245,10 @@ const ADMIN_UID =
 async function loadUsers(){
 
   const list =
-    document.getElementById(
-      "userList"
-    );
+    document.getElementById("userList");
 
   const total =
-    document.getElementById(
-      "totalUsers"
-    );
+    document.getElementById("totalUsers");
 
 
   try{
@@ -316,17 +303,13 @@ async function loadUsers(){
           createdText =
             user.createdAt
             .toDate()
-            .toLocaleString(
-              "en-IN"
-            );
+            .toLocaleString("en-IN");
 
         }
 
 
         const div =
-          document.createElement(
-            "div"
-          );
+          document.createElement("div");
 
 
         div.className =
@@ -391,7 +374,7 @@ onAuthStateChanged(
       );
 
       location.href =
-        "login.html";
+        "./login.html";
 
       return;
     }
@@ -406,7 +389,7 @@ onAuthStateChanged(
       );
 
       location.href =
-        "index.html";
+        "./index.html";
 
       return;
     }
@@ -428,30 +411,11 @@ function escapeHTML(value){
     value || ""
   )
 
-  .replace(
-    /&/g,
-    "&amp;"
-  )
-
-  .replace(
-    /</g,
-    "&lt;"
-  )
-
-  .replace(
-    />/g,
-    "&gt;"
-  )
-
-  .replace(
-    /"/g,
-    "&quot;"
-  )
-
-  .replace(
-    /'/g,
-    "&#039;"
-  );
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
 }
 
