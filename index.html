@@ -802,68 +802,49 @@ body{
 
 </div>
 
-  </div>  </section>  </main>  <!-- =========================  
-     BOTTOM NAV  
-========================= -->  <nav class="bottom-nav">    <div  
-    class="nav-item active"  
-    onclick="goHome()">  <div class="nav-icon">  
-  ⌂  
-</div>  
+  </div>  </section>  </main>  <!--   <!-- =========================
+     BOTTOM NAV
+========================= -->
+<nav class="bottom-nav">
 
-<span data-i18n="Home">  
-  Home  
-</span>
+  <div class="nav-item active" onclick="goHome()">
+    <div class="nav-icon">⌂</div>
+    <span data-i18n="Home">Home</span>
+  </div>
 
-  </div>    <div  
-    class="nav-item"  
-    onclick="goProducts()">  <div class="nav-icon">  
-  ▦  
-</div>  
+  <div class="nav-item" onclick="goProducts()">
+    <div class="nav-icon">▦</div>
+    <span data-i18n="Categories">Categories</span>
+  </div>
 
-<span data-i18n="Categories">  
-  Categories  
-</span>
+  <div class="nav-item" onclick="goCart()">
 
-  </div>    <div  
-    class="nav-item"  
-    onclick="goWishlist()">  <div class="nav-icon">  
-  ♡  
-</div>  
+    <span
+      id="cartBadge"
+      class="cart-badge"
+      style="display:none">
+      0
+    </span>
 
-<span data-i18n="Wishlist">  
-  Wishlist  
-</span>
+    <div class="nav-icon">🛒</div>
 
-  </div>    <div  
-    class="nav-item"  
-    onclick="goCart()">  <span  
-  id="cartBadge"  
-  class="cart-badge"  
-  style="display:none">  
+    <span data-i18n="Cart">
+      Cart
+    </span>
 
-  0  
+  </div>
 
-</span>  
+  <div class="nav-item" onclick="goProfile()">
 
-<div class="nav-icon">  
-  🛒  
-</div>  
+    <div class="nav-icon">♙</div>
 
-<span data-i18n="Cart">  
-  Cart  
-</span>
+    <span data-i18n="Profile">
+      Profile
+    </span>
 
-  </div>    <div  
-    class="nav-item"  
-    onclick="goProfile()">  <div class="nav-icon">  
-  ♙  
-</div>  
+  </div>
 
-<span data-i18n="Profile">  
-  Profile  
-</span>
-
-  </div>  </nav>  <script type="module">  
+</nav>
   
   
 /* ================================  
