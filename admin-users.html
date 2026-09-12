@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SayonMart - Customer Users</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#f5f5f5;
+  color:#222;
+}
+
+.header{
+  background:#111;
+  color:white;
+  padding:18px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+.summary{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.summary h2{
+  margin-bottom:8px;
+}
+
+.user-card{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.user-card p{
+  margin:8px 0;
+  word-break:break-word;
+}
+
+.back-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:#FFD700;
+  color:#111;
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:20px;
+  cursor:pointer;
+}
+
+.loading{
+  text-align:center;
+  padding:30px;
+}
+
+.error{
+  background:#ffe5e5;
+  color:#b00000;
+  padding:15px;
+  border-radius:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+👥 SayonMart Customer Users
+</div>
+
+<div class="container">
+
+<button
+class="back-btn"
+onclick="location.href='./admin.html'">
+⬅ Back to Admin Panel
+</button>
+
+<div class="summary">
+<h2>Registered Customers</h2>
+<p>Total Users: <strong id="totalUsers">0</strong></p>
+</div>
+
+<div id="usersList">
+<div class="loading">
+Loading customers...
+</div>
+</div>
+
+</div>
+
+
+<script type="module">
+
+import { db, auth } from "./firebase.js";
+
+import {
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+const ADMIN_UID =
+"fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+
+
+const usersList =
+document.getElementById("usersList");
+
+const totalUsers =
+document.getElementById("totalUsers");
+
+
+function escapeHTML(text){
+
+  if(text === null || text === undefined){
+    return "";
+  }
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+async function loadUsers(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db,"users")
+      );
+
+    totalUsers.textContent =
+      snapshot.size;
+
+    if(snapshot.empty){
+
+      usersList.innerHTML = `
+        <div class="user-card">
+          <p>No registered customers found.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    usersList.innerHTML = "";
+
+
+    snapshot.forEach((docSnap)=>{
+
+      const user =
+        docSnap.data();
+
+      let created =
+        "Not available";
+
+
+      if(user.createdAt){
+
+        if(
+          typeof user.createdAt.toDate ===
+          "function"
+        ){
+
+          created =
+            user.createdAt
+              .toDate()
+              .toLocaleString();
+        }
+
+        else{
+
+          created =
+            String(user.createdAt);
+        }
+      }
+
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "user-card";
+
+
+      card.innerHTML = `
+
+        <p>
+          <strong>📧 Email:</strong>
+          ${escapeHTML(user.email || "No email")}
+        </p>
+
+        <p>
+          <strong>🆔 UID:</strong>
+          ${escapeHTML(user.uid || docSnap.id)}
+        </p>
+
+        <p>
+          <strong>📅 Registered:</strong>
+          ${escapeHTML(created)}
+        </p>
+
+      `;
+
+
+      usersList.appendChild(card);
+
+    });
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    usersList.innerHTML = `
+      <div class="error">
+        ❌ Users load করতে সমস্যা হয়েছে.
+        <br><br>
+        ${escapeHTML(error.message)}
+      </div>
+    `;
+
+  }
+
+}
+
+
+onAuthStateChanged(auth, async (user)=>{
+
+  if(!user){
+
+    location.href =
+      "./login.html";
+
+    return;
+  }
+
+
+  if(user.uid !== ADMIN_UID){
+
+    alert(
+      "Access denied. Admin only."
+    );
+
+    location.href =
+      "./index.html";
+
+    return;
+  }
+
+
+  await loadUsers();
+
+});
+
+</script>
+
+</body>
+</html>
