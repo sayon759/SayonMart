@@ -410,7 +410,7 @@ function escapeHTML(value){
   return String(
     value || ""
   )
-
+b
   .replace(/&/g,"&amp;")
   .replace(/</g,"&lt;")
   .replace(/>/g,"&gt;")
