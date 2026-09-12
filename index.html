@@ -1,2202 +1,2251 @@
-<!DOCTYPE html>  <html lang="en">  <head>  <meta charset="UTF-8">  <meta name="viewport"  
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color"  
+<meta name="theme-color"
 content="#ffffff">
 
-<title>SayonMart - Home</title>  <link rel="manifest"  
-href="manifest.json">  <script src="language.js"></script>  <style>  
-  
-*{  
-  margin:0;  
-  padding:0;  
-  box-sizing:border-box;  
-  font-family:Arial,Helvetica,sans-serif;  
-}  
-  
-body{  
-  background:#f6f6f6;  
-  color:#171717;  
-  padding-bottom:80px;  
-}  
-  
-  
-/* =========================  
-   HEADER  
-========================= */  
-  
-.header{  
-  background:#fff;  
-  padding:16px 15px 10px;  
-  position:sticky;  
-  top:0;  
-  z-index:100;  
-  box-shadow:0 2px 10px rgba(0,0,0,.08);  
-}  
-  
-.topbar{  
-  display:flex;  
-  align-items:center;  
-  justify-content:space-between;  
-}  
-  
-.logo{  
-  font-size:22px;  
-  font-weight:800;  
-  color:#c99a00;  
-}  
-  
-.logo span{  
-  color:#222;  
-}  
-  
-.header-icons{  
-  display:flex;  
-  gap:15px;  
-}  
-  
-.icon-btn{  
-  border:0;  
-  background:#f7f7f7;  
-  width:38px;  
-  height:38px;  
-  border-radius:50%;  
-  font-size:19px;  
-  cursor:pointer;  
-}  
-  
-  
-/* =========================  
-   SEARCH  
-========================= */  
-  
-.search-box{  
-  margin-top:13px;  
-  background:#f5f5f5;  
-  border-radius:13px;  
-  padding:11px 14px;  
-  display:flex;  
-  align-items:center;  
-  gap:9px;  
-}  
-  
-.search-box input{  
-  border:0;  
-  outline:0;  
-  background:transparent;  
-  width:100%;  
-  font-size:14px;  
-}  
-  
-  
-/* =========================  
-   MAIN  
-========================= */  
-  
-.container{  
-  max-width:1100px;  
-  margin:auto;  
-  padding:15px;  
-}  
-  
-  
-/* =========================  
-   FIREBASE BANNER  
-========================= */  
-  
-.banner{  
-  height:190px;  
-  border-radius:18px;  
-  overflow:hidden;  
-  position:relative;  
-  background:#222;  
-  box-shadow:0 5px 15px rgba(0,0,0,.15);  
-}  
-  
-.banner-slide{  
-  position:absolute;  
-  inset:0;  
-  display:none;  
-}  
-  
-.banner-slide.active{  
-  display:block;  
-}  
-  
-.banner-slide img{  
-  width:100%;  
-  height:100%;  
-  object-fit:cover;  
-  display:block;  
-}  
-  
-.banner-overlay{  
-  position:absolute;  
-  inset:0;  
-  background:linear-gradient(  
-    90deg,  
-    rgba(0,0,0,.75),  
-    rgba(0,0,0,.05)  
-  );  
-  
-  display:flex;  
-  align-items:center;  
-  padding:25px;  
-}  
-  
-.banner-text{  
-  color:white;  
-  max-width:230px;  
-}  
-  
-.banner-text small{  
-  color:#ffd21a;  
-  font-weight:bold;  
-}  
-  
-.banner-text h2{  
-  font-size:25px;  
-  margin:6px 0;  
-}  
-  
-.banner-text p{  
-  font-size:12px;  
-  margin-bottom:12px;  
-}  
-  
-.shop-btn{  
-  background:#ffd21a;  
-  color:#111;  
-  border:0;  
-  padding:9px 16px;  
-  border-radius:8px;  
-  font-weight:bold;  
-  cursor:pointer;  
-}  
-  
-  
-/* =========================  
-   DOTS  
-========================= */  
-  
-.dots{  
-  position:absolute;  
-  bottom:8px;  
-  left:50%;  
-  transform:translateX(-50%);  
-  display:flex;  
-  gap:5px;  
-  z-index:5;  
-}  
-  
-.dot{  
-  width:7px;  
-  height:7px;  
-  background:#fff;  
-  opacity:.5;  
-  border-radius:50%;  
-  cursor:pointer;  
-}  
-  
-.dot.active{  
-  opacity:1;  
-  width:20px;  
-  border-radius:10px;  
-}  
-  
-  
-/* =========================  
-   BANNER LOADING  
-========================= */  
-  
-.banner-loading{  
-  width:100%;  
-  height:100%;  
-  display:flex;  
-  align-items:center;  
-  justify-content:center;  
-  color:#fff;  
-  font-size:13px;  
-}  
-  
-  
-/* =========================  
-   SECTION  
-========================= */  
-  
-.section{  
-  margin-top:24px;  
-}  
-  
-.section-title{  
-  display:flex;  
-  justify-content:space-between;  
-  align-items:center;  
-  margin-bottom:13px;  
-}  
-  
-.section-title h2{  
-  font-size:19px;  
-}  
-  
-.section-title a{  
-  color:#b48700;  
-  font-size:12px;  
-  font-weight:bold;  
-  cursor:pointer;  
-}  
-  
-  
-/* =========================  
-   CATEGORIES  
-========================= */  
-  
-.categories{  
-  display:grid;  
-  grid-template-columns:repeat(5,1fr);  
-  gap:10px;  
-}  
-  
-.category{  
-  background:white;  
-  padding:10px 5px;  
-  border-radius:14px;  
-  text-align:center;  
-  box-shadow:0 2px 8px rgba(0,0,0,.06);  
-  cursor:pointer;  
-}  
-  
-.category-icon{  
-  width:48px;  
-  height:48px;  
-  margin:auto;  
-  border-radius:50%;  
-  background:#fff4c7;  
-  display:flex;  
-  align-items:center;  
-  justify-content:center;  
-  font-size:25px;  
-}  
-  
-.category p{  
-  font-size:11px;  
-  margin-top:7px;  
-  font-weight:bold;  
-}  
-  
-  
-/* =========================  
-   PRODUCTS  
-========================= */  
-  
-.products{  
-  display:grid;  
-  grid-template-columns:repeat(2,1fr);  
-  gap:12px;  
-}  
-  
-.product-card{  
-  background:#fff;  
-  border-radius:15px;  
-  overflow:hidden;  
-  box-shadow:0 2px 9px rgba(0,0,0,.08);  
-  position:relative;  
-  cursor:pointer;  
-}  
-  
-.product-img{  
-  height:170px;  
-  background:#f2f2f2;  
-  position:relative;  
-}  
-  
-.product-img img{  
-  width:100%;  
-  height:100%;  
-  object-fit:cover;  
-  display:block;  
-}  
-  
-.wishlist{  
-  position:absolute;  
-  right:9px;  
-  top:9px;  
-  width:32px;  
-  height:32px;  
-  border:0;  
-  border-radius:50%;  
-  background:white;  
-  box-shadow:0 2px 6px rgba(0,0,0,.12);  
-  font-size:17px;  
-  cursor:pointer;  
-}  
-  
-.product-info{  
-  padding:10px;  
-}  
-  
-.product-name{  
-  font-size:14px;  
-  font-weight:bold;  
-  white-space:nowrap;  
-  overflow:hidden;  
-  text-overflow:ellipsis;  
-}  
-  
-.rating{  
-  color:#e2a900;  
-  font-size:12px;  
-  margin-top:6px;  
-}  
-  
-.price-row{  
-  display:flex;  
-  align-items:center;  
-  gap:7px;  
-  margin-top:7px;  
-  flex-wrap:wrap;  
-}  
-  
-.price{  
-  color:#c18f00;  
-  font-weight:800;  
-  font-size:16px;  
-}  
-  
-.old-price{  
-  color:#999;  
-  text-decoration:line-through;  
-  font-size:11px;  
-}  
-  
-.discount{  
-  background:#dff7e8;  
-  color:#168447;  
-  font-size:9px;  
-  padding:3px 5px;  
-  border-radius:5px;  
-  font-weight:bold;  
-}  
-  
-  
-/* =========================  
-   OFFER  
-========================= */  
-  
-.offer{  
-  height:150px;  
-  border-radius:17px;  
-  overflow:hidden;  
-  position:relative;  
-  
-  background:linear-gradient(  
-    100deg,  
-    #111,  
-    #544000,  
-    #111  
-  );  
-  
-  display:flex;  
-  align-items:center;  
-  padding:20px;  
-  
-  box-shadow:0 4px 12px rgba(0,0,0,.12);  
-}  
-  
-.offer h2{  
-  color:#ffd21a;  
-  font-size:23px;  
-}  
-  
-.offer p{  
-  color:white;  
-  font-size:12px;  
-  margin:7px 0 13px;  
-}  
-  
-  
-/* =========================  
-   EMPTY  
-========================= */  
-  
-.empty{  
-  text-align:center;  
-  padding:30px;  
-  color:#888;  
-  grid-column:1/-1;  
-}  
-  
-  
-/* =========================  
-   BOTTOM NAV  
-========================= */  
-  
-.bottom-nav{  
-  position:fixed;  
-  bottom:0;  
-  left:0;  
-  right:0;  
-  height:67px;  
-  background:#fff;  
-  border-top:1px solid #eee;  
-  display:flex;  
-  justify-content:space-around;  
-  align-items:center;  
-  z-index:999;  
-  box-shadow:0 -3px 15px rgba(0,0,0,.08);  
-}  
-  
-.nav-item{  
-  text-align:center;  
-  color:#777;  
-  font-size:10px;  
-  cursor:pointer;  
-  position:relative;  
-}  
-  
-.nav-icon{  
-  font-size:21px;  
-  margin-bottom:3px;  
-}  
-  
-.nav-item.active{  
-  color:#d29e00;  
-  font-weight:bold;  
-}  
-  
-.cart-badge{  
-  position:absolute;  
-  top:-5px;  
-  right:10px;  
-  background:#e53935;  
-  color:#fff;  
-  width:16px;  
-  height:16px;  
-  border-radius:50%;  
-  font-size:9px;  
-  display:flex;  
-  align-items:center;  
-  justify-content:center;  
-}  
-  
-  
-/* =========================  
-   LOADING  
-========================= */  
-  
-.loading{  
-  text-align:center;  
-  padding:30px;  
-  color:#999;  
-}  
-  
-.loading-spinner{  
-  width:28px;  
-  height:28px;  
-  border:3px solid #eee;  
-  border-top:3px solid #d29e00;  
-  border-radius:50%;  
-  animation:spin .7s linear infinite;  
-  margin:0 auto 10px;  
-}  
-  
-@keyframes spin{  
-  to{  
-    transform:rotate(360deg);  
-  }  
-}  
-  
-  
-/* =========================  
-   DESKTOP  
-========================= */  
-  
-@media(min-width:700px){  
-  
-  .container{  
-    padding:25px;  
-  }  
-  
-  .products{  
-    grid-template-columns:repeat(4,1fr);  
-  }  
-  
-  .categories{  
-    grid-template-columns:repeat(6,1fr);  
-  }  
-  
-  .product-img{  
-    height:220px;  
-  }  
-  
-  .banner{  
-    height:280px;  
-  }  
-  
-  .banner-text h2{  
-    font-size:35px;  
-  }  
-  
-}  
-  
-  
-/* =========================  
-   SMALL PHONE  
-========================= */  
-  
-@media(max-width:360px){  
-  
-  .categories{  
-    grid-template-columns:repeat(5,1fr);  
-    gap:5px;  
-  }  
-  
-  .category-icon{  
-    width:40px;  
-    height:40px;  
-    font-size:20px;  
-  }  
-  
-  .category p{  
-    font-size:9px;  
-  }  
-  
-  .product-img{  
-    height:145px;  
-  }  
-  
-}  
-  
-</style>  </head>  <body>  <!-- =========================  
-     HEADER  
-========================= -->  <header class="header">    <div class="topbar">  <div class="logo">  
-  🛍️ Sayon<span>Mart</span>  
-</div>  
-
-<div class="header-icons">  
-
-  <button  
-    class="icon-btn"  
-    onclick="goWishlist()">  
-    ♡  
-  </button>  
-
-  <button  
-    class="icon-btn"  
-    onclick="goCart()">  
-    🛒  
-  </button>  
-
-</div>
-
-  </div>    <div class="search-box">  🔍  
-
-<input  
-  id="searchInput"  
-  type="text"  
-  data-i18n-placeholder="Search products..."  
-  placeholder="Search products..."  
-  oninput="searchProducts()">
-
-  </div>  </header>  <main class="container">  <!-- =========================  
-     HOME BANNER  
-========================= -->  <section>    <div class="banner">  <div  
-  id="bannerSlider"  
-  class="banner-slider">  
-
-  <div class="banner-loading">  
-    Loading banner...  
-  </div>  
-
-</div>  
-
-
-<div  
-  id="bannerDots"  
-  class="dots">  
-</div>
-
-  </div>  </section>  <!-- =========================  
-     CATEGORIES  
-========================= -->  <section class="section">    <div class="section-title">  <h2 data-i18n="Categories">  
-  Categories  
-</h2>  
-
-<a  
-  onclick="goProducts()"  
-  data-i18n="See All">  
-
-  See All  
-
-</a>
-
-  </div>    <div class="categories">  <div  
-  class="category"  
-  onclick="openCategory('Fashion')">  
-
-  <div class="category-icon">  
-    👕  
-  </div>  
-
-  <p data-i18n="Fashion">  
-    Fashion  
-  </p>  
-
-</div>  
-
-
-<div  
-  class="category"  
-  onclick="openCategory('Shoes')">  
-
-  <div class="category-icon">  
-    👟  
-  </div>  
-
-  <p data-i18n="Shoes">  
-    Shoes  
-  </p>  
-
-</div>  
-
-
-<div  
-  class="category"  
-  onclick="openCategory('Mobiles')">  
-
-  <div class="category-icon">  
-    📱  
-  </div>  
-
-  <p data-i18n="Mobiles">  
-    Mobiles  
-  </p>  
-
-</div>  
-
-
-<div  
-  class="category"  
-  onclick="openCategory('Watches')">  
-
-  <div class="category-icon">  
-    ⌚  
-  </div>  
-
-  <p data-i18n="Watches">  
-    Watches  
-  </p>  
-
-</div>  
-
-
-<div  
-  class="category"  
-  onclick="openCategory('Electronics')">  
-
-  <div class="category-icon">  
-    🎧  
-  </div>  
-
-  <p data-i18n="Electronics">  
-    Electronics  
-  </p>  
-
-</div>
-
-  </div>  </section>  <!-- =========================  
-     TRENDING  
-========================= -->  <section  
-  class="section"  
-  id="productsSection">    <div class="section-title">  <h2>  
-
-  🔥  
-
-  <span data-i18n="Trending Products">  
-    Trending Products  
-  </span>  
-
-</h2>  
-
-<a  
-  onclick="goProducts()"  
-  data-i18n="See All">  
-
-  See All  
-
-</a>
-
-  </div>    <div  
-    id="trendingProducts"  
-    class="products">  <div class="loading">  
-
-  <div class="loading-spinner"></div>  
-
-  <span data-i18n="Loading products...">  
-    Loading products...  
-  </span>  
-
-</div>
-
-  </div>  </section>  <!-- =========================  
-     NEW ARRIVALS  
-========================= -->  <section class="section">    <div class="section-title">  <h2>  
-
-  🆕  
-
-  <span data-i18n="New Arrivals">  
-    New Arrivals  
-  </span>  
-
-</h2>  
-
-<a  
-  onclick="goProducts()"  
-  data-i18n="See All">  
-
-  See All  
-
-</a>
-
-  </div>    <div  
-    id="newProducts"  
-    class="products">  <div class="loading">  
-
-  <div class="loading-spinner"></div>  
-
-  <span data-i18n="Loading...">  
-    Loading...  
-  </span>  
-
-</div>
-
-  </div>  </section>  <!-- =========================  
-     BEST DEALS  
-========================= -->  <section class="section">    <div class="section-title">  <h2>  
-
-  💰  
-
-  <span data-i18n="Best Deals">  
-    Best Deals  
-  </span>  
-
-</h2>  
-
-<a  
-  onclick="goProducts()"  
-  data-i18n="See All">  
-
-  See All  
-
-</a>
-
-  </div>    <div  
-    id="discountProducts"  
-    class="products">  <div class="loading">  
-
-  <div class="loading-spinner"></div>  
-
-  <span data-i18n="Loading...">  
-    Loading...  
-  </span>  
-
-</div>
-
-  </div>  </section>  </main>  <!--   <!-- =========================
-     BOTTOM NAV
+<title>SayonMart - Home</title>
+
+<link rel="manifest"
+href="manifest.json">
+
+<script src="language.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:#f6f6f6;
+color:#171717;
+padding-bottom:80px;
+}
+
+/* =========================
+HEADER
+========================= */
+
+.header{
+background:#fff;
+padding:16px 15px 10px;
+position:sticky;
+top:0;
+z-index:100;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.logo{
+font-size:22px;
+font-weight:800;
+color:#c99a00;
+}
+
+.logo span{
+color:#222;
+}
+
+.header-icons{
+display:flex;
+gap:15px;
+}
+
+.icon-btn{
+border:0;
+background:#f7f7f7;
+width:38px;
+height:38px;
+border-radius:50%;
+font-size:19px;
+cursor:pointer;
+}
+
+/* =========================
+SEARCH
+========================= */
+
+.search-box{
+margin-top:13px;
+background:#f5f5f5;
+border-radius:13px;
+padding:11px 14px;
+display:flex;
+align-items:center;
+gap:9px;
+}
+
+.search-box input{
+border:0;
+outline:0;
+background:transparent;
+width:100%;
+font-size:14px;
+}
+
+/* =========================
+MAIN
+========================= */
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:15px;
+}
+
+/* =========================
+BANNER
+========================= */
+
+.banner{
+height:190px;
+border-radius:18px;
+overflow:hidden;
+position:relative;
+background:#222;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.banner-slide{
+position:absolute;
+inset:0;
+display:none;
+}
+
+.banner-slide.active{
+display:block;
+}
+
+.banner-slide img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.banner-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(
+90deg,
+rgba(0,0,0,.75),
+rgba(0,0,0,.05)
+);
+display:flex;
+align-items:center;
+padding:25px;
+}
+
+.banner-text{
+color:white;
+max-width:230px;
+}
+
+.banner-text small{
+color:#ffd21a;
+font-weight:bold;
+}
+
+.banner-text h2{
+font-size:25px;
+margin:6px 0;
+}
+
+.banner-text p{
+font-size:12px;
+margin-bottom:12px;
+}
+
+.shop-btn{
+background:#ffd21a;
+color:#111;
+border:0;
+padding:9px 16px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* =========================
+DOTS
+========================= */
+
+.dots{
+position:absolute;
+bottom:8px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:5px;
+z-index:5;
+}
+
+.dot{
+width:7px;
+height:7px;
+background:#fff;
+opacity:.5;
+border-radius:50%;
+cursor:pointer;
+}
+
+.dot.active{
+opacity:1;
+width:20px;
+border-radius:10px;
+}
+
+/* =========================
+SECTION
+========================= */
+
+.section{
+margin-top:24px;
+}
+
+.section-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:13px;
+}
+
+.section-title h2{
+font-size:19px;
+}
+
+.section-title a{
+color:#b48700;
+font-size:12px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* =========================
+CATEGORIES
+========================= */
+
+.categories{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
+}
+
+.category{
+background:white;
+padding:10px 5px;
+border-radius:14px;
+text-align:center;
+box-shadow:0 2px 8px rgba(0,0,0,.06);
+cursor:pointer;
+}
+
+.category-icon{
+width:48px;
+height:48px;
+margin:auto;
+border-radius:50%;
+background:#fff4c7;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+}
+
+.category p{
+font-size:11px;
+margin-top:7px;
+font-weight:bold;
+}
+
+/* =========================
+PRODUCTS
+========================= */
+
+.products{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.product-card{
+background:#fff;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 2px 9px rgba(0,0,0,.08);
+position:relative;
+cursor:pointer;
+}
+
+.product-img{
+height:170px;
+background:#f2f2f2;
+position:relative;
+}
+
+.product-img img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.wishlist{
+position:absolute;
+right:9px;
+top:9px;
+width:32px;
+height:32px;
+border:0;
+border-radius:50%;
+background:white;
+box-shadow:0 2px 6px rgba(0,0,0,.12);
+font-size:17px;
+cursor:pointer;
+}
+
+.product-info{
+padding:10px;
+}
+
+.product-name{
+font-size:14px;
+font-weight:bold;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.rating{
+color:#e2a900;
+font-size:12px;
+margin-top:6px;
+}
+
+.price-row{
+display:flex;
+align-items:center;
+gap:7px;
+margin-top:7px;
+flex-wrap:wrap;
+}
+
+.price{
+color:#c18f00;
+font-weight:800;
+font-size:16px;
+}
+
+.old-price{
+color:#999;
+text-decoration:line-through;
+font-size:11px;
+}
+
+.discount{
+background:#dff7e8;
+color:#168447;
+font-size:9px;
+padding:3px 5px;
+border-radius:5px;
+font-weight:bold;
+}
+
+/* =========================
+OFFER
+========================= */
+
+.offer{
+height:150px;
+border-radius:17px;
+overflow:hidden;
+position:relative;
+background:linear-gradient(
+100deg,
+#111,
+#544000,
+#111
+);
+display:flex;
+align-items:center;
+padding:20px;
+box-shadow:0 4px 12px rgba(0,0,0,.12);
+}
+
+.offer h2{
+color:#ffd21a;
+font-size:23px;
+}
+
+.offer p{
+color:white;
+font-size:12px;
+margin:7px 0 13px;
+}
+
+/* =========================
+EMPTY
+========================= */
+
+.empty{
+text-align:center;
+padding:30px;
+color:#888;
+grid-column:1/-1;
+}
+
+/* =========================
+BOTTOM NAV
+========================= */
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:67px;
+background:#fff;
+border-top:1px solid #eee;
+display:flex;
+justify-content:space-around;
+align-items:center;
+z-index:999;
+box-shadow:0 -3px 15px rgba(0,0,0,.08);
+}
+
+.nav-item{
+text-align:center;
+color:#777;
+font-size:10px;
+cursor:pointer;
+position:relative;
+}
+
+.nav-icon{
+font-size:21px;
+margin-bottom:3px;
+}
+
+.nav-item.active{
+color:#d29e00;
+font-weight:bold;
+}
+
+.cart-badge{
+position:absolute;
+top:-5px;
+right:10px;
+background:#e53935;
+color:#fff;
+width:16px;
+height:16px;
+border-radius:50%;
+font-size:9px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* =========================
+LOADING
+========================= */
+
+.loading{
+text-align:center;
+padding:30px;
+color:#999;
+}
+
+.loading-spinner{
+width:28px;
+height:28px;
+border:3px solid #eee;
+border-top:3px solid #d29e00;
+border-radius:50%;
+animation:spin .7s linear infinite;
+margin:0 auto 10px;
+}
+
+@keyframes spin{
+to{
+transform:rotate(360deg);
+}
+}
+
+/* =========================
+DESKTOP
+========================= */
+
+@media(min-width:700px){
+
+.container{
+padding:25px;
+}
+
+.products{
+grid-template-columns:repeat(4,1fr);
+}
+
+.categories{
+grid-template-columns:repeat(6,1fr);
+}
+
+.product-img{
+height:220px;
+}
+
+.banner{
+height:280px;
+}
+
+.banner-text h2{
+font-size:35px;
+}
+
+}
+
+/* =========================
+SMALL PHONE
+========================= */
+
+@media(max-width:360px){
+
+.categories{
+grid-template-columns:repeat(5,1fr);
+gap:5px;
+}
+
+.category-icon{
+width:40px;
+height:40px;
+font-size:20px;
+}
+
+.category p{
+font-size:9px;
+}
+
+.product-img{
+height:145px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+HEADER
 ========================= -->
+
+<header class="header">
+
+<div class="topbar">
+
+<div class="logo">
+🛍️ Sayon<span>Mart</span>
+</div>
+
+<div class="header-icons">
+
+<!-- WISHLIST - KEPT -->
+<button
+class="icon-btn"
+onclick="goWishlist()">
+♡
+</button>
+
+<!-- CART -->
+<button
+class="icon-btn"
+onclick="goCart()">
+🛒
+</button>
+
+</div>
+
+</div>
+
+<div class="search-box">
+
+🔍
+
+<input
+id="searchInput"
+type="text"
+data-i18n-placeholder="Search products..."
+placeholder="Search products..."
+oninput="searchProducts()">
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+<!-- =========================
+HOME BANNER
+========================= -->
+
+<section>
+
+<div class="banner">
+
+<div
+id="bannerSlider"
+class="banner-slider">
+
+<div class="banner-loading">
+Loading banner...
+</div>
+
+</div>
+
+<div
+id="bannerDots"
+class="dots">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+CATEGORIES
+========================= -->
+
+<section class="section">
+
+<div class="section-title">
+
+<h2 data-i18n="Categories">
+Categories
+</h2>
+
+<a
+onclick="goProducts()"
+data-i18n="See All">
+See All
+</a>
+
+</div>
+
+<div class="categories">
+
+<div
+class="category"
+onclick="openCategory('Fashion')">
+
+<div class="category-icon">
+👕
+</div>
+
+<p data-i18n="Fashion">
+Fashion
+</p>
+
+</div>
+
+
+<div
+class="category"
+onclick="openCategory('Shoes')">
+
+<div class="category-icon">
+👟
+</div>
+
+<p data-i18n="Shoes">
+Shoes
+</p>
+
+</div>
+
+
+<div
+class="category"
+onclick="openCategory('Mobiles')">
+
+<div class="category-icon">
+📱
+</div>
+
+<p data-i18n="Mobiles">
+Mobiles
+</p>
+
+</div>
+
+
+<div
+class="category"
+onclick="openCategory('Watches')">
+
+<div class="category-icon">
+⌚
+</div>
+
+<p data-i18n="Watches">
+Watches
+</p>
+
+</div>
+
+
+<div
+class="category"
+onclick="openCategory('Electronics')">
+
+<div class="category-icon">
+🎧
+</div>
+
+<p data-i18n="Electronics">
+Electronics
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+TRENDING
+========================= -->
+
+<section
+class="section"
+id="productsSection">
+
+<div class="section-title">
+
+<h2>
+
+🔥
+
+<span data-i18n="Trending Products">
+Trending Products
+</span>
+
+</h2>
+
+<a
+onclick="goProducts()"
+data-i18n="See All">
+See All
+</a>
+
+</div>
+
+<div
+id="trendingProducts"
+class="products">
+
+<div class="loading">
+
+<div class="loading-spinner"></div>
+
+<span data-i18n="Loading products...">
+Loading products...
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+NEW ARRIVALS
+========================= -->
+
+<section class="section">
+
+<div class="section-title">
+
+<h2>
+
+🆕
+
+<span data-i18n="New Arrivals">
+New Arrivals
+</span>
+
+</h2>
+
+<a
+onclick="goProducts()"
+data-i18n="See All">
+See All
+</a>
+
+</div>
+
+<div
+id="newProducts"
+class="products">
+
+<div class="loading">
+
+<div class="loading-spinner"></div>
+
+<span data-i18n="Loading...">
+Loading...
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+BEST DEALS
+========================= -->
+
+<section class="section">
+
+<div class="section-title">
+
+<h2>
+
+💰
+
+<span data-i18n="Best Deals">
+Best Deals
+</span>
+
+</h2>
+
+<a
+onclick="goProducts()"
+data-i18n="See All">
+See All
+</a>
+
+</div>
+
+<div
+id="discountProducts"
+class="products">
+
+<div class="loading">
+
+<div class="loading-spinner"></div>
+
+<span data-i18n="Loading...">
+Loading...
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+BOTTOM NAV
+Wishlist removed here
+========================= -->
+
 <nav class="bottom-nav">
 
-  <div class="nav-item active" onclick="goHome()">
-    <div class="nav-icon">⌂</div>
-    <span data-i18n="Home">Home</span>
-  </div>
+<!-- HOME -->
 
-  <div class="nav-item" onclick="goProducts()">
-    <div class="nav-icon">▦</div>
-    <span data-i18n="Categories">Categories</span>
-  </div>
+<div
+class="nav-item active"
+onclick="goHome()">
 
-  <div class="nav-item" onclick="goCart()">
+<div class="nav-icon">
+⌂
+</div>
 
-    <span
-      id="cartBadge"
-      class="cart-badge"
-      style="display:none">
-      0
-    </span>
+<span data-i18n="Home">
+Home
+</span>
 
-    <div class="nav-icon">🛒</div>
+</div>
 
-    <span data-i18n="Cart">
-      Cart
-    </span>
 
-  </div>
+<!-- CATEGORIES -->
 
-  <div class="nav-item" onclick="goProfile()">
+<div
+class="nav-item"
+onclick="goProducts()">
 
-    <div class="nav-icon">♙</div>
+<div class="nav-icon">
+▦
+</div>
 
-    <span data-i18n="Profile">
-      Profile
-    </span>
+<span data-i18n="Categories">
+Categories
+</span>
 
-  </div>
+</div>
+
+
+<!-- CART -->
+
+<div
+class="nav-item"
+onclick="goCart()">
+
+<span
+id="cartBadge"
+class="cart-badge"
+style="display:none">
+0
+</span>
+
+<div class="nav-icon">
+🛒
+</div>
+
+<span data-i18n="Cart">
+Cart
+</span>
+
+</div>
+
+
+<!-- PROFILE -->
+
+<div
+class="nav-item"
+onclick="goProfile()">
+
+<div class="nav-icon">
+♙
+</div>
+
+<span data-i18n="Profile">
+Profile
+</span>
+
+</div>
 
 </nav>
-  
-  
-/* ================================  
-   FIREBASE  
-================================ */  
-  
-import { db } from "./firebase.js";  
-  
-import {  
-  collection,  
-  getDocs,  
-  query,  
-  limit  
-}  
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";  
-  
-  
-  
-/* ================================  
-   VARIABLES  
-================================ */  
-  
-let allProducts = [];  
-  
-let cart =  
-  JSON.parse(  
-    localStorage.getItem("sayonmart_cart")  
-  ) || [];  
-  
-let wishlist =  
-  JSON.parse(  
-    localStorage.getItem("sayonmart_wishlist")  
-  ) || [];  
-  
-  
-/* ================================  
-   BANNER VARIABLES  
-================================ */  
-  
-let homeBanners = [];  
-  
-let currentBanner = 0;  
-  
-let bannerTimer = null;  
-  
-  
-  
-/* ================================  
-   LOAD HOME BANNERS  
-================================ */  
-  
-async function loadHomeBanners(){  
-  
-  const slider =  
-    document.getElementById(  
-      "bannerSlider"  
-    );  
-  
-  const dots =  
-    document.getElementById(  
-      "bannerDots"  
-    );  
-  
-  
-  try{  
-  
-    const snapshot =  
-      await getDocs(  
-        collection(  
-          db,  
-          "banners"  
-        )  
-      );  
-  
-  
-    homeBanners = [];  
-  
-  
-    snapshot.forEach(  
-      docSnap => {  
-  
-        const data =  
-          docSnap.data();  
-  
-  
-        if(data.image){  
-  
-          homeBanners.push({  
-  
-            image:  
-              data.image,  
-  
-            title:  
-              data.title ||  
-              "SPECIAL OFFER",  
-  
-            description:  
-              data.description ||  
-              "Best products at amazing prices.",  
-  
-            buttonText:  
-              data.buttonText ||  
-              "Shop Now",  
-  
-            link:  
-              data.link ||  
-              "products.html",  
-  
-            createdAt:  
-              data.createdAt  
-  
-          });  
-  
-        }  
-  
-      }  
-    );  
-  
-  
-    /* =========================  
-       SORT BANNERS  
-    ========================= */  
-  
-    homeBanners.sort(  
-      (a,b) => {  
-  
-        const aTime =  
-          a.createdAt?.seconds || 0;  
-  
-        const bTime =  
-          b.createdAt?.seconds || 0;  
-  
-        return aTime - bTime;  
-  
-      }  
-    );  
-  
-  
-    /* =========================  
-       NO ADMIN BANNER  
-    ========================= */  
-  
-    if(  
-      homeBanners.length === 0  
-    ){  
-  
-      homeBanners = [  
-  
-        {  
-  
-          image:  
-            "https://picsum.photos/900/500?random=10",  
-  
-          title:  
-            "SPECIAL OFFER",  
-  
-          description:  
-            "Smart Shopping at SayonMart",  
-  
-          buttonText:  
-            "Shop Now",  
-  
-          link:  
-            "products.html"  
-  
-        }  
-  
-      ];  
-  
-    }  
-  
-  
-    renderBanners();  
-  
-  
-  }catch(error){  
-  
-    console.error(  
-      "Banner loading error:",  
-      error  
-    );  
-  
-  
-    /* fallback banner */  
-  
-    homeBanners = [  
-  
-      {  
-  
-        image:  
-          "https://picsum.photos/900/500?random=10",  
-  
-        title:  
-          "SPECIAL OFFER",  
-  
-        description:  
-          "Best products at amazing prices.",  
-  
-        buttonText:  
-          "Shop Now",  
-  
-        link:  
-          "products.html"  
-  
-      }  
-  
-    ];  
-  
-  
-    renderBanners();  
-  
-  }  
-  
-}  
-  
-  
-  
-/* ================================  
-   RENDER BANNERS  
-================================ */  
-  
-function renderBanners(){  
-  
-  const slider =  
-    document.getElementById(  
-      "bannerSlider"  
-    );  
-  
-  const dots =  
-    document.getElementById(  
-      "bannerDots"  
-    );  
-  
-  
-  slider.innerHTML = "";  
-  
-  dots.innerHTML = "";  
-  
-  
-  homeBanners.forEach(  
-    (banner,index) => {  
-  
-  
-      const slide =  
-        document.createElement(  
-          "div"  
-        );  
-  
-  
-      slide.className =  
-        "banner-slide " +  
-        (  
-          index === 0  
-          ? "active"  
-          : ""  
-        );  
-  
-  
-      slide.innerHTML = `  
-  
-        <img  
-          src="${escapeAttribute(banner.image)}"  
-          alt="SayonMart Banner"  
-          fetchpriority="${  
-            index === 0  
-            ? "high"  
-            : "low"  
-          }">  
-  
-  
-        <div class="banner-overlay">  
-  
-          <div class="banner-text">  
-  
-            <small>  
-              ${escapeHTML(  
-                banner.title  
-              )}  
-            </small>  
-  
-  
-            <h2>  
-              ${escapeHTML(  
-                banner.title  
-              )}  
-            </h2>  
-  
-  
-            <p>  
-              ${escapeHTML(  
-                banner.description  
-              )}  
-            </p>  
-  
-  
-            <button  
-              class="shop-btn"  
-              data-banner-index="${index}">  
-  
-              ${escapeHTML(  
-                banner.buttonText  
-              )}  
-  
-            </button>  
-  
-          </div>  
-  
-        </div>  
-  
-      `;  
-  
-  
-      slider.appendChild(  
-        slide  
-      );  
-  
-  
-      const dot =  
-        document.createElement(  
-          "span"  
-        );  
-  
-  
-      dot.className =  
-        "dot " +  
-        (  
-          index === 0  
-          ? "active"  
-          : ""  
-        );  
-  
-  
-      dot.dataset.index =  
-        index;  
-  
-  
-      dots.appendChild(  
-        dot  
-      );  
-  
-    }  
-  );  
-  
-  
-  /* =========================  
-     SHOP BUTTON  
-  ========================= */  
-  
-  slider  
-    .querySelectorAll(  
-      ".shop-btn"  
-    )  
-    .forEach(  
-      button => {  
-  
-        button.addEventListener(  
-          "click",  
-          event => {  
-  
-            event.stopPropagation();  
-  
-            const index =  
-              Number(  
-                button.dataset.bannerIndex  
-              );  
-  
-            const link =  
-              homeBanners[index]?.link;  
-  
-  
-            if(link){  
-  
-              window.location.href =  
-                link;  
-  
-            }  
-  
-          }  
-        );  
-  
-      }  
-    );  
-  
-  
-  /* =========================  
-     DOT CLICK  
-  ========================= */  
-  
-  dots  
-    .querySelectorAll(  
-      ".dot"  
-    )  
-    .forEach(  
-      dot => {  
-  
-        dot.addEventListener(  
-          "click",  
-          () => {  
-  
-            currentBanner =  
-              Number(  
-                dot.dataset.index  
-              );  
-  
-            updateBanner();  
-  
-            restartBannerTimer();  
-  
-          }  
-        );  
-  
-      }  
-    );  
-  
-  
-  currentBanner = 0;  
-  
-  updateBanner();  
-  
-  startBannerTimer();  
-  
-}  
-  
-  
-  
-/* ================================  
-   UPDATE BANNER  
-================================ */  
-  
-function updateBanner(){  
-  
-  const slides =  
-    document.querySelectorAll(  
-      ".banner-slide"  
-    );  
-  
-  const dots =  
-    document.querySelectorAll(  
-      ".dot"  
-    );  
-  
-  
-  slides.forEach(  
-    (slide,index) => {  
-  
-      slide.classList.toggle(  
-        "active",  
-        index === currentBanner  
-      );  
-  
-    }  
-  );  
-  
-  
-  dots.forEach(  
-    (dot,index) => {  
-  
-      dot.classList.toggle(  
-        "active",  
-        index === currentBanner  
-      );  
-  
-    }  
-  );  
-  
-}  
-  
-  
-  
-/* ================================  
-   AUTO BANNER  
-================================ */  
-  
-function startBannerTimer(){  
-  
-  clearInterval(  
-    bannerTimer  
-  );  
-  
-  
-  if(  
-    homeBanners.length <= 1  
-  ){  
-  
-    return;  
-  
-  }  
-  
-  
-  bannerTimer =  
-    setInterval(  
-      () => {  
-  
-        currentBanner++;  
-  
-  
-        if(  
-          currentBanner >=  
-          homeBanners.length  
-        ){  
-  
-          currentBanner = 0;  
-  
-        }  
-  
-  
-        updateBanner();  
-  
-      },  
-      4000  
-    );  
-  
-}  
-  
-  
-  
-function restartBannerTimer(){  
-  
-  startBannerTimer();  
-  
-}  
-  
-  
-  
-/* ================================  
-   LOAD PRODUCTS  
-================================ */  
-  
-async function loadProducts(){  
-  
-  try{  
-  
-    const productsQuery =  
-      query(  
-        collection(  
-          db,  
-          "products"  
-        ),  
-        limit(24)  
-      );  
-  
-  
-    const snapshot =  
-      await getDocs(  
-        productsQuery  
-      );  
-  
-  
-    allProducts = [];  
-  
-  
-    snapshot.forEach(  
-      docSnap => {  
-  
-        allProducts.push({  
-  
-          id:  
-            docSnap.id,  
-  
-          ...docSnap.data()  
-  
-        });  
-  
-      }  
-    );  
-  
-  
-    displayHomeProducts();  
-  
-  
-  }catch(error){  
-  
-    console.error(  
-      "Product loading error:",  
-      error  
-    );  
-  
-  
-    document.getElementById(  
-      "trendingProducts"  
-    ).innerHTML =  
-  
-      `<div class="empty">  
-  
-        ${  
-          typeof translate === "function"  
-          ? translate(  
-              "Unable to load products."  
-            )  
-          : "Unable to load products."  
-        }  
-  
-      </div>`;  
-  
-  }  
-  
-}  
-  
-  
-  
-/* ================================  
-   CREATED TIME  
-================================ */  
-  
-function getCreatedTime(value){  
-  
-  if(!value){  
-  
-    return 0;  
-  
-  }  
-  
-  
-  if(  
-    typeof value === "object" &&  
-    value.seconds  
-  ){  
-  
-    return (  
-      Number(value.seconds) *  
-      1000  
-    );  
-  
-  }  
-  
-  
-  if(  
-    typeof value === "object" &&  
-    typeof value.toMillis === "function"  
-  ){  
-  
-    return value.toMillis();  
-  
-  }  
-  
-  
-  if(  
-    typeof value === "number"  
-  ){  
-  
-    return value;  
-  
-  }  
-  
-  
-  return 0;  
-  
-}  
-  
-  
-  
-/* ================================  
-   DISPLAY PRODUCTS  
-================================ */  
-  
-function displayHomeProducts(){  
-  
-  const trending =  
-    allProducts  
-      .slice(0,6);  
-  
-  
-  const newest =  
-    [...allProducts]  
-      .sort(  
-        (a,b) =>  
-          getCreatedTime(  
-            b.createdAt  
-          ) -  
-          getCreatedTime(  
-            a.createdAt  
-          )  
-      )  
-      .slice(0,6);  
-  
-  
-  const deals =  
-    allProducts  
-      .filter(  
-        p => p.discount  
-      )  
-      .sort(  
-        (a,b) =>  
-          Number(  
-            b.discount || 0  
-          ) -  
-          Number(  
-            a.discount || 0  
-          )  
-      )  
-      .slice(0,6);  
-  
-  
-  renderProducts(  
-    "trendingProducts",  
-    trending  
-  );  
-  
-  
-  renderProducts(  
-    "newProducts",  
-    newest  
-  );  
-  
-  
-  renderProducts(  
-    "discountProducts",  
-    deals  
-  );  
-  
-}  
-  
-  
-  
-/* ================================  
-   RENDER PRODUCTS  
-================================ */  
-  
-function renderProducts(  
-  containerId,  
-  products  
-){  
-  
-  const container =  
-    document.getElementById(  
-      containerId  
-    );  
-  
-  
-  if(!products.length){  
-  
-    container.innerHTML =  
-  
-      `<div class="empty">  
-  
-        ${  
-          typeof translate === "function"  
-          ? translate(  
-              "No products available"  
-            )  
-          : "No products available"  
-        }  
-  
-      </div>`;  
-  
-    return;  
-  
-  }  
-  
-  
-  container.innerHTML =  
-  
-    products.map(  
-      product => {  
-  
-  
-        const image =  
-  
-          product.image ||  
-  
-          product.imageUrl ||  
-  
-          (  
-            Array.isArray(  
-              product.images  
-            )  
-            ? product.images[0]  
-            : ""  
-          ) ||  
-  
-          "https://via.placeholder.com/500";  
-  
-  
-        const price =  
-          Number(  
-            product.price || 0  
-          );  
-  
-  
-        const oldPrice =  
-          product.oldPrice  
-          ? Number(  
-              product.oldPrice  
-            )  
-          : null;  
-  
-  
-        const discount =  
-  
-          product.discount  
-  
-          ?  
-  
-          Number(  
-            product.discount  
-          )  
-  
-          :  
-  
-          (  
-            oldPrice &&  
-            oldPrice > price  
-  
-            ?  
-  
-            Math.round(  
-              (  
-                (oldPrice-price) /  
-                oldPrice  
-              ) * 100  
-            )  
-  
-            :  
-  
-            0  
-          );  
-  
-  
-        const rating =  
-          product.rating ||  
-          4.5;  
-  
-  
-        const safeName =  
-          escapeHTML(  
-            product.name ||  
-            "Product"  
-          );  
-  
-  
-        const safeId =  
-          encodeURIComponent(  
-            product.id  
-          );  
-  
-  
-        const safeImage =  
-          escapeAttribute(  
-            image  
-          );  
-  
-  
-        return `  
-  
-          <div  
-            class="product-card"  
-            onclick="openProduct('${safeId}')">  
-  
-  
-            <div class="product-img">  
-  
-              <img  
-                src="${safeImage}"  
-                alt="${safeName}"  
-                loading="lazy"  
-                decoding="async">  
-  
-  
-              <button  
-                class="wishlist"  
-                onclick="  
-                  event.stopPropagation();  
-                  toggleWishlist('${safeId}')  
-                ">  
-  
-                ${  
-                  wishlist.includes(  
-                    product.id  
-                  )  
-                  ? "❤️"  
-                  : "♡"  
-                }  
-  
-              </button>  
-  
-            </div>  
-  
-  
-            <div class="product-info">  
-  
-  
-              <div class="product-name">  
-  
-                ${safeName}  
-  
-              </div>  
-  
-  
-              <div class="rating">  
-  
-                ⭐ ${rating}  
-  
-              </div>  
-  
-  
-              <div class="price-row">  
-  
-  
-                <span class="price">  
-  
-                  ₹${price.toLocaleString(  
-                    "en-IN"  
-                  )}  
-  
-                </span>  
-  
-  
-                ${  
-                  oldPrice  
-  
-                  ?  
-  
-                  `  
-  
-                  <span class="old-price">  
-  
-                    ₹${oldPrice.toLocaleString(  
-                      "en-IN"  
-                    )}  
-  
-                  </span>  
-  
-                  `  
-  
-                  :  
-  
-                  ""  
-                }  
-  
-  
-                ${  
-                  discount > 0  
-  
-                  ?  
-  
-                  `  
-  
-                  <span class="discount">  
-  
-                    ${discount}%  
-                    ${  
-                      typeof translate === "function"  
-                      ? translate("OFF") || "OFF"  
-                      : "OFF"  
-                    }  
-  
-                  </span>  
-  
-                  `  
-  
-                  :  
-  
-                  ""  
-                }  
-  
-  
-              </div>  
-  
-            </div>  
-  
-          </div>  
-  
-        `;  
-  
-      }  
-    ).join("");  
-  
-}  
-  
-  
-  
-/* ================================  
-   SEARCH  
-================================ */  
-  
-window.searchProducts =  
-  function(){  
-  
-    const text =  
-  
-      document  
-        .getElementById(  
-          "searchInput"  
-        )  
-        .value  
-        .toLowerCase()  
-        .trim();  
-  
-  
-    if(!text){  
-  
-      displayHomeProducts();  
-  
-      return;  
-  
-    }  
-  
-  
-    const result =  
-  
-      allProducts.filter(  
-        product => {  
-  
-  
-          const name =  
-  
-            (  
-              product.name ||  
-              ""  
-            )  
-            .toLowerCase();  
-  
-  
-          const category =  
-  
-            (  
-              product.category ||  
-              ""  
-            )  
-            .toLowerCase();  
-  
-  
-          return (  
-  
-            name.includes(text) ||  
-  
-            category.includes(text)  
-  
-          );  
-  
-        }  
-      );  
-  
-  
-    renderProducts(  
-      "trendingProducts",  
-      result  
-    );  
-  
-  
-    document.getElementById(  
-      "newProducts"  
-    ).innerHTML = "";  
-  
-  
-    document.getElementById(  
-      "discountProducts"  
-    ).innerHTML = "";  
-  
-  };  
-  
-  
-  
-/* ================================  
-   PRODUCT  
-================================ */  
-  
-window.openProduct =  
-  function(id){  
-  
-    window.location.href =  
-      "product.html?id=" +  
-      encodeURIComponent(id);  
-  
-  };  
-  
-  
-  
-/* ================================  
-   CATEGORY  
-================================ */  
-  
-window.openCategory =  
-  function(category){  
-  
-    window.location.href =  
-      "products.html?category=" +  
-      encodeURIComponent(category);  
-  
-  };  
-  
-  
-  
-/* ================================  
-   NAVIGATION  
-================================ */  
-  
-window.goHome =  
-  function(){  
-  
-    window.scrollTo({  
-  
-      top:0,  
-  
-      behavior:"smooth"  
-  
-    });  
-  
-  };  
-  
-  
-window.goProducts =  
-  function(){  
-  
-    window.location.href =  
-      "products.html";  
-  
-  };  
-  
-  
-window.goCart =  
-  function(){  
-  
-    window.location.href =  
-      "cart.html";  
-  
-  };  
-  
-  
-window.goWishlist =  
-  function(){  
-  
-    window.location.href =  
-      "profile.html#wishlist";  
-  
-  };  
-  
-  
-window.goProfile =  
-  function(){  
-  
-    window.location.href =  
-      "profile.html";  
-  
-  };  
-  
-  
-  
-/* ================================  
-   SHOP NOW  
-================================ */  
-  
-window.scrollToProducts =  
-  function(){  
-  
-    document  
-      .getElementById(  
-        "productsSection"  
-      )  
-      .scrollIntoView({  
-  
-        behavior:"smooth"  
-  
-      });  
-  
-  };  
-  
-  
-  
-/* ================================  
-   WISHLIST  
-================================ */  
-  
-window.toggleWishlist =  
-  function(id){  
-  
-    try{  
-  
-      id =  
-        decodeURIComponent(id);  
-  
-    }catch(e){}  
-  
-  
-    if(  
-      wishlist.includes(id)  
-    ){  
-  
-      wishlist =  
-        wishlist.filter(  
-          x => x !== id  
-        );  
-  
-    }else{  
-  
-      wishlist.push(id);  
-  
-    }  
-  
-  
-    localStorage.setItem(  
-      "sayonmart_wishlist",  
-      JSON.stringify(  
-        wishlist  
-      )  
-    );  
-  
-  
-    displayHomeProducts();  
-  
-  };  
-  
-  
-  
-/* ================================  
-   CART BADGE  
-================================ */  
-  
-function updateCartBadge(){  
-  
-  const count =  
-  
-    cart.reduce(  
-  
-      (  
-        total,  
-        item  
-      ) =>  
-  
-        total +  
-  
-        Number(  
-          item.quantity || 1  
-        ),  
-  
-      0  
-  
-    );  
-  
-  
-  const badge =  
-    document.getElementById(  
-      "cartBadge"  
-    );  
-  
-  
-  if(count > 0){  
-  
-    badge.style.display =  
-      "flex";  
-  
-  
-    badge.textContent =  
-      count > 99  
-      ? "99+"  
-      : count;  
-  
-  }else{  
-  
-    badge.style.display =  
-      "none";  
-  
-  }  
-  
-}  
-  
-  
-  
-/* ================================  
-   ESCAPE HTML  
-================================ */  
-  
-function escapeHTML(text){  
-  
-  return String(text)  
-  
-    .replace(  
-      /&/g,  
-      "&amp;"  
-    )  
-  
-    .replace(  
-      /</g,  
-      "&lt;"  
-    )  
-  
-    .replace(  
-      />/g,  
-      "&gt;"  
-    )  
-  
-    .replace(  
-      /"/g,  
-      "&quot;"  
-    )  
-  
-    .replace(  
-      /'/g,  
-      "&#039;"  
-    );  
-  
-}  
-  
-  
-  
-function escapeAttribute(text){  
-  
-  return String(text)  
-  
-    .replace(  
-      /&/g,  
-      "&amp;"  
-    )  
-  
-    .replace(  
-      /"/g,  
-      "&quot;"  
-    )  
-  
-    .replace(  
-      /'/g,  
-      "&#039;"  
-    )  
-  
-    .replace(  
-      /</g,  
-      "&lt;"  
-    )  
-  
-    .replace(  
-      />/g,  
-      "&gt;"  
-    );  
-  
-}  
-  
-  
-  
-/* ================================  
-   LANGUAGE CHANGE  
-================================ */  
-  
-window.addEventListener(  
-  "languageChanged",  
-  function(){  
-  
-    displayHomeProducts();  
-  
-  }  
-);  
-  
-  
-  
-/* ================================  
-   START  
-================================ */  
-  
-updateCartBadge();  
-  
-loadHomeBanners();  
-  
-loadProducts();  
-  
-   
-</script>  </body>  </html>  
+
+
+<script type="module">
+
+/* ================================
+FIREBASE
+================================ */
+
+import { db } from "./firebase.js";
+
+import {
+collection,
+getDocs,
+query,
+limit
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* ================================
+VARIABLES
+================================ */
+
+let allProducts = [];
+
+let cart =
+JSON.parse(
+localStorage.getItem("sayonmart_cart")
+) || [];
+
+let wishlist =
+JSON.parse(
+localStorage.getItem("sayonmart_wishlist")
+) || [];
+
+
+/* ================================
+BANNER VARIABLES
+================================ */
+
+let homeBanners = [];
+
+let currentBanner = 0;
+
+let bannerTimer = null;
+
+
+/* ================================
+LOAD HOME BANNERS
+================================ */
+
+async function loadHomeBanners(){
+
+const slider =
+document.getElementById(
+"bannerSlider"
+);
+
+const dots =
+document.getElementById(
+"bannerDots"
+);
+
+try{
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"banners"
+)
+);
+
+homeBanners = [];
+
+snapshot.forEach(
+docSnap => {
+
+const data =
+docSnap.data();
+
+if(data.image){
+
+homeBanners.push({
+
+image:
+data.image,
+
+title:
+data.title ||
+"SPECIAL OFFER",
+
+description:
+data.description ||
+"Best products at amazing prices.",
+
+buttonText:
+data.buttonText ||
+"Shop Now",
+
+link:
+data.link ||
+"products.html",
+
+createdAt:
+data.createdAt
+
+});
+
+}
+
+}
+);
+
+
+/* =========================
+SORT BANNERS
+========================= */
+
+homeBanners.sort(
+(a,b) => {
+
+const aTime =
+a.createdAt?.seconds || 0;
+
+const bTime =
+b.createdAt?.seconds || 0;
+
+return aTime - bTime;
+
+}
+);
+
+
+/* =========================
+NO ADMIN BANNER
+========================= */
+
+if(
+homeBanners.length === 0
+){
+
+homeBanners = [
+
+{
+
+image:
+"https://picsum.photos/900/500?random=10",
+
+title:
+"SPECIAL OFFER",
+
+description:
+"Smart Shopping at SayonMart",
+
+buttonText:
+"Shop Now",
+
+link:
+"products.html"
+
+}
+
+];
+
+}
+
+
+renderBanners();
+
+}catch(error){
+
+console.error(
+"Banner loading error:",
+error
+);
+
+homeBanners = [
+
+{
+
+image:
+"https://picsum.photos/900/500?random=10",
+
+title:
+"SPECIAL OFFER",
+
+description:
+"Best products at amazing prices.",
+
+buttonText:
+"Shop Now",
+
+link:
+"products.html"
+
+}
+
+];
+
+renderBanners();
+
+}
+
+}
+
+
+/* ================================
+RENDER BANNERS
+================================ */
+
+function renderBanners(){
+
+const slider =
+document.getElementById(
+"bannerSlider"
+);
+
+const dots =
+document.getElementById(
+"bannerDots"
+);
+
+slider.innerHTML = "";
+
+dots.innerHTML = "";
+
+
+homeBanners.forEach(
+(banner,index) => {
+
+const slide =
+document.createElement(
+"div"
+);
+
+slide.className =
+"banner-slide " +
+(
+index === 0
+? "active"
+: ""
+);
+
+
+slide.innerHTML = `
+
+<img
+src="${escapeAttribute(banner.image)}"
+alt="SayonMart Banner"
+fetchpriority="${
+index === 0
+? "high"
+: "low"
+}">
+
+
+<div class="banner-overlay">
+
+<div class="banner-text">
+
+<small>
+${escapeHTML(
+banner.title
+)}
+</small>
+
+<h2>
+${escapeHTML(
+banner.title
+)}
+</h2>
+
+<p>
+${escapeHTML(
+banner.description
+)}
+</p>
+
+<button
+class="shop-btn"
+data-banner-index="${index}">
+
+${escapeHTML(
+banner.buttonText
+)}
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+
+slider.appendChild(
+slide
+);
+
+
+const dot =
+document.createElement(
+"span"
+);
+
+dot.className =
+"dot " +
+(
+index === 0
+? "active"
+: ""
+);
+
+dot.dataset.index =
+index;
+
+dots.appendChild(
+dot
+);
+
+}
+);
+
+
+/* =========================
+SHOP BUTTON
+========================= */
+
+slider
+.querySelectorAll(
+".shop-btn"
+)
+.forEach(
+button => {
+
+button.addEventListener(
+"click",
+event => {
+
+event.stopPropagation();
+
+const index =
+Number(
+button.dataset.bannerIndex
+);
+
+const link =
+homeBanners[index]?.link;
+
+if(link){
+
+window.location.href =
+link;
+
+}
+
+}
+);
+
+}
+);
+
+
+/* =========================
+DOT CLICK
+========================= */
+
+dots
+.querySelectorAll(
+".dot"
+)
+.forEach(
+dot => {
+
+dot.addEventListener(
+"click",
+() => {
+
+currentBanner =
+Number(
+dot.dataset.index
+);
+
+updateBanner();
+
+restartBannerTimer();
+
+}
+);
+
+}
+);
+
+
+currentBanner = 0;
+
+updateBanner();
+
+startBannerTimer();
+
+}
+
+
+/* ================================
+UPDATE BANNER
+================================ */
+
+function updateBanner(){
+
+const slides =
+document.querySelectorAll(
+".banner-slide"
+);
+
+const dots =
+document.querySelectorAll(
+".dot"
+);
+
+slides.forEach(
+(slide,index) => {
+
+slide.classList.toggle(
+"active",
+index === currentBanner
+);
+
+}
+);
+
+dots.forEach(
+(dot,index) => {
+
+dot.classList.toggle(
+"active",
+index === currentBanner
+);
+
+}
+);
+
+}
+
+
+/* ================================
+AUTO BANNER
+================================ */
+
+function startBannerTimer(){
+
+clearInterval(
+bannerTimer
+);
+
+if(
+homeBanners.length <= 1
+){
+
+return;
+
+}
+
+bannerTimer =
+setInterval(
+() => {
+
+currentBanner++;
+
+if(
+currentBanner >=
+homeBanners.length
+){
+
+currentBanner = 0;
+
+}
+
+updateBanner();
+
+},
+4000
+);
+
+}
+
+
+function restartBannerTimer(){
+
+startBannerTimer();
+
+}
+
+
+/* ================================
+LOAD PRODUCTS
+================================ */
+
+async function loadProducts(){
+
+try{
+
+const productsQuery =
+query(
+collection(
+db,
+"products"
+),
+limit(24)
+);
+
+const snapshot =
+await getDocs(
+productsQuery
+);
+
+allProducts = [];
+
+snapshot.forEach(
+docSnap => {
+
+allProducts.push({
+
+id:
+docSnap.id,
+
+...docSnap.data()
+
+});
+
+}
+);
+
+displayHomeProducts();
+
+}catch(error){
+
+console.error(
+"Product loading error:",
+error
+);
+
+document.getElementById(
+"trendingProducts"
+).innerHTML =
+
+`<div class="empty">
+
+${
+typeof translate === "function"
+? translate(
+"Unable to load products."
+)
+: "Unable to load products."
+}
+
+</div>`;
+
+}
+
+}
+
+
+/* ================================
+CREATED TIME
+================================ */
+
+function getCreatedTime(value){
+
+if(!value){
+
+return 0;
+
+}
+
+if(
+typeof value === "object" &&
+value.seconds
+){
+
+return (
+Number(value.seconds) *
+1000
+);
+
+}
+
+if(
+typeof value === "object" &&
+typeof value.toMillis === "function"
+){
+
+return value.toMillis();
+
+}
+
+if(
+typeof value === "number"
+){
+
+return value;
+
+}
+
+return 0;
+
+}
+
+
+/* ================================
+DISPLAY PRODUCTS
+================================ */
+
+function displayHomeProducts(){
+
+const trending =
+allProducts
+.slice(0,6);
+
+const newest =
+[...allProducts]
+.sort(
+(a,b) =>
+getCreatedTime(
+b.createdAt
+) -
+getCreatedTime(
+a.createdAt
+)
+)
+.slice(0,6);
+
+const deals =
+allProducts
+.filter(
+p => p.discount
+)
+.sort(
+(a,b) =>
+Number(
+b.discount || 0
+) -
+Number(
+a.discount || 0
+)
+)
+.slice(0,6);
+
+
+renderProducts(
+"trendingProducts",
+trending
+);
+
+renderProducts(
+"newProducts",
+newest
+);
+
+renderProducts(
+"discountProducts",
+deals
+);
+
+}
+
+
+/* ================================
+RENDER PRODUCTS
+================================ */
+
+function renderProducts(
+containerId,
+products
+){
+
+const container =
+document.getElementById(
+containerId
+);
+
+if(!products.length){
+
+container.innerHTML =
+
+`<div class="empty">
+
+${
+typeof translate === "function"
+? translate(
+"No products available"
+)
+: "No products available"
+}
+
+</div>`;
+
+return;
+
+}
+
+
+container.innerHTML =
+
+products.map(
+product => {
+
+const image =
+
+product.image ||
+
+product.imageUrl ||
+
+(
+Array.isArray(
+product.images
+)
+? product.images[0]
+: ""
+) ||
+
+"https://via.placeholder.com/500";
+
+
+const price =
+Number(
+product.price || 0
+);
+
+
+const oldPrice =
+product.oldPrice
+? Number(
+product.oldPrice
+)
+: null;
+
+
+const discount =
+
+product.discount
+
+?
+
+Number(
+product.discount
+)
+
+:
+
+(
+oldPrice &&
+oldPrice > price
+
+?
+
+Math.round(
+(
+(oldPrice-price) /
+oldPrice
+) * 100
+)
+
+:
+
+0
+);
+
+
+const rating =
+product.rating ||
+4.5;
+
+
+const safeName =
+escapeHTML(
+product.name ||
+"Product"
+);
+
+
+const safeId =
+encodeURIComponent(
+product.id
+);
+
+
+const safeImage =
+escapeAttribute(
+image
+);
+
+
+return `
+
+<div
+class="product-card"
+onclick="openProduct('${safeId}')">
+
+<div class="product-img">
+
+<img
+src="${safeImage}"
+alt="${safeName}"
+loading="lazy"
+decoding="async">
+
+
+<button
+class="wishlist"
+onclick="
+event.stopPropagation();
+toggleWishlist('${safeId}')
+">
+
+${
+wishlist.includes(
+product.id
+)
+? "❤️"
+: "♡"
+}
+
+</button>
+
+</div>
+
+
+<div class="product-info">
+
+<div class="product-name">
+
+${safeName}
+
+</div>
+
+
+<div class="rating">
+
+⭐ ${rating}
+
+</div>
+
+
+<div class="price-row">
+
+<span class="price">
+
+₹${price.toLocaleString(
+"en-IN"
+)}
+
+</span>
+
+
+${
+oldPrice
+
+?
+
+`
+
+<span class="old-price">
+
+₹${oldPrice.toLocaleString(
+"en-IN"
+)}
+
+</span>
+
+`
+
+:
+
+""
+}
+
+
+${
+discount > 0
+
+?
+
+`
+
+<span class="discount">
+
+${discount}%
+
+${
+typeof translate === "function"
+? translate("OFF") || "OFF"
+: "OFF"
+}
+
+</span>
+
+`
+
+:
+
+""
+}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+).join("");
+
+}
+
+
+/* ================================
+SEARCH
+================================ */
+
+window.searchProducts =
+function(){
+
+const text =
+
+document
+.getElementById(
+"searchInput"
+)
+.value
+.toLowerCase()
+.trim();
+
+
+if(!text){
+
+displayHomeProducts();
+
+return;
+
+}
+
+
+const result =
+
+allProducts.filter(
+product => {
+
+const name =
+
+(
+product.name ||
+""
+)
+.toLowerCase();
+
+
+const category =
+
+(
+product.category ||
+""
+)
+.toLowerCase();
+
+
+return (
+
+name.includes(text) ||
+
+category.includes(text)
+
+);
+
+}
+);
+
+
+renderProducts(
+"trendingProducts",
+result
+);
+
+document.getElementById(
+"newProducts"
+).innerHTML = "";
+
+document.getElementById(
+"discountProducts"
+).innerHTML = "";
+
+};
+
+
+/* ================================
+PRODUCT
+================================ */
+
+window.openProduct =
+function(id){
+
+window.location.href =
+"product.html?id=" +
+encodeURIComponent(id);
+
+};
+
+
+/* ================================
+CATEGORY
+================================ */
+
+window.openCategory =
+function(category){
+
+window.location.href =
+"products.html?category=" +
+encodeURIComponent(category);
+
+};
+
+
+/* ================================
+NAVIGATION
+================================ */
+
+window.goHome =
+function(){
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+};
+
+
+window.goProducts =
+function(){
+
+window.location.href =
+"products.html";
+
+};
+
+
+window.goCart =
+function(){
+
+window.location.href =
+"cart.html";
+
+};
+
+
+/* ================================
+WISHLIST
+Kept for header + product buttons
+================================ */
+
+window.goWishlist =
+function(){
+
+window.location.href =
+"profile.html#wishlist";
+
+};
+
+
+window.goProfile =
+function(){
+
+window.location.href =
+"profile.html";
+
+};
+
+
+/* ================================
+SHOP NOW
+================================ */
+
+window.scrollToProducts =
+function(){
+
+document
+.getElementById(
+"productsSection"
+)
+.scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+};
+
+
+/* ================================
+WISHLIST
+================================ */
+
+window.toggleWishlist =
+function(id){
+
+try{
+
+id =
+decodeURIComponent(id);
+
+}catch(e){}
+
+
+if(
+wishlist.includes(id)
+){
+
+wishlist =
+wishlist.filter(
+x => x !== id
+);
+
+}else{
+
+wishlist.push(id);
+
+}
+
+
+localStorage.setItem(
+"sayonmart_wishlist",
+JSON.stringify(
+wishlist
+)
+);
+
+
+displayHomeProducts();
+
+};
+
+
+/* ================================
+CART BADGE
+================================ */
+
+function updateCartBadge(){
+
+const count =
+
+cart.reduce(
+
+(
+total,
+item
+) =>
+
+total +
+
+Number(
+item.quantity || 1
+),
+
+0
+
+);
+
+
+const badge =
+document.getElementById(
+"cartBadge"
+);
+
+
+if(count > 0){
+
+badge.style.display =
+"flex";
+
+badge.textContent =
+count > 99
+? "99+"
+: count;
+
+}else{
+
+badge.style.display =
+"none";
+
+}
+
+}
+
+
+/* ================================
+ESCAPE HTML
+================================ */
+
+function escapeHTML(text){
+
+return String(text)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+function escapeAttribute(text){
+
+return String(text)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+);
+
+}
+
+
+/* ================================
+LANGUAGE CHANGE
+================================ */
+
+window.addEventListener(
+"languageChanged",
+function(){
+
+displayHomeProducts();
+
+}
+);
+
+
+/* ================================
+START
+================================ */
+
+updateCartBadge();
+
+loadHomeBanners();
+
+loadProducts();
+
+</script>
+
+</body>
+
+</html>
