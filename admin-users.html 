@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SayonMart - Users</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f5f5;
+  color:#222;
+}
+
+header{
+  background:#fff;
+  border-bottom:2px solid #d4af37;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#c49a00;
+}
+
+.badge{
+  background:#fff7d6;
+  color:#9b7800;
+  border:1px solid #e5c84b;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:18px;
+}
+
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
+  border-top:4px solid #d4af37;
+}
+
+h2{
+  color:#b18700;
+  margin-bottom:15px;
+}
+
+.total-box{
+  background:#fff9df;
+  border:1px solid #ead27b;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+.total-number{
+  font-size:34px;
+  font-weight:bold;
+  color:#b18700;
+}
+
+.total-text{
+  color:#666;
+  margin-top:5px;
+}
+
+.user-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.user-card{
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:15px;
+  background:#fff;
+}
+
+.user-email{
+  font-size:16px;
+  font-weight:bold;
+  color:#333;
+  word-break:break-all;
+  margin-bottom:10px;
+}
+
+.user-row{
+  font-size:13px;
+  color:#666;
+  margin-top:6px;
+  word-break:break-all;
+}
+
+.user-row b{
+  color:#a47e00;
+}
+
+button{
+  border:none;
+  border-radius:10px;
+  padding:12px 18px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.btn-gold{
+  background:#d4af37;
+  color:#fff;
+}
+
+.empty{
+  text-align:center;
+  color:#777;
+  padding:30px;
+}
+
+.loading{
+  text-align:center;
+  color:#777;
+  padding:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+  <div class="logo">
+    SayonMart Admin
+  </div>
+
+  <div class="badge">
+    USERS
+  </div>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+  <h2>👥 Customer Users</h2>
+
+  <div class="total-box">
+
+    <div
+      id="totalUsers"
+      class="total-number"
+    >
+      0
+    </div>
+
+    <div class="total-text">
+      Total Registered Users
+    </div>
+
+  </div>
+
+
+  <div
+    id="userList"
+    class="loading"
+  >
+    Loading users...
+  </div>
+
+</div>
+
+
+<div class="card">
+
+  <button
+    class="btn-gold"
+    onclick="location.href='admin.html'"
+  >
+    ← Back to Admin Panel
+  </button>
+
+</div>
+
+
+</div>
+
+
+<script type="module">
+
+
+import {
+  db,
+  auth
+}
+from "./firebase.js";
+
+
+import {
+  collection,
+  getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+import {
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* =========================
+   ADMIN UID
+========================= */
+
+const ADMIN_UID =
+"fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+
+
+/* =========================
+   LOAD USERS
+========================= */
+
+async function loadUsers(){
+
+  const list =
+    document.getElementById(
+      "userList"
+    );
+
+  const total =
+    document.getElementById(
+      "totalUsers"
+    );
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "users"
+        )
+      );
+
+
+    total.innerText =
+      snapshot.size;
+
+
+    if(snapshot.empty){
+
+      list.innerHTML =
+        '<div class="empty">কোনো user পাওয়া যায়নি।</div>';
+
+      return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    snapshot.forEach(
+      item => {
+
+        const user =
+          item.data();
+
+
+        const uid =
+          user.uid ||
+          item.id;
+
+
+        let createdText =
+          "Unknown";
+
+
+        if(
+          user.createdAt &&
+          user.createdAt.toDate
+        ){
+
+          createdText =
+            user.createdAt
+            .toDate()
+            .toLocaleString(
+              "en-IN"
+            );
+
+        }
+
+
+        const div =
+          document.createElement(
+            "div"
+          );
+
+
+        div.className =
+          "user-card";
+
+
+        div.innerHTML = `
+
+          <div class="user-email">
+            📧 ${escapeHTML(
+              user.email || "No Email"
+            )}
+          </div>
+
+          <div class="user-row">
+            <b>UID:</b>
+            ${escapeHTML(uid)}
+          </div>
+
+          <div class="user-row">
+            <b>Account Created:</b>
+            ${escapeHTML(createdText)}
+          </div>
+
+        `;
+
+
+        list.appendChild(div);
+
+      }
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    list.innerHTML = `
+      <div class="empty">
+        ❌ Users load করা যাচ্ছে না।<br><br>
+        ${escapeHTML(error.message)}
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================
+   AUTH CHECK
+========================= */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if(!user){
+
+      alert(
+        "Admin login required."
+      );
+
+      location.href =
+        "login.html";
+
+      return;
+    }
+
+
+    if(
+      user.uid !== ADMIN_UID
+    ){
+
+      alert(
+        "You are not an admin."
+      );
+
+      location.href =
+        "index.html";
+
+      return;
+    }
+
+
+    loadUsers();
+
+  }
+);
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+  return String(
+    value || ""
+  )
+
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+
+  .replace(
+    /</g,
+    "&lt;"
+  )
+
+  .replace(
+    />/g,
+    "&gt;"
+  )
+
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+</script>
+
+</body>
+
+</html>
