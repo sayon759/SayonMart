@@ -549,13 +549,13 @@ RESPONSIVE
 
 <header>
 
-  <div class="logo">
-    SayonMart Admin
-  </div>
+<div class="logo">
+SayonMart Admin
+</div>
 
-  <div class="admin-badge">
-    ADMIN PANEL
-  </div>
+<div class="admin-badge">
+ADMIN PANEL
+</div>
 
 </header>
 
@@ -700,8 +700,8 @@ UPLOAD PROGRESS
 
 <div class="progress-top">
 
-<b>
-Uploading Banner...
+<b id="bannerProgressStatus">
+Starting upload...
 </b>
 
 <b id="bannerProgressText">
@@ -1345,26 +1345,36 @@ async function(){
     );
 
 
+  const progressStatus =
+    document.getElementById(
+      "bannerProgressStatus"
+    );
+
+
   try{
 
     saveButton.disabled =
       true;
 
 
-    saveButton.innerText =
-      "Uploading 0%";
-
+    /* =========================
+       একদম শুরুতে 0%
+    ========================= */
 
     progressBox.style.display =
       "block";
 
-
     progressBar.style.width =
       "0%";
 
-
     progressText.innerText =
       "0%";
+
+    progressStatus.innerText =
+      "Starting upload...";
+
+    saveButton.innerText =
+      "Uploading 0%";
 
 
     let imageUrl =
@@ -1396,6 +1406,26 @@ async function(){
         );
 
 
+      /*
+       প্রথমে 0% দেখাবে
+      */
+
+      progressBox.style.display =
+        "block";
+
+      progressBar.style.width =
+        "0%";
+
+      progressText.innerText =
+        "0%";
+
+      progressStatus.innerText =
+        "Starting upload...";
+
+      saveButton.innerText =
+        "Uploading 0%";
+
+
       const uploadTask =
         uploadBytesResumable(
           storageRef,
@@ -1413,14 +1443,25 @@ async function(){
 
               snapshot => {
 
-                const progress =
-                  Math.round(
-                    (
-                      snapshot.bytesTransferred /
-                      snapshot.totalBytes
-                    ) * 100
-                  );
+                let progress = 0;
 
+
+                if(snapshot.totalBytes > 0){
+
+                  progress =
+                    Math.round(
+                      (
+                        snapshot.bytesTransferred /
+                        snapshot.totalBytes
+                      ) * 100
+                    );
+
+                }
+
+
+                /*
+                 0% থেকে 100%
+                */
 
                 progressBar.style.width =
                   progress + "%";
@@ -1430,10 +1471,26 @@ async function(){
                   progress + "%";
 
 
-                saveButton.innerText =
-                  "Uploading " +
-                  progress +
-                  "%";
+                if(progress < 100){
+
+                  progressStatus.innerText =
+                    "Uploading Banner...";
+
+                  saveButton.innerText =
+                    "Uploading " +
+                    progress +
+                    "%";
+
+                }
+                else{
+
+                  progressStatus.innerText =
+                    "Upload complete. Saving...";
+
+                  saveButton.innerText =
+                    "Saving...";
+
+                }
 
               },
 
@@ -1453,6 +1510,16 @@ async function(){
                     await getDownloadURL(
                       uploadTask.snapshot.ref
                     );
+
+
+                  progressBar.style.width =
+                    "100%";
+
+                  progressText.innerText =
+                    "100%";
+
+                  progressStatus.innerText =
+                    "Upload complete. Saving...";
 
 
                   resolve(url);
@@ -1562,6 +1629,10 @@ async function(){
     console.error(error);
 
 
+    progressStatus.innerText =
+      "Upload failed";
+
+
     alert(
       "❌ Banner upload failed:\n" +
       error.message
@@ -1575,9 +1646,7 @@ async function(){
 
 
   saveButton.innerText =
-    editingBannerId
-    ? "💾 Update Banner"
-    : "💾 Upload & Save Banner";
+    "💾 Upload & Save Banner";
 
 };
 
@@ -1816,6 +1885,16 @@ async function(id){
       "💾 Update Banner";
 
 
+    /*
+     Edit করলে পুরোনো progress hide
+    */
+
+    document.getElementById(
+      "bannerProgressBox"
+    ).style.display =
+      "none";
+
+
     window.scrollTo({
       top:0,
       behavior:"smooth"
@@ -1949,6 +2028,12 @@ function(){
 
   document.getElementById(
     "saveBannerBtn"
+  ).style.display =
+    "inline-block";
+
+
+  document.getElementById(
+    "saveBannerBtn"
   ).innerText =
     "💾 Upload & Save Banner";
 
@@ -1969,6 +2054,12 @@ function(){
     "bannerProgressText"
   ).innerText =
     "0%";
+
+
+  document.getElementById(
+    "bannerProgressStatus"
+  ).innerText =
+    "Starting upload...";
 
 };
 
