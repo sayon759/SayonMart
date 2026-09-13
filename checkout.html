@@ -8,200 +8,730 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
+<meta name="theme-color" content="#ffffff">
+
 <title>SayonMart - Checkout</title>
 
 <script src="language.js"></script>
 
 <style>
 
-/* ================================
-   BASIC
-================================ */
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
-  background:#f5f5f5;
-  color:#222;
-  font-family:Arial,sans-serif;
-  padding-bottom:95px;
+  padding:0 0 105px 0;
+  background:#f5f7fb;
+  color:#172033;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 
-/* ================================
+/* =====================================================
    HEADER
-================================ */
+===================================================== */
 
 .header{
+  position:sticky;
+  top:0;
+  z-index:1000;
 
-  height:64px;
+  height:68px;
 
   background:#fff;
 
-  border-bottom:1px solid #ddd;
-
   display:flex;
-
   align-items:center;
 
-  gap:12px;
+  padding:0 15px;
 
-  padding:0 16px;
+  border-bottom:1px solid #e6e8ed;
 
-  position:sticky;
-
-  top:0;
-
-  z-index:100;
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
-
 
 .back{
+  width:42px;
+  height:42px;
 
   border:0;
+  background:#f4f6f9;
 
-  background:none;
+  border-radius:50%;
 
-  font-size:38px;
-
-  color:#555;
-
+  font-size:31px;
   line-height:1;
 
-  padding:0 8px;
+  color:#172033;
+
+  cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.logo{
+  margin-left:10px;
+  font-size:21px;
+  font-weight:800;
+  color:#172033;
+}
+
+.logo span{
+  color:#f4ad00;
+}
+
+.secure{
+  margin-left:auto;
+
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  color:#147a58;
+
+  font-size:12px;
+  font-weight:bold;
+}
+
+.secure-icon{
+  width:28px;
+  height:28px;
+
+  border-radius:50%;
+
+  background:#e9fff5;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:15px;
 }
 
 
-.header-title{
+/* =====================================================
+   PROGRESS
+===================================================== */
 
+.progress-wrap{
+  background:#fff;
+  padding:15px 12px 18px;
+
+  border-bottom:1px solid #e6e8ed;
+}
+
+.progress{
+  max-width:650px;
+  margin:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.step-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  min-width:65px;
+
+  position:relative;
+
+  z-index:2;
+}
+
+.step-circle{
+  width:36px;
+  height:36px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#edf0f5;
+  color:#8992a2;
+
+  font-size:15px;
+  font-weight:bold;
+}
+
+.step-item.active .step-circle{
+  background:#ffbd00;
+  color:#172033;
+
+  box-shadow:0 0 0 5px #fff6d8;
+}
+
+.step-item.done .step-circle{
+  background:#20b77a;
+  color:#fff;
+}
+
+.step-label{
+  margin-top:7px;
+
+  font-size:11px;
+  font-weight:bold;
+
+  color:#8a93a3;
+}
+
+.step-item.active .step-label,
+.step-item.done .step-label{
+  color:#172033;
+}
+
+.step-line{
+  height:3px;
+
+  flex:1;
+
+  max-width:105px;
+
+  background:#e3e6eb;
+
+  margin:0 -4px;
+
+  margin-bottom:19px;
+}
+
+.step-line.done{
+  background:#20b77a;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page{
+  max-width:1100px;
+
+  margin:0 auto;
+
+  padding:15px;
+}
+
+.grid{
+  display:grid;
+
+  grid-template-columns:1.2fr .8fr;
+
+  gap:15px;
+
+  align-items:start;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card{
+  background:#fff;
+
+  border-radius:16px;
+
+  border:1px solid #e6e9ef;
+
+  box-shadow:0 3px 15px rgba(18,32,52,.05);
+
+  overflow:hidden;
+
+  margin-bottom:15px;
+}
+
+.card-header{
+  padding:17px 18px 13px;
+
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.card-icon{
+  width:40px;
+  height:40px;
+
+  border-radius:12px;
+
+  background:#fff5d8;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:21px;
+}
+
+.card-title{
   font-size:19px;
+  font-weight:800;
+}
 
-  font-weight:600;
+.card-subtitle{
+  margin-top:3px;
 
+  color:#7c8595;
+
+  font-size:12px;
+}
+
+.card-body{
+  padding:0 18px 18px;
+}
+
+
+/* =====================================================
+   LOCATION BUTTON
+===================================================== */
+
+.location-btn{
+  width:100%;
+
+  border:1px solid #ffd05a;
+
+  background:linear-gradient(
+    135deg,
+    #fffaf0,
+    #fffdf8
+  );
+
+  border-radius:13px;
+
+  padding:14px;
+
+  display:flex;
+  align-items:center;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  margin-bottom:13px;
+}
+
+.location-icon{
+  width:43px;
+  height:43px;
+
+  border-radius:11px;
+
+  background:#ffbf00;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:22px;
+
+  margin-right:12px;
+}
+
+.location-text{
   flex:1;
 }
 
+.location-title{
+  font-size:15px;
+  font-weight:bold;
 
-.step{
+  color:#172033;
+}
 
-  background:#eef4ff;
+.location-sub{
+  margin-top:4px;
 
-  color:#5875b8;
-
-  border-radius:20px;
-
-  padding:8px 12px;
+  color:#727c8c;
 
   font-size:12px;
+}
 
-  white-space:nowrap;
+.location-arrow{
+  font-size:26px;
+  color:#7a8495;
 }
 
 
-/* ================================
-   OFFER
-================================ */
+/* =====================================================
+   INPUT
+===================================================== */
 
-.offer{
+.input-group{
+  position:relative;
 
-  background:#e9fff8;
+  margin-top:11px;
+}
 
-  color:#178b70;
+.input{
+  width:100%;
 
-  text-align:center;
+  min-height:53px;
 
-  font-size:18px;
+  border:1px solid #d9dee7;
 
-  padding:18px 8px 24px;
+  background:#fff;
 
-  border-bottom:1px solid #b9e7da;
+  border-radius:11px;
+
+  padding:21px 13px 7px 43px;
+
+  outline:none;
+
+  color:#172033;
+
+  font-size:15px;
+
+  font-family:Arial,Helvetica,sans-serif;
+
+  transition:.2s;
+}
+
+.input:focus{
+  border-color:#ffb900;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255,185,0,.12);
+}
+
+.input-label{
+  position:absolute;
+
+  left:43px;
+  top:7px;
+
+  color:#7a8494;
+
+  font-size:11px;
+
+  pointer-events:none;
+}
+
+.input-icon{
+  position:absolute;
+
+  left:14px;
+  top:18px;
+
+  font-size:17px;
+
+  color:#536176;
+}
+
+textarea.input{
+  min-height:90px;
+
+  resize:none;
+
+  padding-top:23px;
+}
+
+.row{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:10px;
+}
+
+
+/* =====================================================
+   SAVE ADDRESS
+===================================================== */
+
+.save-address{
+  margin-top:14px;
+
+  padding:13px;
+
+  background:#f8fafc;
+
+  border:1px solid #e7eaf0;
+
+  border-radius:12px;
+
+  display:flex;
+  align-items:center;
+
+  gap:10px;
+}
+
+.save-check{
+  width:20px;
+  height:20px;
+
+  accent-color:#ffb900;
+}
+
+.save-text{
+  flex:1;
+
+  font-size:14px;
+  font-weight:bold;
+}
+
+.save-sub{
+  display:block;
+
+  margin-top:3px;
+
+  color:#818a99;
+
+  font-size:11px;
+
+  font-weight:normal;
+}
+
+
+/* =====================================================
+   MAP INFO
+===================================================== */
+
+.map-box{
+  margin-top:14px;
+
+  border-radius:13px;
+
+  overflow:hidden;
+
+  border:1px solid #e3e7ed;
+
+  background:#f1f5f8;
+}
+
+.map-top{
+  height:105px;
 
   position:relative;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e8eef2,
+      #f8fafb
+    );
 }
 
+.map-road{
+  position:absolute;
 
-.offer b{
+  height:10px;
 
-  font-size:25px;
+  background:#fff;
+
+  transform:rotate(-22deg);
+
+  left:-20px;
+  right:-20px;
+
+  top:48px;
+
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.04);
 }
 
+.map-road.two{
+  transform:rotate(25deg);
 
-.offer:after{
+  top:25px;
+}
 
+.map-pin{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  transform:
+    translate(-50%,-55%);
+
+  width:34px;
+  height:34px;
+
+  border-radius:50% 50% 50% 0;
+
+  background:#ffbd00;
+
+  rotate:-45deg;
+
+  box-shadow:
+    0 5px 12px
+    rgba(0,0,0,.18);
+}
+
+.map-pin:after{
   content:"";
 
   position:absolute;
 
-  left:0;
+  width:10px;
+  height:10px;
 
-  right:0;
-
-  bottom:-1px;
-
-  height:12px;
-
-  background:
-  radial-gradient(
-    circle at 10px 0,
-    transparent 9px,
-    #b9e7da 10px,
-    #e9fff8 11px
-  ) repeat-x;
-
-  background-size:20px 12px;
-}
-
-
-/* ================================
-   PRODUCT
-================================ */
-
-.product-box{
+  border-radius:50%;
 
   background:#fff;
 
-  padding:18px 20px;
+  left:12px;
+  top:12px;
+}
+
+.map-info{
+  padding:11px 13px;
 
   display:flex;
+  align-items:center;
 
-  gap:15px;
+  gap:9px;
 
-  border-bottom:1px solid #ddd;
+  font-size:12px;
+
+  color:#667184;
+}
+
+.safe{
+  color:#159866;
+
+  font-weight:bold;
 }
 
 
-.product-image{
+/* =====================================================
+   ADD ADDRESS
+===================================================== */
 
-  width:120px;
+.add-address{
+  width:100%;
 
-  height:120px;
+  margin-top:11px;
 
-  object-fit:cover;
+  padding:12px;
+
+  border:1px dashed #ccd2dc;
+
+  background:#fff;
 
   border-radius:10px;
 
-  background:#eee;
+  color:#3d4b60;
+
+  font-size:14px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+}
+
+
+/* =====================================================
+   DELIVERY CARD
+===================================================== */
+
+.delivery-option{
+  border:1px solid #dfe4eb;
+
+  border-radius:12px;
+
+  padding:13px;
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+}
+
+.delivery-round{
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  background:#eafff5;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:21px;
+}
+
+.delivery-main{
+  flex:1;
+}
+
+.delivery-name{
+  font-size:14px;
+  font-weight:bold;
+}
+
+.delivery-date{
+  margin-top:5px;
+
+  color:#168c66;
+
+  font-size:12px;
+}
+
+.delivery-price{
+  color:#168c66;
+
+  font-size:13px;
+  font-weight:bold;
+}
+
+
+/* =====================================================
+   PRODUCT
+===================================================== */
+
+.product-card{
+  padding:15px 18px;
+
+  display:flex;
+
+  gap:13px;
+
+  border-top:1px solid #edf0f4;
+}
+
+.product-image{
+  width:86px;
+  height:86px;
+
+  border-radius:12px;
+
+  object-fit:cover;
+
+  background:#f2f3f5;
 
   flex-shrink:0;
 }
 
-
 .product-info{
-
   min-width:0;
+
+  flex:1;
 }
 
-
 .product-name{
+  font-size:14px;
 
-  margin:2px 0 9px;
-
-  font-size:17px;
-
-  font-weight:500;
+  font-weight:bold;
 
   line-height:1.35;
 
@@ -214,8 +744,57 @@ body{
   overflow:hidden;
 }
 
+.product-meta{
+  margin-top:6px;
 
-.price-row{
+  color:#7a8494;
+
+  font-size:11px;
+
+  line-height:1.5;
+}
+
+.product-price-row{
+  margin-top:8px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  flex-wrap:wrap;
+}
+
+.product-price{
+  font-size:17px;
+  font-weight:800;
+}
+
+.old-price{
+  color:#9299a5;
+
+  font-size:12px;
+
+  text-decoration:line-through;
+}
+
+.discount{
+  color:#13885f;
+
+  background:#eafff5;
+
+  border-radius:5px;
+
+  padding:3px 5px;
+
+  font-size:10px;
+
+  font-weight:bold;
+}
+
+.qty{
+  margin-left:auto;
 
   display:flex;
 
@@ -223,389 +802,420 @@ body{
 
   gap:8px;
 
-  flex-wrap:wrap;
+  color:#697386;
+
+  font-size:12px;
 }
 
 
-.price{
+/* =====================================================
+   OFFER
+===================================================== */
 
-  font-size:23px;
+.offer-strip{
+  margin-bottom:15px;
 
-  font-weight:bold;
-}
+  background:
+    linear-gradient(
+      135deg,
+      #fff6d9,
+      #fffdf5
+    );
 
+  border:1px solid #ffe19a;
 
-.old-price{
+  border-radius:14px;
 
-  color:#888;
-
-  text-decoration:line-through;
-}
-
-
-.discount{
-
-  color:#168b70;
-
-  font-size:16px;
-}
-
-
-.meta{
-
-  margin-top:9px;
-
-  color:#555;
-
-  font-size:14px;
-
-  line-height:1.5;
-}
-
-
-/* ================================
-   SECTIONS
-================================ */
-
-.section{
-
-  background:#fff;
-
-  margin-top:9px;
-
-  padding:18px 20px;
-
-  border-top:1px solid #ddd;
-
-  border-bottom:1px solid #ddd;
-}
-
-
-.section-title{
-
-  font-size:19px;
-
-  font-weight:600;
-
-  margin-bottom:13px;
-}
-
-
-/* ================================
-   INPUTS
-================================ */
-
-.input{
-
-  width:100%;
-
-  padding:13px;
-
-  margin:6px 0;
-
-  border:1px solid #bbb;
-
-  border-radius:9px;
-
-  font-size:16px;
-
-  outline:none;
-
-  font-family:Arial,sans-serif;
-}
-
-
-.input:focus{
-
-  border-color:#c99d00;
-}
-
-
-textarea.input{
-
-  resize:none;
-}
-
-
-/* ================================
-   DELIVERY
-================================ */
-
-.delivery{
+  padding:12px 15px;
 
   display:flex;
 
-  gap:12px;
+  align-items:center;
 
-  align-items:flex-start;
+  gap:10px;
+}
+
+.offer-icon{
+  font-size:22px;
+}
+
+.offer-text{
+  font-size:13px;
+
+  color:#64521c;
+}
+
+.offer-text b{
+  color:#168b65;
 }
 
 
-.delivery-icon{
-
-  font-size:27px;
-}
-
-
-.delivery-text{
-
-  font-size:16px;
-
-  line-height:1.5;
-}
-
-
-.delivery-date{
-
-  font-weight:bold;
-}
-
-
-.change-btn{
-
-  margin-top:12px;
-
-  padding:9px 17px;
-
-  background:#fff;
-
-  border:1px solid #555;
-
-  border-radius:7px;
-
-  font-size:14px;
-}
-
-
-/* ================================
+/* =====================================================
    PRICE DETAILS
-================================ */
+===================================================== */
 
-.price-head{
-
+.price-row-line{
   display:flex;
 
   justify-content:space-between;
 
   align-items:center;
 
-  font-size:18px;
-
-  cursor:pointer;
-}
-
-
-.arrow{
-
-  font-size:25px;
-}
-
-
-.price-details{
-
-  display:none;
-
-  padding-top:12px;
-}
-
-
-.price-line{
-
-  display:flex;
-
-  justify-content:space-between;
-
   padding:8px 0;
 
-  color:#555;
+  color:#606b7d;
+
+  font-size:13px;
 }
 
+.price-row-line.discount-line{
+  color:#13885f;
+}
 
-.total-line{
-
-  border-top:1px solid #ddd;
-
+.price-total{
   margin-top:7px;
 
   padding-top:13px;
 
-  color:#222;
-
-  font-size:19px;
-
-  font-weight:bold;
-}
-
-
-/* ================================
-   BOTTOM BAR
-================================ */
-
-.bottom{
-
-  position:fixed;
-
-  left:0;
-
-  right:0;
-
-  bottom:0;
-
-  height:82px;
-
-  background:#fff;
-
-  border-top:1px solid #ccc;
+  border-top:1px dashed #dce0e6;
 
   display:flex;
 
-  align-items:center;
-
   justify-content:space-between;
-
-  padding:9px 15px;
-
-  z-index:200;
-}
-
-
-.bottom-total{
-
-  font-size:22px;
-
-  font-weight:500;
-}
-
-
-.bottom-discount{
-
-  display:inline-block;
-
-  color:#168b70;
-
-  background:#e8fff8;
-
-  padding:5px 8px;
-
-  margin-top:4px;
-
-  font-size:14px;
-}
-
-
-.continue{
-
-  width:45%;
-
-  height:56px;
-
-  border:0;
-
-  border-radius:7px;
-
-  background:#c99d00;
-
-  color:#fff;
 
   font-size:18px;
 
+  font-weight:800;
+
+  color:#172033;
+}
+
+
+/* =====================================================
+   SECURE BOX
+===================================================== */
+
+.secure-box{
+  margin-top:13px;
+
+  padding:12px;
+
+  border-radius:11px;
+
+  background:#f0fff8;
+
+  border:1px solid #d1f2e4;
+
+  display:flex;
+
+  gap:9px;
+
+  align-items:flex-start;
+}
+
+.secure-box-icon{
+  font-size:18px;
+}
+
+.secure-box-title{
+  font-size:12px;
   font-weight:bold;
 
-  cursor:pointer;
+  color:#147b58;
+}
+
+.secure-box-text{
+  margin-top:3px;
+
+  font-size:10px;
+
+  color:#65766f;
+
+  line-height:1.4;
 }
 
 
-.continue:active{
-
-  transform:scale(.98);
-}
-
-
-/* ================================
+/* =====================================================
    EMPTY
-================================ */
+===================================================== */
 
 .empty{
+  background:#fff;
+
+  border-radius:16px;
 
   padding:70px 20px;
 
   text-align:center;
 
-  color:#777;
+  border:1px solid #e4e8ee;
 
-  font-size:17px;
+  color:#778193;
+}
+
+.empty-icon{
+  font-size:48px;
+}
+
+.empty-title{
+  margin-top:15px;
+
+  font-size:19px;
+
+  font-weight:bold;
+
+  color:#273247;
+}
+
+.empty-btn{
+  margin-top:18px;
+
+  border:0;
+
+  border-radius:9px;
+
+  background:#ffb900;
+
+  color:#172033;
+
+  padding:12px 22px;
+
+  font-size:14px;
+
+  font-weight:bold;
 }
 
 
-/* ================================
+/* =====================================================
+   BOTTOM BAR
+===================================================== */
+
+.bottom{
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  z-index:1500;
+
+  min-height:87px;
+
+  background:#fff;
+
+  border-top:1px solid #dfe3e9;
+
+  box-shadow:
+    0 -5px 20px
+    rgba(0,0,0,.08);
+
+  padding:10px 15px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+}
+
+.bottom-info{
+  flex:1;
+}
+
+.bottom-label{
+  color:#7b8594;
+
+  font-size:11px;
+}
+
+.bottom-total{
+  margin-top:3px;
+
+  font-size:21px;
+
+  font-weight:800;
+
+  color:#172033;
+}
+
+.bottom-save{
+  margin-top:3px;
+
+  color:#148a62;
+
+  font-size:11px;
+
+  font-weight:bold;
+}
+
+.continue{
+  min-width:155px;
+
+  height:54px;
+
+  border:0;
+
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffc400,
+      #ffac00
+    );
+
+  color:#172033;
+
+  font-size:16px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 5px 12px
+    rgba(255,180,0,.25);
+}
+
+.continue:active{
+  transform:scale(.98);
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+  position:fixed;
+
+  left:50%;
+
+  bottom:100px;
+
+  transform:
+    translateX(-50%)
+    translateY(20px);
+
+  background:#172033;
+
+  color:#fff;
+
+  padding:11px 16px;
+
+  border-radius:9px;
+
+  font-size:12px;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:.25s;
+
+  z-index:3000;
+
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+
+/* =====================================================
    MOBILE
-================================ */
+===================================================== */
 
-@media(max-width:420px){
+@media(max-width:700px){
 
-  .product-image{
-
-    width:105px;
-
-    height:105px;
+  .grid{
+    display:block;
   }
 
-
-  .product-name{
-
-    font-size:16px;
+  .page{
+    padding:10px;
   }
 
-
-  .price{
-
-    font-size:21px;
+  .secure{
+    display:none;
   }
 
-
-  .offer{
-
-    font-size:16px;
+  .logo{
+    font-size:19px;
   }
 
-
-  .offer b{
-
-    font-size:23px;
+  .step-circle{
+    width:32px;
+    height:32px;
+    font-size:13px;
   }
 
+  .step-label{
+    font-size:10px;
+  }
 
-  .header-title{
+  .step-line{
+    max-width:70px;
+  }
 
+  .card{
+    border-radius:14px;
+  }
+
+  .card-title{
     font-size:17px;
   }
 
-
-  .step{
-
-    font-size:11px;
-
-    padding:7px 9px;
+  .product-image{
+    width:78px;
+    height:78px;
   }
-
-
-  .bottom{
-
-    padding:9px 12px;
-  }
-
-
-  .bottom-total{
-
-    font-size:20px;
-  }
-
 
   .continue{
+    min-width:145px;
+  }
 
-    width:45%;
+}
 
-    font-size:16px;
+@media(max-width:400px){
+
+  .header{
+    padding:0 10px;
+  }
+
+  .logo{
+    font-size:17px;
+  }
+
+  .step-line{
+    max-width:48px;
+  }
+
+  .step-item{
+    min-width:54px;
+  }
+
+  .step-label{
+    font-size:9px;
+  }
+
+  .continue{
+    min-width:130px;
+    font-size:14px;
+  }
+
+  .bottom-total{
+    font-size:19px;
+  }
+
+  .row{
+    grid-template-columns:1fr;
+    gap:0;
   }
 
 }
@@ -618,9 +1228,9 @@ textarea.input{
 <body>
 
 
-<!-- ================================
+<!-- =====================================================
      HEADER
-================================ -->
+===================================================== -->
 
 <header class="header">
 
@@ -630,333 +1240,346 @@ textarea.input{
     ‹
   </button>
 
-
-  <div
-    class="header-title"
-    data-i18n="Review your order">
-
-    Review your order
-
+  <div class="logo">
+    🛍️ <span>Sayon</span>Mart
   </div>
 
-
-  <div class="step">
-
-    STEP 1/2
-
+  <div class="secure">
+    <div class="secure-icon">✓</div>
+    100% Secure
   </div>
 
 </header>
 
 
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
 
-<!-- ================================
-     CHECKOUT CONTENT
-================================ -->
+<div class="progress-wrap">
 
-<div id="checkout"></div>
+  <div class="progress">
+
+    <div class="step-item done">
+
+      <div class="step-circle">
+        ✓
+      </div>
+
+      <div class="step-label">
+        Cart
+      </div>
+
+    </div>
 
 
+    <div class="step-line done"></div>
 
-<!-- ================================
-     BOTTOM
-================================ -->
+
+    <div class="step-item active">
+
+      <div class="step-circle">
+        📍
+      </div>
+
+      <div class="step-label">
+        Address
+      </div>
+
+    </div>
+
+
+    <div class="step-line"></div>
+
+
+    <div class="step-item">
+
+      <div class="step-circle">
+        💳
+      </div>
+
+      <div class="step-label">
+        Payment
+      </div>
+
+    </div>
+
+
+    <div class="step-line"></div>
+
+
+    <div class="step-item">
+
+      <div class="step-circle">
+        ✓
+      </div>
+
+      <div class="step-label">
+        Done
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="page">
+
+  <div id="checkout"></div>
+
+</main>
+
+
+<!-- =====================================================
+     BOTTOM BAR
+===================================================== -->
 
 <div
   class="bottom"
   id="bottomBar"
   style="display:none">
 
-  <div>
+  <div class="bottom-info">
+
+    <div class="bottom-label">
+      Total Amount
+    </div>
 
     <div
       class="bottom-total"
       id="bottomTotal">
-
       ₹0
-
     </div>
 
-
-    <span
-      class="bottom-discount"
+    <div
+      class="bottom-save"
       id="bottomDiscount">
-
       ₹0 OFF
-
-    </span>
+    </div>
 
   </div>
 
 
   <button
     class="continue"
-    onclick="continueOrder()"
-    data-i18n="Continue">
+    onclick="continueOrder()">
 
-    Continue
-
+    Continue →
+    
   </button>
 
 </div>
 
 
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
 
 <script>
 
 
-/* =================================
-   TRANSLATION FALLBACK
-================================= */
+/* =====================================================
+   TRANSLATIONS
+===================================================== */
 
 const checkoutTranslations = {
 
-  English:{
-
-    "Review your order":
-    "Review your order",
-
-    "OFF":
-    "OFF",
-
-    "on this order":
-    "on this order",
-
-    "Size":
-    "Size",
-
-    "Color":
-    "Color",
-
-    "Quantity":
-    "Quantity",
-
-    "Seller":
-    "Seller",
-
-    "Delivery":
-    "Delivery",
-
-    "Expected delivery":
-    "Expected delivery",
-
-    "Change":
-    "Change",
-
-    "Price Details":
-    "Price Details",
-
-    "Product Price":
-    "Product Price",
-
-    "Discount":
-    "Discount",
-
-    "Delivery Fee":
-    "Delivery Fee",
-
-    "Total":
-    "Total",
-
-    "Continue":
-    "Continue",
-
-    "Enter your name":
-    "Enter your name",
-
-    "Enter phone number":
-    "Enter phone number",
-
-    "Enter address":
-    "Enter address",
-
-    "Address":
-    "Address",
-
-    "Free":
-    "Free",
-
-    "No product selected":
-    "No product selected",
-
-    "Continue Shopping":
-    "Continue Shopping",
-
-    "Please fill your details":
-    "Please fill your details"
-
-  },
-
-
-  Bangla:{
-
-    "Review your order":
-    "আপনার অর্ডারকে রিভিউ করুন",
-
-    "OFF":
-    "ছাড়",
-
-    "on this order":
-    "এই অর্ডারে",
-
-    "Size":
-    "সাইজ",
-
-    "Color":
-    "রং",
-
-    "Quantity":
-    "পরিমাণ",
-
-    "Seller":
-    "বিক্রেতা",
-
-    "Delivery":
-    "ডেলিভারি",
-
-    "Expected delivery":
-    "প্রত্যাশিত ডেলিভারি",
-
-    "Change":
-    "পরিবর্তন করুন",
-
-    "Price Details":
-    "দামের ডিটেইলস",
-
-    "Product Price":
-    "পণ্যের দাম",
-
-    "Discount":
-    "ছাড়",
-
-    "Delivery Fee":
-    "ডেলিভারি চার্জ",
-
-    "Total":
-    "মোট",
-
-    "Continue":
-    "এগিয়ে যান",
-
-    "Enter your name":
-    "আপনার নাম লিখুন",
-
-    "Enter phone number":
-    "ফোন নম্বর লিখুন",
-
-    "Enter address":
-    "আপনার ঠিকানা লিখুন",
-
-    "Address":
-    "ঠিকানা",
-
-    "Free":
-    "ফ্রি",
-
-    "No product selected":
-    "কোনো পণ্য নির্বাচন করা হয়নি",
-
-    "Continue Shopping":
-    "শপিং শুরু করুন",
-
-    "Please fill your details":
-    "আপনার তথ্য পূরণ করুন"
-
-  },
-
-
-  Hindi:{
-
-    "Review your order":
-    "अपने ऑर्डर की समीक्षा करें",
-
-    "OFF":
-    "छूट",
-
-    "on this order":
-    "इस ऑर्डर पर",
-
-    "Size":
-    "साइज़",
-
-    "Color":
-    "रंग",
-
-    "Quantity":
-    "मात्रा",
-
-    "Seller":
-    "विक्रेता",
-
-    "Delivery":
-    "डिलीवरी",
-
-    "Expected delivery":
-    "अनुमानित डिलीवरी",
-
-    "Change":
-    "बदलें",
-
-    "Price Details":
-    "कीमत की जानकारी",
-
-    "Product Price":
-    "प्रोडक्ट की कीमत",
-
-    "Discount":
-    "छूट",
-
-    "Delivery Fee":
-    "डिलीवरी शुल्क",
-
-    "Total":
-    "कुल",
-
-    "Continue":
-    "आगे बढ़ें",
-
-    "Enter your name":
-    "अपना नाम दर्ज करें",
-
-    "Enter phone number":
-    "फोन नंबर दर्ज करें",
-
-    "Enter address":
-    "अपना पता दर्ज करें",
-
-    "Address":
-    "पता",
-
-    "Free":
-    "फ्री",
-
-    "No product selected":
-    "कोई प्रोडक्ट चुना नहीं गया",
-
-    "Continue Shopping":
-    "शॉपिंग शुरू करें",
-
-    "Please fill your details":
-    "कृपया अपनी जानकारी भरें"
-
-  }
+English:{
+
+"Review your order":"Review your order",
+"Address":"Delivery Address",
+"Delivery Address":"Delivery Address",
+"Please enter your complete address for smooth delivery":
+"Please enter your complete address for smooth delivery",
+"Use My Location":"Use My Location",
+"Get your current location automatically":
+"Get your current location automatically",
+"Full Name":"Full Name",
+"Mobile Number":"Mobile Number",
+"House / Flat / Building":"House / Flat / Building",
+"Area / Locality":"Area / Locality",
+"City":"City",
+"PIN Code":"PIN Code",
+"Enter your name":"Enter your name",
+"Enter phone number":"Enter phone number",
+"Enter house / flat / building":
+"Enter house / flat / building",
+"Enter area / locality":
+"Enter area / locality",
+"Enter city":"Enter city",
+"Enter PIN code":"Enter PIN code",
+"Enter address":"Enter complete address",
+"Save Address":"Save Address",
+"Save this address for next time":
+"Save this address for next time",
+"Add Another Address":"＋ Add Another Address",
+"Delivery":"Delivery",
+"Expected delivery":"Expected delivery",
+"Free":"Free",
+"Order Summary":"Order Summary",
+"Price Details":"Price Details",
+"Product Price":"Product Price",
+"Discount":"Discount",
+"Delivery Fee":"Delivery Fee",
+"Total":"Total",
+"Secure":"100% Safe & Secure",
+"Your payment and personal data are protected":
+"Your payment and personal data are protected",
+"Continue":"Continue",
+"Place Order":"Place Order",
+"Size":"Size",
+"Color":"Color",
+"Quantity":"Quantity",
+"Seller":"Seller",
+"items":"items",
+"No product selected":"No product selected",
+"Continue Shopping":"Continue Shopping",
+"Please fill your details":"Please fill all required details",
+"Invalid phone":"Please enter a valid phone number",
+"Invalid PIN":"Please enter a valid PIN code",
+"OFF":"OFF"
+
+},
+
+Bangla:{
+
+"Review your order":"আপনার অর্ডার",
+"Address":"ডেলিভারি ঠিকানা",
+"Delivery Address":"ডেলিভারি ঠিকানা",
+"Please enter your complete address for smooth delivery":
+"সঠিকভাবে ডেলিভারির জন্য সম্পূর্ণ ঠিকানা দিন",
+"Use My Location":"আমার লোকেশন ব্যবহার করুন",
+"Get your current location automatically":
+"বর্তমান লোকেশন ব্যবহার করুন",
+"Full Name":"পুরো নাম",
+"Mobile Number":"মোবাইল নম্বর",
+"House / Flat / Building":"বাড়ি / ফ্ল্যাট / বিল্ডিং",
+"Area / Locality":"এলাকা / লোকালিটি",
+"City":"শহর",
+"PIN Code":"পিন কোড",
+"Enter your name":"আপনার নাম লিখুন",
+"Enter phone number":"ফোন নম্বর লিখুন",
+"Enter house / flat / building":
+"বাড়ি / ফ্ল্যাট / বিল্ডিং লিখুন",
+"Enter area / locality":
+"এলাকা / লোকালিটি লিখুন",
+"Enter city":"শহরের নাম লিখুন",
+"Enter PIN code":"পিন কোড লিখুন",
+"Enter address":"সম্পূর্ণ ঠিকানা লিখুন",
+"Save Address":"ঠিকানা সেভ করুন",
+"Save this address for next time":
+"পরের বার ব্যবহারের জন্য সেভ করুন",
+"Add Another Address":"＋ অন্য ঠিকানা যোগ করুন",
+"Delivery":"ডেলিভারি",
+"Expected delivery":"সম্ভাব্য ডেলিভারি",
+"Free":"ফ্রি",
+"Order Summary":"অর্ডার সামারি",
+"Price Details":"দামের বিবরণ",
+"Product Price":"পণ্যের দাম",
+"Discount":"ছাড়",
+"Delivery Fee":"ডেলিভারি চার্জ",
+"Total":"মোট",
+"Secure":"১০০% নিরাপদ",
+"Your payment and personal data are protected":
+"আপনার পেমেন্ট ও ব্যক্তিগত তথ্য সুরক্ষিত",
+"Continue":"এগিয়ে যান",
+"Place Order":"অর্ডার করুন",
+"Size":"সাইজ",
+"Color":"রং",
+"Quantity":"পরিমাণ",
+"Seller":"বিক্রেতা",
+"items":"টি পণ্য",
+"No product selected":"কোনো পণ্য নির্বাচন করা হয়নি",
+"Continue Shopping":"শপিং করুন",
+"Please fill your details":"সব প্রয়োজনীয় তথ্য পূরণ করুন",
+"Invalid phone":"সঠিক ফোন নম্বর দিন",
+"Invalid PIN":"সঠিক PIN কোড দিন",
+"OFF":"ছাড়"
+
+},
+
+Hindi:{
+
+"Review your order":"अपने ऑर्डर की समीक्षा करें",
+"Address":"डिलीवरी पता",
+"Delivery Address":"डिलीवरी पता",
+"Please enter your complete address for smooth delivery":
+"सही डिलीवरी के लिए पूरा पता दर्ज करें",
+"Use My Location":"मेरी लोकेशन इस्तेमाल करें",
+"Get your current location automatically":
+"वर्तमान लोकेशन इस्तेमाल करें",
+"Full Name":"पूरा नाम",
+"Mobile Number":"मोबाइल नंबर",
+"House / Flat / Building":"घर / फ्लैट / बिल्डिंग",
+"Area / Locality":"एरिया / लोकैलिटी",
+"City":"शहर",
+"PIN Code":"पिन कोड",
+"Enter your name":"अपना नाम दर्ज करें",
+"Enter phone number":"फोन नंबर दर्ज करें",
+"Enter house / flat / building":
+"घर / फ्लैट / बिल्डिंग दर्ज करें",
+"Enter area / locality":
+"एरिया / लोकैलिटी दर्ज करें",
+"Enter city":"शहर दर्ज करें",
+"Enter PIN code":"पिन कोड दर्ज करें",
+"Enter address":"पूरा पता दर्ज करें",
+"Save Address":"पता सेव करें",
+"Save this address for next time":
+"अगली बार के लिए सेव करें",
+"Add Another Address":"＋ दूसरा पता जोड़ें",
+"Delivery":"डिलीवरी",
+"Expected delivery":"अनुमानित डिलीवरी",
+"Free":"फ्री",
+"Order Summary":"ऑर्डर सारांश",
+"Price Details":"कीमत की जानकारी",
+"Product Price":"प्रोडक्ट की कीमत",
+"Discount":"छूट",
+"Delivery Fee":"डिलीवरी शुल्क",
+"Total":"कुल",
+"Secure":"100% सुरक्षित",
+"Your payment and personal data are protected":
+"आपका पेमेंट और व्यक्तिगत डेटा सुरक्षित है",
+"Continue":"आगे बढ़ें",
+"Place Order":"ऑर्डर करें",
+"Size":"साइज़",
+"Color":"रंग",
+"Quantity":"मात्रा",
+"Seller":"विक्रेता",
+"items":"आइटम",
+"No product selected":"कोई प्रोडक्ट चुना नहीं गया",
+"Continue Shopping":"शॉपिंग करें",
+"Please fill your details":"सभी जरूरी जानकारी भरें",
+"Invalid phone":"सही फोन नंबर दर्ज करें",
+"Invalid PIN":"सही PIN कोड दर्ज करें",
+"OFF":"छूट"
+
+}
 
 };
 
 
-
-/* =================================
-   TRANSLATE FUNCTION
-================================= */
+/* =====================================================
+   TRANSLATION FUNCTION
+===================================================== */
 
 function t(key){
 
-  if(
-    typeof window.translate === "function"
-  ){
+  if(typeof window.translate === "function"){
 
     const result =
-    window.translate(key);
+      window.translate(key);
 
     if(result && result !== key){
 
@@ -966,40 +1589,33 @@ function t(key){
 
   }
 
-
   const language =
-  localStorage.getItem(
-    "sayonmart_language"
-  ) || "English";
-
+    localStorage.getItem(
+      "sayonmart_language"
+    ) || "English";
 
   return (
-
-    checkoutTranslations[language]
-    ||
+    checkoutTranslations[language] ||
     checkoutTranslations.English
-
   )[key] || key;
 
 }
 
 
-
-/* =================================
-   GET BUY NOW PRODUCT
-================================= */
+/* =====================================================
+   GET PRODUCT
+===================================================== */
 
 let buyNow = null;
-
 
 try{
 
   buyNow =
-  JSON.parse(
-    localStorage.getItem(
-      "sayonmart_buy_now"
-    ) || "null"
-  );
+    JSON.parse(
+      localStorage.getItem(
+        "sayonmart_buy_now"
+      ) || "null"
+    );
 
 }catch(error){
 
@@ -1008,125 +1624,142 @@ try{
 }
 
 
-
-/* =================================
+/* =====================================================
    MONEY
-================================= */
+===================================================== */
 
 function money(number){
 
   return "₹" +
-
-  Number(number || 0)
-  .toLocaleString("en-IN");
+    Number(number || 0)
+    .toLocaleString("en-IN");
 
 }
 
 
-
-/* =================================
+/* =====================================================
    ESCAPE HTML
-================================= */
+===================================================== */
 
 function escapeHTML(value){
 
   return String(value ?? "")
 
-  .replace(
-    /[&<>"']/g,
+    .replace(
+      /[&<>"']/g,
+      function(char){
 
-    function(char){
+        return {
 
-      return {
+          "&":"&amp;",
+          "<":"&lt;",
+          ">":"&gt;",
+          '"':"&quot;",
+          "'":"&#039;"
 
-        "&":"&amp;",
+        }[char];
 
-        "<":"&lt;",
-
-        ">":"&gt;",
-
-        '"':"&quot;",
-
-        "'":"&#039;"
-
-      }[char];
-
-    }
-
-  );
+      }
+    );
 
 }
 
 
-
-/* =================================
+/* =====================================================
    DELIVERY DATE
-================================= */
+===================================================== */
 
 function deliveryDate(){
 
-  const date =
-  new Date();
+  const date = new Date();
 
   date.setDate(
     date.getDate() + 5
   );
 
+  const language =
+    localStorage.getItem(
+      "sayonmart_language"
+    ) || "English";
 
   let locale = "en-IN";
 
-
-  const lang =
-  localStorage.getItem(
-    "sayonmart_language"
-  ) || "English";
-
-
-  if(lang === "Bangla"){
-
+  if(language === "Bangla"){
     locale = "bn-IN";
-
   }
 
-
-  if(lang === "Hindi"){
-
+  if(language === "Hindi"){
     locale = "hi-IN";
-
   }
-
 
   return date.toLocaleDateString(
-
     locale,
-
     {
-
       weekday:"long",
-
       day:"numeric",
-
       month:"short"
-
     }
-
   );
 
 }
 
 
+/* =====================================================
+   TOAST
+===================================================== */
 
-/* =================================
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  setTimeout(function(){
+
+    toast.classList.remove("show");
+
+  },2200);
+
+}
+
+
+/* =====================================================
+   LOAD SAVED ADDRESS
+===================================================== */
+
+function loadSavedAddress(){
+
+  try{
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          "sayonmart_saved_address"
+        ) || "null"
+      );
+
+    return saved;
+
+  }catch(error){
+
+    return null;
+
+  }
+
+}
+
+
+/* =====================================================
    RENDER CHECKOUT
-================================= */
+===================================================== */
 
 function renderCheckout(){
 
   const checkout =
-  document.getElementById(
-    "checkout"
-  );
-
+    document.getElementById("checkout");
 
   if(!buyNow){
 
@@ -1134,16 +1767,16 @@ function renderCheckout(){
 
       <div class="empty">
 
-        🛒
+        <div class="empty-icon">
+          🛒
+        </div>
 
-        <br><br>
-
-        ${t("No product selected")}
-
-        <br><br>
+        <div class="empty-title">
+          ${t("No product selected")}
+        </div>
 
         <button
-          class="change-btn"
+          class="empty-btn"
           onclick="location.href='products.html'">
 
           ${t("Continue Shopping")}
@@ -1154,377 +1787,506 @@ function renderCheckout(){
 
     `;
 
-
     document.getElementById(
       "bottomBar"
     ).style.display = "none";
-
 
     return;
 
   }
 
 
-
-  /* PRODUCT DATA */
+  /* ===================================================
+     PRODUCT DATA
+  =================================================== */
 
   const price =
-  Number(
-    buyNow.price || 0
-  );
-
+    Number(buyNow.price || 0);
 
   const oldPrice =
-  Number(
-    buyNow.oldPrice || 0
-  );
-
+    Number(buyNow.oldPrice || 0);
 
   const quantity =
-  Number(
-    buyNow.quantity || 1
-  );
-
+    Number(buyNow.quantity || 1);
 
   const productPrice =
-  price * quantity;
-
+    price * quantity;
 
   const discount =
-  oldPrice > price
-
-  ?
-
-  (oldPrice - price)
-  * quantity
-
-  :
-
-  0;
-
+    oldPrice > price
+    ?
+    (oldPrice - price) * quantity
+    :
+    0;
 
   const deliveryFee =
-  Number(
-    buyNow.deliveryFee || 0
-  );
-
+    Number(buyNow.deliveryFee || 0);
 
   const total =
-  productPrice +
-  deliveryFee;
+    productPrice + deliveryFee;
 
 
-
-  /* SIZE */
-
-  const size =
-  buyNow.size ||
-
-  "Free Size";
-
-
-
-  /* COLOR */
-
-  let colorHTML = "";
-
-
-  if(buyNow.color){
-
-    colorHTML = `
-
-      • ${t("Color")}:
-      ${escapeHTML(
-        buyNow.color
-      )}
-
-    `;
-
-  }
-
-
-
-  /* DISCOUNT PERCENT */
-
-  let discountPercent = "";
-
+  let discountPercent = 0;
 
   if(oldPrice > price){
 
     discountPercent =
-
       Math.round(
-
         (
-          (oldPrice-price)
-          /
+          (oldPrice - price) /
           oldPrice
         ) * 100
-
       );
 
   }
 
 
+  const image =
+    buyNow.image ||
+    buyNow.imageUrl ||
+    (
+      buyNow.images &&
+      buyNow.images[0]
+    ) ||
+    "https://via.placeholder.com/300";
 
-  /* HTML */
+
+  const size =
+    buyNow.size ||
+    "Free Size";
+
+
+  let metaHTML =
+    `${t("Size")}: ${escapeHTML(size)}`;
+
+
+  if(buyNow.color){
+
+    metaHTML +=
+      ` • ${t("Color")}: ${
+        escapeHTML(buyNow.color)
+      }`;
+
+  }
+
+
+  /* ===================================================
+     SAVED ADDRESS
+  =================================================== */
+
+  const saved =
+    loadSavedAddress();
+
+
+  /* ===================================================
+     MAIN HTML
+  =================================================== */
 
   checkout.innerHTML = `
 
 
-    <!-- OFFER -->
+    <!-- ================================================
+         OFFER
+    ================================================= -->
 
-    <div class="offer">
+    <div class="offer-strip">
 
-      <b>
-        ${money(discount)}
-      </b>
+      <div class="offer-icon">
+        🎁
+      </div>
 
-      ${t("OFF")}
+      <div class="offer-text">
 
-      ${t("on this order")}
+        <b>
+          ${
+            discount > 0
+            ? money(discount)
+            : "₹0"
+          }
+          ${t("OFF")}
+        </b>
+
+        ${t("on this order") || "on this order"}
+
+      </div>
 
     </div>
 
 
 
-    <!-- PRODUCT -->
-
-    <div class="product-box">
+    <div class="grid">
 
 
-      <img
+      <!-- ==============================================
+           LEFT SIDE
+      =============================================== -->
 
-        class="product-image"
-
-        src="${
-          escapeHTML(
-            buyNow.image ||
-            "https://via.placeholder.com/300"
-          )
-        }"
-
-        onerror="
-          this.src=
-          'https://via.placeholder.com/300'
-        "
-
-      >
+      <div>
 
 
-      <div class="product-info">
+        <!-- ============================================
+             ADDRESS CARD
+        ============================================= -->
 
+        <div class="card">
 
-        <div class="product-name">
+          <div class="card-header">
 
-          ${
-            escapeHTML(
-              buyNow.name ||
-              "Product"
-            )
-          }
+            <div class="card-icon">
+              📍
+            </div>
 
-        </div>
+            <div>
 
+              <div class="card-title">
+                ${t("Delivery Address")}
+              </div>
 
-        <div class="price-row">
+              <div class="card-subtitle">
+                ${t(
+                  "Please enter your complete address for smooth delivery"
+                )}
+              </div>
 
-
-          <span class="price">
-
-            ${money(price)}
-
-          </span>
-
-
-          ${
-            oldPrice > price
-
-            ?
-
-            `
-
-            <span class="old-price">
-
-              ${money(oldPrice)}
-
-            </span>
-
-            `
-
-            :
-
-            ""
-
-          }
-
-
-          ${
-            oldPrice > price
-
-            ?
-
-            `
-
-            <span class="discount">
-
-              ${discountPercent}%
-              ${t("OFF")}
-
-            </span>
-
-            `
-
-            :
-
-            ""
-
-          }
-
-        </div>
-
-
-        <div class="meta">
-
-          ${t("Size")}:
-          ${escapeHTML(size)}
-
-          ${colorHTML}
-
-        </div>
-
-
-        <div class="meta">
-
-          ${t("Quantity")}:
-          ${quantity}
-
-        </div>
-
-
-        ${
-          buyNow.seller
-
-          ?
-
-          `
-
-          <div class="meta">
-
-            ${t("Seller")}:
-            ${escapeHTML(
-              buyNow.seller
-            )}
+            </div>
 
           </div>
 
-          `
 
-          :
-
-          ""
-
-        }
+          <div class="card-body">
 
 
-      </div>
+            <!-- LOCATION -->
 
-    </div>
+            <button
+              class="location-btn"
+              onclick="useMyLocation()">
 
+              <div class="location-icon">
+                📍
+              </div>
 
+              <div class="location-text">
 
-    <!-- ADDRESS -->
+                <div class="location-title">
+                  ${t("Use My Location")}
+                </div>
 
-    <div class="section">
+                <div class="location-sub">
+                  ${t(
+                    "Get your current location automatically"
+                  )}
+                </div>
 
+              </div>
 
-      <div class="section-title">
+              <div class="location-arrow">
+                ›
+              </div>
 
-        ${t("Address")}
-
-      </div>
-
-
-      <input
-
-        class="input"
-
-        id="customerName"
-
-        placeholder="${
-          t("Enter your name")
-        }"
-
-      >
-
-
-      <input
-
-        class="input"
-
-        id="customerPhone"
-
-        type="tel"
-
-        inputmode="numeric"
-
-        placeholder="${
-          t("Enter phone number")
-        }"
-
-      >
+            </button>
 
 
-      <textarea
+            <!-- NAME -->
 
-        class="input"
+            <div class="input-group">
 
-        id="customerAddress"
+              <span class="input-icon">
+                👤
+              </span>
 
-        rows="3"
+              <span class="input-label">
+                ${t("Full Name")} *
+              </span>
 
-        placeholder="${
-          t("Enter address")
-        }"
+              <input
+                class="input"
+                id="customerName"
+                type="text"
+                autocomplete="name"
+                placeholder=""
+              >
 
-      ></textarea>
-
-
-    </div>
-
-
-
-    <!-- DELIVERY -->
-
-    <div class="section">
-
-
-      <div class="section-title">
-
-        🚚 ${t("Delivery")}
-
-      </div>
+            </div>
 
 
-      <div class="delivery">
+            <!-- PHONE -->
+
+            <div class="input-group">
+
+              <span class="input-icon">
+                📞
+              </span>
+
+              <span class="input-label">
+                ${t("Mobile Number")} *
+              </span>
+
+              <input
+                class="input"
+                id="customerPhone"
+                type="tel"
+                inputmode="numeric"
+                maxlength="10"
+                autocomplete="tel"
+                placeholder=""
+              >
+
+            </div>
 
 
-        <div class="delivery-icon">
+            <!-- HOUSE -->
 
-          🚚
+            <div class="input-group">
+
+              <span class="input-icon">
+                🏠
+              </span>
+
+              <span class="input-label">
+                ${t("House / Flat / Building")} *
+              </span>
+
+              <input
+                class="input"
+                id="house"
+                type="text"
+                placeholder=""
+              >
+
+            </div>
+
+
+            <!-- AREA -->
+
+            <div class="input-group">
+
+              <span class="input-icon">
+                📍
+              </span>
+
+              <span class="input-label">
+                ${t("Area / Locality")} *
+              </span>
+
+              <input
+                class="input"
+                id="area"
+                type="text"
+                placeholder=""
+              >
+
+            </div>
+
+
+            <!-- CITY + PIN -->
+
+            <div class="row">
+
+              <div class="input-group">
+
+                <span class="input-icon">
+                  🏙️
+                </span>
+
+                <span class="input-label">
+                  ${t("City")} *
+                </span>
+
+                <input
+                  class="input"
+                  id="city"
+                  type="text"
+                  placeholder=""
+                >
+
+              </div>
+
+
+              <div class="input-group">
+
+                <span class="input-icon">
+                  📌
+                </span>
+
+                <span class="input-label">
+                  ${t("PIN Code")} *
+                </span>
+
+                <input
+                  class="input"
+                  id="pin"
+                  type="tel"
+                  inputmode="numeric"
+                  maxlength="6"
+                  placeholder=""
+                >
+
+              </div>
+
+            </div>
+
+
+            <!-- FULL ADDRESS -->
+
+            <div class="input-group">
+
+              <span class="input-icon">
+                📝
+              </span>
+
+              <span class="input-label">
+                ${t("Address")} *
+              </span>
+
+              <textarea
+                class="input"
+                id="customerAddress"
+                rows="3"
+                placeholder=""
+              ></textarea>
+
+            </div>
+
+
+            <!-- SAVE -->
+
+            <label class="save-address">
+
+              <input
+                type="checkbox"
+                class="save-check"
+                id="saveAddress"
+                checked
+              >
+
+              <div class="save-text">
+
+                ${t("Save Address")}
+
+                <span class="save-sub">
+                  ${t(
+                    "Save this address for next time"
+                  )}
+                </span>
+
+              </div>
+
+              🔖
+
+            </label>
+
+
+            <!-- MAP -->
+
+            <div class="map-box">
+
+              <div class="map-top">
+
+                <div class="map-road"></div>
+
+                <div class="map-road two"></div>
+
+                <div class="map-pin"></div>
+
+              </div>
+
+              <div class="map-info">
+
+                🛡️
+
+                <span>
+                  ${t(
+                    "Your payment and personal data are protected"
+                  )}
+                </span>
+
+                <span class="safe">
+                  ✓ Safe
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- ADD ADDRESS -->
+
+            <button
+              class="add-address"
+              onclick="clearAddressFields()">
+
+              ${t("Add Another Address")}
+
+            </button>
+
+
+          </div>
 
         </div>
 
 
-        <div class="delivery-text">
 
-          ${t("Expected delivery")}:
+        <!-- ==========================================
+             DELIVERY CARD
+        =========================================== -->
 
-          <span class="delivery-date">
+        <div class="card">
 
-            ${deliveryDate()}
+          <div class="card-header">
 
-          </span>
+            <div class="card-icon">
+              🚚
+            </div>
+
+            <div>
+
+              <div class="card-title">
+                ${t("Delivery")}
+              </div>
+
+              <div class="card-subtitle">
+                ${t("Expected delivery")}
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="card-body">
+
+            <div class="delivery-option">
+
+              <div class="delivery-round">
+                🚚
+              </div>
+
+              <div class="delivery-main">
+
+                <div class="delivery-name">
+                  Standard Delivery
+                </div>
+
+                <div class="delivery-date">
+                  ${deliveryDate()}
+                </div>
+
+              </div>
+
+              <div class="delivery-price">
+
+                ${
+                  deliveryFee > 0
+                  ? money(deliveryFee)
+                  : t("Free")
+                }
+
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
@@ -1532,310 +2294,540 @@ function renderCheckout(){
       </div>
 
 
-      <button
 
-        class="change-btn"
+      <!-- ==============================================
+           RIGHT SIDE
+      =============================================== -->
 
-        onclick="
-          document
-          .getElementById(
-            'customerAddress'
-          )
-          .focus()
-        "
-
-      >
-
-        ${t("Change")}
-
-      </button>
+      <div>
 
 
-    </div>
+        <!-- ============================================
+             ORDER SUMMARY
+        ============================================= -->
+
+        <div class="card">
+
+          <div class="card-header">
+
+            <div class="card-icon">
+              🛒
+            </div>
+
+            <div>
+
+              <div class="card-title">
+                ${t("Order Summary")}
+              </div>
+
+              <div class="card-subtitle">
+                1 ${t("items")}
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="product-card">
+
+
+            <img
+              class="product-image"
+              src="${escapeHTML(image)}"
+              onerror="
+                this.src='https://via.placeholder.com/300'
+              "
+            >
+
+
+            <div class="product-info">
+
+              <div class="product-name">
+
+                ${escapeHTML(
+                  buyNow.name || "Product"
+                )}
+
+              </div>
+
+
+              <div class="product-meta">
+
+                ${metaHTML}
+
+              </div>
+
+
+              <div class="product-price-row">
+
+                <span class="product-price">
+
+                  ${money(price)}
+
+                </span>
+
+
+                ${
+                  oldPrice > price
+
+                  ?
+
+                  `
+
+                  <span class="old-price">
+
+                    ${money(oldPrice)}
+
+                  </span>
+
+                  <span class="discount">
+
+                    ${discountPercent}%
+                    ${t("OFF")}
+
+                  </span>
+
+                  `
+
+                  :
+
+                  ""
+
+                }
+
+
+                <span class="qty">
+
+                  × ${quantity}
+
+                </span>
+
+              </div>
+
+
+              ${
+                buyNow.seller
+
+                ?
+
+                `
+
+                <div class="product-meta">
+
+                  ${t("Seller")}:
+                  ${escapeHTML(
+                    buyNow.seller
+                  )}
+
+                </div>
+
+                `
+
+                :
+
+                ""
+
+              }
+
+            </div>
+
+          </div>
+
+
+        </div>
 
 
 
-    <!-- PRICE DETAILS -->
+        <!-- ============================================
+             PRICE DETAILS
+        ============================================= -->
 
-    <div class="section">
+        <div class="card">
+
+          <div class="card-header">
+
+            <div class="card-icon">
+              💰
+            </div>
+
+            <div>
+
+              <div class="card-title">
+                ${t("Price Details")}
+              </div>
+
+              <div class="card-subtitle">
+                Final price breakdown
+              </div>
+
+            </div>
+
+          </div>
 
 
-      <div
-
-        class="price-head"
-
-        onclick="togglePrice()"
-
-      >
-
-        <span>
-
-          ${t("Price Details")}
-
-        </span>
+          <div class="card-body">
 
 
-        <span
+            <div class="price-row-line">
 
-          class="arrow"
+              <span>
+                ${t("Product Price")}
+              </span>
 
-          id="priceArrow"
+              <span>
+                ${money(productPrice)}
+              </span>
 
-        >
+            </div>
 
-          ⌄
 
-        </span>
+            <div class="price-row-line discount-line">
+
+              <span>
+                ${t("Discount")}
+              </span>
+
+              <span>
+                -${money(discount)}
+              </span>
+
+            </div>
+
+
+            <div class="price-row-line">
+
+              <span>
+                ${t("Delivery Fee")}
+              </span>
+
+              <span>
+
+                ${
+                  deliveryFee > 0
+                  ? money(deliveryFee)
+                  : t("Free")
+                }
+
+              </span>
+
+            </div>
+
+
+            <div class="price-total">
+
+              <span>
+                ${t("Total")}
+              </span>
+
+              <span>
+                ${money(total)}
+              </span>
+
+            </div>
+
+
+            <!-- SECURE -->
+
+            <div class="secure-box">
+
+              <div class="secure-box-icon">
+                🛡️
+              </div>
+
+              <div>
+
+                <div class="secure-box-title">
+                  ${t("Secure")}
+                </div>
+
+                <div class="secure-box-text">
+                  ${t(
+                    "Your payment and personal data are protected"
+                  )}
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
 
 
       </div>
-
-
-
-      <div
-
-        class="price-details"
-
-        id="priceDetails"
-
-      >
-
-
-        <div class="price-line">
-
-          <span>
-
-            ${t("Product Price")}
-
-          </span>
-
-          <span>
-
-            ${money(productPrice)}
-
-          </span>
-
-        </div>
-
-
-
-        <div class="price-line">
-
-          <span>
-
-            ${t("Discount")}
-
-          </span>
-
-          <span>
-
-            -${money(discount)}
-
-          </span>
-
-        </div>
-
-
-
-        <div class="price-line">
-
-          <span>
-
-            ${t("Delivery Fee")}
-
-          </span>
-
-          <span>
-
-            ${
-              deliveryFee
-
-              ?
-
-              money(deliveryFee)
-
-              :
-
-              t("Free")
-
-            }
-
-          </span>
-
-        </div>
-
-
-
-        <div class="price-line total-line">
-
-          <span>
-
-            ${t("Total")}
-
-          </span>
-
-          <span>
-
-            ${money(total)}
-
-          </span>
-
-        </div>
-
-
-      </div>
-
 
     </div>
 
   `;
 
 
-
-  /* BOTTOM */
+  /* ===================================================
+     BOTTOM TOTAL
+  =================================================== */
 
   document.getElementById(
     "bottomTotal"
   ).textContent =
-  money(total);
+    money(total);
 
 
   document.getElementById(
     "bottomDiscount"
   ).textContent =
-
-  money(discount)
-  + " "
-  + t("OFF");
+    discount > 0
+    ? money(discount) + " " + t("OFF")
+    : "₹0 " + t("OFF");
 
 
   document.getElementById(
     "bottomBar"
   ).style.display =
-  "flex";
+    "flex";
 
 
+  /* ===================================================
+     PREFILL SAVED DATA
+  =================================================== */
 
-  /* OLD CUSTOMER DATA */
-
-  if(buyNow.customerName){
-
-    document.getElementById(
-      "customerName"
-    ).value =
-    buyNow.customerName;
-
-  }
-
-
-  if(buyNow.phone){
-
-    document.getElementById(
-      "customerPhone"
-    ).value =
-    buyNow.phone;
-
-  }
+  const addressData =
+    saved ||
+    {
+      name:buyNow.customerName || "",
+      phone:buyNow.phone || "",
+      house:buyNow.house || "",
+      area:buyNow.area || "",
+      city:buyNow.city || "",
+      pin:buyNow.pin || "",
+      address:buyNow.address || ""
+    };
 
 
-  if(buyNow.address){
+  document.getElementById(
+    "customerName"
+  ).value =
+    addressData.name || "";
 
-    document.getElementById(
-      "customerAddress"
-    ).value =
-    buyNow.address;
 
-  }
+  document.getElementById(
+    "customerPhone"
+  ).value =
+    addressData.phone || "";
+
+
+  document.getElementById(
+    "house"
+  ).value =
+    addressData.house || "";
+
+
+  document.getElementById(
+    "area"
+  ).value =
+    addressData.area || "";
+
+
+  document.getElementById(
+    "city"
+  ).value =
+    addressData.city || "";
+
+
+  document.getElementById(
+    "pin"
+  ).value =
+    addressData.pin || "";
+
+
+  document.getElementById(
+    "customerAddress"
+  ).value =
+    addressData.address || "";
+
 
 }
 
 
+/* =====================================================
+   USE MY LOCATION
+===================================================== */
 
-/* =================================
-   PRICE DETAILS OPEN/CLOSE
-================================= */
+window.useMyLocation =
+function(){
 
-function togglePrice(){
+  if(!navigator.geolocation){
 
-  const details =
-  document.getElementById(
-    "priceDetails"
-  );
-
-
-  const arrow =
-  document.getElementById(
-    "priceArrow"
-  );
-
-
-  if(!details){
+    showToast(
+      "Location is not supported on this browser."
+    );
 
     return;
 
   }
 
 
-  const open =
-  details.style.display ===
-  "block";
+  showToast(
+    "Please allow location permission..."
+  );
 
 
-  if(open){
+  navigator.geolocation.getCurrentPosition(
 
-    details.style.display =
-    "none";
+    function(){
 
-    arrow.textContent =
-    "⌄";
+      /*
+        For privacy and reliability, this page does
+        not automatically send your exact coordinates
+        anywhere.
 
-  }else{
+        We simply focus the address field so the user
+        can enter/confirm the delivery address.
+      */
 
-    details.style.display =
-    "block";
+      const address =
+        document.getElementById(
+          "customerAddress"
+        );
 
-    arrow.textContent =
-    "⌃";
+      if(address){
 
-  }
+        address.focus();
 
-}
+      }
+
+      showToast(
+        "Location permission allowed. Please confirm your address."
+      );
+
+    },
+
+    function(){
+
+      showToast(
+        "Location permission was not allowed."
+      );
+
+    },
+
+    {
+      enableHighAccuracy:false,
+      timeout:8000,
+      maximumAge:300000
+    }
+
+  );
+
+};
 
 
+/* =====================================================
+   CLEAR / ADD ANOTHER ADDRESS
+===================================================== */
 
-/* =================================
-   CONTINUE
-================================= */
+window.clearAddressFields =
+function(){
+
+  const ids = [
+
+    "house",
+    "area",
+    "city",
+    "pin",
+    "customerAddress"
+
+  ];
+
+
+  ids.forEach(function(id){
+
+    const element =
+      document.getElementById(id);
+
+    if(element){
+
+      element.value = "";
+
+    }
+
+  });
+
+
+  showToast(
+    "Enter a new address"
+  );
+
+
+  document.getElementById(
+    "house"
+  )?.focus();
+
+};
+
+
+/* =====================================================
+   CONTINUE TO PAYMENT
+===================================================== */
 
 window.continueOrder =
 function(){
 
   const name =
-  document.getElementById(
-    "customerName"
-  )?.value.trim();
+    document.getElementById(
+      "customerName"
+    )?.value.trim();
 
 
   const phone =
-  document.getElementById(
-    "customerPhone"
-  )?.value.trim();
+    document.getElementById(
+      "customerPhone"
+    )?.value.trim();
+
+
+  const house =
+    document.getElementById(
+      "house"
+    )?.value.trim();
+
+
+  const area =
+    document.getElementById(
+      "area"
+    )?.value.trim();
+
+
+  const city =
+    document.getElementById(
+      "city"
+    )?.value.trim();
+
+
+  const pin =
+    document.getElementById(
+      "pin"
+    )?.value.trim();
 
 
   const address =
-  document.getElementById(
-    "customerAddress"
-  )?.value.trim();
+    document.getElementById(
+      "customerAddress"
+    )?.value.trim();
 
 
+  /* REQUIRED */
 
   if(
     !name ||
     !phone ||
+    !house ||
+    !area ||
+    !city ||
+    !pin ||
     !address
   ){
 
-    alert(
+    showToast(
       t("Please fill your details")
     );
 
@@ -1844,46 +2836,115 @@ function(){
   }
 
 
+  /* PHONE */
 
-  /* SAVE CUSTOMER DATA */
+  if(!/^[0-9]{10}$/.test(phone)){
+
+    showToast(
+      t("Invalid phone")
+    );
+
+    return;
+
+  }
+
+
+  /* PIN */
+
+  if(!/^[0-9]{6}$/.test(pin)){
+
+    showToast(
+      t("Invalid PIN")
+    );
+
+    return;
+
+  }
+
+
+  /* SAVE TO BUY NOW */
 
   buyNow.customerName =
-  name;
-
+    name;
 
   buyNow.phone =
-  phone;
+    phone;
 
+  buyNow.house =
+    house;
+
+  buyNow.area =
+    area;
+
+  buyNow.city =
+    city;
+
+  buyNow.pin =
+    pin;
 
   buyNow.address =
-  address;
+    address;
 
 
+  /* SAVE ADDRESS */
+
+  const saveAddress =
+    document.getElementById(
+      "saveAddress"
+    )?.checked;
+
+
+  if(saveAddress){
+
+    localStorage.setItem(
+
+      "sayonmart_saved_address",
+
+      JSON.stringify({
+
+        name:name,
+
+        phone:phone,
+
+        house:house,
+
+        area:area,
+
+        city:city,
+
+        pin:pin,
+
+        address:address
+
+      })
+
+    );
+
+  }
+
+
+  /* SAVE BUY NOW */
 
   localStorage.setItem(
 
     "sayonmart_buy_now",
 
-    JSON.stringify(
-      buyNow
-    )
+    JSON.stringify(buyNow)
 
   );
-
 
 
   /* GO PAYMENT */
 
   location.href =
-  "payment.html";
+    "payment.html";
 
 };
 
 
-
-/* =================================
+/* =====================================================
    LANGUAGE CHANGE
-================================= */
+===================================================== */
 
 window.addEventListener(
   "languageChanged",
@@ -1895,10 +2956,34 @@ window.addEventListener(
 );
 
 
+/* =====================================================
+   PHONE ONLY NUMBERS
+===================================================== */
 
-/* =================================
+document.addEventListener(
+  "input",
+  function(event){
+
+    if(
+      event.target.id ===
+      "customerPhone" ||
+      event.target.id ===
+      "pin"
+    ){
+
+      event.target.value =
+        event.target.value
+        .replace(/\D/g,"");
+
+    }
+
+  }
+);
+
+
+/* =====================================================
    START
-================================= */
+===================================================== */
 
 renderCheckout();
 
