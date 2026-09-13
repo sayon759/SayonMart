@@ -1,28 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<meta name="theme-color"
-content="#ffffff">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2874f0">
 
 <title>SayonMart - Home</title>
 
-<link rel="manifest"
-href="manifest.json">
+<link rel="manifest" href="manifest.json">
 
 <script src="language.js"></script>
 
 <style>
-
-/* ==================================================
-   BASIC
-================================================== */
 
 *{
   margin:0;
@@ -31,132 +21,104 @@ href="manifest.json">
   font-family:Arial,Helvetica,sans-serif;
 }
 
-html{
-  scroll-behavior:smooth;
-}
-
 body{
-  background:#f7f8fa;
-  color:#171717;
-  padding-bottom:82px;
+  background:#f1f3f6;
+  color:#212121;
+  padding-bottom:70px;
 }
 
-button{
-  font-family:inherit;
-}
-
-a{
-  text-decoration:none;
-}
-
-
-/* ==================================================
-   HEADER
-================================================== */
+/* ================= HEADER ================= */
 
 .header{
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(12px);
-  padding:12px 15px 10px;
+  background:#2874f0;
+  padding:10px 12px 12px;
   position:sticky;
   top:0;
-  z-index:100;
-  box-shadow:0 2px 14px rgba(0,0,0,.07);
+  z-index:1000;
+  box-shadow:0 2px 7px rgba(0,0,0,.18);
 }
 
 .topbar{
+  max-width:1100px;
+  margin:auto;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  max-width:1150px;
-  margin:auto;
+  gap:12px;
 }
 
 .logo{
-  font-size:23px;
-  font-weight:900;
-  color:#c49300;
-  letter-spacing:-.5px;
+  color:#fff;
+  font-size:20px;
+  font-weight:800;
+  white-space:nowrap;
 }
 
 .logo span{
-  color:#202020;
+  color:#ffe500;
 }
 
 .header-icons{
+  margin-left:auto;
   display:flex;
   gap:8px;
 }
 
 .icon-btn{
+  width:38px;
+  height:38px;
   border:0;
-  background:#f5f6f7;
-  width:40px;
-  height:40px;
-  border-radius:50%;
+  border-radius:4px;
+  background:#fff;
+  color:#2874f0;
   font-size:19px;
   cursor:pointer;
-  transition:.2s;
 }
 
-.icon-btn:active{
-  transform:scale(.9);
-}
-
-
-/* ==================================================
-   SEARCH
-================================================== */
+/* ================= SEARCH ================= */
 
 .search-box{
-  max-width:1150px;
-  margin:12px auto 0;
-  background:#f3f4f6;
-  border:1px solid #eeeeee;
-  border-radius:14px;
-  padding:11px 14px;
+  max-width:1100px;
+  margin:9px auto 0;
+  background:#fff;
+  height:42px;
+  border-radius:3px;
   display:flex;
   align-items:center;
-  gap:9px;
+  padding:0 12px;
+  gap:8px;
 }
 
 .search-box input{
   border:0;
   outline:0;
-  background:transparent;
   width:100%;
   font-size:14px;
-  color:#222;
+  background:transparent;
 }
 
-
-/* ==================================================
-   MAIN
-================================================== */
+/* ================= MAIN ================= */
 
 .container{
-  max-width:1150px;
+  max-width:1100px;
   margin:auto;
-  padding:15px;
+  padding:10px;
 }
 
-
-/* ==================================================
-   HERO BANNER
-================================================== */
+/* ================= BANNER ================= */
 
 .banner{
-  height:205px;
-  border-radius:20px;
+  height:190px;
+  border-radius:4px;
   overflow:hidden;
   position:relative;
-  background:#222;
-  box-shadow:0 6px 22px rgba(0,0,0,.14);
+  background:#ddd;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
 }
 
 .banner-slider{
   width:100%;
   height:100%;
+  position:relative;
 }
 
 .banner-slide{
@@ -173,65 +135,54 @@ a{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block;
 }
 
 .banner-overlay{
   position:absolute;
   inset:0;
-  background:linear-gradient(
-    90deg,
-    rgba(0,0,0,.78),
-    rgba(0,0,0,.38),
-    rgba(0,0,0,.02)
-  );
   display:flex;
   align-items:center;
-  padding:25px;
+  padding:22px;
+  background:linear-gradient(
+    90deg,
+    rgba(0,0,0,.65),
+    rgba(0,0,0,.08)
+  );
 }
 
 .banner-text{
-  color:white;
+  color:#fff;
   max-width:260px;
 }
 
 .banner-text small{
-  color:#ffd21a;
-  font-size:11px;
+  color:#ffe500;
   font-weight:bold;
-  text-transform:uppercase;
 }
 
 .banner-text h2{
-  font-size:27px;
-  line-height:1.1;
-  margin:6px 0;
+  font-size:24px;
+  margin:5px 0;
 }
 
 .banner-text p{
   font-size:12px;
-  line-height:1.5;
-  margin-bottom:13px;
+  margin-bottom:10px;
 }
 
 .shop-btn{
-  background:#ffd21a;
-  color:#111;
   border:0;
-  padding:10px 17px;
-  border-radius:9px;
+  background:#ff9f00;
+  color:#fff;
+  padding:9px 16px;
+  border-radius:3px;
   font-weight:bold;
   cursor:pointer;
 }
 
-
-/* ==================================================
-   BANNER DOTS
-================================================== */
-
 .dots{
   position:absolute;
-  bottom:10px;
+  bottom:7px;
   left:50%;
   transform:translateX(-50%);
   display:flex;
@@ -242,71 +193,53 @@ a{
 .dot{
   width:7px;
   height:7px;
-  background:white;
+  background:#fff;
   opacity:.5;
   border-radius:50%;
-  cursor:pointer;
-  transition:.2s;
 }
 
 .dot.active{
-  width:21px;
   opacity:1;
-  border-radius:10px;
+  width:18px;
+  border-radius:8px;
 }
 
-
-/* ==================================================
-   SECTION
-================================================== */
+/* ================= WHITE SECTION ================= */
 
 .section{
-  margin-top:27px;
+  margin-top:10px;
+  background:#fff;
+  padding:14px 10px 12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
 }
 
 .section-title{
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  align-items:center;
-  margin-bottom:13px;
-}
-
-.section-title-left{
-  display:flex;
-  align-items:center;
-  gap:8px;
+  margin-bottom:12px;
 }
 
 .section-title h2{
-  font-size:19px;
-  line-height:1.2;
+  font-size:18px;
+  font-weight:700;
 }
 
-.section-subtitle{
-  font-size:11px;
-  color:#888;
-  margin-top:3px;
-}
-
-.see-all{
-  color:#ad8200;
+.section-title a{
+  color:#2874f0;
   font-size:12px;
   font-weight:bold;
   cursor:pointer;
-  white-space:nowrap;
 }
 
-
-/* ==================================================
-   CATEGORY
-================================================== */
+/* ================= CATEGORIES ================= */
 
 .categories{
   display:flex;
-  gap:10px;
   overflow-x:auto;
+  gap:18px;
   scrollbar-width:none;
-  padding:2px 2px 8px;
+  padding:3px 2px 7px;
 }
 
 .categories::-webkit-scrollbar{
@@ -314,56 +247,39 @@ a{
 }
 
 .category{
-  flex:0 0 82px;
-  background:white;
-  padding:10px 5px;
-  border-radius:15px;
+  min-width:72px;
   text-align:center;
-  box-shadow:0 3px 10px rgba(0,0,0,.06);
   cursor:pointer;
-  transition:.2s;
-}
-
-.category:active{
-  transform:scale(.94);
 }
 
 .category-icon{
-  width:50px;
-  height:50px;
+  width:58px;
+  height:58px;
   margin:auto;
   border-radius:50%;
-  background:#fff5ca;
+  background:#f5f7fa;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:25px;
+  font-size:27px;
+  border:1px solid #eee;
 }
 
 .category p{
-  font-size:10px;
   margin-top:7px;
-  font-weight:bold;
+  font-size:11px;
+  font-weight:600;
   white-space:nowrap;
 }
 
-
-/* ==================================================
-   PRODUCT SECTION WRAPPER
-================================================== */
-
-.product-slider-wrapper{
-  position:relative;
-}
+/* ================= PRODUCT SLIDER ================= */
 
 .products{
   display:flex;
-  gap:12px;
   overflow-x:auto;
-  overflow-y:hidden;
-  scroll-behavior:smooth;
+  gap:12px;
+  padding:3px 2px 10px;
   scrollbar-width:none;
-  padding:2px 2px 12px;
   scroll-snap-type:x mandatory;
 }
 
@@ -371,21 +287,17 @@ a{
   display:none;
 }
 
-
-/* ==================================================
-   PRODUCT CARD
-================================================== */
-
 .product-card{
-  flex:0 0 174px;
+  min-width:160px;
+  max-width:160px;
   background:#fff;
-  border-radius:16px;
+  border:1px solid #eee;
+  border-radius:3px;
   overflow:hidden;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
   position:relative;
   cursor:pointer;
   scroll-snap-align:start;
-  transition:transform .2s,box-shadow .2s;
+  transition:transform .15s;
 }
 
 .product-card:active{
@@ -393,10 +305,9 @@ a{
 }
 
 .product-img{
-  height:174px;
-  background:#f1f2f3;
+  height:165px;
+  background:#f7f7f7;
   position:relative;
-  overflow:hidden;
 }
 
 .product-img img{
@@ -404,313 +315,160 @@ a{
   height:100%;
   object-fit:cover;
   display:block;
-  transition:transform .3s;
 }
-
-.product-card:hover .product-img img{
-  transform:scale(1.04);
-}
-
-
-/* ==================================================
-   DISCOUNT BADGE
-================================================== */
-
-.discount-badge{
-  position:absolute;
-  left:8px;
-  top:8px;
-  background:#168447;
-  color:white;
-  font-size:9px;
-  padding:5px 7px;
-  border-radius:6px;
-  font-weight:bold;
-}
-
-
-/* ==================================================
-   WISHLIST
-================================================== */
 
 .wishlist{
   position:absolute;
-  right:8px;
-  top:8px;
-  width:33px;
-  height:33px;
+  right:7px;
+  top:7px;
+  width:31px;
+  height:31px;
   border:0;
   border-radius:50%;
-  background:white;
-  box-shadow:0 2px 7px rgba(0,0,0,.14);
+  background:#fff;
+  box-shadow:0 1px 5px rgba(0,0,0,.18);
   font-size:17px;
   cursor:pointer;
-  z-index:2;
 }
 
 .product-info{
-  padding:10px;
+  padding:9px;
 }
 
 .product-name{
   font-size:13px;
-  font-weight:bold;
+  font-weight:600;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
 .rating{
-  color:#e0a400;
+  margin-top:5px;
   font-size:11px;
-  margin-top:6px;
+  color:#e2a900;
 }
 
 .price-row{
   display:flex;
   align-items:center;
-  gap:5px;
-  margin-top:7px;
+  gap:6px;
   flex-wrap:wrap;
+  margin-top:6px;
 }
 
 .price{
-  color:#bd8b00;
-  font-weight:900;
-  font-size:16px;
+  font-size:15px;
+  font-weight:800;
+  color:#212121;
 }
 
 .old-price{
-  color:#999;
+  color:#878787;
   text-decoration:line-through;
   font-size:10px;
 }
 
 .discount{
-  background:#e1f7e9;
-  color:#168447;
-  font-size:8px;
-  padding:3px 5px;
-  border-radius:5px;
+  color:#008c45;
+  font-size:10px;
   font-weight:bold;
 }
 
+/* ================= SWIPE HINT ================= */
 
-/* ==================================================
-   SLIDER ARROWS
-================================================== */
-
-.slider-arrow{
-  position:absolute;
-  top:43%;
-  transform:translateY(-50%);
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  border:1px solid #eee;
-  background:white;
-  box-shadow:0 3px 10px rgba(0,0,0,.13);
-  z-index:10;
-  cursor:pointer;
-  font-size:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.slider-arrow.left{
-  left:-7px;
-}
-
-.slider-arrow.right{
-  right:-7px;
-}
-
-.slider-arrow:active{
-  transform:translateY(-50%) scale(.9);
-}
-
-
-/* ==================================================
-   SLIDE HINT
-================================================== */
-
-.slide-hint{
+.swipe-hint{
   text-align:right;
   color:#999;
   font-size:10px;
-  margin-top:-4px;
+  margin-top:-5px;
 }
 
-
-/* ==================================================
-   OFFER CARD
-================================================== */
+/* ================= OFFER ================= */
 
 .offer{
-  min-height:145px;
-  border-radius:18px;
-  overflow:hidden;
-  position:relative;
-  background:
-    linear-gradient(
-      110deg,
-      #151515,
-      #584600,
-      #171717
-    );
+  margin-top:10px;
+  min-height:125px;
+  background:linear-gradient(
+    100deg,
+    #172337,
+    #2874f0
+  );
+  padding:20px;
   display:flex;
   align-items:center;
-  padding:20px;
-  box-shadow:0 5px 15px rgba(0,0,0,.13);
-}
-
-.offer-content{
-  position:relative;
-  z-index:2;
-}
-
-.offer small{
+  border-radius:3px;
   color:#fff;
-  font-size:10px;
 }
 
 .offer h2{
-  color:#ffd21a;
-  font-size:24px;
-  margin:5px 0;
+  font-size:23px;
+  color:#ffe500;
 }
 
 .offer p{
-  color:white;
-  font-size:11px;
-  margin-bottom:13px;
+  font-size:12px;
+  margin-top:6px;
 }
 
-.offer-btn{
-  background:#ffd21a;
-  color:#111;
-  border:0;
-  border-radius:8px;
-  padding:9px 15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.offer-shape{
-  position:absolute;
-  right:-25px;
-  top:-35px;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  border:30px solid rgba(255,210,26,.15);
-}
-
-
-/* ==================================================
-   BENEFITS
-================================================== */
-
-.benefits{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.benefit{
-  background:white;
-  border-radius:14px;
-  padding:13px 8px;
-  text-align:center;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
-
-.benefit-icon{
-  font-size:25px;
-}
-
-.benefit h4{
-  font-size:11px;
-  margin-top:5px;
-}
-
-.benefit p{
-  font-size:9px;
-  color:#888;
-  margin-top:3px;
-}
-
-
-/* ==================================================
-   EMPTY
-================================================== */
+/* ================= EMPTY ================= */
 
 .empty{
-  text-align:center;
-  padding:30px;
-  color:#888;
   min-width:100%;
+  text-align:center;
+  padding:30px 10px;
+  color:#999;
+  font-size:13px;
 }
 
-
-/* ==================================================
-   LOADING
-================================================== */
+/* ================= LOADING ================= */
 
 .loading{
-  text-align:center;
-  padding:30px;
-  color:#999;
   min-width:100%;
+  text-align:center;
+  padding:25px;
+  color:#999;
 }
 
 .loading-spinner{
   width:28px;
   height:28px;
   border:3px solid #eee;
-  border-top:3px solid #d29e00;
+  border-top:3px solid #2874f0;
   border-radius:50%;
   animation:spin .7s linear infinite;
-  margin:0 auto 10px;
+  margin:0 auto 8px;
 }
 
 @keyframes spin{
-
   to{
     transform:rotate(360deg);
   }
-
 }
 
-
-/* ==================================================
-   BOTTOM NAV
-================================================== */
+/* ================= BOTTOM NAV ================= */
 
 .bottom-nav{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  height:68px;
-  background:rgba(255,255,255,.97);
-  backdrop-filter:blur(10px);
-  border-top:1px solid #eee;
+  height:67px;
+  background:#fff;
+  border-top:1px solid #ddd;
   display:flex;
   justify-content:space-around;
   align-items:center;
-  z-index:999;
-  box-shadow:0 -4px 18px rgba(0,0,0,.08);
+  z-index:9999;
+  box-shadow:0 -2px 8px rgba(0,0,0,.08);
 }
 
 .nav-item{
-  min-width:60px;
+  position:relative;
   text-align:center;
   color:#777;
   font-size:10px;
   cursor:pointer;
-  position:relative;
 }
 
 .nav-icon{
@@ -719,125 +477,100 @@ a{
 }
 
 .nav-item.active{
-  color:#d29e00;
+  color:#2874f0;
   font-weight:bold;
 }
 
 .cart-badge{
   position:absolute;
-  top:-6px;
-  right:9px;
-  background:#e53935;
-  color:white;
-  min-width:16px;
-  height:16px;
-  padding:0 4px;
-  border-radius:20px;
-  font-size:8px;
+  top:-5px;
+  right:8px;
+  background:#ff3b30;
+  color:#fff;
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  font-size:9px;
   display:flex;
   align-items:center;
   justify-content:center;
 }
 
-
-/* ==================================================
-   DESKTOP
-================================================== */
+/* ================= DESKTOP ================= */
 
 @media(min-width:700px){
 
+  .header{
+    padding-left:20px;
+    padding-right:20px;
+  }
+
   .container{
-    padding:25px;
+    padding:15px;
   }
 
   .banner{
-    height:320px;
-  }
-
-  .banner-text{
-    max-width:390px;
+    height:300px;
   }
 
   .banner-text h2{
-    font-size:40px;
+    font-size:35px;
   }
 
-  .banner-text p{
-    font-size:14px;
-  }
-
-  .product-card{
-    flex-basis:205px;
-  }
-
-  .product-img{
-    height:205px;
-  }
-
-  .categories{
-    justify-content:space-between;
+  .products{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
     overflow:visible;
   }
 
-  .category{
-    flex:1;
-    max-width:130px;
-  }
-
-  .benefits{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-}
-
-
-/* ==================================================
-   VERY SMALL PHONE
-================================================== */
-
-@media(max-width:360px){
-
-  .container{
-    padding:10px;
-  }
-
-  .banner{
-    height:185px;
-  }
-
-  .banner-overlay{
-    padding:18px;
-  }
-
-  .banner-text h2{
-    font-size:23px;
-  }
-
   .product-card{
-    flex-basis:160px;
+    min-width:0;
+    max-width:none;
   }
 
   .product-img{
-    height:160px;
+    height:190px;
   }
 
-  .slider-arrow{
+  .swipe-hint{
     display:none;
   }
 
 }
 
+/* ================= SMALL PHONE ================= */
+
+@media(max-width:360px){
+
+  .logo{
+    font-size:18px;
+  }
+
+  .banner{
+    height:165px;
+  }
+
+  .product-card{
+    min-width:145px;
+    max-width:145px;
+  }
+
+  .product-img{
+    height:150px;
+  }
+
+  .categories{
+    gap:14px;
+  }
+
+}
+
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- ==================================================
-     HEADER
-================================================== -->
+<!-- ================= HEADER ================= -->
 
 <header class="header">
 
@@ -865,7 +598,6 @@ a{
 
   </div>
 
-
   <div class="search-box">
 
     🔍
@@ -882,16 +614,12 @@ a{
 </header>
 
 
-<!-- ==================================================
-     MAIN
-================================================== -->
+<!-- ================= MAIN ================= -->
 
 <main class="container">
 
 
-<!-- ==================================================
-     BANNER
-================================================== -->
+<!-- ================= BANNER ================= -->
 
 <section>
 
@@ -901,7 +629,7 @@ a{
       id="bannerSlider"
       class="banner-slider">
 
-      <div class="banner-loading">
+      <div class="loading">
         Loading banner...
       </div>
 
@@ -917,50 +645,31 @@ a{
 </section>
 
 
-<!-- ==================================================
-     CATEGORIES
-================================================== -->
+<!-- ================= CATEGORIES ================= -->
 
 <section class="section">
 
   <div class="section-title">
 
-    <div>
-
-      <div class="section-title-left">
-
-        <h2 data-i18n="Categories">
-          Categories
-        </h2>
-
-      </div>
-
-      <div class="section-subtitle">
-        Explore what you need
-      </div>
-
-    </div>
+    <h2 data-i18n="Categories">
+      Categories
+    </h2>
 
     <a
-      class="see-all"
       onclick="goProducts()"
       data-i18n="See All">
-      See All →
+      See All
     </a>
 
   </div>
 
-
   <div class="categories">
-
 
     <div
       class="category"
       onclick="openCategory('Fashion')">
 
-      <div class="category-icon">
-        👕
-      </div>
+      <div class="category-icon">👕</div>
 
       <p data-i18n="Fashion">
         Fashion
@@ -968,14 +677,11 @@ a{
 
     </div>
 
-
     <div
       class="category"
       onclick="openCategory('Shoes')">
 
-      <div class="category-icon">
-        👟
-      </div>
+      <div class="category-icon">👟</div>
 
       <p data-i18n="Shoes">
         Shoes
@@ -983,14 +689,11 @@ a{
 
     </div>
 
-
     <div
       class="category"
       onclick="openCategory('Mobiles')">
 
-      <div class="category-icon">
-        📱
-      </div>
+      <div class="category-icon">📱</div>
 
       <p data-i18n="Mobiles">
         Mobiles
@@ -998,14 +701,11 @@ a{
 
     </div>
 
-
     <div
       class="category"
       onclick="openCategory('Watches')">
 
-      <div class="category-icon">
-        ⌚
-      </div>
+      <div class="category-icon">⌚</div>
 
       <p data-i18n="Watches">
         Watches
@@ -1013,14 +713,11 @@ a{
 
     </div>
 
-
     <div
       class="category"
       onclick="openCategory('Electronics')">
 
-      <div class="category-icon">
-        🎧
-      </div>
+      <div class="category-icon">🎧</div>
 
       <p data-i18n="Electronics">
         Electronics
@@ -1028,29 +725,12 @@ a{
 
     </div>
 
-
-    <div
-      class="category"
-      onclick="goProducts()">
-
-      <div class="category-icon">
-        🛍️
-      </div>
-
-      <p>
-        More
-      </p>
-
-    </div>
-
   </div>
 
 </section>
 
 
-<!-- ==================================================
-     TRENDING
-================================================== -->
+<!-- ================= TRENDING ================= -->
 
 <section
   class="section"
@@ -1058,368 +738,142 @@ a{
 
   <div class="section-title">
 
-    <div>
-
-      <div class="section-title-left">
-
-        <span style="font-size:20px;">
-          🔥
-        </span>
-
-        <h2 data-i18n="Trending Products">
-          Trending Products
-        </h2>
-
-      </div>
-
-      <div class="section-subtitle">
-        Popular products for you
-      </div>
-
-    </div>
+    <h2>
+      🔥
+      <span data-i18n="Trending Products">
+        Trending Products
+      </span>
+    </h2>
 
     <a
-      class="see-all"
       onclick="goProducts()"
       data-i18n="See All">
-      See All →
+      See All
     </a>
 
   </div>
 
+  <div
+    id="trendingProducts"
+    class="products">
 
-  <div class="product-slider-wrapper">
+    <div class="loading">
 
-    <button
-      class="slider-arrow left"
-      onclick="slideProducts('trendingProducts',-1)">
-      ‹
-    </button>
+      <div class="loading-spinner"></div>
 
-
-    <div
-      id="trendingProducts"
-      class="products">
-
-      <div class="loading">
-
-        <div class="loading-spinner"></div>
-
-        <span>
-          Loading products...
-        </span>
-
-      </div>
+      <span>
+        Loading products...
+      </span>
 
     </div>
 
-
-    <button
-      class="slider-arrow right"
-      onclick="slideProducts('trendingProducts',1)">
-      ›
-    </button>
-
   </div>
 
-
-  <div class="slide-hint">
+  <div class="swipe-hint">
     Swipe → to see more
   </div>
 
 </section>
 
 
-<!-- ==================================================
-     OFFER
-================================================== -->
+<!-- ================= OFFER ================= -->
 
-<section class="section">
+<div class="offer">
 
-  <div class="offer">
+  <div>
 
-    <div class="offer-content">
+    <h2>
+      Mega Deals
+    </h2>
 
-      <small>
-        ✨ SPECIAL DEAL
-      </small>
-
-      <h2>
-        Up To 70% OFF
-      </h2>
-
-      <p>
-        Amazing products at amazing prices
-      </p>
-
-      <button
-        class="offer-btn"
-        onclick="goProducts()">
-        Shop Now →
-      </button>
-
-    </div>
-
-    <div class="offer-shape"></div>
+    <p>
+      Great products. Great prices. Only on SayonMart.
+    </p>
 
   </div>
 
-</section>
+</div>
 
 
-<!-- ==================================================
-     NEW ARRIVALS
-================================================== -->
+<!-- ================= NEW ================= -->
 
 <section class="section">
 
   <div class="section-title">
 
-    <div>
-
-      <div class="section-title-left">
-
-        <span style="font-size:20px;">
-          🆕
-        </span>
-
-        <h2 data-i18n="New Arrivals">
-          New Arrivals
-        </h2>
-
-      </div>
-
-      <div class="section-subtitle">
-        Fresh products just for you
-      </div>
-
-    </div>
+    <h2>
+      🆕
+      <span data-i18n="New Arrivals">
+        New Arrivals
+      </span>
+    </h2>
 
     <a
-      class="see-all"
       onclick="goProducts()"
       data-i18n="See All">
-      See All →
+      See All
     </a>
 
   </div>
 
+  <div
+    id="newProducts"
+    class="products">
 
-  <div class="product-slider-wrapper">
+    <div class="loading">
 
-    <button
-      class="slider-arrow left"
-      onclick="slideProducts('newProducts',-1)">
-      ‹
-    </button>
+      <div class="loading-spinner"></div>
 
-
-    <div
-      id="newProducts"
-      class="products">
-
-      <div class="loading">
-
-        <div class="loading-spinner"></div>
-
-        Loading...
-
-      </div>
+      Loading...
 
     </div>
 
-
-    <button
-      class="slider-arrow right"
-      onclick="slideProducts('newProducts',1)">
-      ›
-    </button>
-
   </div>
 
-
-  <div class="slide-hint">
+  <div class="swipe-hint">
     Swipe → to see more
   </div>
 
 </section>
 
 
-<!-- ==================================================
-     BEST DEALS
-================================================== -->
+<!-- ================= DEALS ================= -->
 
 <section class="section">
 
   <div class="section-title">
 
-    <div>
-
-      <div class="section-title-left">
-
-        <span style="font-size:20px;">
-          💰
-        </span>
-
-        <h2 data-i18n="Best Deals">
-          Best Deals
-        </h2>
-
-      </div>
-
-      <div class="section-subtitle">
-        Save more on selected products
-      </div>
-
-    </div>
+    <h2>
+      💰
+      <span data-i18n="Best Deals">
+        Best Deals
+      </span>
+    </h2>
 
     <a
-      class="see-all"
       onclick="goProducts()"
       data-i18n="See All">
-      See All →
+      See All
     </a>
 
   </div>
 
+  <div
+    id="discountProducts"
+    class="products">
 
-  <div class="product-slider-wrapper">
+    <div class="loading">
 
-    <button
-      class="slider-arrow left"
-      onclick="slideProducts('discountProducts',-1)">
-      ‹
-    </button>
+      <div class="loading-spinner"></div>
 
-
-    <div
-      id="discountProducts"
-      class="products">
-
-      <div class="loading">
-
-        <div class="loading-spinner"></div>
-
-        Loading...
-
-      </div>
+      Loading...
 
     </div>
 
-
-    <button
-      class="slider-arrow right"
-      onclick="slideProducts('discountProducts',1)">
-      ›
-    </button>
-
   </div>
 
-
-  <div class="slide-hint">
+  <div class="swipe-hint">
     Swipe → to see more
-  </div>
-
-</section>
-
-
-<!-- ==================================================
-     WHY SAYONMART
-================================================== -->
-
-<section class="section">
-
-  <div class="section-title">
-
-    <div>
-
-      <div class="section-title-left">
-
-        <span style="font-size:20px;">
-          💚
-        </span>
-
-        <h2>
-          Why Shop With Us?
-        </h2>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="benefits">
-
-
-    <div class="benefit">
-
-      <div class="benefit-icon">
-        🚚
-      </div>
-
-      <h4>
-        Fast Delivery
-      </h4>
-
-      <p>
-        Get your order quickly
-      </p>
-
-    </div>
-
-
-    <div class="benefit">
-
-      <div class="benefit-icon">
-        🔒
-      </div>
-
-      <h4>
-        Secure Shopping
-      </h4>
-
-      <p>
-        Safe & trusted
-      </p>
-
-    </div>
-
-
-    <div class="benefit">
-
-      <div class="benefit-icon">
-        🎧
-      </div>
-
-      <h4>
-        Customer Support
-      </h4>
-
-      <p>
-        We're here to help
-      </p>
-
-    </div>
-
-
-    <div class="benefit">
-
-      <div class="benefit-icon">
-        ↩️
-      </div>
-
-      <h4>
-        Easy Returns
-      </h4>
-
-      <p>
-        Hassle-free policy
-      </p>
-
-    </div>
-
   </div>
 
 </section>
@@ -1428,12 +882,9 @@ a{
 </main>
 
 
-<!-- ==================================================
-     BOTTOM NAV
-================================================== -->
+<!-- ================= BOTTOM NAV ================= -->
 
 <nav class="bottom-nav">
-
 
   <div
     class="nav-item active"
@@ -1460,21 +911,6 @@ a{
 
     <span data-i18n="Categories">
       Categories
-    </span>
-
-  </div>
-
-
-  <div
-    class="nav-item"
-    onclick="goWishlist()">
-
-    <div class="nav-icon">
-      ♡
-    </div>
-
-    <span>
-      Wishlist
     </span>
 
   </div>
@@ -1516,21 +952,14 @@ a{
 
   </div>
 
-
 </nav>
 
 
+<!-- ================= JAVASCRIPT ================= -->
+
 <script type="module">
 
-
-/* ==================================================
-   FIREBASE
-================================================== */
-
-import {
-  db
-} from "./firebase.js";
-
+import { db } from "./firebase.js";
 
 import {
   collection,
@@ -1541,9 +970,7 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* ==================================================
-   FIREBASE MESSAGING
-================================================== */
+/* ================= NOTIFICATION ================= */
 
 import {
   getMessaging,
@@ -1553,100 +980,54 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
 
 
-let messaging = null;
-
-
-try{
-
-  messaging = getMessaging();
-
-}catch(error){
-
-  console.log(
-    "Messaging not available:",
-    error
-  );
-
-}
-
-
-/* ==================================================
-   VAPID KEY
-================================================== */
+const messaging = getMessaging();
 
 const SAYONMART_VAPID_KEY =
 "BMSDYPBD2fzKNjgei9_9yaILORieJd0wdp73biRXR3ai92m3z9-ZpSM5Hber87uAWqObKdRwHhi2MI94WlCQ67g";
 
 
-/* ==================================================
-   NOTIFICATION
-================================================== */
-
 async function enableSayonMartNotifications(){
 
-  if(!messaging){
-
-    return;
-
-  }
-
-
   if(!("Notification" in window)){
-
     return;
-
   }
-
 
   if(!("serviceWorker" in navigator)){
-
     return;
-
   }
-
 
   try{
 
     const permission =
-    await Notification.requestPermission();
-
+      await Notification.requestPermission();
 
     if(permission !== "granted"){
-
       return;
-
     }
 
-
     const registration =
-    await navigator.serviceWorker.register(
-      "./firebase-messaging-sw.js"
-    );
-
+      await navigator.serviceWorker.register(
+        "./firebase-messaging-sw.js"
+      );
 
     const token =
-    await getToken(
-      messaging,
-      {
-        vapidKey:
-        SAYONMART_VAPID_KEY,
-
-        serviceWorkerRegistration:
-        registration
-      }
-    );
-
+      await getToken(
+        messaging,
+        {
+          vapidKey:SAYONMART_VAPID_KEY,
+          serviceWorkerRegistration:registration
+        }
+      );
 
     if(token){
 
-      console.log(
-        "SayonMart FCM Token:",
+      localStorage.setItem(
+        "sayonmart_fcm_token",
         token
       );
 
-
-      localStorage.setItem(
-        "sayonmart_fcm_token",
+      console.log(
+        "SayonMart FCM Token:",
         token
       );
 
@@ -1664,78 +1045,56 @@ async function enableSayonMartNotifications(){
 }
 
 
-/* ==================================================
-   FOREGROUND NOTIFICATION
-================================================== */
+onMessage(
+  messaging,
+  payload => {
 
-if(messaging){
+    if(
+      Notification.permission ===
+      "granted"
+    ){
 
-  onMessage(
-    messaging,
-    payload => {
-
-      console.log(
-        "SayonMart notification:",
-        payload
-      );
-
-
-      if(
-        Notification.permission ===
-        "granted"
-      ){
-
-        const title =
+      const title =
         payload.notification?.title ||
         "SayonMart";
 
-
-        const body =
+      const body =
         payload.notification?.body ||
         "SayonMart থেকে নতুন notification এসেছে।";
 
-
-        new Notification(
-          title,
-          {
-            body:body
-          }
-        );
-
-      }
+      new Notification(
+        title,
+        {
+          body:body
+        }
+      );
 
     }
-  );
 
-}
+  }
+);
 
 
-/* ==================================================
-   VARIABLES
-================================================== */
+/* ================= VARIABLES ================= */
 
 let allProducts = [];
 
-
 let cart =
-JSON.parse(
-  localStorage.getItem(
-    "sayonmart_cart"
-  )
-) || [];
-
+  JSON.parse(
+    localStorage.getItem(
+      "sayonmart_cart"
+    )
+  ) || [];
 
 let wishlist =
-JSON.parse(
-  localStorage.getItem(
-    "sayonmart_wishlist"
-  )
-) || [];
+  JSON.parse(
+    localStorage.getItem(
+      "sayonmart_wishlist"
+    )
+  ) || [];
 
 
-/* ==================================================
-   BANNER VARIABLES
-================================================== */
+/* ================= BANNER ================= */
 
 let homeBanners = [];
 
@@ -1744,64 +1103,55 @@ let currentBanner = 0;
 let bannerTimer = null;
 
 
-/* ==================================================
-   LOAD BANNERS
-================================================== */
-
 async function loadHomeBanners(){
 
   const slider =
-  document.getElementById(
-    "bannerSlider"
-  );
-
+    document.getElementById(
+      "bannerSlider"
+    );
 
   try{
 
     const snapshot =
-    await getDocs(
-      collection(
-        db,
-        "banners"
-      )
-    );
-
+      await getDocs(
+        collection(
+          db,
+          "banners"
+        )
+      );
 
     homeBanners = [];
-
 
     snapshot.forEach(
       docSnap => {
 
         const data =
-        docSnap.data();
-
+          docSnap.data();
 
         if(data.image){
 
           homeBanners.push({
 
-            image:
-            data.image,
+            image:data.image,
 
             title:
-            data.title ||
-            "SPECIAL OFFER",
+              data.title ||
+              "SPECIAL OFFER",
 
             description:
-            data.description ||
-            "Best products at amazing prices.",
+              data.description ||
+              "Best products at amazing prices.",
 
             buttonText:
-            data.buttonText ||
-            "Shop Now",
+              data.buttonText ||
+              "Shop Now",
 
             link:
-            data.link ||
-            "products.html",
+              data.link ||
+              "products.html",
 
             createdAt:
-            data.createdAt
+              data.createdAt
 
           });
 
@@ -1815,14 +1165,12 @@ async function loadHomeBanners(){
       (a,b) => {
 
         const aTime =
-        a.createdAt?.seconds || 0;
+          a.createdAt?.seconds || 0;
 
         const bTime =
-        b.createdAt?.seconds || 0;
+          b.createdAt?.seconds || 0;
 
-        return (
-          aTime - bTime
-        );
+        return aTime - bTime;
 
       }
     );
@@ -1835,22 +1183,20 @@ async function loadHomeBanners(){
       homeBanners = [
 
         {
-
           image:
-          "https://picsum.photos/900/500?random=10",
+            "https://picsum.photos/900/500?random=10",
 
           title:
-          "SPECIAL OFFER",
+            "SPECIAL OFFER",
 
           description:
-          "Smart Shopping at SayonMart",
+            "Smart Shopping at SayonMart",
 
           buttonText:
-          "Shop Now",
+            "Shop Now",
 
           link:
-          "products.html"
-
+            "products.html"
         }
 
       ];
@@ -1860,7 +1206,6 @@ async function loadHomeBanners(){
 
     renderBanners();
 
-
   }catch(error){
 
     console.error(
@@ -1868,30 +1213,26 @@ async function loadHomeBanners(){
       error
     );
 
-
     homeBanners = [
 
       {
-
         image:
-        "https://picsum.photos/900/500?random=10",
+          "https://picsum.photos/900/500?random=10",
 
         title:
-        "SPECIAL OFFER",
+          "SPECIAL OFFER",
 
         description:
-        "Best products at amazing prices.",
+          "Best products at amazing prices.",
 
         buttonText:
-        "Shop Now",
+          "Shop Now",
 
         link:
-        "products.html"
-
+          "products.html"
       }
 
     ];
-
 
     renderBanners();
 
@@ -1900,48 +1241,37 @@ async function loadHomeBanners(){
 }
 
 
-/* ==================================================
-   RENDER BANNERS
-================================================== */
-
 function renderBanners(){
 
   const slider =
-  document.getElementById(
-    "bannerSlider"
-  );
-
+    document.getElementById(
+      "bannerSlider"
+    );
 
   const dots =
-  document.getElementById(
-    "bannerDots"
-  );
+    document.getElementById(
+      "bannerDots"
+    );
 
-
-  slider.innerHTML =
-  "";
-
-  dots.innerHTML =
-  "";
+  slider.innerHTML = "";
+  dots.innerHTML = "";
 
 
   homeBanners.forEach(
     (banner,index) => {
 
-
       const slide =
-      document.createElement(
-        "div"
-      );
-
+        document.createElement(
+          "div"
+        );
 
       slide.className =
-      "banner-slide " +
-      (
-        index === 0
-        ? "active"
-        : ""
-      );
+        "banner-slide " +
+        (
+          index === 0
+          ? "active"
+          : ""
+        );
 
 
       slide.innerHTML = `
@@ -1949,12 +1279,7 @@ function renderBanners(){
         <img
           src="${escapeAttribute(banner.image)}"
           alt="SayonMart Banner"
-          fetchpriority="${
-            index === 0
-            ? "high"
-            : "low"
-          }">
-
+          loading="${index === 0 ? "eager" : "lazy"}">
 
         <div class="banner-overlay">
 
@@ -1981,13 +1306,9 @@ function renderBanners(){
             <button
               class="shop-btn"
               data-banner-index="${index}">
-
               ${escapeHTML(
                 banner.buttonText
               )}
-
-              →
-
             </button>
 
           </div>
@@ -2003,23 +1324,20 @@ function renderBanners(){
 
 
       const dot =
-      document.createElement(
-        "span"
-      );
-
+        document.createElement(
+          "span"
+        );
 
       dot.className =
-      "dot " +
-      (
-        index === 0
-        ? "active"
-        : ""
-      );
-
+        "dot " +
+        (
+          index === 0
+          ? "active"
+          : ""
+        );
 
       dot.dataset.index =
-      index;
-
+        index;
 
       dots.appendChild(
         dot
@@ -2030,69 +1348,65 @@ function renderBanners(){
 
 
   slider
-  .querySelectorAll(
-    ".shop-btn"
-  )
-  .forEach(
-    button => {
+    .querySelectorAll(
+      ".shop-btn"
+    )
+    .forEach(
+      button => {
 
-      button.addEventListener(
-        "click",
-        event => {
+        button.addEventListener(
+          "click",
+          event => {
 
-          event.stopPropagation();
+            event.stopPropagation();
 
+            const index =
+              Number(
+                button.dataset.bannerIndex
+              );
 
-          const index =
-          Number(
-            button.dataset.bannerIndex
-          );
+            const link =
+              homeBanners[index]?.link;
 
+            if(link){
 
-          const link =
-          homeBanners[index]?.link;
+              window.location.href =
+                link;
 
-
-          if(link){
-
-            window.location.href =
-            link;
+            }
 
           }
+        );
 
-        }
-      );
-
-    }
-  );
+      }
+    );
 
 
   dots
-  .querySelectorAll(
-    ".dot"
-  )
-  .forEach(
-    dot => {
+    .querySelectorAll(
+      ".dot"
+    )
+    .forEach(
+      dot => {
 
-      dot.addEventListener(
-        "click",
-        () => {
+        dot.addEventListener(
+          "click",
+          () => {
 
-          currentBanner =
-          Number(
-            dot.dataset.index
-          );
+            currentBanner =
+              Number(
+                dot.dataset.index
+              );
 
+            updateBanner();
 
-          updateBanner();
+            startBannerTimer();
 
-          restartBannerTimer();
+          }
+        );
 
-        }
-      );
-
-    }
-  );
+      }
+    );
 
 
   currentBanner = 0;
@@ -2104,22 +1418,17 @@ function renderBanners(){
 }
 
 
-/* ==================================================
-   UPDATE BANNER
-================================================== */
-
 function updateBanner(){
 
   const slides =
-  document.querySelectorAll(
-    ".banner-slide"
-  );
-
+    document.querySelectorAll(
+      ".banner-slide"
+    );
 
   const dots =
-  document.querySelectorAll(
-    ".dot"
-  );
+    document.querySelectorAll(
+      ".dot"
+    );
 
 
   slides.forEach(
@@ -2148,81 +1457,62 @@ function updateBanner(){
 }
 
 
-/* ==================================================
-   BANNER TIMER
-================================================== */
-
 function startBannerTimer(){
 
   clearInterval(
     bannerTimer
   );
 
-
   if(
     homeBanners.length <= 1
   ){
-
     return;
-
   }
 
-
   bannerTimer =
-  setInterval(
-    () => {
+    setInterval(
+      () => {
 
-      currentBanner++;
+        currentBanner++;
 
+        if(
+          currentBanner >=
+          homeBanners.length
+        ){
 
-      if(
-        currentBanner >=
-        homeBanners.length
-      ){
+          currentBanner = 0;
 
-        currentBanner = 0;
+        }
 
-      }
+        updateBanner();
 
-
-      updateBanner();
-
-    },
-    4000
-  );
+      },
+      4000
+    );
 
 }
 
 
-function restartBannerTimer(){
-
-  startBannerTimer();
-
-}
-
-
-/* ==================================================
-   LOAD PRODUCTS
-================================================== */
+/* ================= PRODUCTS ================= */
 
 async function loadProducts(){
 
   try{
 
     const productsQuery =
-    query(
-      collection(
-        db,
-        "products"
-      ),
-      limit(24)
-    );
+      query(
+        collection(
+          db,
+          "products"
+        ),
+        limit(24)
+      );
 
 
     const snapshot =
-    await getDocs(
-      productsQuery
-    );
+      await getDocs(
+        productsQuery
+      );
 
 
     allProducts = [];
@@ -2234,7 +1524,7 @@ async function loadProducts(){
         allProducts.push({
 
           id:
-          docSnap.id,
+            docSnap.id,
 
           ...docSnap.data()
 
@@ -2246,7 +1536,6 @@ async function loadProducts(){
 
     displayHomeProducts();
 
-
   }catch(error){
 
     console.error(
@@ -2254,61 +1543,26 @@ async function loadProducts(){
       error
     );
 
-
-    showProductError(
+    document.getElementById(
       "trendingProducts"
-    );
+    ).innerHTML =
 
-    showProductError(
-      "newProducts"
-    );
-
-    showProductError(
-      "discountProducts"
-    );
+      `<div class="empty">
+        Unable to load products.
+      </div>`;
 
   }
 
 }
 
 
-/* ==================================================
-   ERROR
-================================================== */
-
-function showProductError(id){
-
-  const element =
-  document.getElementById(
-    id
-  );
-
-
-  element.innerHTML = `
-
-    <div class="empty">
-
-      ❌ Unable to load products.
-
-    </div>
-
-  `;
-
-}
-
-
-/* ==================================================
-   CREATED TIME
-================================================== */
+/* ================= CREATED TIME ================= */
 
 function getCreatedTime(value){
 
   if(!value){
-
     return 0;
-
   }
-
 
   if(
     typeof value === "object" &&
@@ -2323,7 +1577,6 @@ function getCreatedTime(value){
 
   }
 
-
   if(
     typeof value === "object" &&
     typeof value.toMillis ===
@@ -2334,7 +1587,6 @@ function getCreatedTime(value){
 
   }
 
-
   if(
     typeof value === "number"
   ){
@@ -2343,59 +1595,49 @@ function getCreatedTime(value){
 
   }
 
-
   return 0;
 
 }
 
 
-/* ==================================================
-   DISPLAY HOME PRODUCTS
-================================================== */
+/* ================= DISPLAY ================= */
 
 function displayHomeProducts(){
 
   const trending =
-  allProducts
-  .slice(0,8);
+    allProducts
+      .slice(0,6);
 
 
   const newest =
-  [...allProducts]
-  .sort(
-    (a,b) =>
-      getCreatedTime(
-        b.createdAt
-      ) -
-      getCreatedTime(
-        a.createdAt
+    [...allProducts]
+      .sort(
+        (a,b) =>
+          getCreatedTime(
+            b.createdAt
+          ) -
+          getCreatedTime(
+            a.createdAt
+          )
       )
-  )
-  .slice(0,8);
+      .slice(0,6);
 
 
   const deals =
-  allProducts
-  .filter(
-    p =>
-      Number(
-        p.discount || 0
-      ) > 0 ||
-      (
-        Number(p.oldPrice || 0) >
-        Number(p.price || 0)
+    allProducts
+      .filter(
+        p => p.discount
       )
-  )
-  .sort(
-    (a,b) =>
-      Number(
-        b.discount || 0
-      ) -
-      Number(
-        a.discount || 0
+      .sort(
+        (a,b) =>
+          Number(
+            b.discount || 0
+          ) -
+          Number(
+            a.discount || 0
+          )
       )
-  )
-  .slice(0,8);
+      .slice(0,6);
 
 
   renderProducts(
@@ -2418,9 +1660,7 @@ function displayHomeProducts(){
 }
 
 
-/* ==================================================
-   RENDER PRODUCTS
-================================================== */
+/* ================= RENDER PRODUCTS ================= */
 
 function renderProducts(
   containerId,
@@ -2428,26 +1668,17 @@ function renderProducts(
 ){
 
   const container =
-  document.getElementById(
-    containerId
-  );
+    document.getElementById(
+      containerId
+    );
 
 
   if(!products.length){
 
-    container.innerHTML = `
-
-      <div class="empty">
-
-        🛍️
-
-        <br><br>
-
+    container.innerHTML =
+      `<div class="empty">
         No products available
-
-      </div>
-
-    `;
+      </div>`;
 
     return;
 
@@ -2455,247 +1686,211 @@ function renderProducts(
 
 
   container.innerHTML =
-  products.map(
-    product => {
 
+    products.map(
+      product => {
 
-      const image =
+        const image =
 
-        product.image ||
+          product.image ||
 
-        product.imageUrl ||
+          product.imageUrl ||
 
-        (
-          Array.isArray(
-            product.images
-          )
-          ?
-          product.images[0]
-          :
-          ""
-        ) ||
-
-        "https://picsum.photos/500";
-
-
-      const price =
-      Number(
-        product.price || 0
-      );
-
-
-      const oldPrice =
-      product.oldPrice
-      ?
-      Number(
-        product.oldPrice
-      )
-      :
-      0;
-
-
-      let discount =
-      Number(
-        product.discount || 0
-      );
-
-
-      if(
-        discount <= 0 &&
-        oldPrice > price
-      ){
-
-        discount =
-        Math.round(
           (
-            (oldPrice-price) /
-            oldPrice
-          ) * 100
-        );
+            Array.isArray(
+              product.images
+            )
+            ? product.images[0]
+            : ""
+          ) ||
 
-      }
-
-
-      const rating =
-      product.rating ||
-      4.5;
+          "https://via.placeholder.com/500";
 
 
-      const name =
-      product.name ||
-      "Product";
+        const price =
+          Number(
+            product.price || 0
+          );
 
 
-      const safeName =
-      escapeHTML(
-        name
-      );
+        const oldPrice =
+          product.oldPrice
+          ? Number(
+              product.oldPrice
+            )
+          : null;
 
 
-      const safeImage =
-      escapeAttribute(
-        image
-      );
+        const discount =
+
+          product.discount
+
+          ?
+
+          Number(
+            product.discount
+          )
+
+          :
+
+          (
+            oldPrice &&
+            oldPrice > price
+
+            ?
+
+            Math.round(
+              (
+                (oldPrice-price) /
+                oldPrice
+              ) * 100
+            )
+
+            :
+
+            0
+          );
 
 
-      const safeId =
-      encodeURIComponent(
-        product.id
-      );
+        const rating =
+          product.rating ||
+          4.5;
 
 
-      const isWishlisted =
-      wishlist.includes(
-        product.id
-      );
+        const safeName =
+          escapeHTML(
+            product.name ||
+            "Product"
+          );
 
 
-      return `
-
-        <div
-          class="product-card"
-          onclick="openProduct('${safeId}')">
-
-
-          <div class="product-img">
+        const safeId =
+          encodeURIComponent(
+            product.id
+          );
 
 
-            <img
-              src="${safeImage}"
-              alt="${safeName}"
-              loading="lazy"
-              decoding="async">
+        const safeImage =
+          escapeAttribute(
+            image
+          );
 
 
-            ${
-              discount > 0
-              ?
-              `
-              <span
-                class="discount-badge">
+        return `
 
-                -${discount}%
+          <div
+            class="product-card"
+            onclick="
+              openProduct('${safeId}')
+            ">
 
-              </span>
-              `
-              :
-              ""
-            }
+            <div class="product-img">
 
+              <img
+                src="${safeImage}"
+                alt="${safeName}"
+                loading="lazy"
+                decoding="async">
 
-            <button
-              class="wishlist"
-              onclick="
-                event.stopPropagation();
-                toggleWishlist('${safeId}');
-              ">
+              <button
+                class="wishlist"
+                onclick="
+                  event.stopPropagation();
+                  toggleWishlist('${safeId}');
+                ">
 
-              ${
-                isWishlisted
-                ? "❤️"
-                : "♡"
-              }
+                ${
+                  wishlist.includes(
+                    product.id
+                  )
+                  ? "❤️"
+                  : "♡"
+                }
 
-            </button>
-
-
-          </div>
-
-
-          <div class="product-info">
-
-
-            <div
-              class="product-name">
-
-              ${safeName}
+              </button>
 
             </div>
 
 
-            <div class="rating">
+            <div class="product-info">
 
-              ⭐ ${rating}
-
-            </div>
-
-
-            <div class="price-row">
+              <div class="product-name">
+                ${safeName}
+              </div>
 
 
-              <span class="price">
-
-                ₹${price.toLocaleString(
-                  "en-IN"
-                )}
-
-              </span>
+              <div class="rating">
+                ⭐ ${rating}
+              </div>
 
 
-              ${
-                oldPrice > price
-                ?
-                `
-                <span class="old-price">
+              <div class="price-row">
 
-                  ₹${oldPrice.toLocaleString(
+                <span class="price">
+                  ₹${price.toLocaleString(
                     "en-IN"
                   )}
-
                 </span>
-                `
-                :
-                ""
-              }
 
 
-              ${
-                discount > 0
-                ?
-                `
-                <span class="discount">
+                ${
+                  oldPrice
+                  ?
 
-                  ${discount}% OFF
+                  `<span class="old-price">
+                    ₹${oldPrice.toLocaleString(
+                      "en-IN"
+                    )}
+                  </span>`
 
-                </span>
-                `
-                :
-                ""
-              }
+                  :
 
+                  ""
+                }
+
+
+                ${
+                  discount > 0
+
+                  ?
+
+                  `<span class="discount">
+                    ${discount}% OFF
+                  </span>`
+
+                  :
+
+                  ""
+                }
+
+              </div>
 
             </div>
 
-
           </div>
 
+        `;
 
-        </div>
-
-      `;
-
-    }
-  )
-  .join("");
+      }
+    ).join("");
 
 }
 
 
-/* ==================================================
-   SEARCH
-================================================== */
+/* ================= SEARCH ================= */
 
 window.searchProducts =
 function(){
 
   const text =
-  document
-  .getElementById(
-    "searchInput"
-  )
-  .value
-  .toLowerCase()
-  .trim();
+
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .value
+      .toLowerCase()
+      .trim();
 
 
   if(!text){
@@ -2708,45 +1903,33 @@ function(){
 
 
   const result =
-  allProducts.filter(
-    product => {
 
-      const name =
-      (
-        product.name ||
-        ""
-      )
-      .toLowerCase();
+    allProducts.filter(
+      product => {
 
-
-      const category =
-      (
-        product.category ||
-        ""
-      )
-      .toLowerCase();
+        const name =
+          (
+            product.name ||
+            ""
+          )
+          .toLowerCase();
 
 
-      const description =
-      (
-        product.description ||
-        ""
-      )
-      .toLowerCase();
+        const category =
+          (
+            product.category ||
+            ""
+          )
+          .toLowerCase();
 
 
-      return (
+        return (
+          name.includes(text) ||
+          category.includes(text)
+        );
 
-        name.includes(text) ||
-
-        category.includes(text) ||
-
-        description.includes(text)
-
-      );
-
-    }
-  );
+      }
+    );
 
 
   renderProducts(
@@ -2757,109 +1940,50 @@ function(){
 
   document.getElementById(
     "newProducts"
-  ).innerHTML =
-  "";
+  ).innerHTML = "";
 
 
   document.getElementById(
     "discountProducts"
-  ).innerHTML =
-  "";
+  ).innerHTML = "";
 
 };
 
 
-/* ==================================================
-   SLIDE PRODUCTS
-================================================== */
-
-window.slideProducts =
-function(
-  containerId,
-  direction
-){
-
-  const container =
-  document.getElementById(
-    containerId
-  );
-
-
-  const card =
-  container.querySelector(
-    ".product-card"
-  );
-
-
-  if(!card){
-
-    return;
-
-  }
-
-
-  const amount =
-  card.offsetWidth + 12;
-
-
-  container.scrollBy({
-
-    left:
-    direction * amount,
-
-    behavior:
-    "smooth"
-
-  });
-
-};
-
-
-/* ==================================================
-   PRODUCT
-================================================== */
+/* ================= PRODUCT ================= */
 
 window.openProduct =
 function(id){
 
   window.location.href =
-  "product.html?id=" +
-  encodeURIComponent(
-    id
-  );
+    "product.html?id=" +
+    encodeURIComponent(id);
 
 };
 
 
-/* ==================================================
-   CATEGORY
-================================================== */
+/* ================= CATEGORY ================= */
 
 window.openCategory =
 function(category){
 
   window.location.href =
-  "products.html?category=" +
-  encodeURIComponent(
-    category
-  );
+    "products.html?category=" +
+    encodeURIComponent(
+      category
+    );
 
 };
 
 
-/* ==================================================
-   NAVIGATION
-================================================== */
+/* ================= NAVIGATION ================= */
 
 window.goHome =
 function(){
 
   window.scrollTo({
-
     top:0,
-
     behavior:"smooth"
-
   });
 
 };
@@ -2869,7 +1993,7 @@ window.goProducts =
 function(){
 
   window.location.href =
-  "products.html";
+    "products.html";
 
 };
 
@@ -2878,7 +2002,7 @@ window.goCart =
 function(){
 
   window.location.href =
-  "cart.html";
+    "cart.html";
 
 };
 
@@ -2887,7 +2011,7 @@ window.goWishlist =
 function(){
 
   window.location.href =
-  "profile.html#wishlist";
+    "profile.html#wishlist";
 
 };
 
@@ -2896,14 +2020,12 @@ window.goProfile =
 function(){
 
   window.location.href =
-  "profile.html";
+    "profile.html";
 
 };
 
 
-/* ==================================================
-   WISHLIST
-================================================== */
+/* ================= WISHLIST ================= */
 
 window.toggleWishlist =
 function(id){
@@ -2911,11 +2033,9 @@ function(id){
   try{
 
     id =
-    decodeURIComponent(
-      id
-    );
+      decodeURIComponent(id);
 
-  }catch(error){}
+  }catch(e){}
 
 
   if(
@@ -2923,10 +2043,9 @@ function(id){
   ){
 
     wishlist =
-    wishlist.filter(
-      item =>
-      item !== id
-    );
+      wishlist.filter(
+        x => x !== id
+      );
 
   }else{
 
@@ -2948,63 +2067,54 @@ function(id){
 };
 
 
-/* ==================================================
-   CART BADGE
-================================================== */
+/* ================= CART BADGE ================= */
 
 function updateCartBadge(){
 
   const count =
 
     cart.reduce(
-
       (
         total,
         item
       ) =>
 
-      total +
-      Number(
-        item.quantity || 1
-      ),
+        total +
+        Number(
+          item.quantity || 1
+        ),
 
       0
-
     );
 
 
   const badge =
-  document.getElementById(
-    "cartBadge"
-  );
+    document.getElementById(
+      "cartBadge"
+    );
 
 
   if(count > 0){
 
     badge.style.display =
-    "flex";
-
+      "flex";
 
     badge.textContent =
-    count > 99
-    ?
-    "99+"
-    :
-    count;
+      count > 99
+      ? "99+"
+      : count;
 
   }else{
 
     badge.style.display =
-    "none";
+      "none";
 
   }
 
 }
 
 
-/* ==================================================
-   ESCAPE HTML
-================================================== */
+/* ================= ESCAPE ================= */
 
 function escapeHTML(text){
 
@@ -3070,9 +2180,7 @@ function escapeAttribute(text){
 }
 
 
-/* ==================================================
-   LANGUAGE CHANGE
-================================================== */
+/* ================= LANGUAGE ================= */
 
 window.addEventListener(
   "languageChanged",
@@ -3084,9 +2192,7 @@ window.addEventListener(
 );
 
 
-/* ==================================================
-   START
-================================================== */
+/* ================= START ================= */
 
 updateCartBadge();
 
@@ -3096,9 +2202,7 @@ loadProducts();
 
 enableSayonMartNotifications();
 
-
 </script>
 
 </body>
-
 </html>
