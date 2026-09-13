@@ -1,2561 +1,1212 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<meta name="theme-color" content="#ffffff">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SayonMart - Checkout</title>
 
 <script src="language.js"></script>
 
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
 *{
   box-sizing:border-box;
 }
 
-html{
-  scroll-behavior:smooth;
-}
-
 body{
   margin:0;
-  padding:0 0 105px 0;
-  background:#f5f7fb;
-  color:#172033;
   font-family:Arial,Helvetica,sans-serif;
+  background:#f7f9fc;
+  color:#172235;
 }
 
-
-/* =====================================================
-   HEADER
-===================================================== */
-
+/* HEADER */
 .header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-
-  height:68px;
-
+  height:82px;
   background:#fff;
-
   display:flex;
   align-items:center;
-
-  padding:0 15px;
-
-  border-bottom:1px solid #e6e8ed;
-
-  box-shadow:0 2px 10px rgba(0,0,0,.05);
+  padding:0 25px;
+  border-bottom:1px solid #eee;
+  gap:18px;
 }
 
 .back{
-  width:42px;
-  height:42px;
-
+  font-size:38px;
   border:0;
-  background:#f4f6f9;
-
-  border-radius:50%;
-
-  font-size:31px;
-  line-height:1;
-
-  color:#172033;
-
+  background:none;
   cursor:pointer;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  color:#101d31;
 }
 
 .logo{
-  margin-left:10px;
-  font-size:21px;
-  font-weight:800;
-  color:#172033;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.logo span{
-  color:#f4ad00;
+.logo-bag{
+  width:48px;
+  height:48px;
+  background:#ffc400;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:27px;
+}
+
+.logo-text{
+  font-size:34px;
+  font-weight:800;
+}
+
+.logo-text .sayon{
+  color:#f5b900;
+}
+
+.logo-text .mart{
+  color:#142237;
+}
+
+.tagline{
+  font-size:13px;
+  color:#647083;
+  margin-top:3px;
 }
 
 .secure{
   margin-left:auto;
-
   display:flex;
   align-items:center;
-  gap:6px;
-
-  color:#147a58;
-
-  font-size:12px;
-  font-weight:bold;
+  gap:12px;
 }
 
 .secure-icon{
-  width:28px;
-  height:28px;
-
+  width:42px;
+  height:42px;
   border-radius:50%;
-
-  background:#e9fff5;
-
+  background:#30465c;
+  color:white;
   display:flex;
-  align-items:center;
   justify-content:center;
-
-  font-size:15px;
-}
-
-
-/* =====================================================
-   PROGRESS
-===================================================== */
-
-.progress-wrap{
-  background:#fff;
-  padding:15px 12px 18px;
-
-  border-bottom:1px solid #e6e8ed;
-}
-
-.progress{
-  max-width:650px;
-  margin:auto;
-
-  display:flex;
   align-items:center;
-  justify-content:center;
+  font-size:20px;
 }
 
-.step-item{
+.secure-title{
+  font-size:17px;
+  font-weight:bold;
+}
+
+.secure-sub{
+  color:#687587;
+  font-size:13px;
+  margin-top:4px;
+}
+
+/* STEPS */
+.steps{
+  background:white;
+  padding:20px 12%;
   display:flex;
-  flex-direction:column;
-  align-items:center;
-
-  min-width:65px;
-
+  justify-content:space-between;
   position:relative;
+}
 
+.steps:before{
+  content:"";
+  position:absolute;
+  left:14%;
+  right:14%;
+  top:39px;
+  height:4px;
+  background:#e2e7ec;
+  z-index:0;
+}
+
+.step-line-active{
+  position:absolute;
+  left:14%;
+  width:29%;
+  top:39px;
+  height:4px;
+  background:linear-gradient(90deg,#20b777,#ffc400);
+  z-index:1;
+}
+
+.step{
+  position:relative;
   z-index:2;
+  text-align:center;
+  width:100px;
 }
 
-.step-circle{
-  width:36px;
-  height:36px;
-
+.circle{
+  width:48px;
+  height:48px;
   border-radius:50%;
-
+  background:#e4e9ee;
+  margin:auto;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  background:#edf0f5;
-  color:#8992a2;
-
-  font-size:15px;
+  font-size:22px;
   font-weight:bold;
+  color:#42546a;
 }
 
-.step-item.active .step-circle{
-  background:#ffbd00;
-  color:#172033;
-
-  box-shadow:0 0 0 5px #fff6d8;
+.step.done .circle{
+  background:#28b77c;
+  color:white;
 }
 
-.step-item.done .step-circle{
-  background:#20b77a;
-  color:#fff;
+.step.active .circle{
+  background:#ffc400;
+  color:#18263a;
 }
 
-.step-label{
-  margin-top:7px;
-
-  font-size:11px;
+.step-title{
+  font-size:16px;
   font-weight:bold;
-
-  color:#8a93a3;
+  margin-top:8px;
 }
 
-.step-item.active .step-label,
-.step-item.done .step-label{
-  color:#172033;
-}
-
-.step-line{
-  height:3px;
-
-  flex:1;
-
-  max-width:105px;
-
-  background:#e3e6eb;
-
-  margin:0 -4px;
-
-  margin-bottom:19px;
-}
-
-.step-line.done{
-  background:#20b77a;
-}
-
-
-/* =====================================================
-   PAGE
-===================================================== */
-
-.page{
-  max-width:1100px;
-
-  margin:0 auto;
-
-  padding:15px;
-}
-
-.grid{
+/* MAIN */
+.main{
+  max-width:1500px;
+  margin:auto;
+  padding:18px;
   display:grid;
-
-  grid-template-columns:1.2fr .8fr;
-
-  gap:15px;
-
-  align-items:start;
+  grid-template-columns:1.35fr .9fr;
+  gap:18px;
 }
 
-
-/* =====================================================
-   CARD
-===================================================== */
-
+/* CARDS */
 .card{
-  background:#fff;
-
-  border-radius:16px;
-
-  border:1px solid #e6e9ef;
-
-  box-shadow:0 3px 15px rgba(18,32,52,.05);
-
-  overflow:hidden;
-
-  margin-bottom:15px;
+  background:white;
+  border-radius:18px;
+  border:1px solid #edf0f4;
+  box-shadow:0 3px 14px rgba(20,35,55,.05);
 }
 
-.card-header{
-  padding:17px 18px 13px;
+/* ADDRESS */
+.address-card{
+  padding:20px;
+}
 
+.title-row{
   display:flex;
   align-items:center;
-  gap:11px;
+  gap:12px;
 }
 
-.card-icon{
-  width:40px;
-  height:40px;
+.title-icon{
+  font-size:31px;
+}
 
-  border-radius:12px;
+h2{
+  margin:0;
+  font-size:28px;
+}
 
-  background:#fff5d8;
+.subtitle{
+  color:#526174;
+  font-size:18px;
+  margin:8px 0 18px;
+}
 
+/* LOCATION */
+.location{
+  border:2px solid #f6d13c;
+  border-radius:15px;
+  padding:15px;
   display:flex;
   align-items:center;
-  justify-content:center;
-
-  font-size:21px;
-}
-
-.card-title{
-  font-size:19px;
-  font-weight:800;
-}
-
-.card-subtitle{
-  margin-top:3px;
-
-  color:#7c8595;
-
-  font-size:12px;
-}
-
-.card-body{
-  padding:0 18px 18px;
-}
-
-
-/* =====================================================
-   LOCATION BUTTON
-===================================================== */
-
-.location-btn{
-  width:100%;
-
-  border:1px solid #ffd05a;
-
-  background:linear-gradient(
-    135deg,
-    #fffaf0,
-    #fffdf8
-  );
-
-  border-radius:13px;
-
-  padding:14px;
-
-  display:flex;
-  align-items:center;
-
-  text-align:left;
-
+  gap:15px;
+  background:#fffdf3;
   cursor:pointer;
-
-  margin-bottom:13px;
+  margin-bottom:20px;
 }
 
 .location-icon{
-  width:43px;
-  height:43px;
-
-  border-radius:11px;
-
-  background:#ffbf00;
-
+  width:52px;
+  height:52px;
+  border-radius:10px;
+  background:#ffc400;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  font-size:22px;
-
-  margin-right:12px;
+  font-size:28px;
 }
 
-.location-text{
+.location-info{
   flex:1;
 }
 
 .location-title{
-  font-size:15px;
+  font-size:18px;
   font-weight:bold;
-
-  color:#172033;
 }
 
 .location-sub{
-  margin-top:4px;
-
-  color:#727c8c;
-
-  font-size:12px;
+  color:#536276;
+  font-size:14px;
+  margin-top:5px;
 }
 
 .location-arrow{
-  font-size:26px;
-  color:#7a8495;
+  font-size:30px;
+  color:#526174;
 }
 
-
-/* =====================================================
-   INPUT
-===================================================== */
-
-.input-group{
+/* FORM */
+.field{
   position:relative;
-
-  margin-top:11px;
+  margin-bottom:15px;
 }
 
-.input{
+.field input,
+.field textarea,
+.field select{
   width:100%;
-
-  min-height:53px;
-
-  border:1px solid #d9dee7;
-
-  background:#fff;
-
-  border-radius:11px;
-
-  padding:21px 13px 7px 43px;
-
+  border:2px solid #e0e4e9;
+  border-radius:14px;
+  padding:25px 15px 10px 58px;
+  font-size:17px;
   outline:none;
-
-  color:#172033;
-
-  font-size:15px;
-
-  font-family:Arial,Helvetica,sans-serif;
-
-  transition:.2s;
+  background:white;
+  color:#172235;
 }
 
-.input:focus{
-  border-color:#ffb900;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(255,185,0,.12);
+.field textarea{
+  height:90px;
+  resize:none;
 }
 
-.input-label{
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:#ffc400;
+}
+
+.field-icon{
   position:absolute;
+  left:18px;
+  top:22px;
+  font-size:22px;
+  z-index:2;
+}
 
-  left:43px;
+.field label{
+  position:absolute;
+  left:58px;
   top:7px;
-
-  color:#7a8494;
-
-  font-size:11px;
-
+  font-size:13px;
+  color:#647083;
+  z-index:2;
   pointer-events:none;
 }
 
-.input-icon{
-  position:absolute;
-
-  left:14px;
-  top:18px;
-
-  font-size:17px;
-
-  color:#536176;
+.required{
+  color:#e53935;
 }
 
-textarea.input{
-  min-height:90px;
-
-  resize:none;
-
-  padding-top:23px;
-}
-
-.row{
+/* CITY + PIN */
+.two-fields{
   display:grid;
-
   grid-template-columns:1fr 1fr;
-
-  gap:10px;
+  gap:15px;
 }
 
+/* MAP */
+.map-box{
+  margin-top:5px;
+  background:#f2f7fb;
+  border-radius:15px;
+  padding:12px;
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
 
-/* =====================================================
-   SAVE ADDRESS
-===================================================== */
-
-.save-address{
-  margin-top:14px;
-
-  padding:13px;
-
-  background:#f8fafc;
-
-  border:1px solid #e7eaf0;
-
+.map{
+  width:52%;
+  height:125px;
   border-radius:12px;
+  background:
+    linear-gradient(25deg,transparent 40%,#d8e0e7 41%,#d8e0e7 44%,transparent 45%),
+    linear-gradient(155deg,transparent 45%,#d8e0e7 46%,#d8e0e7 49%,transparent 50%),
+    #edf2f5;
+  position:relative;
+  overflow:hidden;
+}
 
+.pin{
+  position:absolute;
+  left:48%;
+  top:42%;
+  font-size:34px;
+}
+
+.map-text{
+  font-size:15px;
+  line-height:1.5;
+  color:#526174;
+}
+
+.safe{
+  color:#23985d;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+/* SAVE */
+.save-row{
+  margin-top:18px;
   display:flex;
   align-items:center;
-
-  gap:10px;
+  gap:12px;
 }
 
-.save-check{
-  width:20px;
-  height:20px;
-
-  accent-color:#ffb900;
+.save-icon{
+  font-size:24px;
 }
 
-.save-text{
+.save-info{
   flex:1;
+}
 
-  font-size:14px;
+.save-title{
+  font-size:17px;
   font-weight:bold;
 }
 
 .save-sub{
-  display:block;
+  font-size:14px;
+  color:#657286;
+  margin-top:4px;
+}
 
-  margin-top:3px;
+/* SWITCH */
+.switch{
+  width:54px;
+  height:31px;
+  border-radius:30px;
+  background:#ffc400;
+  padding:3px;
+}
 
-  color:#818a99;
+.switch-circle{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:white;
+  margin-left:23px;
+}
 
-  font-size:11px;
+/* ADD ADDRESS */
+.add-address{
+  margin-top:18px;
+  padding:13px;
+  border-radius:12px;
+  background:#f3f6fa;
+  text-align:center;
+  font-weight:bold;
+  font-size:16px;
+}
 
+/* SUMMARY */
+.summary-card{
+  padding:20px;
+  height:max-content;
+}
+
+.summary-title{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  font-size:25px;
+  font-weight:bold;
+  padding-bottom:18px;
+  border-bottom:1px solid #e5e8ec;
+}
+
+.summary-title span:last-child{
+  margin-left:auto;
+  font-size:16px;
   font-weight:normal;
 }
 
-
-/* =====================================================
-   MAP INFO
-===================================================== */
-
-.map-box{
-  margin-top:14px;
-
-  border-radius:13px;
-
-  overflow:hidden;
-
-  border:1px solid #e3e7ed;
-
-  background:#f1f5f8;
-}
-
-.map-top{
-  height:105px;
-
-  position:relative;
-
-  background:
-    linear-gradient(
-      135deg,
-      #e8eef2,
-      #f8fafb
-    );
-}
-
-.map-road{
-  position:absolute;
-
-  height:10px;
-
-  background:#fff;
-
-  transform:rotate(-22deg);
-
-  left:-20px;
-  right:-20px;
-
-  top:48px;
-
-  box-shadow:
-    0 2px 4px rgba(0,0,0,.04);
-}
-
-.map-road.two{
-  transform:rotate(25deg);
-
-  top:25px;
-}
-
-.map-pin{
-  position:absolute;
-
-  left:50%;
-  top:50%;
-
-  transform:
-    translate(-50%,-55%);
-
-  width:34px;
-  height:34px;
-
-  border-radius:50% 50% 50% 0;
-
-  background:#ffbd00;
-
-  rotate:-45deg;
-
-  box-shadow:
-    0 5px 12px
-    rgba(0,0,0,.18);
-}
-
-.map-pin:after{
-  content:"";
-
-  position:absolute;
-
-  width:10px;
-  height:10px;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  left:12px;
-  top:12px;
-}
-
-.map-info{
-  padding:11px 13px;
-
+.product{
   display:flex;
-  align-items:center;
-
-  gap:9px;
-
-  font-size:12px;
-
-  color:#667184;
+  gap:15px;
+  padding:18px 0;
+  border-bottom:1px solid #e5e8ec;
 }
 
-.safe{
-  color:#159866;
-
-  font-weight:bold;
-}
-
-
-/* =====================================================
-   ADD ADDRESS
-===================================================== */
-
-.add-address{
-  width:100%;
-
-  margin-top:11px;
-
-  padding:12px;
-
-  border:1px dashed #ccd2dc;
-
-  background:#fff;
-
-  border-radius:10px;
-
-  color:#3d4b60;
-
-  font-size:14px;
-
-  font-weight:bold;
-
-  cursor:pointer;
-}
-
-
-/* =====================================================
-   DELIVERY CARD
-===================================================== */
-
-.delivery-option{
-  border:1px solid #dfe4eb;
-
+.product-img{
+  width:108px;
+  height:108px;
+  object-fit:contain;
   border-radius:12px;
-
-  padding:13px;
-
-  display:flex;
-  align-items:center;
-
-  gap:12px;
-}
-
-.delivery-round{
-  width:42px;
-  height:42px;
-
-  border-radius:50%;
-
-  background:#eafff5;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:21px;
-}
-
-.delivery-main{
-  flex:1;
-}
-
-.delivery-name{
-  font-size:14px;
-  font-weight:bold;
-}
-
-.delivery-date{
-  margin-top:5px;
-
-  color:#168c66;
-
-  font-size:12px;
-}
-
-.delivery-price{
-  color:#168c66;
-
-  font-size:13px;
-  font-weight:bold;
-}
-
-
-/* =====================================================
-   PRODUCT
-===================================================== */
-
-.product-card{
-  padding:15px 18px;
-
-  display:flex;
-
-  gap:13px;
-
-  border-top:1px solid #edf0f4;
-}
-
-.product-image{
-  width:86px;
-  height:86px;
-
-  border-radius:12px;
-
-  object-fit:cover;
-
-  background:#f2f3f5;
-
-  flex-shrink:0;
+  background:#f5f6f8;
 }
 
 .product-info{
-  min-width:0;
-
   flex:1;
 }
 
 .product-name{
-  font-size:14px;
-
+  font-size:17px;
   font-weight:bold;
-
-  line-height:1.35;
-
-  display:-webkit-box;
-
-  -webkit-line-clamp:2;
-
-  -webkit-box-orient:vertical;
-
-  overflow:hidden;
 }
 
-.product-meta{
-  margin-top:6px;
-
-  color:#7a8494;
-
-  font-size:11px;
-
-  line-height:1.5;
-}
-
-.product-price-row{
+.product-variant{
+  color:#667386;
   margin-top:8px;
-
-  display:flex;
-
-  align-items:center;
-
-  gap:7px;
-
-  flex-wrap:wrap;
 }
 
 .product-price{
-  font-size:17px;
-  font-weight:800;
-}
-
-.old-price{
-  color:#9299a5;
-
-  font-size:12px;
-
-  text-decoration:line-through;
-}
-
-.discount{
-  color:#13885f;
-
-  background:#eafff5;
-
-  border-radius:5px;
-
-  padding:3px 5px;
-
-  font-size:10px;
-
+  font-size:19px;
   font-weight:bold;
+  margin-top:12px;
 }
 
 .qty{
-  margin-left:auto;
-
   display:flex;
-
   align-items:center;
-
-  gap:8px;
-
-  color:#697386;
-
-  font-size:12px;
-}
-
-
-/* =====================================================
-   OFFER
-===================================================== */
-
-.offer-strip{
-  margin-bottom:15px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fff6d9,
-      #fffdf5
-    );
-
-  border:1px solid #ffe19a;
-
-  border-radius:14px;
-
-  padding:12px 15px;
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-}
-
-.offer-icon{
-  font-size:22px;
-}
-
-.offer-text{
-  font-size:13px;
-
-  color:#64521c;
-}
-
-.offer-text b{
-  color:#168b65;
-}
-
-
-/* =====================================================
-   PRICE DETAILS
-===================================================== */
-
-.price-row-line{
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  padding:8px 0;
-
-  color:#606b7d;
-
-  font-size:13px;
-}
-
-.price-row-line.discount-line{
-  color:#13885f;
-}
-
-.price-total{
-  margin-top:7px;
-
-  padding-top:13px;
-
-  border-top:1px dashed #dce0e6;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  font-size:18px;
-
-  font-weight:800;
-
-  color:#172033;
-}
-
-
-/* =====================================================
-   SECURE BOX
-===================================================== */
-
-.secure-box{
-  margin-top:13px;
-
-  padding:12px;
-
-  border-radius:11px;
-
-  background:#f0fff8;
-
-  border:1px solid #d1f2e4;
-
-  display:flex;
-
-  gap:9px;
-
-  align-items:flex-start;
-}
-
-.secure-box-icon{
-  font-size:18px;
-}
-
-.secure-box-title{
-  font-size:12px;
-  font-weight:bold;
-
-  color:#147b58;
-}
-
-.secure-box-text{
-  margin-top:3px;
-
-  font-size:10px;
-
-  color:#65766f;
-
-  line-height:1.4;
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.empty{
-  background:#fff;
-
-  border-radius:16px;
-
-  padding:70px 20px;
-
-  text-align:center;
-
-  border:1px solid #e4e8ee;
-
-  color:#778193;
-}
-
-.empty-icon{
-  font-size:48px;
-}
-
-.empty-title{
-  margin-top:15px;
-
-  font-size:19px;
-
-  font-weight:bold;
-
-  color:#273247;
-}
-
-.empty-btn{
-  margin-top:18px;
-
-  border:0;
-
-  border-radius:9px;
-
-  background:#ffb900;
-
-  color:#172033;
-
-  padding:12px 22px;
-
-  font-size:14px;
-
-  font-weight:bold;
-}
-
-
-/* =====================================================
-   BOTTOM BAR
-===================================================== */
-
-.bottom{
-  position:fixed;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  z-index:1500;
-
-  min-height:87px;
-
-  background:#fff;
-
-  border-top:1px solid #dfe3e9;
-
-  box-shadow:
-    0 -5px 20px
-    rgba(0,0,0,.08);
-
-  padding:10px 15px;
-
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-}
-
-.bottom-info{
-  flex:1;
-}
-
-.bottom-label{
-  color:#7b8594;
-
-  font-size:11px;
-}
-
-.bottom-total{
-  margin-top:3px;
-
-  font-size:21px;
-
-  font-weight:800;
-
-  color:#172033;
-}
-
-.bottom-save{
-  margin-top:3px;
-
-  color:#148a62;
-
-  font-size:11px;
-
-  font-weight:bold;
-}
-
-.continue{
-  min-width:155px;
-
-  height:54px;
-
-  border:0;
-
+  gap:15px;
+  border:1px solid #e1e5e9;
   border-radius:12px;
+  padding:7px 11px;
+  height:44px;
+  align-self:end;
+}
 
-  background:
-    linear-gradient(
-      135deg,
-      #ffc400,
-      #ffac00
-    );
-
-  color:#172033;
-
-  font-size:16px;
-
-  font-weight:800;
-
+.qty button{
+  border:0;
+  background:white;
+  font-size:20px;
   cursor:pointer;
-
-  box-shadow:
-    0 5px 12px
-    rgba(255,180,0,.25);
 }
 
-.continue:active{
-  transform:scale(.98);
+/* PRICE */
+.price-box{
+  padding-top:15px;
 }
 
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-.toast{
-  position:fixed;
-
-  left:50%;
-
-  bottom:100px;
-
-  transform:
-    translateX(-50%)
-    translateY(20px);
-
-  background:#172033;
-
-  color:#fff;
-
-  padding:11px 16px;
-
-  border-radius:9px;
-
-  font-size:12px;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  transition:.25s;
-
-  z-index:3000;
-
-  white-space:nowrap;
+.price-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:17px;
+  margin:14px 0;
 }
 
-.toast.show{
-  opacity:1;
-
-  transform:
-    translateX(-50%)
-    translateY(0);
+.discount{
+  color:#19955d;
 }
 
+.total{
+  border-top:1px solid #e2e6ea;
+  padding-top:18px;
+  margin-top:15px;
+  display:flex;
+  justify-content:space-between;
+  font-size:24px;
+  font-weight:bold;
+}
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* INFO BOXES */
+.info-box{
+  margin-top:18px;
+  padding:17px;
+  border-radius:13px;
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
 
-@media(max-width:700px){
+.free{
+  background:#ebfaf4;
+}
 
-  .grid{
-    display:block;
+.safe-box{
+  background:#fff8df;
+}
+
+.info-icon{
+  font-size:28px;
+}
+
+.info-title{
+  font-weight:bold;
+  font-size:16px;
+}
+
+.info-text{
+  color:#526174;
+  margin-top:5px;
+  font-size:14px;
+}
+
+/* BOTTOM */
+.bottom{
+  background:white;
+  border-top:1px solid #e4e7eb;
+  padding:16px 20px 20px;
+  position:sticky;
+  bottom:0;
+  z-index:20;
+}
+
+.place-order{
+  width:100%;
+  max-width:1450px;
+  margin:auto;
+  display:block;
+  border:0;
+  border-radius:16px;
+  padding:17px;
+  background:#ffc400;
+  color:#142237;
+  font-size:25px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 5px 12px rgba(255,196,0,.25);
+}
+
+.place-order:active{
+  transform:scale(.99);
+}
+
+/* ERROR */
+.error{
+  color:#e53935;
+  font-size:14px;
+  margin:3px 0 12px;
+  display:none;
+}
+
+/* MOBILE */
+@media(max-width:800px){
+
+  .header{
+    height:68px;
+    padding:0 12px;
+    gap:8px;
   }
 
-  .page{
-    padding:10px;
+  .back{
+    font-size:30px;
   }
 
-  .secure{
+  .logo-bag{
+    width:38px;
+    height:38px;
+    font-size:21px;
+  }
+
+  .logo-text{
+    font-size:23px;
+  }
+
+  .tagline{
     display:none;
   }
 
-  .logo{
-    font-size:19px;
+  .secure{
+    gap:5px;
   }
 
-  .step-circle{
+  .secure-icon{
     width:32px;
     height:32px;
+    font-size:15px;
+  }
+
+  .secure-title{
+    font-size:12px;
+  }
+
+  .secure-sub{
+    display:none;
+  }
+
+  .steps{
+    padding:13px 3px;
+  }
+
+  .steps:before{
+    left:12%;
+    right:12%;
+    top:34px;
+  }
+
+  .step-line-active{
+    left:12%;
+    width:29%;
+    top:34px;
+  }
+
+  .circle{
+    width:40px;
+    height:40px;
+    font-size:18px;
+  }
+
+  .step-title{
+    font-size:12px;
+  }
+
+  .main{
+    display:block;
+    padding:9px;
+  }
+
+  .address-card,
+  .summary-card{
+    padding:15px;
+  }
+
+  .summary-card{
+    margin-top:12px;
+  }
+
+  h2{
+    font-size:22px;
+  }
+
+  .subtitle{
+    font-size:15px;
+  }
+
+  .field input,
+  .field textarea,
+  .field select{
+    font-size:16px;
+  }
+
+  .map-box{
+    display:block;
+  }
+
+  .map{
+    width:100%;
+    height:110px;
+    margin-bottom:10px;
+  }
+
+  .product-img{
+    width:82px;
+    height:82px;
+  }
+
+  .product-name{
+    font-size:15px;
+  }
+
+  .product-variant{
     font-size:13px;
   }
 
-  .step-label{
-    font-size:10px;
-  }
-
-  .step-line{
-    max-width:70px;
-  }
-
-  .card{
-    border-radius:14px;
-  }
-
-  .card-title{
+  .product-price{
     font-size:17px;
   }
 
-  .product-image{
-    width:78px;
-    height:78px;
+  .qty{
+    height:38px;
+    padding:5px 8px;
   }
 
-  .continue{
-    min-width:145px;
+  .total{
+    font-size:21px;
   }
 
+  .place-order{
+    font-size:20px;
+    padding:16px;
+  }
+
+  .bottom{
+    padding:10px;
+  }
 }
-
-@media(max-width:400px){
-
-  .header{
-    padding:0 10px;
-  }
-
-  .logo{
-    font-size:17px;
-  }
-
-  .step-line{
-    max-width:48px;
-  }
-
-  .step-item{
-    min-width:54px;
-  }
-
-  .step-label{
-    font-size:9px;
-  }
-
-  .continue{
-    min-width:130px;
-    font-size:14px;
-  }
-
-  .bottom-total{
-    font-size:19px;
-  }
-
-  .row{
-    grid-template-columns:1fr;
-    gap:0;
-  }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
+<!-- HEADER -->
 <header class="header">
 
-  <button
-    class="back"
-    onclick="history.back()">
-    ‹
-  </button>
+  <button class="back" onclick="goBack()">←</button>
 
   <div class="logo">
-    🛍️ <span>Sayon</span>Mart
+
+    <div class="logo-bag">🛍️</div>
+
+    <div>
+      <div class="logo-text">
+        <span class="sayon">Sayon</span><span class="mart">Mart</span>
+      </div>
+      <div class="tagline">
+        Smart Shopping&nbsp;&nbsp; Better Living
+      </div>
+    </div>
+
   </div>
 
   <div class="secure">
     <div class="secure-icon">✓</div>
-    100% Secure
+
+    <div>
+      <div class="secure-title">100% Secure</div>
+      <div class="secure-sub">Your data is safe</div>
+    </div>
   </div>
 
 </header>
 
 
-<!-- =====================================================
-     PROGRESS
-===================================================== -->
+<!-- STEPS -->
+<div class="steps">
 
-<div class="progress-wrap">
+  <div class="step-line-active"></div>
 
-  <div class="progress">
+  <div class="step done">
+    <div class="circle">✓</div>
+    <div class="step-title">Cart</div>
+  </div>
 
-    <div class="step-item done">
+  <div class="step active">
+    <div class="circle">📍</div>
+    <div class="step-title">Address</div>
+  </div>
 
-      <div class="step-circle">
-        ✓
-      </div>
+  <div class="step">
+    <div class="circle">▣</div>
+    <div class="step-title">Payment</div>
+  </div>
 
-      <div class="step-label">
-        Cart
-      </div>
-
-    </div>
-
-
-    <div class="step-line done"></div>
-
-
-    <div class="step-item active">
-
-      <div class="step-circle">
-        📍
-      </div>
-
-      <div class="step-label">
-        Address
-      </div>
-
-    </div>
-
-
-    <div class="step-line"></div>
-
-
-    <div class="step-item">
-
-      <div class="step-circle">
-        💳
-      </div>
-
-      <div class="step-label">
-        Payment
-      </div>
-
-    </div>
-
-
-    <div class="step-line"></div>
-
-
-    <div class="step-item">
-
-      <div class="step-circle">
-        ✓
-      </div>
-
-      <div class="step-label">
-        Done
-      </div>
-
-    </div>
-
+  <div class="step">
+    <div class="circle">✓</div>
+    <div class="step-title">Done</div>
   </div>
 
 </div>
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
+<!-- MAIN -->
+<main class="main">
 
-<main class="page">
+  <!-- ADDRESS -->
+  <section class="card address-card">
 
-  <div id="checkout"></div>
+    <div class="title-row">
+      <div class="title-icon">📍</div>
+      <h2>Delivery Address</h2>
+    </div>
+
+    <div class="subtitle">
+      Please enter your complete address for smooth delivery
+    </div>
+
+
+    <!-- LOCATION -->
+    <div class="location" onclick="useLocation()">
+
+      <div class="location-icon">📍</div>
+
+      <div class="location-info">
+        <div class="location-title">
+          Use My Location
+        </div>
+
+        <div class="location-sub">
+          Get your current location automatically
+        </div>
+      </div>
+
+      <div class="location-arrow">›</div>
+
+    </div>
+
+
+    <!-- NAME -->
+    <div class="field">
+
+      <span class="field-icon">👤</span>
+
+      <label>
+        Full Name <span class="required">*</span>
+      </label>
+
+      <input
+        id="name"
+        type="text"
+        autocomplete="name"
+      >
+
+    </div>
+
+
+    <!-- PHONE -->
+    <div class="field">
+
+      <span class="field-icon">📞</span>
+
+      <label>
+        Mobile Number <span class="required">*</span>
+      </label>
+
+      <input
+        id="phone"
+        type="tel"
+        maxlength="10"
+        inputmode="numeric"
+        autocomplete="tel"
+      >
+
+    </div>
+
+
+    <!-- HOUSE -->
+    <div class="field">
+
+      <span class="field-icon">🏠</span>
+
+      <label>
+        House / Flat / Building <span class="required">*</span>
+      </label>
+
+      <input
+        id="house"
+        type="text"
+      >
+
+    </div>
+
+
+    <!-- AREA -->
+    <div class="field">
+
+      <span class="field-icon">📍</span>
+
+      <label>
+        Area / Locality <span class="required">*</span>
+      </label>
+
+      <input
+        id="area"
+        type="text"
+      >
+
+    </div>
+
+
+    <!-- CITY PIN -->
+    <div class="two-fields">
+
+      <div class="field">
+
+        <span class="field-icon">🏢</span>
+
+        <label>
+          City <span class="required">*</span>
+        </label>
+
+        <input
+          id="city"
+          type="text"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <span class="field-icon">📍</span>
+
+        <label>
+          PIN Code <span class="required">*</span>
+        </label>
+
+        <input
+          id="pin"
+          type="tel"
+          maxlength="6"
+          inputmode="numeric"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- MAP -->
+    <div class="map-box">
+
+      <div class="map">
+        <div class="pin">📍</div>
+      </div>
+
+      <div class="map-text">
+
+        Your address will be used
+        for delivery and can be
+        edited later.
+
+        <div class="safe">
+          🛡️ Safe & Secure
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- SAVE -->
+    <div class="save-row">
+
+      <div class="save-icon">🔖</div>
+
+      <div class="save-info">
+
+        <div class="save-title">
+          Save Address
+        </div>
+
+        <div class="save-sub">
+          Save this address for next time
+        </div>
+
+      </div>
+
+      <div class="switch">
+        <div class="switch-circle"></div>
+      </div>
+
+    </div>
+
+
+    <!-- ADD -->
+    <div class="add-address">
+      ⊕ &nbsp; Add Another Address
+    </div>
+
+  </section>
+
+
+  <!-- ORDER SUMMARY -->
+  <section class="card summary-card">
+
+    <div class="summary-title">
+
+      🛒
+
+      <span>Order Summary</span>
+
+      <span id="itemCount">
+        1 item
+      </span>
+
+    </div>
+
+
+    <div id="products"></div>
+
+
+    <!-- PRICE -->
+    <div class="price-box">
+
+      <div class="price-row">
+        <span>Subtotal</span>
+        <span id="subtotal">₹0</span>
+      </div>
+
+      <div class="price-row discount">
+        <span>Discount</span>
+        <span id="discount">- ₹0</span>
+      </div>
+
+      <div class="price-row">
+        <span>Delivery Fee</span>
+        <span id="delivery">₹0</span>
+      </div>
+
+      <div class="total">
+        <span>Total Amount</span>
+        <span id="total">₹0</span>
+      </div>
+
+    </div>
+
+
+    <!-- FREE DELIVERY -->
+    <div class="info-box free">
+
+      <div class="info-icon">🚚</div>
+
+      <div>
+        <div class="info-title">
+          Free Delivery
+        </div>
+
+        <div class="info-text">
+          On orders above ₹999
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- SAFE -->
+    <div class="info-box safe-box">
+
+      <div class="info-icon">🛡️</div>
+
+      <div>
+        <div class="info-title">
+          100% Safe & Secure
+        </div>
+
+        <div class="info-text">
+          Your payment and personal
+          data are protected
+        </div>
+      </div>
+
+    </div>
+
+  </section>
 
 </main>
 
 
-<!-- =====================================================
-     BOTTOM BAR
-===================================================== -->
-
-<div
-  class="bottom"
-  id="bottomBar"
-  style="display:none">
-
-  <div class="bottom-info">
-
-    <div class="bottom-label">
-      Total Amount
-    </div>
-
-    <div
-      class="bottom-total"
-      id="bottomTotal">
-      ₹0
-    </div>
-
-    <div
-      class="bottom-save"
-      id="bottomDiscount">
-      ₹0 OFF
-    </div>
-
-  </div>
-
+<!-- PLACE ORDER -->
+<div class="bottom">
 
   <button
-    class="continue"
-    onclick="continueOrder()">
-
-    Continue →
-    
+    class="place-order"
+    onclick="continueToPayment()"
+  >
+    🔒 &nbsp; Place Order &nbsp; →
   </button>
 
 </div>
 
 
-<!-- =====================================================
-     TOAST
-===================================================== -->
-
-<div
-  class="toast"
-  id="toast">
-</div>
-
-
 <script>
-
-
-/* =====================================================
-   TRANSLATIONS
-===================================================== */
-
-const checkoutTranslations = {
-
-English:{
-
-"Review your order":"Review your order",
-"Address":"Delivery Address",
-"Delivery Address":"Delivery Address",
-"Please enter your complete address for smooth delivery":
-"Please enter your complete address for smooth delivery",
-"Use My Location":"Use My Location",
-"Get your current location automatically":
-"Get your current location automatically",
-"Full Name":"Full Name",
-"Mobile Number":"Mobile Number",
-"House / Flat / Building":"House / Flat / Building",
-"Area / Locality":"Area / Locality",
-"City":"City",
-"PIN Code":"PIN Code",
-"Enter your name":"Enter your name",
-"Enter phone number":"Enter phone number",
-"Enter house / flat / building":
-"Enter house / flat / building",
-"Enter area / locality":
-"Enter area / locality",
-"Enter city":"Enter city",
-"Enter PIN code":"Enter PIN code",
-"Enter address":"Enter complete address",
-"Save Address":"Save Address",
-"Save this address for next time":
-"Save this address for next time",
-"Add Another Address":"＋ Add Another Address",
-"Delivery":"Delivery",
-"Expected delivery":"Expected delivery",
-"Free":"Free",
-"Order Summary":"Order Summary",
-"Price Details":"Price Details",
-"Product Price":"Product Price",
-"Discount":"Discount",
-"Delivery Fee":"Delivery Fee",
-"Total":"Total",
-"Secure":"100% Safe & Secure",
-"Your payment and personal data are protected":
-"Your payment and personal data are protected",
-"Continue":"Continue",
-"Place Order":"Place Order",
-"Size":"Size",
-"Color":"Color",
-"Quantity":"Quantity",
-"Seller":"Seller",
-"items":"items",
-"No product selected":"No product selected",
-"Continue Shopping":"Continue Shopping",
-"Please fill your details":"Please fill all required details",
-"Invalid phone":"Please enter a valid phone number",
-"Invalid PIN":"Please enter a valid PIN code",
-"OFF":"OFF"
-
-},
-
-Bangla:{
-
-"Review your order":"আপনার অর্ডার",
-"Address":"ডেলিভারি ঠিকানা",
-"Delivery Address":"ডেলিভারি ঠিকানা",
-"Please enter your complete address for smooth delivery":
-"সঠিকভাবে ডেলিভারির জন্য সম্পূর্ণ ঠিকানা দিন",
-"Use My Location":"আমার লোকেশন ব্যবহার করুন",
-"Get your current location automatically":
-"বর্তমান লোকেশন ব্যবহার করুন",
-"Full Name":"পুরো নাম",
-"Mobile Number":"মোবাইল নম্বর",
-"House / Flat / Building":"বাড়ি / ফ্ল্যাট / বিল্ডিং",
-"Area / Locality":"এলাকা / লোকালিটি",
-"City":"শহর",
-"PIN Code":"পিন কোড",
-"Enter your name":"আপনার নাম লিখুন",
-"Enter phone number":"ফোন নম্বর লিখুন",
-"Enter house / flat / building":
-"বাড়ি / ফ্ল্যাট / বিল্ডিং লিখুন",
-"Enter area / locality":
-"এলাকা / লোকালিটি লিখুন",
-"Enter city":"শহরের নাম লিখুন",
-"Enter PIN code":"পিন কোড লিখুন",
-"Enter address":"সম্পূর্ণ ঠিকানা লিখুন",
-"Save Address":"ঠিকানা সেভ করুন",
-"Save this address for next time":
-"পরের বার ব্যবহারের জন্য সেভ করুন",
-"Add Another Address":"＋ অন্য ঠিকানা যোগ করুন",
-"Delivery":"ডেলিভারি",
-"Expected delivery":"সম্ভাব্য ডেলিভারি",
-"Free":"ফ্রি",
-"Order Summary":"অর্ডার সামারি",
-"Price Details":"দামের বিবরণ",
-"Product Price":"পণ্যের দাম",
-"Discount":"ছাড়",
-"Delivery Fee":"ডেলিভারি চার্জ",
-"Total":"মোট",
-"Secure":"১০০% নিরাপদ",
-"Your payment and personal data are protected":
-"আপনার পেমেন্ট ও ব্যক্তিগত তথ্য সুরক্ষিত",
-"Continue":"এগিয়ে যান",
-"Place Order":"অর্ডার করুন",
-"Size":"সাইজ",
-"Color":"রং",
-"Quantity":"পরিমাণ",
-"Seller":"বিক্রেতা",
-"items":"টি পণ্য",
-"No product selected":"কোনো পণ্য নির্বাচন করা হয়নি",
-"Continue Shopping":"শপিং করুন",
-"Please fill your details":"সব প্রয়োজনীয় তথ্য পূরণ করুন",
-"Invalid phone":"সঠিক ফোন নম্বর দিন",
-"Invalid PIN":"সঠিক PIN কোড দিন",
-"OFF":"ছাড়"
-
-},
-
-Hindi:{
-
-"Review your order":"अपने ऑर्डर की समीक्षा करें",
-"Address":"डिलीवरी पता",
-"Delivery Address":"डिलीवरी पता",
-"Please enter your complete address for smooth delivery":
-"सही डिलीवरी के लिए पूरा पता दर्ज करें",
-"Use My Location":"मेरी लोकेशन इस्तेमाल करें",
-"Get your current location automatically":
-"वर्तमान लोकेशन इस्तेमाल करें",
-"Full Name":"पूरा नाम",
-"Mobile Number":"मोबाइल नंबर",
-"House / Flat / Building":"घर / फ्लैट / बिल्डिंग",
-"Area / Locality":"एरिया / लोकैलिटी",
-"City":"शहर",
-"PIN Code":"पिन कोड",
-"Enter your name":"अपना नाम दर्ज करें",
-"Enter phone number":"फोन नंबर दर्ज करें",
-"Enter house / flat / building":
-"घर / फ्लैट / बिल्डिंग दर्ज करें",
-"Enter area / locality":
-"एरिया / लोकैलिटी दर्ज करें",
-"Enter city":"शहर दर्ज करें",
-"Enter PIN code":"पिन कोड दर्ज करें",
-"Enter address":"पूरा पता दर्ज करें",
-"Save Address":"पता सेव करें",
-"Save this address for next time":
-"अगली बार के लिए सेव करें",
-"Add Another Address":"＋ दूसरा पता जोड़ें",
-"Delivery":"डिलीवरी",
-"Expected delivery":"अनुमानित डिलीवरी",
-"Free":"फ्री",
-"Order Summary":"ऑर्डर सारांश",
-"Price Details":"कीमत की जानकारी",
-"Product Price":"प्रोडक्ट की कीमत",
-"Discount":"छूट",
-"Delivery Fee":"डिलीवरी शुल्क",
-"Total":"कुल",
-"Secure":"100% सुरक्षित",
-"Your payment and personal data are protected":
-"आपका पेमेंट और व्यक्तिगत डेटा सुरक्षित है",
-"Continue":"आगे बढ़ें",
-"Place Order":"ऑर्डर करें",
-"Size":"साइज़",
-"Color":"रंग",
-"Quantity":"मात्रा",
-"Seller":"विक्रेता",
-"items":"आइटम",
-"No product selected":"कोई प्रोडक्ट चुना नहीं गया",
-"Continue Shopping":"शॉपिंग करें",
-"Please fill your details":"सभी जरूरी जानकारी भरें",
-"Invalid phone":"सही फोन नंबर दर्ज करें",
-"Invalid PIN":"सही PIN कोड दर्ज करें",
-"OFF":"छूट"
-
-}
-
-};
-
-
-/* =====================================================
-   TRANSLATION FUNCTION
-===================================================== */
-
-function t(key){
-
-  if(typeof window.translate === "function"){
-
-    const result =
-      window.translate(key);
-
-    if(result && result !== key){
-
-      return result;
-
-    }
-
-  }
-
-  const language =
-    localStorage.getItem(
-      "sayonmart_language"
-    ) || "English";
-
-  return (
-    checkoutTranslations[language] ||
-    checkoutTranslations.English
-  )[key] || key;
-
-}
-
-
-/* =====================================================
-   GET PRODUCT
-===================================================== */
 
 let buyNow = null;
 
-try{
 
-  buyNow =
-    JSON.parse(
-      localStorage.getItem(
-        "sayonmart_buy_now"
-      ) || "null"
-    );
+/* LOAD PRODUCT */
+function loadOrder(){
 
-}catch(error){
+  const saved =
+    localStorage.getItem("sayonmart_buy_now");
 
-  buyNow = null;
+  if(!saved){
 
-}
+    document.getElementById("products").innerHTML =
+      "<p style='padding:20px;text-align:center'>No product found.</p>";
 
-
-/* =====================================================
-   MONEY
-===================================================== */
-
-function money(number){
-
-  return "₹" +
-    Number(number || 0)
-    .toLocaleString("en-IN");
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value){
-
-  return String(value ?? "")
-
-    .replace(
-      /[&<>"']/g,
-      function(char){
-
-        return {
-
-          "&":"&amp;",
-          "<":"&lt;",
-          ">":"&gt;",
-          '"':"&quot;",
-          "'":"&#039;"
-
-        }[char];
-
-      }
-    );
-
-}
-
-
-/* =====================================================
-   DELIVERY DATE
-===================================================== */
-
-function deliveryDate(){
-
-  const date = new Date();
-
-  date.setDate(
-    date.getDate() + 5
-  );
-
-  const language =
-    localStorage.getItem(
-      "sayonmart_language"
-    ) || "English";
-
-  let locale = "en-IN";
-
-  if(language === "Bangla"){
-    locale = "bn-IN";
+    return;
   }
-
-  if(language === "Hindi"){
-    locale = "hi-IN";
-  }
-
-  return date.toLocaleDateString(
-    locale,
-    {
-      weekday:"long",
-      day:"numeric",
-      month:"short"
-    }
-  );
-
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-function showToast(message){
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.textContent = message;
-
-  toast.classList.add("show");
-
-  setTimeout(function(){
-
-    toast.classList.remove("show");
-
-  },2200);
-
-}
-
-
-/* =====================================================
-   LOAD SAVED ADDRESS
-===================================================== */
-
-function loadSavedAddress(){
 
   try{
 
-    const saved =
-      JSON.parse(
-        localStorage.getItem(
-          "sayonmart_saved_address"
-        ) || "null"
-      );
+    buyNow = JSON.parse(saved);
 
-    return saved;
+    renderProduct();
+
+    loadSavedAddress();
 
   }catch(error){
 
-    return null;
+    console.log(error);
 
   }
 
 }
 
 
-/* =====================================================
-   RENDER CHECKOUT
-===================================================== */
+/* PRODUCT */
+function renderProduct(){
 
-function renderCheckout(){
-
-  const checkout =
-    document.getElementById("checkout");
-
-  if(!buyNow){
-
-    checkout.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">
-          🛒
-        </div>
-
-        <div class="empty-title">
-          ${t("No product selected")}
-        </div>
-
-        <button
-          class="empty-btn"
-          onclick="location.href='products.html'">
-
-          ${t("Continue Shopping")}
-
-        </button>
-
-      </div>
-
-    `;
-
-    document.getElementById(
-      "bottomBar"
-    ).style.display = "none";
-
-    return;
-
-  }
-
-
-  /* ===================================================
-     PRODUCT DATA
-  =================================================== */
+  const p = buyNow;
 
   const price =
-    Number(buyNow.price || 0);
+    Number(p.price || 0);
 
   const oldPrice =
-    Number(buyNow.oldPrice || 0);
+    Number(p.oldPrice || p.mrp || price);
 
   const quantity =
-    Number(buyNow.quantity || 1);
+    Number(p.quantity || p.qty || 1);
 
-  const productPrice =
+  const subtotal =
     price * quantity;
 
   const discount =
-    oldPrice > price
-    ?
-    (oldPrice - price) * quantity
-    :
-    0;
+    Math.max(0,(oldPrice-price) * quantity);
 
-  const deliveryFee =
-    Number(buyNow.deliveryFee || 0);
+  const delivery =
+    subtotal >= 999 ? 0 : 0;
 
   const total =
-    productPrice + deliveryFee;
+    subtotal + delivery;
 
 
-  let discountPercent = 0;
-
-  if(oldPrice > price){
-
-    discountPercent =
-      Math.round(
-        (
-          (oldPrice - price) /
-          oldPrice
-        ) * 100
-      );
-
-  }
+  let image =
+    p.image ||
+    p.imageUrl ||
+    (p.images && p.images[0]) ||
+    "";
 
 
-  const image =
-    buyNow.image ||
-    buyNow.imageUrl ||
-    (
-      buyNow.images &&
-      buyNow.images[0]
-    ) ||
-    "https://via.placeholder.com/300";
+  document.getElementById("products").innerHTML = `
 
+    <div class="product">
 
-  const size =
-    buyNow.size ||
-    "Free Size";
+      <img
+        class="product-img"
+        src="${image}"
+        onerror="this.style.display='none'"
+      >
 
+      <div class="product-info">
 
-  let metaHTML =
-    `${t("Size")}: ${escapeHTML(size)}`;
+        <div class="product-name">
+          ${escapeHTML(p.name || p.title || "Product")}
+        </div>
 
+        <div class="product-variant">
+          ${p.color ? "Color: " + escapeHTML(p.color) : ""}
+          ${p.size ? " | Size: " + escapeHTML(p.size) : ""}
+        </div>
 
-  if(buyNow.color){
-
-    metaHTML +=
-      ` • ${t("Color")}: ${
-        escapeHTML(buyNow.color)
-      }`;
-
-  }
-
-
-  /* ===================================================
-     SAVED ADDRESS
-  =================================================== */
-
-  const saved =
-    loadSavedAddress();
-
-
-  /* ===================================================
-     MAIN HTML
-  =================================================== */
-
-  checkout.innerHTML = `
-
-
-    <!-- ================================================
-         OFFER
-    ================================================= -->
-
-    <div class="offer-strip">
-
-      <div class="offer-icon">
-        🎁
-      </div>
-
-      <div class="offer-text">
-
-        <b>
-          ${
-            discount > 0
-            ? money(discount)
-            : "₹0"
-          }
-          ${t("OFF")}
-        </b>
-
-        ${t("on this order") || "on this order"}
+        <div class="product-price">
+          ₹${price.toLocaleString("en-IN")}
+        </div>
 
       </div>
 
-    </div>
-
-
-
-    <div class="grid">
-
-
-      <!-- ==============================================
-           LEFT SIDE
-      =============================================== -->
-
-      <div>
-
-
-        <!-- ============================================
-             ADDRESS CARD
-        ============================================= -->
-
-        <div class="card">
-
-          <div class="card-header">
-
-            <div class="card-icon">
-              📍
-            </div>
-
-            <div>
-
-              <div class="card-title">
-                ${t("Delivery Address")}
-              </div>
-
-              <div class="card-subtitle">
-                ${t(
-                  "Please enter your complete address for smooth delivery"
-                )}
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="card-body">
-
-
-            <!-- LOCATION -->
-
-            <button
-              class="location-btn"
-              onclick="useMyLocation()">
-
-              <div class="location-icon">
-                📍
-              </div>
-
-              <div class="location-text">
-
-                <div class="location-title">
-                  ${t("Use My Location")}
-                </div>
-
-                <div class="location-sub">
-                  ${t(
-                    "Get your current location automatically"
-                  )}
-                </div>
-
-              </div>
-
-              <div class="location-arrow">
-                ›
-              </div>
-
-            </button>
-
-
-            <!-- NAME -->
-
-            <div class="input-group">
-
-              <span class="input-icon">
-                👤
-              </span>
-
-              <span class="input-label">
-                ${t("Full Name")} *
-              </span>
-
-              <input
-                class="input"
-                id="customerName"
-                type="text"
-                autocomplete="name"
-                placeholder=""
-              >
-
-            </div>
-
-
-            <!-- PHONE -->
-
-            <div class="input-group">
-
-              <span class="input-icon">
-                📞
-              </span>
-
-              <span class="input-label">
-                ${t("Mobile Number")} *
-              </span>
-
-              <input
-                class="input"
-                id="customerPhone"
-                type="tel"
-                inputmode="numeric"
-                maxlength="10"
-                autocomplete="tel"
-                placeholder=""
-              >
-
-            </div>
-
-
-            <!-- HOUSE -->
-
-            <div class="input-group">
-
-              <span class="input-icon">
-                🏠
-              </span>
-
-              <span class="input-label">
-                ${t("House / Flat / Building")} *
-              </span>
-
-              <input
-                class="input"
-                id="house"
-                type="text"
-                placeholder=""
-              >
-
-            </div>
-
-
-            <!-- AREA -->
-
-            <div class="input-group">
-
-              <span class="input-icon">
-                📍
-              </span>
-
-              <span class="input-label">
-                ${t("Area / Locality")} *
-              </span>
-
-              <input
-                class="input"
-                id="area"
-                type="text"
-                placeholder=""
-              >
-
-            </div>
-
-
-            <!-- CITY + PIN -->
-
-            <div class="row">
-
-              <div class="input-group">
-
-                <span class="input-icon">
-                  🏙️
-                </span>
-
-                <span class="input-label">
-                  ${t("City")} *
-                </span>
-
-                <input
-                  class="input"
-                  id="city"
-                  type="text"
-                  placeholder=""
-                >
-
-              </div>
-
-
-              <div class="input-group">
-
-                <span class="input-icon">
-                  📌
-                </span>
-
-                <span class="input-label">
-                  ${t("PIN Code")} *
-                </span>
-
-                <input
-                  class="input"
-                  id="pin"
-                  type="tel"
-                  inputmode="numeric"
-                  maxlength="6"
-                  placeholder=""
-                >
-
-              </div>
-
-            </div>
-
-
-            <!-- FULL ADDRESS -->
-
-            <div class="input-group">
-
-              <span class="input-icon">
-                📝
-              </span>
-
-              <span class="input-label">
-                ${t("Address")} *
-              </span>
-
-              <textarea
-                class="input"
-                id="customerAddress"
-                rows="3"
-                placeholder=""
-              ></textarea>
-
-            </div>
-
-
-            <!-- SAVE -->
-
-            <label class="save-address">
-
-              <input
-                type="checkbox"
-                class="save-check"
-                id="saveAddress"
-                checked
-              >
-
-              <div class="save-text">
-
-                ${t("Save Address")}
-
-                <span class="save-sub">
-                  ${t(
-                    "Save this address for next time"
-                  )}
-                </span>
-
-              </div>
-
-              🔖
-
-            </label>
-
-
-            <!-- MAP -->
-
-            <div class="map-box">
-
-              <div class="map-top">
-
-                <div class="map-road"></div>
-
-                <div class="map-road two"></div>
-
-                <div class="map-pin"></div>
-
-              </div>
-
-              <div class="map-info">
-
-                🛡️
-
-                <span>
-                  ${t(
-                    "Your payment and personal data are protected"
-                  )}
-                </span>
-
-                <span class="safe">
-                  ✓ Safe
-                </span>
-
-              </div>
-
-            </div>
-
-
-            <!-- ADD ADDRESS -->
-
-            <button
-              class="add-address"
-              onclick="clearAddressFields()">
-
-              ${t("Add Another Address")}
-
-            </button>
-
-
-          </div>
-
-        </div>
-
-
-
-        <!-- ==========================================
-             DELIVERY CARD
-        =========================================== -->
-
-        <div class="card">
-
-          <div class="card-header">
-
-            <div class="card-icon">
-              🚚
-            </div>
-
-            <div>
-
-              <div class="card-title">
-                ${t("Delivery")}
-              </div>
-
-              <div class="card-subtitle">
-                ${t("Expected delivery")}
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="card-body">
-
-            <div class="delivery-option">
-
-              <div class="delivery-round">
-                🚚
-              </div>
-
-              <div class="delivery-main">
-
-                <div class="delivery-name">
-                  Standard Delivery
-                </div>
-
-                <div class="delivery-date">
-                  ${deliveryDate()}
-                </div>
-
-              </div>
-
-              <div class="delivery-price">
-
-                ${
-                  deliveryFee > 0
-                  ? money(deliveryFee)
-                  : t("Free")
-                }
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-
-
-      <!-- ==============================================
-           RIGHT SIDE
-      =============================================== -->
-
-      <div>
-
-
-        <!-- ============================================
-             ORDER SUMMARY
-        ============================================= -->
-
-        <div class="card">
-
-          <div class="card-header">
-
-            <div class="card-icon">
-              🛒
-            </div>
-
-            <div>
-
-              <div class="card-title">
-                ${t("Order Summary")}
-              </div>
-
-              <div class="card-subtitle">
-                1 ${t("items")}
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="product-card">
-
-
-            <img
-              class="product-image"
-              src="${escapeHTML(image)}"
-              onerror="
-                this.src='https://via.placeholder.com/300'
-              "
-            >
-
-
-            <div class="product-info">
-
-              <div class="product-name">
-
-                ${escapeHTML(
-                  buyNow.name || "Product"
-                )}
-
-              </div>
-
-
-              <div class="product-meta">
-
-                ${metaHTML}
-
-              </div>
-
-
-              <div class="product-price-row">
-
-                <span class="product-price">
-
-                  ${money(price)}
-
-                </span>
-
-
-                ${
-                  oldPrice > price
-
-                  ?
-
-                  `
-
-                  <span class="old-price">
-
-                    ${money(oldPrice)}
-
-                  </span>
-
-                  <span class="discount">
-
-                    ${discountPercent}%
-                    ${t("OFF")}
-
-                  </span>
-
-                  `
-
-                  :
-
-                  ""
-
-                }
-
-
-                <span class="qty">
-
-                  × ${quantity}
-
-                </span>
-
-              </div>
-
-
-              ${
-                buyNow.seller
-
-                ?
-
-                `
-
-                <div class="product-meta">
-
-                  ${t("Seller")}:
-                  ${escapeHTML(
-                    buyNow.seller
-                  )}
-
-                </div>
-
-                `
-
-                :
-
-                ""
-
-              }
-
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-
-        <!-- ============================================
-             PRICE DETAILS
-        ============================================= -->
-
-        <div class="card">
-
-          <div class="card-header">
-
-            <div class="card-icon">
-              💰
-            </div>
-
-            <div>
-
-              <div class="card-title">
-                ${t("Price Details")}
-              </div>
-
-              <div class="card-subtitle">
-                Final price breakdown
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="card-body">
-
-
-            <div class="price-row-line">
-
-              <span>
-                ${t("Product Price")}
-              </span>
-
-              <span>
-                ${money(productPrice)}
-              </span>
-
-            </div>
-
-
-            <div class="price-row-line discount-line">
-
-              <span>
-                ${t("Discount")}
-              </span>
-
-              <span>
-                -${money(discount)}
-              </span>
-
-            </div>
-
-
-            <div class="price-row-line">
-
-              <span>
-                ${t("Delivery Fee")}
-              </span>
-
-              <span>
-
-                ${
-                  deliveryFee > 0
-                  ? money(deliveryFee)
-                  : t("Free")
-                }
-
-              </span>
-
-            </div>
-
-
-            <div class="price-total">
-
-              <span>
-                ${t("Total")}
-              </span>
-
-              <span>
-                ${money(total)}
-              </span>
-
-            </div>
-
-
-            <!-- SECURE -->
-
-            <div class="secure-box">
-
-              <div class="secure-box-icon">
-                🛡️
-              </div>
-
-              <div>
-
-                <div class="secure-box-title">
-                  ${t("Secure")}
-                </div>
-
-                <div class="secure-box-text">
-                  ${t(
-                    "Your payment and personal data are protected"
-                  )}
-                </div>
-
-              </div>
-
-            </div>
-
-
-          </div>
-
-        </div>
-
+      <div class="qty">
+
+        <button onclick="changeQty(-1)">
+          −
+        </button>
+
+        <span id="qty">
+          ${quantity}
+        </span>
+
+        <button onclick="changeQty(1)">
+          +
+        </button>
 
       </div>
 
@@ -2564,112 +1215,242 @@ function renderCheckout(){
   `;
 
 
-  /* ===================================================
-     BOTTOM TOTAL
-  =================================================== */
+  document.getElementById("subtotal").textContent =
+    "₹" + subtotal.toLocaleString("en-IN");
 
-  document.getElementById(
-    "bottomTotal"
-  ).textContent =
-    money(total);
+  document.getElementById("discount").textContent =
+    "- ₹" + discount.toLocaleString("en-IN");
 
+  document.getElementById("delivery").textContent =
+    delivery === 0 ? "₹0" : "₹" + delivery;
 
-  document.getElementById(
-    "bottomDiscount"
-  ).textContent =
-    discount > 0
-    ? money(discount) + " " + t("OFF")
-    : "₹0 " + t("OFF");
+  document.getElementById("total").textContent =
+    "₹" + total.toLocaleString("en-IN");
 
-
-  document.getElementById(
-    "bottomBar"
-  ).style.display =
-    "flex";
-
-
-  /* ===================================================
-     PREFILL SAVED DATA
-  =================================================== */
-
-  const addressData =
-    saved ||
-    {
-      name:buyNow.customerName || "",
-      phone:buyNow.phone || "",
-      house:buyNow.house || "",
-      area:buyNow.area || "",
-      city:buyNow.city || "",
-      pin:buyNow.pin || "",
-      address:buyNow.address || ""
-    };
-
-
-  document.getElementById(
-    "customerName"
-  ).value =
-    addressData.name || "";
-
-
-  document.getElementById(
-    "customerPhone"
-  ).value =
-    addressData.phone || "";
-
-
-  document.getElementById(
-    "house"
-  ).value =
-    addressData.house || "";
-
-
-  document.getElementById(
-    "area"
-  ).value =
-    addressData.area || "";
-
-
-  document.getElementById(
-    "city"
-  ).value =
-    addressData.city || "";
-
-
-  document.getElementById(
-    "pin"
-  ).value =
-    addressData.pin || "";
-
-
-  document.getElementById(
-    "customerAddress"
-  ).value =
-    addressData.address || "";
-
+  document.getElementById("itemCount").textContent =
+    quantity + (quantity === 1 ? " item" : " items");
 
 }
 
 
-/* =====================================================
-   USE MY LOCATION
-===================================================== */
+/* QUANTITY */
+function changeQty(change){
 
-window.useMyLocation =
-function(){
+  if(!buyNow) return;
 
-  if(!navigator.geolocation){
+  let qty =
+    Number(buyNow.quantity || buyNow.qty || 1);
 
-    showToast(
-      "Location is not supported on this browser."
-    );
+  qty += change;
+
+  if(qty < 1){
+    qty = 1;
+  }
+
+  buyNow.quantity = qty;
+
+  localStorage.setItem(
+    "sayonmart_buy_now",
+    JSON.stringify(buyNow)
+  );
+
+  renderProduct();
+
+}
+
+
+/* SAVE ADDRESS */
+function continueToPayment(){
+
+  if(!buyNow){
+
+    alert("Product not found.");
 
     return;
-
   }
 
 
-  showToast(
-    "Please allow location permission..."
+  const name =
+    document.getElementById("name").value.trim();
+
+  const phone =
+    document.getElementById("phone").value.trim();
+
+  const house =
+    document.getElementById("house").value.trim();
+
+  const area =
+    document.getElementById("area").value.trim();
+
+  const city =
+    document.getElementById("city").value.trim();
+
+  const pin =
+    document.getElementById("pin").value.trim();
+
+
+  if(!name){
+
+    alert("Please enter your full name.");
+
+    document.getElementById("name").focus();
+
+    return;
+  }
+
+
+  if(!/^[0-9]{10}$/.test(phone)){
+
+    alert("Please enter a valid 10 digit mobile number.");
+
+    document.getElementById("phone").focus();
+
+    return;
+  }
+
+
+  if(!house){
+
+    alert("Please enter your House / Flat / Building.");
+
+    document.getElementById("house").focus();
+
+    return;
+  }
+
+
+  if(!area){
+
+    alert("Please enter your Area / Locality.");
+
+    document.getElementById("area").focus();
+
+    return;
+  }
+
+
+  if(!city){
+
+    alert("Please enter your City.");
+
+    document.getElementById("city").focus();
+
+    return;
+  }
+
+
+  if(!/^[0-9]{6}$/.test(pin)){
+
+    alert("Please enter a valid 6 digit PIN Code.");
+
+    document.getElementById("pin").focus();
+
+    return;
+  }
+
+
+  const fullAddress =
+    house +
+    ", " +
+    area +
+    ", " +
+    city +
+    " - " +
+    pin;
+
+
+  /* SAVE OLD FORMAT TOO */
+  buyNow.customerName = name;
+  buyNow.phone = phone;
+  buyNow.address = fullAddress;
+
+
+  /* SAVE NEW ADDRESS */
+  buyNow.deliveryAddress = {
+
+    name:name,
+    phone:phone,
+    house:house,
+    area:area,
+    city:city,
+    pin:pin,
+    fullAddress:fullAddress
+
+  };
+
+
+  localStorage.setItem(
+    "sayonmart_buy_now",
+    JSON.stringify(buyNow)
+  );
+
+
+  /* SAVE ADDRESS FOR NEXT TIME */
+  localStorage.setItem(
+    "sayonmart_saved_address",
+    JSON.stringify(buyNow.deliveryAddress)
+  );
+
+
+  /* GO PAYMENT */
+  window.location.href = "payment.html";
+
+}
+
+
+/* LOAD SAVED ADDRESS */
+function loadSavedAddress(){
+
+  try{
+
+    const saved =
+      localStorage.getItem("sayonmart_saved_address");
+
+    if(!saved) return;
+
+    const address =
+      JSON.parse(saved);
+
+    document.getElementById("name").value =
+      address.name || "";
+
+    document.getElementById("phone").value =
+      address.phone || "";
+
+    document.getElementById("house").value =
+      address.house || "";
+
+    document.getElementById("area").value =
+      address.area || "";
+
+    document.getElementById("city").value =
+      address.city || "";
+
+    document.getElementById("pin").value =
+      address.pin || "";
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+/* LOCATION */
+function useLocation(){
+
+  if(!navigator.geolocation){
+
+    alert("Location is not supported on this device.");
+
+    return;
+  }
+
+
+  alert(
+    "Location permission দিলে আপনার current location পাওয়া যাবে। Address দেওয়ার আগে location permission allow করুন।"
   );
 
 
@@ -2677,318 +1458,71 @@ function(){
 
     function(){
 
-      /*
-        For privacy and reliability, this page does
-        not automatically send your exact coordinates
-        anywhere.
+      document.getElementById("area").focus();
 
-        We simply focus the address field so the user
-        can enter/confirm the delivery address.
-      */
-
-      const address =
-        document.getElementById(
-          "customerAddress"
-        );
-
-      if(address){
-
-        address.focus();
-
-      }
-
-      showToast(
-        "Location permission allowed. Please confirm your address."
+      alert(
+        "Location permission দেওয়া হয়েছে। এখন আপনার address details confirm করুন।"
       );
 
     },
 
     function(){
 
-      showToast(
-        "Location permission was not allowed."
+      alert(
+        "Location পাওয়া যায়নি। আপনি manually address দিতে পারেন।"
       );
 
-    },
-
-    {
-      enableHighAccuracy:false,
-      timeout:8000,
-      maximumAge:300000
     }
 
   );
 
-};
+}
 
 
-/* =====================================================
-   CLEAR / ADD ANOTHER ADDRESS
-===================================================== */
+/* BACK */
+function goBack(){
 
-window.clearAddressFields =
-function(){
+  if(document.referrer){
 
-  const ids = [
+    history.back();
 
-    "house",
-    "area",
-    "city",
-    "pin",
-    "customerAddress"
+  }else{
 
-  ];
-
-
-  ids.forEach(function(id){
-
-    const element =
-      document.getElementById(id);
-
-    if(element){
-
-      element.value = "";
-
-    }
-
-  });
-
-
-  showToast(
-    "Enter a new address"
-  );
-
-
-  document.getElementById(
-    "house"
-  )?.focus();
-
-};
-
-
-/* =====================================================
-   CONTINUE TO PAYMENT
-===================================================== */
-
-window.continueOrder =
-function(){
-
-  const name =
-    document.getElementById(
-      "customerName"
-    )?.value.trim();
-
-
-  const phone =
-    document.getElementById(
-      "customerPhone"
-    )?.value.trim();
-
-
-  const house =
-    document.getElementById(
-      "house"
-    )?.value.trim();
-
-
-  const area =
-    document.getElementById(
-      "area"
-    )?.value.trim();
-
-
-  const city =
-    document.getElementById(
-      "city"
-    )?.value.trim();
-
-
-  const pin =
-    document.getElementById(
-      "pin"
-    )?.value.trim();
-
-
-  const address =
-    document.getElementById(
-      "customerAddress"
-    )?.value.trim();
-
-
-  /* REQUIRED */
-
-  if(
-    !name ||
-    !phone ||
-    !house ||
-    !area ||
-    !city ||
-    !pin ||
-    !address
-  ){
-
-    showToast(
-      t("Please fill your details")
-    );
-
-    return;
+    window.location.href = "index.html";
 
   }
 
-
-  /* PHONE */
-
-  if(!/^[0-9]{10}$/.test(phone)){
-
-    showToast(
-      t("Invalid phone")
-    );
-
-    return;
-
-  }
+}
 
 
-  /* PIN */
+/* SECURITY */
+function escapeHTML(text){
 
-  if(!/^[0-9]{6}$/.test(pin)){
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
-    showToast(
-      t("Invalid PIN")
-    );
-
-    return;
-
-  }
-
-
-  /* SAVE TO BUY NOW */
-
-  buyNow.customerName =
-    name;
-
-  buyNow.phone =
-    phone;
-
-  buyNow.house =
-    house;
-
-  buyNow.area =
-    area;
-
-  buyNow.city =
-    city;
-
-  buyNow.pin =
-    pin;
-
-  buyNow.address =
-    address;
+}
 
 
-  /* SAVE ADDRESS */
-
-  const saveAddress =
-    document.getElementById(
-      "saveAddress"
-    )?.checked;
+/* START */
+loadOrder();
 
 
-  if(saveAddress){
-
-    localStorage.setItem(
-
-      "sayonmart_saved_address",
-
-      JSON.stringify({
-
-        name:name,
-
-        phone:phone,
-
-        house:house,
-
-        area:area,
-
-        city:city,
-
-        pin:pin,
-
-        address:address
-
-      })
-
-    );
-
-  }
-
-
-  /* SAVE BUY NOW */
-
-  localStorage.setItem(
-
-    "sayonmart_buy_now",
-
-    JSON.stringify(buyNow)
-
-  );
-
-
-  /* GO PAYMENT */
-
-  location.href =
-    "payment.html";
-
-};
-
-
-/* =====================================================
-   LANGUAGE CHANGE
-===================================================== */
-
+/* LANGUAGE SUPPORT */
 window.addEventListener(
   "languageChanged",
   function(){
 
-    renderCheckout();
+    loadOrder();
 
   }
 );
-
-
-/* =====================================================
-   PHONE ONLY NUMBERS
-===================================================== */
-
-document.addEventListener(
-  "input",
-  function(event){
-
-    if(
-      event.target.id ===
-      "customerPhone" ||
-      event.target.id ===
-      "pin"
-    ){
-
-      event.target.value =
-        event.target.value
-        .replace(/\D/g,"");
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   START
-===================================================== */
-
-renderCheckout();
 
 </script>
 
 </body>
-
 </html>
