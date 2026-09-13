@@ -8,535 +8,358 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>SayonMart Admin Panel</title>
+<title>SayonMart - Admin Panel</title>
 
 <style>
 
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  background:#f5f5f5;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5f6fa;
   color:#222;
-  padding-bottom:40px;
 }
 
 header{
+  background:#111;
+  color:white;
+  padding:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   position:sticky;
   top:0;
   z-index:100;
-  background:#fff;
-  border-bottom:2px solid #d4af37;
-  padding:16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 .logo{
-  font-size:23px;
+  font-size:22px;
   font-weight:bold;
-  color:#c49a00;
 }
 
-.admin-badge{
-  background:#fff7d6;
-  color:#9b7800;
-  border:1px solid #e5c84b;
-  padding:7px 12px;
-  border-radius:20px;
-  font-size:12px;
+.logo span{
+  color:#ffd700;
+}
+
+.header-buttons{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.header-buttons button{
+  border:0;
+  padding:9px 12px;
+  border-radius:7px;
+  cursor:pointer;
   font-weight:bold;
+}
+
+.home-btn{
+  background:#ffd700;
+}
+
+.logout-btn{
+  background:#ff4d4d;
+  color:white;
 }
 
 .container{
-  width:100%;
   max-width:1100px;
   margin:auto;
-  padding:18px;
+  padding:15px;
 }
 
 .card{
-  background:#fff;
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.07);
-  border-top:4px solid #d4af37;
+  background:white;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
 .card h2{
-  color:#b18700;
-  margin-bottom:18px;
-  font-size:20px;
-}
-
-.admin-info{
-  background:#fff9df;
-  border:1px solid #ead27b;
-  border-radius:10px;
-  padding:12px;
-  font-size:13px;
-  margin-bottom:15px;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-label{
-  font-size:13px;
-  font-weight:bold;
-  color:#555;
+  margin-top:0;
+  font-size:21px;
 }
 
 input,
-select,
-textarea{
+textarea,
+select{
   width:100%;
+  padding:12px;
   border:1px solid #ddd;
-  background:#fff;
-  border-radius:10px;
-  padding:13px;
-  font-size:14px;
+  border-radius:8px;
+  margin-top:7px;
+  margin-bottom:12px;
+  font-size:15px;
   outline:none;
 }
 
 input:focus,
-select:focus,
 textarea:focus{
-  border-color:#d4af37;
-  box-shadow:0 0 0 3px rgba(212,175,55,.12);
+  border-color:#ffd700;
 }
 
 textarea{
-  min-height:110px;
+  min-height:90px;
   resize:vertical;
 }
 
-.buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:18px;
-}
-
-button{
-  border:none;
-  border-radius:10px;
-  padding:12px 18px;
+label{
   font-weight:bold;
-  cursor:pointer;
   font-size:14px;
 }
 
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
+.main-btn{
+  width:100%;
+  border:0;
+  background:#ffd700;
+  padding:13px;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.btn-gold{
-  background:#d4af37;
-  color:#fff;
+.cancel-btn{
+  width:100%;
+  border:0;
+  background:#ddd;
+  padding:12px;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:8px;
 }
 
-.btn-light{
-  background:#f2f2f2;
-  color:#333;
-}
-
-.btn-red{
-  background:#e53935;
-  color:#fff;
-}
-
-.btn-blue{
-  background:#1976d2;
-  color:#fff;
-}
-
-.btn-green{
-  background:#2e7d32;
-  color:#fff;
-}
-
-/* =========================
-PRODUCT PREVIEW
-========================= */
-
-#preview{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.preview-img{
-  width:90px;
-  height:90px;
-  object-fit:cover;
+.preview-box{
+  margin-top:10px;
+  border:2px dashed #ddd;
   border-radius:10px;
-  border:2px solid #eee;
-}
-
-/* =========================
-BANNER
-========================= */
-
-.banner-upload-box{
-  border:2px dashed #d4af37;
-  border-radius:14px;
-  padding:20px;
+  padding:10px;
   text-align:center;
-  background:#fffdf4;
+  background:#fafafa;
 }
 
-.banner-upload-icon{
-  font-size:42px;
-  margin-bottom:10px;
-}
-
-.banner-help{
-  color:#777;
-  font-size:13px;
-  margin-bottom:15px;
-}
-
-.banner-preview{
-  margin-top:15px;
-  width:100%;
-  max-width:600px;
-  height:210px;
-  object-fit:cover;
-  border-radius:14px;
+.preview-box img{
+  max-width:100%;
+  max-height:250px;
+  border-radius:8px;
   display:none;
-  border:1px solid #ddd;
+  margin:auto;
 }
 
-/* =========================
-BANNER PROGRESS
-========================= */
-
-#bannerProgressBox{
+.progress-box{
   display:none;
   margin-top:15px;
-  text-align:left;
 }
 
-.progress-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:13px;
-  margin-bottom:7px;
-}
-
-.progress-container{
+.progress-bg{
   width:100%;
-  height:12px;
-  background:#eeeeee;
+  height:15px;
+  background:#ddd;
   border-radius:20px;
   overflow:hidden;
 }
 
-#bannerProgressBar{
+.progress-bar{
   width:0%;
   height:100%;
-  background:#d4af37;
-  border-radius:20px;
-  transition:width .2s ease;
+  background:#22aa55;
+  transition:.2s;
 }
 
-#bannerProgressText{
-  color:#b18700;
+.progress-text{
+  text-align:center;
+  margin-top:7px;
   font-weight:bold;
 }
 
-/* =========================
-BANNER LIST
-========================= */
-
-.banner-list{
+.banner-list,
+.product-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:15px;
-  margin-top:18px;
 }
 
-.banner-item{
-  background:#fff;
+.banner-item,
+.product-card{
   border:1px solid #eee;
-  border-radius:14px;
+  border-radius:10px;
   overflow:hidden;
-  box-shadow:0 3px 12px rgba(0,0,0,.06);
+  background:white;
 }
 
 .banner-item img{
   width:100%;
-  height:180px;
+  height:140px;
   object-fit:cover;
-  display:block;
 }
 
-.banner-info{
-  padding:13px;
+.banner-content,
+.product-content{
+  padding:12px;
 }
 
-.banner-title{
-  font-weight:bold;
-  font-size:16px;
-  margin-bottom:5px;
+.banner-content h3,
+.product-content h3{
+  margin:0 0 7px;
 }
 
-.banner-description{
-  color:#777;
-  font-size:13px;
-  margin-bottom:10px;
+.banner-content p,
+.product-content p{
+  margin:5px 0;
+  color:#555;
+  font-size:14px;
 }
 
-.banner-buttons{
+.small-buttons{
   display:flex;
-  gap:8px;
+  gap:7px;
+  margin-top:10px;
 }
 
-.banner-buttons button{
+.small-buttons button{
   flex:1;
-  padding:9px 5px;
-  font-size:12px;
+  border:0;
+  padding:9px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-/* =========================
-PRODUCTS
-========================= */
-
-.products-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
+.edit-btn{
+  background:#2196f3;
+  color:white;
 }
 
-.product{
-  background:#fff;
-  border:1px solid #eee;
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:0 3px 12px rgba(0,0,0,.06);
+.delete-btn{
+  background:#ff4d4d;
+  color:white;
 }
 
-.product img{
+.product-card img{
   width:100%;
   height:180px;
   object-fit:cover;
   background:#eee;
 }
 
-.product-info{
-  padding:13px;
-}
-
-.product-name{
-  font-weight:bold;
-  font-size:15px;
-  margin-bottom:7px;
-}
-
 .price{
-  color:#b18700;
   font-size:18px;
   font-weight:bold;
 }
 
 .old-price{
-  color:#999;
+  color:#888;
   text-decoration:line-through;
-  font-size:13px;
   margin-left:5px;
 }
 
 .discount{
-  display:inline-block;
-  background:#e9f7ec;
-  color:#16852c;
-  padding:4px 7px;
-  border-radius:5px;
-  font-size:11px;
-  margin-top:7px;
+  color:#159447;
+  font-weight:bold;
+  margin-left:5px;
 }
-
-.category{
-  color:#777;
-  font-size:12px;
-  margin-top:6px;
-}
-
-.product-buttons{
-  display:flex;
-  gap:7px;
-  margin-top:12px;
-}
-
-.product-buttons button{
-  flex:1;
-  padding:9px 5px;
-  font-size:12px;
-}
-
-/* =========================
-EMPTY
-========================= */
 
 .empty{
   text-align:center;
+  padding:25px;
   color:#777;
-  padding:30px;
 }
 
-/* =========================
-MODAL
-========================= */
+.loading{
+  text-align:center;
+  padding:20px;
+}
+
+.status{
+  padding:10px;
+  border-radius:7px;
+  margin-top:10px;
+  display:none;
+  font-weight:bold;
+}
+
+.success{
+  background:#dff7e6;
+  color:#137333;
+}
+
+.error{
+  background:#ffe1e1;
+  color:#b00020;
+}
+
+.image-preview-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:8px;
+}
+
+.image-preview-grid img{
+  width:100%;
+  height:90px;
+  object-fit:cover;
+  border-radius:7px;
+}
 
 .modal{
   display:none;
   position:fixed;
   inset:0;
+  background:rgba(0,0,0,.65);
   z-index:999;
-  background:rgba(0,0,0,.55);
   padding:20px;
-  overflow-y:auto;
+  overflow:auto;
 }
 
 .modal-box{
-  background:#fff;
-  max-width:650px;
-  margin:40px auto;
-  border-radius:18px;
-  padding:22px;
-}
-
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.close{
-  background:#eee;
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  padding:0;
-  font-size:20px;
-}
-
-.detail-row{
-  padding:12px 0;
-  border-bottom:1px solid #eee;
-}
-
-.detail-row b{
-  color:#a47e00;
-}
-
-/* =========================
-ORDER BOX
-========================= */
-
-.order-box{
-  background:#fff;
-  border-top:4px solid #d4af37;
-  border-radius:16px;
+  max-width:600px;
+  background:white;
+  margin:30px auto;
+  border-radius:12px;
   padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.07);
 }
 
-.order-box h2{
-  color:#b18700;
-  margin-bottom:8px;
+.close-modal{
+  float:right;
+  border:0;
+  background:#ff4d4d;
+  color:white;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  cursor:pointer;
 }
 
-.order-box p{
-  color:#666;
-  margin-bottom:15px;
-}
+@media(max-width:600px){
 
-.order-buttons{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-/* =========================
-RESPONSIVE
-========================= */
-
-@media(max-width:800px){
-
-  .products-grid{
-    grid-template-columns:repeat(2,1fr);
+  header{
+    align-items:flex-start;
+    gap:10px;
+    flex-direction:column;
   }
 
-  .banner-list{
-    grid-template-columns:1fr;
+  .header-buttons{
+    width:100%;
   }
 
-  .form-grid{
-    grid-template-columns:1fr;
+  .header-buttons button{
+    flex:1;
   }
-
-  .field.full{
-    grid-column:auto;
-  }
-
-  .product img{
-    height:150px;
-  }
-
-}
-
-@media(max-width:450px){
 
   .container{
-    padding:12px;
+    padding:10px;
   }
 
-  .card,
-  .order-box{
-    padding:15px;
-  }
-
-  .product img{
-    height:135px;
-  }
-
-  .logo{
-    font-size:19px;
-  }
-
-  .admin-badge{
-    font-size:10px;
-  }
-
-  .banner-preview{
-    height:160px;
+  .card{
+    padding:14px;
   }
 
 }
@@ -549,701 +372,765 @@ RESPONSIVE
 
 <header>
 
-<div class="logo">
-SayonMart Admin
-</div>
+  <div class="logo">
+    🛍️ Sayon<span>Mart</span>
+  </div>
 
-<div class="admin-badge">
-ADMIN PANEL
-</div>
+  <div class="header-buttons">
+
+    <button
+      class="home-btn"
+      onclick="location.href='index.html'">
+      🏠 Home
+    </button>
+
+    <button
+      onclick="location.href='admin-users.html'">
+      👥 Users
+    </button>
+
+    <button
+      onclick="location.href='confirm-orders.html'">
+      ✅ Confirm Orders
+    </button>
+
+    <button
+      onclick="location.href='admin-orders.html'">
+      📦 All Orders
+    </button>
+
+    <button
+      class="logout-btn"
+      id="logoutBtn">
+      Logout
+    </button>
+
+  </div>
 
 </header>
 
 
 <div class="container">
 
-<div class="admin-info">
 
-🔐 <b>Admin Dashboard</b><br>
+<!-- =========================
+     ADMIN STATUS
+========================= -->
 
-এখান থেকে Product, Banner এবং Order manage করতে পারবেন।
-
-</div>
+<div id="adminStatus"
+class="status"></div>
 
 
 <!-- =========================
-HOME BANNER
+     BANNER
 ========================= -->
 
 <div class="card">
 
-<h2>
-🖼️ Home Banner Control
-</h2>
+  <h2>🖼️ Banner Management</h2>
 
-<div class="banner-upload-box">
+  <input
+    type="hidden"
+    id="editingBannerId">
 
-<div class="banner-upload-icon">
-📷
-</div>
-
-<p class="banner-help">
-Gallery থেকে Home Banner-এর ছবি নির্বাচন করুন।
-</p>
-
-<input
-id="bannerImage"
-type="file"
-accept="image/*"
->
-
-<img
-id="bannerPreview"
-class="banner-preview"
->
+  <input
+    type="hidden"
+    id="editingBannerImage">
 
 
-<div
-class="form-grid"
-style="margin-top:15px;text-align:left;"
->
+  <label>
+    Banner Image
+  </label>
 
-<div class="field">
-
-<label>
-Banner Title
-</label>
-
-<input
-id="bannerTitle"
-type="text"
-placeholder="Special Offer"
->
-
-</div>
+  <input
+    type="file"
+    id="bannerImage"
+    accept="image/*">
 
 
-<div class="field">
+  <div class="preview-box">
 
-<label>
-Button Text
-</label>
+    <p id="previewText">
+      Gallery থেকে একটি ছবি নির্বাচন করুন
+    </p>
 
-<input
-id="bannerButton"
-type="text"
-placeholder="Shop Now"
->
+    <img
+      id="bannerPreview"
+      alt="Banner Preview">
 
-</div>
+  </div>
 
 
-<div class="field full">
+  <label>
+    Banner Title
+  </label>
 
-<label>
-Banner Description
-</label>
-
-<textarea
-id="bannerDescription"
-placeholder="Write banner description..."
-></textarea>
-
-</div>
+  <input
+    type="text"
+    id="bannerTitle"
+    placeholder="যেমন: SPECIAL OFFER">
 
 
-<div class="field full">
+  <label>
+    Banner Description
+  </label>
 
-<label>
-Button Link
-</label>
-
-<input
-id="bannerLink"
-type="text"
-placeholder="products.html"
->
-
-</div>
-
-</div>
+  <textarea
+    id="bannerDescription"
+    placeholder="Banner description লিখুন"></textarea>
 
 
-<div class="buttons">
+  <label>
+    Button Text
+  </label>
 
-<button
-class="btn-gold"
-id="saveBannerBtn"
-onclick="saveBanner()"
->
-💾 Upload & Save Banner
-</button>
-
-
-<button
-class="btn-light"
-id="cancelBannerBtn"
-onclick="clearBannerForm()"
-style="display:none;"
->
-Cancel Edit
-</button>
-
-</div>
+  <input
+    type="text"
+    id="bannerButton"
+    placeholder="যেমন: Shop Now">
 
 
-<!-- =========================
-UPLOAD PROGRESS
-========================= -->
+  <label>
+    Button Link
+  </label>
 
-<div id="bannerProgressBox">
-
-<div class="progress-top">
-
-<b id="bannerProgressStatus">
-Starting upload...
-</b>
-
-<b id="bannerProgressText">
-0%
-</b>
-
-</div>
-
-<div class="progress-container">
-
-<div id="bannerProgressBar">
-</div>
-
-</div>
-
-</div>
+  <input
+    type="text"
+    id="bannerLink"
+    placeholder="যেমন: products.html">
 
 
-</div>
+  <button
+    class="main-btn"
+    id="saveBannerBtn">
+    💾 Save Banner
+  </button>
+
+  <button
+    class="cancel-btn"
+    id="cancelBannerBtn">
+    Cancel
+  </button>
 
 
-<h3
-style="margin-top:25px;color:#b18700;"
->
-📋 Home Banners
-</h3>
+  <div
+    class="progress-box"
+    id="bannerProgressBox">
+
+    <div class="progress-bg">
+
+      <div
+        class="progress-bar"
+        id="bannerProgressBar">
+      </div>
+
+    </div>
+
+    <div
+      class="progress-text"
+      id="bannerProgressText">
+      0%
+    </div>
+
+  </div>
 
 
-<div
-id="bannerList"
-class="banner-list"
->
-
-<div class="empty">
-Loading banners...
-</div>
-
-</div>
+  <div
+    class="status"
+    id="bannerStatus">
+  </div>
 
 </div>
 
 
 <!-- =========================
-PRODUCT FORM
+     BANNER LIST
 ========================= -->
 
 <div class="card">
 
-<h2 id="formTitle">
-➕ Add New Product
-</h2>
+  <h2>📋 Saved Banners</h2>
 
+  <div
+    id="bannerList"
+    class="banner-list">
 
-<div class="form-grid">
+    <div class="loading">
+      Loading banners...
+    </div>
 
-
-<div class="field">
-
-<label>
-Product Name *
-</label>
-
-<input
-id="productName"
-type="text"
-placeholder="Product Name"
->
-
-</div>
-
-
-<div class="field">
-
-<label>
-Price *
-</label>
-
-<input
-id="productPrice"
-type="number"
-placeholder="Price"
->
-
-</div>
-
-
-<div class="field">
-
-<label>
-Old Price
-</label>
-
-<input
-id="productOldPrice"
-type="number"
-placeholder="Old Price"
->
-
-</div>
-
-
-<div class="field">
-
-<label>
-Discount %
-</label>
-
-<input
-id="productDiscount"
-type="number"
-placeholder="Discount %"
->
-
-</div>
-
-
-<div class="field">
-
-<label>
-Category *
-</label>
-
-<select id="productCategory">
-
-<option value="">
-Select Category
-</option>
-
-<option value="Fashion">
-Fashion
-</option>
-
-<option value="Shoes">
-Shoes
-</option>
-
-<option value="Mobiles">
-Mobiles
-</option>
-
-<option value="Watches">
-Watches
-</option>
-
-<option value="Electronics">
-Electronics
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="field">
-
-<label>
-Colors
-</label>
-
-<input
-id="productColors"
-type="text"
-placeholder="Black, Blue, Red"
->
-
-</div>
-
-
-<div class="field">
-
-<label>
-Sizes
-</label>
-
-<input
-id="productSizes"
-type="text"
-placeholder="M, L, XL, XXL"
->
-
-</div>
-
-
-<div class="field full">
-
-<label>
-Product Description
-</label>
-
-<textarea
-id="productDescription"
-placeholder="Write product description..."
-></textarea>
-
-</div>
-
-
-<div class="field full">
-
-<label>
-Product Images *
-</label>
-
-<input
-id="productImage"
-type="file"
-accept="image/*"
-multiple
->
-
-</div>
-
-</div>
-
-
-<div id="preview">
-</div>
-
-
-<div class="buttons">
-
-<button
-class="btn-gold"
-id="saveBtn"
-onclick="saveProduct()"
->
-💾 Save Product
-</button>
-
-
-<button
-class="btn-light"
-id="cancelBtn"
-onclick="cancelEdit()"
-style="display:none;"
->
-Cancel Edit
-</button>
-
-</div>
+  </div>
 
 </div>
 
 
 <!-- =========================
-ALL PRODUCTS
+     PRODUCT
 ========================= -->
 
 <div class="card">
 
-<h2>
-📦 All Products
-</h2>
+  <h2>🛍️ Product Management</h2>
+
+  <input
+    type="hidden"
+    id="editingProductId">
+
+
+  <label>
+    Product Name
+  </label>
+
+  <input
+    type="text"
+    id="productName"
+    placeholder="Product Name">
+
+
+  <label>
+    Product Price
+  </label>
+
+  <input
+    type="number"
+    id="productPrice"
+    placeholder="299">
+
+
+  <label>
+    Old Price
+  </label>
+
+  <input
+    type="number"
+    id="productOldPrice"
+    placeholder="399">
+
+
+  <label>
+    Discount %
+  </label>
+
+  <input
+    type="number"
+    id="productDiscount"
+    placeholder="25">
+
+
+  <label>
+    Rating
+  </label>
+
+  <input
+    type="number"
+    id="productRating"
+    placeholder="4.5"
+    step="0.1"
+    min="0"
+    max="5">
+
+
+  <label>
+    Product Description
+  </label>
+
+  <textarea
+    id="productDescription"
+    placeholder="Product description"></textarea>
+
+
+  <label>
+    Product Images
+  </label>
+
+  <input
+    type="file"
+    id="productImages"
+    accept="image/*"
+    multiple>
+
+
+  <div
+    id="productImagePreview"
+    class="image-preview-grid">
+  </div>
+
+
+  <button
+    class="main-btn"
+    id="saveProductBtn">
+    ➕ Add Product
+  </button>
+
+  <button
+    class="cancel-btn"
+    id="cancelProductBtn">
+    Cancel
+  </button>
+
+
+  <div
+    class="status"
+    id="productStatus">
+  </div>
+
+</div>
+
+
+<!-- =========================
+     PRODUCT LIST
+========================= -->
+
+<div class="card">
+
+  <h2>📦 All Products</h2>
+
+  <div
+    id="productList"
+    class="product-grid">
+
+    <div class="loading">
+      Loading products...
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     PRODUCT DETAIL MODAL
+========================= -->
 
 <div
-id="productsGrid"
-class="products-grid"
->
+  class="modal"
+  id="productModal">
 
-<div class="empty">
-Loading products...
-</div>
+  <div class="modal-box">
 
-</div>
+    <button
+      class="close-modal"
+      onclick="closeProductModal()">
+      ×
+    </button>
 
-</div>
+    <div id="productModalContent"></div>
 
-
-<!-- =========================
-CUSTOMER USERS
-========================= -->
-
-<div class="order-box">
-
-<h2>
-👥 Customer Users
-</h2>
-
-<p>
-SayonMart-এ registered customer-দের দেখুন।
-</p>
-
-<div class="order-buttons">
-
-<button
-class="btn-blue"
-onclick="location.href='./admin-users.html'"
->
-👥 View Customer Users
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-ORDER MANAGEMENT
-========================= -->
-
-<div class="order-box">
-
-<h2>
-📦 Order Management
-</h2>
-
-<p>
-Customer-এর order এখান থেকে manage করুন।
-</p>
-
-<div class="order-buttons">
-
-<button
-class="btn-green"
-onclick="location.href='confirm-orders.html'"
->
-✅ Confirm Orders
-</button>
-
-
-<button
-class="btn-blue"
-onclick="location.href='admin-orders.html'"
->
-📋 All Orders
-</button>
-
-</div>
-
-</div>
-
-
-<div class="order-box">
-
-<button
-class="btn-gold"
-onclick="location.href='index.html'"
->
-🏠 Home
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-PRODUCT DETAILS MODAL
-========================= -->
-
-<div
-id="detailsModal"
-class="modal"
->
-
-<div class="modal-box">
-
-<div class="modal-header">
-
-<h2>
-Product Details
-</h2>
-
-<button
-class="close"
-onclick="closeModal()"
->
-×
-</button>
-
-</div>
-
-<div id="detailsContent">
-</div>
-
-</div>
+  </div>
 
 </div>
 
 
 <script type="module">
 
-/* ================================
-FIREBASE
-================================ */
+/* =========================================
+   FIREBASE
+========================================= */
 
 import {
   db,
-  auth,
-  storage
-}
-from "./firebase.js";
+  auth
+} from "./firebase.js";
 
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
   collection,
   addDoc,
   getDocs,
+  getDoc,
   doc,
   updateDoc,
   deleteDoc,
-  serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  serverTimestamp,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-import {
-  onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
-
-/* ================================
-ADMIN
-================================ */
+/* =========================================
+   ADMIN UID
+========================================= */
 
 const ADMIN_UID =
 "fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
 
 
-let currentUser = null;
+/* =========================================
+   ELEMENTS
+========================================= */
 
-let editingId = null;
+const bannerImage =
+document.getElementById("bannerImage");
 
-let selectedImages = [];
+const bannerPreview =
+document.getElementById("bannerPreview");
 
-let selectedBannerFile = null;
+const previewText =
+document.getElementById("previewText");
 
-let editingBannerId = null;
+const bannerTitle =
+document.getElementById("bannerTitle");
 
-let editingBannerImage = "";
+const bannerDescription =
+document.getElementById("bannerDescription");
+
+const bannerButton =
+document.getElementById("bannerButton");
+
+const bannerLink =
+document.getElementById("bannerLink");
+
+const editingBannerId =
+document.getElementById("editingBannerId");
+
+const editingBannerImage =
+document.getElementById("editingBannerImage");
+
+const saveBannerBtn =
+document.getElementById("saveBannerBtn");
+
+const cancelBannerBtn =
+document.getElementById("cancelBannerBtn");
+
+const bannerProgressBox =
+document.getElementById("bannerProgressBox");
+
+const bannerProgressBar =
+document.getElementById("bannerProgressBar");
+
+const bannerProgressText =
+document.getElementById("bannerProgressText");
+
+const bannerStatus =
+document.getElementById("bannerStatus");
+
+const bannerList =
+document.getElementById("bannerList");
+
+const productName =
+document.getElementById("productName");
+
+const productPrice =
+document.getElementById("productPrice");
+
+const productOldPrice =
+document.getElementById("productOldPrice");
+
+const productDiscount =
+document.getElementById("productDiscount");
+
+const productRating =
+document.getElementById("productRating");
+
+const productDescription =
+document.getElementById("productDescription");
+
+const productImages =
+document.getElementById("productImages");
+
+const productImagePreview =
+document.getElementById("productImagePreview");
+
+const saveProductBtn =
+document.getElementById("saveProductBtn");
+
+const cancelProductBtn =
+document.getElementById("cancelProductBtn");
+
+const productStatus =
+document.getElementById("productStatus");
+
+const productList =
+document.getElementById("productList");
 
 
-/* ================================
-AUTH
-================================ */
+/* =========================================
+   AUTH CHECK
+========================================= */
 
-onAuthStateChanged(
-  auth,
-  user => {
+onAuthStateChanged(auth, user => {
 
-    if(!user){
+  if(!user){
 
-      alert("Admin login required.");
+    alert("Please login as admin.");
 
-      location.href =
-        "login.html";
+    location.href =
+    "login.html";
 
-      return;
-
-    }
-
-
-    if(user.uid !== ADMIN_UID){
-
-      alert("You are not an admin.");
-
-      location.href =
-        "index.html";
-
-      return;
-
-    }
-
-
-    currentUser = user;
-
-    loadProducts();
-
-    loadBanners();
-
+    return;
   }
-);
 
 
-/* ================================
-BANNER FILE SELECT
-================================ */
+  if(user.uid !== ADMIN_UID){
 
-document
-.getElementById("bannerImage")
-.addEventListener(
-  "change",
-  function(){
+    alert("You are not an admin.");
 
-    const file =
-      this.files[0];
+    location.href =
+    "index.html";
+
+    return;
+  }
+
+
+  showStatus(
+    document.getElementById("adminStatus"),
+    "✅ Admin login successful",
+    "success"
+  );
+
+
+  loadBanners();
+  loadProducts();
+
+});
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+function showStatus(element,text,type){
+
+  element.textContent = text;
+
+  element.className =
+  "status " + type;
+
+  element.style.display =
+  "block";
+
+}
+
+
+function hideStatus(element){
+
+  element.style.display =
+  "none";
+
+}
+
+
+/* =========================================
+   IMAGE COMPRESSION
+   FIRESTORE VERSION
+========================================= */
+
+function compressBannerImage(file){
+
+  return new Promise((resolve,reject)=>{
 
     if(!file){
-      return;
-    }
 
-
-    if(
-      !file.type.startsWith("image/")
-    ){
-
-      alert(
-        "শুধু image নির্বাচন করুন।"
+      reject(
+        new Error("Image পাওয়া যায়নি।")
       );
 
-      this.value = "";
-
       return;
-
     }
-
-
-    selectedBannerFile = file;
 
 
     const reader =
-      new FileReader();
+    new FileReader();
 
 
-    reader.onload =
-      e => {
+    reader.onload = event => {
 
-        const preview =
-          document.getElementById(
-            "bannerPreview"
+      const img =
+      new Image();
+
+
+      img.onload = () => {
+
+        let width =
+        img.width;
+
+        let height =
+        img.height;
+
+
+        /*
+          Firestore document limit
+          প্রায় 1 MB.
+
+          তাই banner image
+          ছোট করে রাখা হচ্ছে.
+        */
+
+        const maxWidth =
+        900;
+
+
+        if(width > maxWidth){
+
+          height =
+          height *
+          maxWidth /
+          width;
+
+          width =
+          maxWidth;
+
+        }
+
+
+        const canvas =
+        document.createElement(
+          "canvas"
+        );
+
+
+        canvas.width =
+        width;
+
+        canvas.height =
+        height;
+
+
+        const ctx =
+        canvas.getContext("2d");
+
+
+        ctx.drawImage(
+          img,
+          0,
+          0,
+          width,
+          height
+        );
+
+
+        /*
+          JPEG quality 0.55
+          রাখছি যাতে Firestore
+          document বড় না হয়.
+        */
+
+        let dataUrl =
+        canvas.toDataURL(
+          "image/jpeg",
+          0.55
+        );
+
+
+        /*
+          যদি এখনও বেশি বড় হয়,
+          আরও compress করা হবে.
+        */
+
+        if(dataUrl.length > 900000){
+
+          dataUrl =
+          canvas.toDataURL(
+            "image/jpeg",
+            0.40
           );
 
-        preview.src =
-          e.target.result;
+        }
 
-        preview.style.display =
-          "block";
+
+        /*
+          এখনও খুব বড় হলে
+          error.
+        */
+
+        if(dataUrl.length > 950000){
+
+          reject(
+            new Error(
+              "ছবিটি অনেক বড়। অন্য একটি ছোট ছবি নির্বাচন করুন।"
+            )
+          );
+
+          return;
+        }
+
+
+        resolve(dataUrl);
 
       };
+
+
+      img.onerror = () => {
+
+        reject(
+          new Error(
+            "ছবিটি পড়া যায়নি।"
+          )
+        );
+
+      };
+
+
+      img.src =
+      event.target.result;
+
+    };
+
+
+    reader.onerror = () => {
+
+      reject(
+        new Error(
+          "Gallery image পড়তে সমস্যা হয়েছে।"
+        )
+      );
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+
+/* =========================================
+   BANNER IMAGE PREVIEW
+========================================= */
+
+bannerImage.addEventListener(
+  "change",
+  () => {
+
+    const file =
+    bannerImage.files[0];
+
+
+    if(!file){
+
+      bannerPreview.style.display =
+      "none";
+
+      previewText.style.display =
+      "block";
+
+      return;
+    }
+
+
+    const reader =
+    new FileReader();
+
+
+    reader.onload = e => {
+
+      bannerPreview.src =
+      e.target.result;
+
+      bannerPreview.style.display =
+      "block";
+
+      previewText.style.display =
+      "none";
+
+    };
 
 
     reader.readAsDataURL(file);
@@ -1252,335 +1139,196 @@ document
 );
 
 
-/* ================================
-SAVE BANNER
-================================ */
+/* =========================================
+   PROGRESS
+========================================= */
 
-window.saveBanner =
-async function(){
+function setBannerProgress(percent){
 
-  if(!currentUser){
+  bannerProgressBox.style.display =
+  "block";
 
-    alert("Please login.");
+  bannerProgressBar.style.width =
+  percent + "%";
 
-    return;
+  bannerProgressText.textContent =
+  percent + "%";
 
-  }
-
-
-  const title =
-    document
-      .getElementById("bannerTitle")
-      .value
-      .trim();
+}
 
 
-  const description =
-    document
-      .getElementById("bannerDescription")
-      .value
-      .trim();
+/* =========================================
+   SAVE BANNER
+   NO FIREBASE STORAGE
+========================================= */
+
+saveBannerBtn.addEventListener(
+  "click",
+  saveBanner
+);
 
 
-  const buttonText =
-    document
-      .getElementById("bannerButton")
-      .value
-      .trim();
-
-
-  const link =
-    document
-      .getElementById("bannerLink")
-      .value
-      .trim();
-
-
-  if(
-    !editingBannerId &&
-    !selectedBannerFile
-  ){
-
-    alert(
-      "Gallery থেকে Banner image নির্বাচন করুন।"
-    );
-
-    return;
-
-  }
-
-
-  if(!title){
-
-    alert(
-      "Banner Title দিন।"
-    );
-
-    return;
-
-  }
-
-
-  const saveButton =
-    document.getElementById(
-      "saveBannerBtn"
-    );
-
-
-  const progressBox =
-    document.getElementById(
-      "bannerProgressBox"
-    );
-
-
-  const progressBar =
-    document.getElementById(
-      "bannerProgressBar"
-    );
-
-
-  const progressText =
-    document.getElementById(
-      "bannerProgressText"
-    );
-
-
-  const progressStatus =
-    document.getElementById(
-      "bannerProgressStatus"
-    );
-
+async function saveBanner(){
 
   try{
 
-    saveButton.disabled =
-      true;
+    hideStatus(bannerStatus);
 
 
-    /* =========================
-       একদম শুরুতে 0%
-    ========================= */
+    const title =
+    bannerTitle.value.trim();
 
-    progressBox.style.display =
-      "block";
+    const description =
+    bannerDescription.value.trim();
 
-    progressBar.style.width =
-      "0%";
+    const button =
+    bannerButton.value.trim();
 
-    progressText.innerText =
-      "0%";
+    const link =
+    bannerLink.value.trim();
 
-    progressStatus.innerText =
-      "Starting upload...";
-
-    saveButton.innerText =
-      "Uploading 0%";
+    const file =
+    bannerImage.files[0];
 
 
-    let imageUrl =
-      editingBannerImage;
+    if(!title){
+
+      showStatus(
+        bannerStatus,
+        "❌ Banner title দিন।",
+        "error"
+      );
+
+      return;
+    }
 
 
-    /* =========================
-       UPLOAD IMAGE
-    ========================= */
+    /*
+      New banner needs image.
+      Editing banner can use old image.
+    */
 
-    if(selectedBannerFile){
+    if(!file &&
+       !editingBannerImage.value){
 
-      const fileName =
-        "banner_" +
-        Date.now() +
-        "_" +
-        selectedBannerFile.name
-          .replace(
-            /[^a-zA-Z0-9._-]/g,
-            "_"
-          );
+      showStatus(
+        bannerStatus,
+        "❌ Banner image নির্বাচন করুন।",
+        "error"
+      );
+
+      return;
+    }
 
 
-      const storageRef =
-        ref(
-          storage,
-          "banners/" +
-          fileName
-        );
+    saveBannerBtn.disabled =
+    true;
+
+    saveBannerBtn.textContent =
+    "Saving...";
+
+
+    setBannerProgress(0);
+
+
+    let imageData =
+    editingBannerImage.value;
+
+
+    /*
+      Gallery image থাকলে
+      compress করে data URL বানাবে.
+    */
+
+    if(file){
+
+      setBannerProgress(10);
 
 
       /*
-       প্রথমে 0% দেখাবে
+        ছোট delay যাতে
+        progress দেখা যায়.
       */
 
-      progressBox.style.display =
-        "block";
-
-      progressBar.style.width =
-        "0%";
-
-      progressText.innerText =
-        "0%";
-
-      progressStatus.innerText =
-        "Starting upload...";
-
-      saveButton.innerText =
-        "Uploading 0%";
+      await new Promise(
+        resolve =>
+        setTimeout(resolve,100)
+      );
 
 
-      const uploadTask =
-        uploadBytesResumable(
-          storageRef,
-          selectedBannerFile
-        );
+      setBannerProgress(25);
 
 
-      imageUrl =
-        await new Promise(
-          (resolve,reject) => {
-
-            uploadTask.on(
-
-              "state_changed",
-
-              snapshot => {
-
-                let progress = 0;
+      imageData =
+      await compressBannerImage(file);
 
 
-                if(snapshot.totalBytes > 0){
-
-                  progress =
-                    Math.round(
-                      (
-                        snapshot.bytesTransferred /
-                        snapshot.totalBytes
-                      ) * 100
-                    );
-
-                }
-
-
-                /*
-                 0% থেকে 100%
-                */
-
-                progressBar.style.width =
-                  progress + "%";
-
-
-                progressText.innerText =
-                  progress + "%";
-
-
-                if(progress < 100){
-
-                  progressStatus.innerText =
-                    "Uploading Banner...";
-
-                  saveButton.innerText =
-                    "Uploading " +
-                    progress +
-                    "%";
-
-                }
-                else{
-
-                  progressStatus.innerText =
-                    "Upload complete. Saving...";
-
-                  saveButton.innerText =
-                    "Saving...";
-
-                }
-
-              },
-
-
-              error => {
-
-                reject(error);
-
-              },
-
-
-              async () => {
-
-                try{
-
-                  const url =
-                    await getDownloadURL(
-                      uploadTask.snapshot.ref
-                    );
-
-
-                  progressBar.style.width =
-                    "100%";
-
-                  progressText.innerText =
-                    "100%";
-
-                  progressStatus.innerText =
-                    "Upload complete. Saving...";
-
-
-                  resolve(url);
-
-                }
-                catch(error){
-
-                  reject(error);
-
-                }
-
-              }
-
-            );
-
-          }
-        );
+      setBannerProgress(70);
 
     }
 
 
-    /* =========================
-       SAVE FIRESTORE
-    ========================= */
+    const bannerData = {
 
-    if(editingBannerId){
+      title:
+      title,
+
+      description:
+      description,
+
+      buttonText:
+      button,
+
+      link:
+      link,
+
+      image:
+      imageData,
+
+      updatedAt:
+      serverTimestamp()
+
+    };
+
+
+    /*
+      EDIT
+    */
+
+    if(editingBannerId.value){
 
       await updateDoc(
 
         doc(
           db,
           "banners",
-          editingBannerId
+          editingBannerId.value
         ),
 
-        {
-
-          image:imageUrl,
-
-          title:title,
-
-          description:description,
-
-          buttonText:buttonText,
-
-          link:link,
-
-          updatedAt:
-            serverTimestamp()
-
-        }
+        bannerData
 
       );
 
+      setBannerProgress(95);
 
-      alert(
-        "✅ Banner updated successfully."
+
+      showStatus(
+        bannerStatus,
+        "✅ Banner updated successfully!",
+        "success"
       );
 
     }
+
+    /*
+      NEW
+    */
+
     else{
+
+      bannerData.createdAt =
+      serverTimestamp();
+
 
       await addDoc(
 
@@ -1589,343 +1337,423 @@ async function(){
           "banners"
         ),
 
-        {
-
-          image:imageUrl,
-
-          title:title,
-
-          description:description,
-
-          buttonText:buttonText,
-
-          link:link,
-
-          createdAt:
-            serverTimestamp(),
-
-          createdBy:
-            currentUser.uid
-
-        }
+        bannerData
 
       );
 
 
-      alert(
-        "✅ Banner uploaded successfully."
+      setBannerProgress(95);
+
+
+      showStatus(
+        bannerStatus,
+        "✅ Banner saved successfully!",
+        "success"
       );
 
     }
 
 
-    clearBannerForm();
-
-    await loadBanners();
-
-  }
-  catch(error){
-
-    console.error(error);
+    setBannerProgress(100);
 
 
-    progressStatus.innerText =
-      "Upload failed";
-
-
-    alert(
-      "❌ Banner upload failed:\n" +
-      error.message
+    await new Promise(
+      resolve =>
+      setTimeout(resolve,500)
     );
 
+
+    resetBannerForm();
+
+    loadBanners();
+
   }
 
+  catch(error){
 
-  saveButton.disabled =
+    console.error(
+      "Banner Error:",
+      error
+    );
+
+
+    let message =
+    error.message ||
+    "Banner save করতে সমস্যা হয়েছে।";
+
+
+    if(
+      error.code ===
+      "permission-denied"
+    ){
+
+      message =
+      "❌ Permission denied. Firebase Rules check করুন।";
+
+    }
+
+
+    if(
+      error.code ===
+      "invalid-argument"
+    ){
+
+      message =
+      "❌ Image বা data ঠিক নেই।";
+
+    }
+
+
+    showStatus(
+      bannerStatus,
+      message,
+      "error"
+    );
+
+
+    setBannerProgress(0);
+
+  }
+
+  finally{
+
+    saveBannerBtn.disabled =
     false;
 
-
-  saveButton.innerText =
-    "💾 Upload & Save Banner";
-
-};
-
-
-/* ================================
-LOAD BANNERS
-================================ */
-
-async function loadBanners(){
-
-  const box =
-    document.getElementById(
-      "bannerList"
-    );
-
-
-  box.innerHTML =
-    '<div class="empty">Loading banners...</div>';
-
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "banners"
-        )
-      );
-
-
-    box.innerHTML = "";
-
-
-    if(snapshot.empty){
-
-      box.innerHTML =
-        '<div class="empty">No banners yet.</div>';
-
-      return;
-
-    }
-
-
-    snapshot.forEach(
-      item => {
-
-        const banner =
-          item.data();
-
-
-        const id =
-          item.id;
-
-
-        const div =
-          document.createElement(
-            "div"
-          );
-
-
-        div.className =
-          "banner-item";
-
-
-        div.innerHTML = `
-
-          <img
-            src="${escapeHTML(
-              banner.image || ""
-            )}"
-            alt="Banner"
-          >
-
-          <div class="banner-info">
-
-            <div class="banner-title">
-
-              ${escapeHTML(
-                banner.title ||
-                "Untitled Banner"
-              )}
-
-            </div>
-
-            <div class="banner-description">
-
-              ${escapeHTML(
-                banner.description ||
-                ""
-              )}
-
-            </div>
-
-            <div class="banner-buttons">
-
-              <button
-                class="btn-gold"
-                onclick="editBanner('${id}')"
-              >
-                ✏️ Edit
-              </button>
-
-              <button
-                class="btn-red"
-                onclick="deleteBanner('${id}')"
-              >
-                🗑️ Delete
-              </button>
-
-            </div>
-
-          </div>
-
-        `;
-
-
-        box.appendChild(div);
-
-      }
-    );
-
-  }
-  catch(error){
-
-    console.error(error);
-
-
-    box.innerHTML =
-      '<div class="empty">Failed to load banners.</div>';
+    saveBannerBtn.textContent =
+    editingBannerId.value
+    ? "💾 Update Banner"
+    : "💾 Save Banner";
 
   }
 
 }
 
 
-/* ================================
-EDIT BANNER
-================================ */
+/* =========================================
+   RESET BANNER
+========================================= */
 
-window.editBanner =
-async function(id){
+cancelBannerBtn.addEventListener(
+  "click",
+  resetBannerForm
+);
+
+
+function resetBannerForm(){
+
+  editingBannerId.value =
+  "";
+
+  editingBannerImage.value =
+  "";
+
+  bannerImage.value =
+  "";
+
+  bannerTitle.value =
+  "";
+
+  bannerDescription.value =
+  "";
+
+  bannerButton.value =
+  "";
+
+  bannerLink.value =
+  "";
+
+
+  bannerPreview.src =
+  "";
+
+  bannerPreview.style.display =
+  "none";
+
+  previewText.style.display =
+  "block";
+
+
+  bannerProgressBox.style.display =
+  "none";
+
+  bannerProgressBar.style.width =
+  "0%";
+
+  bannerProgressText.textContent =
+  "0%";
+
+
+  saveBannerBtn.textContent =
+  "💾 Save Banner";
+
+
+  hideStatus(bannerStatus);
+
+}
+
+
+/* =========================================
+   LOAD BANNERS
+========================================= */
+
+async function loadBanners(){
 
   try{
 
+    bannerList.innerHTML =
+    `<div class="loading">
+      Loading banners...
+    </div>`;
+
+
     const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "banners"
-        )
-      );
+    await getDocs(
+      collection(
+        db,
+        "banners"
+      )
+    );
 
 
-    let banner = null;
+    if(snapshot.empty){
+
+      bannerList.innerHTML =
+      `<div class="empty">
+        No banners found.
+      </div>`;
+
+      return;
+    }
+
+
+    bannerList.innerHTML =
+    "";
+
+
+    const banners = [];
 
 
     snapshot.forEach(
       item => {
 
-        if(item.id === id){
+        banners.push({
 
-          banner =
-            item.data();
+          id:
+          item.id,
 
-        }
+          ...item.data()
+
+        });
 
       }
     );
 
 
-    if(!banner){
-      return;
-    }
-
-
-    editingBannerId =
-      id;
-
-
-    editingBannerImage =
-      banner.image || "";
-
-
-    selectedBannerFile =
-      null;
-
-
-    document.getElementById(
-      "bannerTitle"
-    ).value =
-      banner.title || "";
-
-
-    document.getElementById(
-      "bannerDescription"
-    ).value =
-      banner.description || "";
-
-
-    document.getElementById(
-      "bannerButton"
-    ).value =
-      banner.buttonText || "";
-
-
-    document.getElementById(
-      "bannerLink"
-    ).value =
-      banner.link || "";
-
-
-    const preview =
-      document.getElementById(
-        "bannerPreview"
-      );
-
-
-    preview.src =
-      editingBannerImage;
-
-
-    preview.style.display =
-      "block";
-
-
-    document.getElementById(
-      "cancelBannerBtn"
-    ).style.display =
-      "block";
-
-
-    document.getElementById(
-      "saveBannerBtn"
-    ).innerText =
-      "💾 Update Banner";
-
-
     /*
-     Edit করলে পুরোনো progress hide
+      Newest first if createdAt
+      exists.
     */
 
-    document.getElementById(
-      "bannerProgressBox"
-    ).style.display =
-      "none";
+    banners.sort(
+      (a,b) => {
+
+        const aTime =
+        a.createdAt?.seconds || 0;
+
+        const bTime =
+        b.createdAt?.seconds || 0;
+
+        return bTime - aTime;
+
+      }
+    );
 
 
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
+    banners.forEach(
+      banner => {
 
-  }
-  catch(error){
+        const div =
+        document.createElement(
+          "div"
+        );
 
-    console.error(error);
+        div.className =
+        "banner-item";
 
-    alert(
-      "Unable to edit banner."
+
+        const image =
+        banner.image ||
+        banner.imageUrl ||
+        "";
+
+
+        div.innerHTML = `
+
+          <img
+            src="${escapeHtml(image)}"
+            alt="Banner">
+
+          <div class="banner-content">
+
+            <h3>
+              ${escapeHtml(
+                banner.title || "Untitled"
+              )}
+            </h3>
+
+            <p>
+              ${escapeHtml(
+                banner.description || ""
+              )}
+            </p>
+
+            <p>
+              <b>
+                Button:
+              </b>
+              ${escapeHtml(
+                banner.buttonText || ""
+              )}
+            </p>
+
+            <div class="small-buttons">
+
+              <button
+                class="edit-btn"
+                data-id="${banner.id}">
+                ✏️ Edit
+              </button>
+
+              <button
+                class="delete-btn"
+                data-id="${banner.id}">
+                🗑️ Delete
+              </button>
+
+            </div>
+
+          </div>
+        `;
+
+
+        div.querySelector(
+          ".edit-btn"
+        ).addEventListener(
+          "click",
+          () =>
+          editBanner(banner)
+        );
+
+
+        div.querySelector(
+          ".delete-btn"
+        ).addEventListener(
+          "click",
+          () =>
+          deleteBanner(banner.id)
+        );
+
+
+        bannerList.appendChild(
+          div
+        );
+
+      }
     );
 
   }
 
-};
+  catch(error){
+
+    console.error(error);
+
+    bannerList.innerHTML =
+    `<div class="empty">
+      ❌ Banner load failed.
+    </div>`;
+
+  }
+
+}
 
 
-/* ================================
-DELETE BANNER
-================================ */
+/* =========================================
+   EDIT BANNER
+========================================= */
 
-window.deleteBanner =
-async function(id){
+function editBanner(banner){
 
-  if(
-    !confirm(
-      "এই Banner delete করতে চান?"
-    )
-  ){
+  editingBannerId.value =
+  banner.id;
+
+
+  editingBannerImage.value =
+  banner.image ||
+  banner.imageUrl ||
+  "";
+
+
+  bannerTitle.value =
+  banner.title ||
+  "";
+
+
+  bannerDescription.value =
+  banner.description ||
+  "";
+
+
+  bannerButton.value =
+  banner.buttonText ||
+  "";
+
+
+  bannerLink.value =
+  banner.link ||
+  "";
+
+
+  if(editingBannerImage.value){
+
+    bannerPreview.src =
+    editingBannerImage.value;
+
+    bannerPreview.style.display =
+    "block";
+
+    previewText.style.display =
+    "none";
+
+  }
+
+
+  saveBannerBtn.textContent =
+  "💾 Update Banner";
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================
+   DELETE BANNER
+========================================= */
+
+async function deleteBanner(id){
+
+  const ok =
+  confirm(
+    "এই banner delete করতে চান?"
+  );
+
+
+  if(!ok){
+
     return;
   }
 
@@ -1942,230 +1770,124 @@ async function(id){
 
 
     alert(
-      "🗑️ Banner deleted."
+      "✅ Banner deleted."
     );
 
 
-    await loadBanners();
+    loadBanners();
 
   }
+
   catch(error){
 
     console.error(error);
 
-
     alert(
-      "❌ Delete failed:\n" +
-      error.message
+      "❌ Banner delete করতে সমস্যা হয়েছে।"
     );
 
   }
 
-};
+}
 
 
-/* ================================
-CLEAR BANNER
-================================ */
-
-window.clearBannerForm =
-function(){
-
-  editingBannerId =
-    null;
-
-
-  editingBannerImage =
-    "";
-
-
-  selectedBannerFile =
-    null;
-
-
-  document.getElementById(
-    "bannerImage"
-  ).value = "";
-
-
-  document.getElementById(
-    "bannerTitle"
-  ).value = "";
-
-
-  document.getElementById(
-    "bannerDescription"
-  ).value = "";
-
-
-  document.getElementById(
-    "bannerButton"
-  ).value = "";
-
-
-  document.getElementById(
-    "bannerLink"
-  ).value = "";
-
-
-  const preview =
-    document.getElementById(
-      "bannerPreview"
-    );
-
-
-  preview.src = "";
-
-  preview.style.display =
-    "none";
-
-
-  document.getElementById(
-    "cancelBannerBtn"
-  ).style.display =
-    "none";
-
-
-  document.getElementById(
-    "saveBannerBtn"
-  ).style.display =
-    "inline-block";
-
-
-  document.getElementById(
-    "saveBannerBtn"
-  ).innerText =
-    "💾 Upload & Save Banner";
-
-
-  document.getElementById(
-    "bannerProgressBox"
-  ).style.display =
-    "none";
-
-
-  document.getElementById(
-    "bannerProgressBar"
-  ).style.width =
-    "0%";
-
-
-  document.getElementById(
-    "bannerProgressText"
-  ).innerText =
-    "0%";
-
-
-  document.getElementById(
-    "bannerProgressStatus"
-  ).innerText =
-    "Starting upload...";
-
-};
-
-
-/* ================================
-COMPRESS PRODUCT IMAGE
-================================ */
+/* =========================================
+   PRODUCT IMAGE COMPRESSION
+========================================= */
 
 function compressImage(file){
 
   return new Promise(
-    (resolve,reject) => {
+    (resolve,reject)=>{
 
       const reader =
-        new FileReader();
+      new FileReader();
 
 
       reader.onload =
-        event => {
+      event => {
 
-          const img =
-            new Image();
-
-
-          img.onload =
-            () => {
-
-              const canvas =
-                document.createElement(
-                  "canvas"
-                );
+        const img =
+        new Image();
 
 
-              const maxWidth =
-                900;
+        img.onload =
+        () => {
+
+          const canvas =
+          document.createElement(
+            "canvas"
+          );
 
 
-              let width =
-                img.width;
+          const maxWidth =
+          900;
 
 
-              let height =
-                img.height;
+          let width =
+          img.width;
+
+          let height =
+          img.height;
 
 
-              if(
-                width > maxWidth
-              ){
+          if(width > maxWidth){
 
-                height =
-                  height *
-                  maxWidth /
-                  width;
+            height =
+            height *
+            maxWidth /
+            width;
 
+            width =
+            maxWidth;
 
-                width =
-                  maxWidth;
-
-              }
+          }
 
 
-              canvas.width =
-                width;
+          canvas.width =
+          width;
+
+          canvas.height =
+          height;
 
 
-              canvas.height =
-                height;
+          const ctx =
+          canvas.getContext(
+            "2d"
+          );
 
 
-              const ctx =
-                canvas.getContext(
-                  "2d"
-                );
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+          );
 
 
-              ctx.drawImage(
-                img,
-                0,
-                0,
-                width,
-                height
-              );
-
-
-              resolve(
-                canvas.toDataURL(
-                  "image/jpeg",
-                  0.75
-                )
-              );
-
-            };
-
-
-          img.onerror =
-            reject;
-
-
-          img.src =
-            event.target.result;
+          resolve(
+            canvas.toDataURL(
+              "image/jpeg",
+              0.75
+            )
+          );
 
         };
 
 
-      reader.onerror =
+        img.onerror =
         reject;
+
+
+        img.src =
+        event.target.result;
+
+      };
+
+
+      reader.onerror =
+      reject;
 
 
       reader.readAsDataURL(file);
@@ -2176,294 +1898,207 @@ function compressImage(file){
 }
 
 
-/* ================================
-PRODUCT IMAGE SELECT
-================================ */
+/* =========================================
+   PRODUCT IMAGE PREVIEW
+========================================= */
 
-document
-.getElementById("productImage")
-.addEventListener(
+productImages.addEventListener(
   "change",
-  async function(){
+  () => {
+
+    productImagePreview.innerHTML =
+    "";
+
 
     const files =
-      Array.from(
-        this.files
-      );
+    Array.from(
+      productImages.files
+    );
 
 
-    if(files.length > 10){
+    files.forEach(
+      file => {
 
-      alert(
-        "Maximum 10 images allowed."
-      );
-
-
-      this.value = "";
-
-      return;
-
-    }
+        const reader =
+        new FileReader();
 
 
-    selectedImages = [];
+        reader.onload =
+        e => {
+
+          const img =
+          document.createElement(
+            "img"
+          );
 
 
-    document.getElementById(
-      "preview"
-    ).innerHTML =
-      "<p>Processing images...</p>";
+          img.src =
+          e.target.result;
 
 
-    for(
-      const file of files
-    ){
+          productImagePreview.appendChild(
+            img
+          );
 
-      try{
+        };
 
-        selectedImages.push(
-          await compressImage(
-            file
-          )
-        );
+
+        reader.readAsDataURL(file);
 
       }
-      catch(error){
-
-        console.error(
-          error
-        );
-
-      }
-
-    }
-
-
-    showPreview();
+    );
 
   }
 );
 
 
-/* ================================
-SHOW PREVIEW
-================================ */
+/* =========================================
+   SAVE PRODUCT
+========================================= */
 
-function showPreview(){
-
-  const preview =
-    document.getElementById(
-      "preview"
-    );
+saveProductBtn.addEventListener(
+  "click",
+  saveProduct
+);
 
 
-  preview.innerHTML = "";
-
-
-  selectedImages.forEach(
-    image => {
-
-      const img =
-        document.createElement(
-          "img"
-        );
-
-
-      img.src =
-        image;
-
-
-      img.className =
-        "preview-img";
-
-
-      preview.appendChild(
-        img
-      );
-
-    }
-  );
-
-}
-
-
-/* ================================
-SAVE PRODUCT
-================================ */
-
-window.saveProduct =
-async function(){
-
-  if(!currentUser){
-
-    alert("Please login.");
-
-    return;
-
-  }
-
-
-  const name =
-    document.getElementById(
-      "productName"
-    ).value.trim();
-
-
-  const price =
-    document.getElementById(
-      "productPrice"
-    ).value.trim();
-
-
-  const oldPrice =
-    document.getElementById(
-      "productOldPrice"
-    ).value.trim();
-
-
-  const discount =
-    document.getElementById(
-      "productDiscount"
-    ).value.trim();
-
-
-  const category =
-    document.getElementById(
-      "productCategory"
-    ).value;
-
-
-  const colorsText =
-    document.getElementById(
-      "productColors"
-    ).value.trim();
-
-
-  const sizesText =
-    document.getElementById(
-      "productSizes"
-    ).value.trim();
-
-
-  const description =
-    document.getElementById(
-      "productDescription"
-    ).value.trim();
-
-
-  if(!name){
-
-    alert(
-      "Product name দিন."
-    );
-
-    return;
-
-  }
-
-
-  if(!price){
-
-    alert(
-      "Product price দিন."
-    );
-
-    return;
-
-  }
-
-
-  if(!category){
-
-    alert(
-      "Category select করুন."
-    );
-
-    return;
-
-  }
-
-
-  const colors =
-    colorsText
-      .split(",")
-      .map(
-        x => x.trim()
-      )
-      .filter(Boolean);
-
-
-  const sizes =
-    sizesText
-      .split(",")
-      .map(
-        x => x.trim()
-      )
-      .filter(Boolean);
-
-
-  const saveBtn =
-    document.getElementById(
-      "saveBtn"
-    );
-
+async function saveProduct(){
 
   try{
 
-    saveBtn.disabled =
-      true;
+    hideStatus(productStatus);
 
 
-    saveBtn.innerText =
-      "Saving...";
+    const name =
+    productName.value.trim();
+
+    const price =
+    Number(
+      productPrice.value
+    );
+
+    const oldPrice =
+    Number(
+      productOldPrice.value
+    ) || 0;
+
+    const discount =
+    Number(
+      productDiscount.value
+    ) || 0;
+
+    const rating =
+    Number(
+      productRating.value
+    ) || 4.5;
+
+    const description =
+    productDescription.value.trim();
 
 
-    /* =========================
-       EDIT
-    ========================= */
+    if(!name){
 
-    if(editingId){
+      showStatus(
+        productStatus,
+        "❌ Product name দিন।",
+        "error"
+      );
 
-      const updateData = {
-
-        name,
-
-        price:
-          Number(price),
-
-        category,
-
-        oldPrice:
-          oldPrice
-          ? Number(oldPrice)
-          : null,
-
-        discount:
-          discount
-          ? Number(discount)
-          : null,
-
-        colors,
-
-        sizes,
-
-        description
-
-      };
+      return;
+    }
 
 
-      if(
-        selectedImages.length > 0
-      ){
+    if(!price){
 
-        updateData.image =
-          selectedImages[0];
+      showStatus(
+        productStatus,
+        "❌ Product price দিন।",
+        "error"
+      );
+
+      return;
+    }
 
 
-        updateData.images =
-          selectedImages;
+    const files =
+    Array.from(
+      productImages.files
+    );
+
+
+    saveProductBtn.disabled =
+    true;
+
+    saveProductBtn.textContent =
+    "Saving...";
+
+
+    let images = [];
+
+
+    /*
+      New images
+    */
+
+    for(
+      const file of files
+    ){
+
+      const compressed =
+      await compressImage(file);
+
+      images.push(
+        compressed
+      );
+
+    }
+
+
+    /*
+      EDIT PRODUCT
+    */
+
+    if(
+      document.getElementById(
+        "editingProductId"
+      ).value
+    ){
+
+      const id =
+      document.getElementById(
+        "editingProductId"
+      ).value;
+
+
+      const oldDoc =
+      await getDoc(
+        doc(
+          db,
+          "products",
+          id
+        )
+      );
+
+
+      let oldData =
+      oldDoc.exists()
+      ? oldDoc.data()
+      : {};
+
+
+      if(images.length === 0){
+
+        images =
+        oldData.images ||
+        [];
 
       }
+
+
+      const image =
+      images[0] ||
+      oldData.image ||
+      "";
 
 
       await updateDoc(
@@ -2471,109 +2106,69 @@ async function(){
         doc(
           db,
           "products",
-          editingId
+          id
         ),
 
-        updateData
+        {
+
+          name:
+          name,
+
+          price:
+          price,
+
+          oldPrice:
+          oldPrice,
+
+          discount:
+          discount,
+
+          rating:
+          rating,
+
+          description:
+          description,
+
+          images:
+          images,
+
+          image:
+          image,
+
+          imageUrl:
+          image,
+
+          updatedAt:
+          serverTimestamp()
+
+        }
 
       );
 
 
-      alert(
-        "✅ Product updated successfully."
+      showStatus(
+        productStatus,
+        "✅ Product updated successfully!",
+        "success"
       );
 
     }
 
-
-    /* =========================
-       ADD
-    ========================= */
+    /*
+      NEW PRODUCT
+    */
 
     else{
 
-      if(
-        selectedImages.length === 0
-      ){
+      if(images.length === 0){
 
-        alert(
-          "কমপক্ষে ১টি image দিন."
+        showStatus(
+          productStatus,
+          "❌ অন্তত একটি product image নির্বাচন করুন।",
+          "error"
         );
 
-        saveBtn.disabled =
-          false;
-
-        saveBtn.innerText =
-          "💾 Save Product";
-
         return;
-
-      }
-
-
-      const productData = {
-
-        name,
-
-        price:
-          Number(price),
-
-        category,
-
-        image:
-          selectedImages[0],
-
-        images:
-          selectedImages,
-
-        createdAt:
-          Date.now(),
-
-        createdBy:
-          currentUser.uid,
-
-        createdByEmail:
-          currentUser.email || ""
-
-      };
-
-
-      if(oldPrice){
-
-        productData.oldPrice =
-          Number(oldPrice);
-
-      }
-
-
-      if(discount){
-
-        productData.discount =
-          Number(discount);
-
-      }
-
-
-      if(colors.length > 0){
-
-        productData.colors =
-          colors;
-
-      }
-
-
-      if(sizes.length > 0){
-
-        productData.sizes =
-          sizes;
-
-      }
-
-
-      if(description){
-
-        productData.description =
-          description;
 
       }
 
@@ -2585,692 +2180,455 @@ async function(){
           "products"
         ),
 
-        productData
+        {
+
+          name:
+          name,
+
+          price:
+          price,
+
+          oldPrice:
+          oldPrice,
+
+          discount:
+          discount,
+
+          rating:
+          rating,
+
+          description:
+          description,
+
+          images:
+          images,
+
+          image:
+          images[0],
+
+          imageUrl:
+          images[0],
+
+          createdAt:
+          serverTimestamp(),
+
+          updatedAt:
+          serverTimestamp()
+
+        }
 
       );
 
 
-      alert(
-        "✅ Product added successfully."
+      showStatus(
+        productStatus,
+        "✅ Product added successfully!",
+        "success"
       );
 
     }
 
 
-    clearForm();
+    resetProductForm();
 
-    await loadProducts();
+    loadProducts();
 
   }
+
   catch(error){
 
-    console.error(error);
+    console.error(
+      "Product error:",
+      error
+    );
 
 
-    alert(
-      "❌ Error:\n" +
-      error.message
+    showStatus(
+      productStatus,
+      "❌ " +
+      (
+        error.message ||
+        "Product save failed."
+      ),
+      "error"
     );
 
   }
 
+  finally{
 
-  saveBtn.disabled =
+    saveProductBtn.disabled =
     false;
 
-
-  saveBtn.innerText =
-    editingId
-    ? "💾 Update Product"
-    : "💾 Save Product";
-
-};
-
-
-/* ================================
-LOAD PRODUCTS
-================================ */
-
-async function loadProducts(){
-
-  const grid =
-    document.getElementById(
-      "productsGrid"
-    );
-
-
-  grid.innerHTML =
-    '<div class="empty">Loading...</div>';
-
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "products"
-        )
-      );
-
-
-    grid.innerHTML = "";
-
-
-    if(snapshot.empty){
-
-      grid.innerHTML =
-        '<div class="empty">No products found.</div>';
-
-      return;
-
-    }
-
-
-    snapshot.forEach(
-      item => {
-
-        const p =
-          item.data();
-
-
-        const id =
-          item.id;
-
-
-        const image =
-          p.image ||
-          (
-            p.images &&
-            p.images[0]
-          ) ||
-          "https://via.placeholder.com/500";
-
-
-        const oldPrice =
-          p.oldPrice
-          ? `
-            <span class="old-price">
-              ₹${p.oldPrice}
-            </span>
-          `
-          : "";
-
-
-        const discount =
-          p.discount
-          ? `
-            <div class="discount">
-              ${p.discount}% OFF
-            </div>
-          `
-          : "";
-
-
-        const div =
-          document.createElement(
-            "div"
-          );
-
-
-        div.className =
-          "product";
-
-
-        div.innerHTML = `
-
-          <img
-            src="${escapeHTML(image)}"
-            alt="Product"
-          >
-
-          <div class="product-info">
-
-            <div class="product-name">
-
-              ${escapeHTML(
-                p.name ||
-                "Unnamed"
-              )}
-
-            </div>
-
-
-            <div class="price">
-
-              ₹${Number(
-                p.price || 0
-              ).toLocaleString("en-IN")}
-
-              ${oldPrice}
-
-            </div>
-
-
-            ${discount}
-
-
-            <div class="category">
-
-              ${escapeHTML(
-                p.category ||
-                ""
-              )}
-
-            </div>
-
-
-            <div class="product-buttons">
-
-              <button
-                class="btn-blue"
-                onclick="showDetails('${id}')"
-              >
-                👁️ View
-              </button>
-
-
-              <button
-                class="btn-gold"
-                onclick="editProduct('${id}')"
-              >
-                ✏️ Edit
-              </button>
-
-
-              <button
-                class="btn-red"
-                onclick="deleteProduct('${id}')"
-              >
-                🗑️
-              </button>
-
-            </div>
-
-          </div>
-
-        `;
-
-
-        grid.appendChild(
-          div
-        );
-
-      }
-    );
-
-  }
-  catch(error){
-
-    console.error(error);
-
-
-    grid.innerHTML =
-      '<div class="empty">Failed to load products.</div>';
+    saveProductBtn.textContent =
+    "➕ Add Product";
 
   }
 
 }
 
 
-/* ================================
-SHOW PRODUCT DETAILS
-================================ */
+/* =========================================
+   RESET PRODUCT
+========================================= */
 
-window.showDetails =
-async function(id){
+cancelProductBtn.addEventListener(
+  "click",
+  resetProductForm
+);
+
+
+function resetProductForm(){
+
+  document.getElementById(
+    "editingProductId"
+  ).value =
+  "";
+
+
+  productName.value =
+  "";
+
+  productPrice.value =
+  "";
+
+  productOldPrice.value =
+  "";
+
+  productDiscount.value =
+  "";
+
+  productRating.value =
+  "";
+
+  productDescription.value =
+  "";
+
+  productImages.value =
+  "";
+
+  productImagePreview.innerHTML =
+  "";
+
+
+  saveProductBtn.textContent =
+  "➕ Add Product";
+
+
+  hideStatus(
+    productStatus
+  );
+
+}
+
+
+/* =========================================
+   LOAD PRODUCTS
+========================================= */
+
+async function loadProducts(){
 
   try{
 
+    productList.innerHTML =
+    `<div class="loading">
+      Loading products...
+    </div>`;
+
+
     const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "products"
-        )
-      );
+    await getDocs(
+      collection(
+        db,
+        "products"
+      )
+    );
 
 
-    let product = null;
+    if(snapshot.empty){
+
+      productList.innerHTML =
+      `<div class="empty">
+        No products found.
+      </div>`;
+
+      return;
+    }
+
+
+    productList.innerHTML =
+    "";
+
+
+    const products = [];
 
 
     snapshot.forEach(
       item => {
 
-        if(item.id === id){
+        products.push({
 
-          product =
-            item.data();
+          id:
+          item.id,
 
-        }
+          ...item.data()
+
+        });
 
       }
     );
 
 
-    if(!product){
-      return;
-    }
+    products.reverse();
+
+
+    products.forEach(
+      product => {
 
+        const images =
+        product.images ||
+        [];
 
-    let html = "";
 
+        const image =
+        images[0] ||
+        product.image ||
+        product.imageUrl ||
+        "";
 
-    html += `
 
-      <div class="detail-row">
+        const card =
+        document.createElement(
+          "div"
+        );
 
-        <b>Name:</b>
 
-        ${escapeHTML(
-          product.name || ""
-        )}
+        card.className =
+        "product-card";
 
-      </div>
 
-    `;
+        card.innerHTML = `
 
+          <img
+            src="${escapeHtml(image)}"
+            alt="Product">
 
-    html += `
+          <div class="product-content">
 
-      <div class="detail-row">
+            <h3>
+              ${escapeHtml(
+                product.name ||
+                "Product"
+              )}
+            </h3>
 
-        <b>Price:</b>
+            <div class="price">
 
-        ₹${product.price || 0}
+              ₹${Number(
+                product.price || 0
+              )}
 
-      </div>
+              ${
+                product.oldPrice
+                ?
+                `<span class="old-price">
+                  ₹${Number(
+                    product.oldPrice
+                  )}
+                </span>`
+                :
+                ""
+              }
 
-    `;
+              ${
+                product.discount
+                ?
+                `<span class="discount">
+                  ${Number(
+                    product.discount
+                  )}% OFF
+                </span>`
+                :
+                ""
+              }
 
+            </div>
 
-    if(product.oldPrice){
+            <p>
+              ⭐ ${
+                product.rating ||
+                4.5
+              }
+            </p>
 
-      html += `
+            <div class="small-buttons">
 
-        <div class="detail-row">
+              <button
+                class="edit-btn">
+                ✏️ Edit
+              </button>
 
-          <b>Old Price:</b>
+              <button
+                class="delete-btn">
+                🗑️ Delete
+              </button>
 
-          ₹${product.oldPrice}
+            </div>
 
-        </div>
+            <button
+              class="main-btn"
+              style="margin-top:8px"
+              >
+              👁️ Details
+            </button>
 
-      `;
+          </div>
 
-    }
+        `;
 
 
-    if(product.discount){
+        const buttons =
+        card.querySelectorAll(
+          "button"
+        );
 
-      html += `
 
-        <div class="detail-row">
+        buttons[0].addEventListener(
+          "click",
+          () =>
+          editProduct(product)
+        );
 
-          <b>Discount:</b>
 
-          ${product.discount}%
+        buttons[1].addEventListener(
+          "click",
+          () =>
+          deleteProduct(product.id)
+        );
 
-        </div>
 
-      `;
+        buttons[2].addEventListener(
+          "click",
+          () =>
+          showProductDetails(product)
+        );
 
-    }
 
-
-    html += `
-
-      <div class="detail-row">
-
-        <b>Category:</b>
-
-        ${escapeHTML(
-          product.category || ""
-        )}
-
-      </div>
-
-    `;
-
-
-    if(
-      Array.isArray(
-        product.colors
-      ) &&
-      product.colors.length > 0
-    ){
-
-      html += `
-
-        <div class="detail-row">
-
-          <b>Colors:</b>
-
-          ${product.colors
-            .map(
-              x =>
-                escapeHTML(x)
-            )
-            .join(", ")}
-
-        </div>
-
-      `;
-
-    }
-
-
-    if(
-      Array.isArray(
-        product.sizes
-      ) &&
-      product.sizes.length > 0
-    ){
-
-      html += `
-
-        <div class="detail-row">
-
-          <b>Sizes:</b>
-
-          ${product.sizes
-            .map(
-              x =>
-                escapeHTML(x)
-            )
-            .join(", ")}
-
-        </div>
-
-      `;
-
-    }
-
-
-    if(product.description){
-
-      html += `
-
-        <div class="detail-row">
-
-          <b>Description:</b>
-
-          <br><br>
-
-          ${escapeHTML(
-            product.description
-          )}
-
-        </div>
-
-      `;
-
-    }
-
-
-    const images =
-      product.images ||
-      [product.image];
-
-
-    html += `
-
-      <div class="detail-row">
-
-        <b>Images:</b>
-
-        <div
-          id="detailsImages"
-          style="
-            display:flex;
-            gap:8px;
-            flex-wrap:wrap;
-            margin-top:10px;
-          "
-        >
-        </div>
-
-      </div>
-
-    `;
-
-
-    document.getElementById(
-      "detailsContent"
-    ).innerHTML =
-      html;
-
-
-    const imageBox =
-      document.getElementById(
-        "detailsImages"
-      );
-
-
-    images
-      .filter(Boolean)
-      .forEach(
-        src => {
-
-          const img =
-            document.createElement(
-              "img"
-            );
-
-
-          img.src =
-            src;
-
-
-          img.style.width =
-            "90px";
-
-
-          img.style.height =
-            "90px";
-
-
-          img.style.objectFit =
-            "cover";
-
-
-          img.style.borderRadius =
-            "10px";
-
-
-          imageBox.appendChild(
-            img
-          );
-
-        }
-      );
-
-
-    document.getElementById(
-      "detailsModal"
-    ).style.display =
-      "block";
-
-  }
-  catch(error){
-
-    console.error(error);
-
-
-    alert(
-      "Unable to load details."
-    );
-
-  }
-
-};
-
-
-/* ================================
-EDIT PRODUCT
-================================ */
-
-window.editProduct =
-async function(id){
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "products"
-        )
-      );
-
-
-    let product = null;
-
-
-    snapshot.forEach(
-      item => {
-
-        if(item.id === id){
-
-          product =
-            item.data();
-
-        }
+        productList.appendChild(
+          card
+        );
 
       }
     );
 
-
-    if(!product){
-      return;
-    }
-
-
-    editingId =
-      id;
-
-
-    document.getElementById(
-      "productName"
-    ).value =
-      product.name || "";
-
-
-    document.getElementById(
-      "productPrice"
-    ).value =
-      product.price || "";
-
-
-    document.getElementById(
-      "productOldPrice"
-    ).value =
-      product.oldPrice || "";
-
-
-    document.getElementById(
-      "productDiscount"
-    ).value =
-      product.discount || "";
-
-
-    document.getElementById(
-      "productCategory"
-    ).value =
-      product.category || "";
-
-
-    document.getElementById(
-      "productColors"
-    ).value =
-      Array.isArray(
-        product.colors
-      )
-      ? product.colors.join(", ")
-      : "";
-
-
-    document.getElementById(
-      "productSizes"
-    ).value =
-      Array.isArray(
-        product.sizes
-      )
-      ? product.sizes.join(", ")
-      : "";
-
-
-    document.getElementById(
-      "productDescription"
-    ).value =
-      product.description || "";
-
-
-    selectedImages =
-      product.images ||
-      (
-        product.image
-        ? [product.image]
-        : []
-      );
-
-
-    showPreview();
-
-
-    document.getElementById(
-      "formTitle"
-    ).innerText =
-      "✏️ Edit Product";
-
-
-    document.getElementById(
-      "saveBtn"
-    ).innerText =
-      "💾 Update Product";
-
-
-    document.getElementById(
-      "cancelBtn"
-    ).style.display =
-      "block";
-
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
   }
+
   catch(error){
 
     console.error(error);
 
-
-    alert(
-      "Unable to edit product."
-    );
+    productList.innerHTML =
+    `<div class="empty">
+      ❌ Product load failed.
+    </div>`;
 
   }
 
-};
+}
 
 
-/* ================================
-DELETE PRODUCT
-================================ */
+/* =========================================
+   EDIT PRODUCT
+========================================= */
 
-window.deleteProduct =
-async function(id){
+function editProduct(product){
 
-  if(
-    !confirm(
-      "এই product-টি delete করতে চান?"
-    )
-  ){
+  document.getElementById(
+    "editingProductId"
+  ).value =
+  product.id;
+
+
+  productName.value =
+  product.name ||
+  "";
+
+  productPrice.value =
+  product.price ||
+  "";
+
+  productOldPrice.value =
+  product.oldPrice ||
+  "";
+
+  productDiscount.value =
+  product.discount ||
+  "";
+
+  productRating.value =
+  product.rating ||
+  4.5;
+
+  productDescription.value =
+  product.description ||
+  "";
+
+
+  productImagePreview.innerHTML =
+  "";
+
+
+  const images =
+  product.images ||
+  [];
+
+
+  images.forEach(
+    src => {
+
+      const img =
+      document.createElement(
+        "img"
+      );
+
+      img.src =
+      src;
+
+      productImagePreview.appendChild(
+        img
+      );
+
+    }
+  );
+
+
+  saveProductBtn.textContent =
+  "💾 Update Product";
+
+
+  window.scrollTo({
+    top:document.body.scrollHeight,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================
+   DELETE PRODUCT
+========================================= */
+
+async function deleteProduct(id){
+
+  const ok =
+  confirm(
+    "এই product delete করতে চান?"
+  );
+
+
+  if(!ok){
 
     return;
-
   }
 
 
@@ -3286,169 +2644,237 @@ async function(id){
 
 
     alert(
-      "🗑️ Product deleted."
+      "✅ Product deleted."
     );
 
 
-    await loadProducts();
+    loadProducts();
 
   }
+
   catch(error){
 
     console.error(error);
 
-
     alert(
-      "Delete failed:\n" +
-      error.message
+      "❌ Product delete করতে সমস্যা হয়েছে।"
     );
 
   }
 
-};
+}
 
 
-/* ================================
-CLEAR PRODUCT FORM
-================================ */
+/* =========================================
+   PRODUCT DETAILS
+========================================= */
 
-window.cancelEdit =
-function(){
+function showProductDetails(product){
 
-  clearForm();
-
-};
-
-
-function clearForm(){
-
-  editingId =
-    null;
-
-
-  selectedImages =
-    [];
-
-
+  const modal =
   document.getElementById(
-    "productName"
-  ).value = "";
+    "productModal"
+  );
 
-
+  const content =
   document.getElementById(
-    "productPrice"
-  ).value = "";
+    "productModalContent"
+  );
 
 
-  document.getElementById(
-    "productOldPrice"
-  ).value = "";
+  const images =
+  product.images ||
+  [];
 
 
-  document.getElementById(
-    "productDiscount"
-  ).value = "";
+  const image =
+  images[0] ||
+  product.image ||
+  product.imageUrl ||
+  "";
 
 
-  document.getElementById(
-    "productCategory"
-  ).value = "";
+  content.innerHTML = `
+
+    <img
+      src="${escapeHtml(image)}"
+      style="
+        width:100%;
+        max-height:300px;
+        object-fit:contain;
+        border-radius:10px;
+        background:#eee;
+      ">
+
+    <h2>
+      ${escapeHtml(
+        product.name ||
+        ""
+      )}
+    </h2>
+
+    <h3>
+      ₹${Number(
+        product.price || 0
+      )}
+    </h3>
+
+    ${
+      product.oldPrice
+      ?
+      `<p>
+        Old Price:
+        ₹${Number(
+          product.oldPrice
+        )}
+      </p>`
+      :
+      ""
+    }
+
+    ${
+      product.discount
+      ?
+      `<p>
+        Discount:
+        ${Number(
+          product.discount
+        )}%
+      </p>`
+      :
+      ""
+    }
+
+    <p>
+      ⭐ ${
+        product.rating ||
+        4.5
+      }
+    </p>
+
+    <p>
+      ${escapeHtml(
+        product.description ||
+        "No description"
+      )}
+    </p>
+
+  `;
 
 
-  document.getElementById(
-    "productColors"
-  ).value = "";
-
-
-  document.getElementById(
-    "productSizes"
-  ).value = "";
-
-
-  document.getElementById(
-    "productDescription"
-  ).value = "";
-
-
-  document.getElementById(
-    "productImage"
-  ).value = "";
-
-
-  document.getElementById(
-    "preview"
-  ).innerHTML = "";
-
-
-  document.getElementById(
-    "formTitle"
-  ).innerText =
-    "➕ Add New Product";
-
-
-  document.getElementById(
-    "saveBtn"
-  ).innerText =
-    "💾 Save Product";
-
-
-  document.getElementById(
-    "cancelBtn"
-  ).style.display =
-    "none";
+  modal.style.display =
+  "block";
 
 }
 
 
-/* ================================
-CLOSE MODAL
-================================ */
-
-window.closeModal =
+window.closeProductModal =
 function(){
 
   document.getElementById(
-    "detailsModal"
+    "productModal"
   ).style.display =
-    "none";
+  "none";
 
 };
 
 
-/* ================================
-ESCAPE HTML
-================================ */
+/* =========================================
+   CLICK OUTSIDE MODAL
+========================================= */
 
-function escapeHTML(value){
+document.getElementById(
+  "productModal"
+).addEventListener(
+  "click",
+  event => {
 
-  return String(
-    value || ""
-  )
+    if(
+      event.target.id ===
+      "productModal"
+    ){
 
-  .replace(
-    /&/g,
-    "&amp;"
-  )
+      closeProductModal();
 
-  .replace(
-    /</g,
-    "&lt;"
-  )
+    }
 
-  .replace(
-    />/g,
-    "&gt;"
-  )
+  }
+);
 
-  .replace(
-    /"/g,
-    "&quot;"
-  )
 
-  .replace(
-    /'/g,
-    "&#039;"
-  );
+/* =========================================
+   LOGOUT
+========================================= */
+
+document.getElementById(
+  "logoutBtn"
+).addEventListener(
+  "click",
+  async () => {
+
+    try{
+
+      await signOut(auth);
+
+      location.href =
+      "login.html";
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+      alert(
+        "Logout failed."
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value){
+
+  if(value === null ||
+     value === undefined){
+
+    return "";
+
+  }
+
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
