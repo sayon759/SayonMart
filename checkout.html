@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>SayonMart - Checkout</title>
 
 <script src="language.js"></script>
@@ -17,35 +16,36 @@ body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:#f7f9fc;
-  color:#172235;
+  color:#172236;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 .header{
   height:82px;
   background:#fff;
   display:flex;
   align-items:center;
-  padding:0 25px;
-  border-bottom:1px solid #eee;
-  gap:18px;
+  padding:0 28px;
+  border-bottom:1px solid #e8ebef;
 }
 
 .back{
-  font-size:38px;
   border:0;
   background:none;
+  font-size:38px;
+  color:#142237;
   cursor:pointer;
-  color:#101d31;
+  margin-right:18px;
 }
 
-.logo{
+.brand{
   display:flex;
   align-items:center;
   gap:10px;
 }
 
-.logo-bag{
+.bag{
   width:48px;
   height:48px;
   background:#ffc400;
@@ -56,83 +56,83 @@ body{
   font-size:27px;
 }
 
-.logo-text{
-  font-size:34px;
+.logo{
+  font-size:33px;
   font-weight:800;
 }
 
-.logo-text .sayon{
-  color:#f5b900;
+.logo .sayon{
+  color:#f4b900;
 }
 
-.logo-text .mart{
+.logo .mart{
   color:#142237;
 }
 
 .tagline{
   font-size:13px;
-  color:#647083;
-  margin-top:3px;
+  color:#697587;
+  margin-top:2px;
 }
 
 .secure{
   margin-left:auto;
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
 }
 
 .secure-icon{
   width:42px;
   height:42px;
   border-radius:50%;
-  background:#30465c;
+  background:#344a60;
   color:white;
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:20px;
+  font-size:22px;
 }
 
 .secure-title{
-  font-size:17px;
   font-weight:bold;
+  font-size:17px;
 }
 
 .secure-sub{
-  color:#687587;
   font-size:13px;
-  margin-top:4px;
+  color:#697587;
+  margin-top:3px;
 }
 
-/* STEPS */
+/* ================= STEPS ================= */
+
 .steps{
-  background:white;
-  padding:20px 12%;
+  height:112px;
+  background:#fff;
   display:flex;
   justify-content:space-between;
+  align-items:flex-start;
+  padding:18px 14%;
   position:relative;
 }
 
-.steps:before{
-  content:"";
+.steps-line{
   position:absolute;
   left:14%;
   right:14%;
   top:39px;
   height:4px;
-  background:#e2e7ec;
-  z-index:0;
+  background:#e2e7ed;
 }
 
-.step-line-active{
+.steps-active{
   position:absolute;
   left:14%;
   width:29%;
   top:39px;
   height:4px;
-  background:linear-gradient(90deg,#20b777,#ffc400);
-  z-index:1;
+  background:linear-gradient(90deg,#25b87a,#ffc400);
 }
 
 .step{
@@ -142,101 +142,104 @@ body{
   width:100px;
 }
 
-.circle{
+.step-circle{
   width:48px;
   height:48px;
-  border-radius:50%;
-  background:#e4e9ee;
   margin:auto;
+  border-radius:50%;
+  background:#e3e8ed;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:22px;
-  font-weight:bold;
-  color:#42546a;
+  font-size:21px;
+  color:#41536a;
 }
 
-.step.done .circle{
-  background:#28b77c;
-  color:white;
+.step.done .step-circle{
+  background:#27b87b;
+  color:#fff;
 }
 
-.step.active .circle{
+.step.active .step-circle{
   background:#ffc400;
-  color:#18263a;
+  color:#142237;
 }
 
-.step-title{
-  font-size:16px;
+.step-name{
+  margin-top:7px;
   font-weight:bold;
-  margin-top:8px;
+  font-size:16px;
 }
 
-/* MAIN */
+/* ================= MAIN ================= */
+
 .main{
   max-width:1500px;
   margin:auto;
-  padding:18px;
+  padding:16px;
   display:grid;
   grid-template-columns:1.35fr .9fr;
   gap:18px;
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
+
 .card{
-  background:white;
-  border-radius:18px;
+  background:#fff;
   border:1px solid #edf0f4;
+  border-radius:18px;
   box-shadow:0 3px 14px rgba(20,35,55,.05);
 }
 
-/* ADDRESS */
+/* ================= ADDRESS ================= */
+
 .address-card{
   padding:20px;
 }
 
-.title-row{
+.heading{
   display:flex;
   align-items:center;
   gap:12px;
 }
 
-.title-icon{
-  font-size:31px;
+.heading-icon{
+  font-size:30px;
 }
 
-h2{
+.heading h2{
   margin:0;
   font-size:28px;
 }
 
 .subtitle{
-  color:#526174;
-  font-size:18px;
   margin:8px 0 18px;
+  font-size:17px;
+  color:#526174;
 }
 
 /* LOCATION */
+
 .location{
-  border:2px solid #f6d13c;
-  border-radius:15px;
-  padding:15px;
   display:flex;
   align-items:center;
   gap:15px;
-  background:#fffdf3;
+  padding:14px;
+  border:2px solid #f2d34a;
+  border-radius:15px;
+  background:#fffdf1;
   cursor:pointer;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 .location-icon{
-  width:52px;
-  height:52px;
-  border-radius:10px;
+  width:53px;
+  height:53px;
   background:#ffc400;
+  border-radius:10px;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   font-size:28px;
 }
 
@@ -250,60 +253,53 @@ h2{
 }
 
 .location-sub{
-  color:#536276;
+  color:#586779;
   font-size:14px;
   margin-top:5px;
 }
 
 .location-arrow{
   font-size:30px;
-  color:#526174;
+  color:#536477;
 }
 
 /* FORM */
+
 .field{
   position:relative;
-  margin-bottom:15px;
+  margin-bottom:14px;
 }
 
-.field input,
-.field textarea,
-.field select{
+.field input{
   width:100%;
+  height:78px;
   border:2px solid #e0e4e9;
   border-radius:14px;
-  padding:25px 15px 10px 58px;
-  font-size:17px;
   outline:none;
-  background:white;
-  color:#172235;
+  background:#fff;
+  padding:27px 15px 8px 58px;
+  font-size:17px;
+  color:#172236;
 }
 
-.field textarea{
-  height:90px;
-  resize:none;
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus{
+.field input:focus{
   border-color:#ffc400;
 }
 
 .field-icon{
   position:absolute;
   left:18px;
-  top:22px;
-  font-size:22px;
+  top:27px;
+  font-size:21px;
   z-index:2;
 }
 
 .field label{
   position:absolute;
   left:58px;
-  top:7px;
+  top:8px;
   font-size:13px;
-  color:#647083;
+  color:#657286;
   z-index:2;
   pointer-events:none;
 }
@@ -312,65 +308,69 @@ h2{
   color:#e53935;
 }
 
-/* CITY + PIN */
-.two-fields{
+/* TWO INPUTS */
+
+.two{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:15px;
+  gap:14px;
 }
 
 /* MAP */
+
 .map-box{
   margin-top:5px;
-  background:#f2f7fb;
-  border-radius:15px;
+  background:#f0f6fa;
+  border-radius:14px;
   padding:12px;
   display:flex;
-  gap:18px;
   align-items:center;
+  gap:18px;
 }
 
 .map{
   width:52%;
   height:125px;
   border-radius:12px;
-  background:
-    linear-gradient(25deg,transparent 40%,#d8e0e7 41%,#d8e0e7 44%,transparent 45%),
-    linear-gradient(155deg,transparent 45%,#d8e0e7 46%,#d8e0e7 49%,transparent 50%),
-    #edf2f5;
   position:relative;
   overflow:hidden;
+  background:
+  linear-gradient(30deg,transparent 42%,#d8e0e6 43%,#d8e0e6 46%,transparent 47%),
+  linear-gradient(145deg,transparent 42%,#d8e0e6 43%,#d8e0e6 46%,transparent 47%),
+  linear-gradient(90deg,transparent 48%,#dfe5e9 49%,#dfe5e9 51%,transparent 52%),
+  #eef3f5;
 }
 
-.pin{
+.map-pin{
   position:absolute;
-  left:48%;
-  top:42%;
-  font-size:34px;
+  left:47%;
+  top:38%;
+  font-size:35px;
 }
 
 .map-text{
   font-size:15px;
-  line-height:1.5;
-  color:#526174;
+  line-height:1.45;
+  color:#536477;
 }
 
-.safe{
-  color:#23985d;
+.map-safe{
+  color:#23975c;
   font-weight:bold;
   margin-top:8px;
 }
 
-/* SAVE */
-.save-row{
-  margin-top:18px;
+/* SAVE ADDRESS */
+
+.save{
+  margin-top:17px;
   display:flex;
   align-items:center;
   gap:12px;
 }
 
 .save-icon{
-  font-size:24px;
+  font-size:23px;
 }
 
 .save-info{
@@ -384,55 +384,56 @@ h2{
 
 .save-sub{
   font-size:14px;
-  color:#657286;
+  color:#687587;
   margin-top:4px;
 }
 
-/* SWITCH */
 .switch{
   width:54px;
   height:31px;
-  border-radius:30px;
   background:#ffc400;
+  border-radius:30px;
   padding:3px;
 }
 
-.switch-circle{
+.switch-ball{
   width:25px;
   height:25px;
+  background:#fff;
   border-radius:50%;
-  background:white;
   margin-left:23px;
 }
 
 /* ADD ADDRESS */
-.add-address{
-  margin-top:18px;
+
+.add{
+  margin-top:17px;
   padding:13px;
-  border-radius:12px;
-  background:#f3f6fa;
   text-align:center;
-  font-weight:bold;
+  border-radius:12px;
+  background:#f2f5f9;
   font-size:16px;
+  font-weight:bold;
 }
 
-/* SUMMARY */
+/* ================= SUMMARY ================= */
+
 .summary-card{
   padding:20px;
   height:max-content;
 }
 
-.summary-title{
+.summary-heading{
   display:flex;
   align-items:center;
   gap:13px;
-  font-size:25px;
+  font-size:24px;
   font-weight:bold;
-  padding-bottom:18px;
-  border-bottom:1px solid #e5e8ec;
+  padding-bottom:17px;
+  border-bottom:1px solid #e4e8ec;
 }
 
-.summary-title span:last-child{
+.summary-heading .count{
   margin-left:auto;
   font-size:16px;
   font-weight:normal;
@@ -440,12 +441,13 @@ h2{
 
 .product{
   display:flex;
-  gap:15px;
-  padding:18px 0;
+  align-items:center;
+  gap:14px;
+  padding:17px 0;
   border-bottom:1px solid #e5e8ec;
 }
 
-.product-img{
+.product-image{
   width:108px;
   height:108px;
   object-fit:contain;
@@ -462,9 +464,10 @@ h2{
   font-weight:bold;
 }
 
-.product-variant{
+.variant{
   color:#667386;
-  margin-top:8px;
+  font-size:15px;
+  margin-top:7px;
 }
 
 .product-price{
@@ -476,138 +479,127 @@ h2{
 .qty{
   display:flex;
   align-items:center;
-  gap:15px;
-  border:1px solid #e1e5e9;
+  gap:14px;
+  border:1px solid #e0e4e8;
   border-radius:12px;
-  padding:7px 11px;
-  height:44px;
-  align-self:end;
+  padding:7px 10px;
 }
 
 .qty button{
   border:0;
-  background:white;
+  background:#fff;
   font-size:20px;
   cursor:pointer;
 }
 
 /* PRICE */
-.price-box{
+
+.price{
   padding-top:15px;
 }
 
 .price-row{
   display:flex;
   justify-content:space-between;
-  font-size:17px;
   margin:14px 0;
+  font-size:17px;
 }
 
 .discount{
-  color:#19955d;
+  color:#20945b;
 }
 
 .total{
-  border-top:1px solid #e2e6ea;
-  padding-top:18px;
+  border-top:1px solid #e1e5e9;
   margin-top:15px;
+  padding-top:17px;
   display:flex;
   justify-content:space-between;
   font-size:24px;
   font-weight:bold;
 }
 
-/* INFO BOXES */
-.info-box{
-  margin-top:18px;
+/* INFO */
+
+.info{
+  margin-top:17px;
   padding:17px;
   border-radius:13px;
   display:flex;
-  gap:15px;
+  gap:14px;
   align-items:center;
 }
 
-.free{
-  background:#ebfaf4;
+.delivery-info{
+  background:#eaf9f3;
 }
 
-.safe-box{
-  background:#fff8df;
+.safe-info{
+  background:#fff7dc;
 }
 
 .info-icon{
-  font-size:28px;
+  font-size:27px;
 }
 
 .info-title{
-  font-weight:bold;
   font-size:16px;
+  font-weight:bold;
 }
 
 .info-text{
-  color:#526174;
   margin-top:5px;
+  color:#536477;
   font-size:14px;
 }
 
-/* BOTTOM */
+/* ================= BOTTOM ================= */
+
 .bottom{
-  background:white;
-  border-top:1px solid #e4e7eb;
-  padding:16px 20px 20px;
+  background:#fff;
+  border-top:1px solid #e5e8ec;
+  padding:15px 20px 20px;
   position:sticky;
   bottom:0;
-  z-index:20;
+  z-index:50;
 }
 
-.place-order{
+.place{
   width:100%;
   max-width:1450px;
-  margin:auto;
   display:block;
+  margin:auto;
   border:0;
   border-radius:16px;
-  padding:17px;
   background:#ffc400;
   color:#142237;
   font-size:25px;
   font-weight:bold;
+  padding:17px;
   cursor:pointer;
-  box-shadow:0 5px 12px rgba(255,196,0,.25);
 }
 
-.place-order:active{
-  transform:scale(.99);
-}
+/* ================= MOBILE ================= */
 
-/* ERROR */
-.error{
-  color:#e53935;
-  font-size:14px;
-  margin:3px 0 12px;
-  display:none;
-}
-
-/* MOBILE */
 @media(max-width:800px){
 
   .header{
     height:68px;
-    padding:0 12px;
-    gap:8px;
+    padding:0 10px;
   }
 
   .back{
     font-size:30px;
+    margin-right:7px;
   }
 
-  .logo-bag{
-    width:38px;
-    height:38px;
+  .bag{
+    width:37px;
+    height:37px;
     font-size:21px;
   }
 
-  .logo-text{
+  .logo{
     font-size:23px;
   }
 
@@ -620,13 +612,13 @@ h2{
   }
 
   .secure-icon{
-    width:32px;
-    height:32px;
-    font-size:15px;
+    width:31px;
+    height:31px;
+    font-size:16px;
   }
 
   .secure-title{
-    font-size:12px;
+    font-size:11px;
   }
 
   .secure-sub{
@@ -634,28 +626,29 @@ h2{
   }
 
   .steps{
-    padding:13px 3px;
+    height:92px;
+    padding:13px 2%;
   }
 
-  .steps:before{
+  .steps-line{
     left:12%;
     right:12%;
-    top:34px;
+    top:33px;
   }
 
-  .step-line-active{
+  .steps-active{
     left:12%;
     width:29%;
-    top:34px;
+    top:33px;
   }
 
-  .circle{
+  .step-circle{
     width:40px;
     height:40px;
     font-size:18px;
   }
 
-  .step-title{
+  .step-name{
     font-size:12px;
   }
 
@@ -664,27 +657,48 @@ h2{
     padding:9px;
   }
 
-  .address-card,
-  .summary-card{
-    padding:15px;
+  .address-card{
+    padding:14px;
   }
 
-  .summary-card{
-    margin-top:12px;
-  }
-
-  h2{
+  .heading h2{
     font-size:22px;
   }
 
   .subtitle{
-    font-size:15px;
+    font-size:14px;
   }
 
-  .field input,
-  .field textarea,
-  .field select{
+  .location{
+    padding:12px;
+  }
+
+  .location-icon{
+    width:45px;
+    height:45px;
+    font-size:23px;
+  }
+
+  .location-title{
     font-size:16px;
+  }
+
+  .location-sub{
+    font-size:12px;
+  }
+
+  .field input{
+    height:68px;
+    font-size:16px;
+  }
+
+  .field-icon{
+    top:23px;
+  }
+
+  .two{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
   }
 
   .map-box{
@@ -697,17 +711,26 @@ h2{
     margin-bottom:10px;
   }
 
-  .product-img{
+  .summary-card{
+    margin-top:10px;
+    padding:14px;
+  }
+
+  .summary-heading{
+    font-size:21px;
+  }
+
+  .product-image{
     width:82px;
     height:82px;
   }
 
   .product-name{
-    font-size:15px;
+    font-size:14px;
   }
 
-  .product-variant{
-    font-size:13px;
+  .variant{
+    font-size:12px;
   }
 
   .product-price{
@@ -715,21 +738,21 @@ h2{
   }
 
   .qty{
-    height:38px;
-    padding:5px 8px;
+    gap:8px;
+    padding:6px;
   }
 
   .total{
     font-size:21px;
   }
 
-  .place-order{
+  .place{
     font-size:20px;
     padding:16px;
   }
 
   .bottom{
-    padding:10px;
+    padding:9px;
   }
 }
 </style>
@@ -742,14 +765,15 @@ h2{
 
   <button class="back" onclick="goBack()">←</button>
 
-  <div class="logo">
+  <div class="brand">
 
-    <div class="logo-bag">🛍️</div>
+    <div class="bag">🛍️</div>
 
     <div>
-      <div class="logo-text">
+      <div class="logo">
         <span class="sayon">Sayon</span><span class="mart">Mart</span>
       </div>
+
       <div class="tagline">
         Smart Shopping&nbsp;&nbsp; Better Living
       </div>
@@ -758,12 +782,14 @@ h2{
   </div>
 
   <div class="secure">
+
     <div class="secure-icon">✓</div>
 
     <div>
       <div class="secure-title">100% Secure</div>
       <div class="secure-sub">Your data is safe</div>
     </div>
+
   </div>
 
 </header>
@@ -772,26 +798,27 @@ h2{
 <!-- STEPS -->
 <div class="steps">
 
-  <div class="step-line-active"></div>
+  <div class="steps-line"></div>
+  <div class="steps-active"></div>
 
   <div class="step done">
-    <div class="circle">✓</div>
-    <div class="step-title">Cart</div>
+    <div class="step-circle">✓</div>
+    <div class="step-name">Cart</div>
   </div>
 
   <div class="step active">
-    <div class="circle">📍</div>
-    <div class="step-title">Address</div>
+    <div class="step-circle">📍</div>
+    <div class="step-name">Address</div>
   </div>
 
   <div class="step">
-    <div class="circle">▣</div>
-    <div class="step-title">Payment</div>
+    <div class="step-circle">▣</div>
+    <div class="step-name">Payment</div>
   </div>
 
   <div class="step">
-    <div class="circle">✓</div>
-    <div class="step-title">Done</div>
+    <div class="step-circle">✓</div>
+    <div class="step-name">Done</div>
   </div>
 
 </div>
@@ -800,297 +827,301 @@ h2{
 <!-- MAIN -->
 <main class="main">
 
-  <!-- ADDRESS -->
-  <section class="card address-card">
+<!-- ADDRESS CARD -->
 
-    <div class="title-row">
-      <div class="title-icon">📍</div>
-      <h2>Delivery Address</h2>
-    </div>
+<section class="card address-card">
 
-    <div class="subtitle">
-      Please enter your complete address for smooth delivery
-    </div>
+  <div class="heading">
+    <div class="heading-icon">📍</div>
+    <h2>Delivery Address</h2>
+  </div>
+
+  <div class="subtitle">
+    Please enter your complete address for smooth delivery
+  </div>
 
 
-    <!-- LOCATION -->
-    <div class="location" onclick="useLocation()">
+  <!-- LOCATION -->
 
-      <div class="location-icon">📍</div>
+  <div class="location" onclick="useLocation()">
 
-      <div class="location-info">
-        <div class="location-title">
-          Use My Location
-        </div>
+    <div class="location-icon">📍</div>
 
-        <div class="location-sub">
-          Get your current location automatically
-        </div>
+    <div class="location-info">
+
+      <div class="location-title">
+        Use My Location
       </div>
 
-      <div class="location-arrow">›</div>
+      <div class="location-sub">
+        Get your current location automatically
+      </div>
 
     </div>
 
+    <div class="location-arrow">›</div>
 
-    <!-- NAME -->
+  </div>
+
+
+  <!-- NAME -->
+
+  <div class="field">
+
+    <span class="field-icon">👤</span>
+
+    <label>
+      Full Name <span class="required">*</span>
+    </label>
+
+    <input
+      id="name"
+      type="text"
+      autocomplete="name"
+    >
+
+  </div>
+
+
+  <!-- PHONE -->
+
+  <div class="field">
+
+    <span class="field-icon">📞</span>
+
+    <label>
+      Mobile Number <span class="required">*</span>
+    </label>
+
+    <input
+      id="phone"
+      type="tel"
+      maxlength="10"
+      inputmode="numeric"
+      autocomplete="tel"
+    >
+
+  </div>
+
+
+  <!-- HOUSE -->
+
+  <div class="field">
+
+    <span class="field-icon">🏠</span>
+
+    <label>
+      House / Flat / Building <span class="required">*</span>
+    </label>
+
+    <input id="house" type="text">
+
+  </div>
+
+
+  <!-- AREA -->
+
+  <div class="field">
+
+    <span class="field-icon">📍</span>
+
+    <label>
+      Area / Locality <span class="required">*</span>
+    </label>
+
+    <input id="area" type="text">
+
+  </div>
+
+
+  <!-- CITY + PIN -->
+
+  <div class="two">
+
     <div class="field">
 
-      <span class="field-icon">👤</span>
+      <span class="field-icon">🏢</span>
 
       <label>
-        Full Name <span class="required">*</span>
+        City <span class="required">*</span>
       </label>
 
-      <input
-        id="name"
-        type="text"
-        autocomplete="name"
-      >
+      <input id="city" type="text">
 
     </div>
 
 
-    <!-- PHONE -->
-    <div class="field">
-
-      <span class="field-icon">📞</span>
-
-      <label>
-        Mobile Number <span class="required">*</span>
-      </label>
-
-      <input
-        id="phone"
-        type="tel"
-        maxlength="10"
-        inputmode="numeric"
-        autocomplete="tel"
-      >
-
-    </div>
-
-
-    <!-- HOUSE -->
-    <div class="field">
-
-      <span class="field-icon">🏠</span>
-
-      <label>
-        House / Flat / Building <span class="required">*</span>
-      </label>
-
-      <input
-        id="house"
-        type="text"
-      >
-
-    </div>
-
-
-    <!-- AREA -->
     <div class="field">
 
       <span class="field-icon">📍</span>
 
       <label>
-        Area / Locality <span class="required">*</span>
+        PIN Code <span class="required">*</span>
       </label>
 
       <input
-        id="area"
-        type="text"
+        id="pin"
+        type="tel"
+        maxlength="6"
+        inputmode="numeric"
       >
 
     </div>
 
-
-    <!-- CITY PIN -->
-    <div class="two-fields">
-
-      <div class="field">
-
-        <span class="field-icon">🏢</span>
-
-        <label>
-          City <span class="required">*</span>
-        </label>
-
-        <input
-          id="city"
-          type="text"
-        >
-
-      </div>
+  </div>
 
 
-      <div class="field">
+  <!-- MAP -->
 
-        <span class="field-icon">📍</span>
+  <div class="map-box">
 
-        <label>
-          PIN Code <span class="required">*</span>
-        </label>
+    <div class="map">
+      <div class="map-pin">📍</div>
+    </div>
 
-        <input
-          id="pin"
-          type="tel"
-          maxlength="6"
-          inputmode="numeric"
-        >
+    <div class="map-text">
 
+      Your address will be used
+      for delivery and can be
+      edited later.
+
+      <div class="map-safe">
+        🛡️ Safe & Secure
       </div>
 
     </div>
 
+  </div>
 
-    <!-- MAP -->
-    <div class="map-box">
 
-      <div class="map">
-        <div class="pin">📍</div>
+  <!-- SAVE -->
+
+  <div class="save">
+
+    <div class="save-icon">🔖</div>
+
+    <div class="save-info">
+
+      <div class="save-title">
+        Save Address
       </div>
 
-      <div class="map-text">
-
-        Your address will be used
-        for delivery and can be
-        edited later.
-
-        <div class="safe">
-          🛡️ Safe & Secure
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- SAVE -->
-    <div class="save-row">
-
-      <div class="save-icon">🔖</div>
-
-      <div class="save-info">
-
-        <div class="save-title">
-          Save Address
-        </div>
-
-        <div class="save-sub">
-          Save this address for next time
-        </div>
-
-      </div>
-
-      <div class="switch">
-        <div class="switch-circle"></div>
+      <div class="save-sub">
+        Save this address for next time
       </div>
 
     </div>
 
-
-    <!-- ADD -->
-    <div class="add-address">
-      ⊕ &nbsp; Add Another Address
+    <div class="switch">
+      <div class="switch-ball"></div>
     </div>
 
-  </section>
+  </div>
 
 
-  <!-- ORDER SUMMARY -->
-  <section class="card summary-card">
+  <div class="add">
+    ⊕ &nbsp; Add Another Address
+  </div>
 
-    <div class="summary-title">
+</section>
 
-      🛒
 
-      <span>Order Summary</span>
+<!-- ORDER SUMMARY -->
 
-      <span id="itemCount">
-        1 item
-      </span>
+<section class="card summary-card">
 
+  <div class="summary-heading">
+
+    🛒
+
+    <span>Order Summary</span>
+
+    <span class="count" id="itemCount">
+      1 item
+    </span>
+
+  </div>
+
+  <div id="products"></div>
+
+
+  <div class="price">
+
+    <div class="price-row">
+      <span>Subtotal</span>
+      <span id="subtotal">₹0</span>
     </div>
 
-
-    <div id="products"></div>
-
-
-    <!-- PRICE -->
-    <div class="price-box">
-
-      <div class="price-row">
-        <span>Subtotal</span>
-        <span id="subtotal">₹0</span>
-      </div>
-
-      <div class="price-row discount">
-        <span>Discount</span>
-        <span id="discount">- ₹0</span>
-      </div>
-
-      <div class="price-row">
-        <span>Delivery Fee</span>
-        <span id="delivery">₹0</span>
-      </div>
-
-      <div class="total">
-        <span>Total Amount</span>
-        <span id="total">₹0</span>
-      </div>
-
+    <div class="price-row discount">
+      <span>Discount</span>
+      <span id="discount">- ₹0</span>
     </div>
 
-
-    <!-- FREE DELIVERY -->
-    <div class="info-box free">
-
-      <div class="info-icon">🚚</div>
-
-      <div>
-        <div class="info-title">
-          Free Delivery
-        </div>
-
-        <div class="info-text">
-          On orders above ₹999
-        </div>
-      </div>
-
+    <div class="price-row">
+      <span>Delivery Fee</span>
+      <span id="delivery">₹0</span>
     </div>
 
+    <div class="total">
+      <span>Total Amount</span>
+      <span id="total">₹0</span>
+    </div>
 
-    <!-- SAFE -->
-    <div class="info-box safe-box">
+  </div>
 
-      <div class="info-icon">🛡️</div>
 
-      <div>
-        <div class="info-title">
-          100% Safe & Secure
-        </div>
+  <!-- FREE DELIVERY -->
 
-        <div class="info-text">
-          Your payment and personal
-          data are protected
-        </div>
+  <div class="info delivery-info">
+
+    <div class="info-icon">🚚</div>
+
+    <div>
+
+      <div class="info-title">
+        Free Delivery
+      </div>
+
+      <div class="info-text">
+        On orders above ₹999
       </div>
 
     </div>
 
-  </section>
+  </div>
+
+
+  <!-- SECURITY -->
+
+  <div class="info safe-info">
+
+    <div class="info-icon">🛡️</div>
+
+    <div>
+
+      <div class="info-title">
+        100% Safe & Secure
+      </div>
+
+      <div class="info-text">
+        Your payment and personal
+        data are protected
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
 </main>
 
 
 <!-- PLACE ORDER -->
+
 <div class="bottom">
 
-  <button
-    class="place-order"
-    onclick="continueToPayment()"
-  >
+  <button class="place" onclick="continueToPayment()">
     🔒 &nbsp; Place Order &nbsp; →
   </button>
 
@@ -1102,7 +1133,8 @@ h2{
 let buyNow = null;
 
 
-/* LOAD PRODUCT */
+/* ================= LOAD ORDER ================= */
+
 function loadOrder(){
 
   const saved =
@@ -1111,7 +1143,11 @@ function loadOrder(){
   if(!saved){
 
     document.getElementById("products").innerHTML =
-      "<p style='padding:20px;text-align:center'>No product found.</p>";
+      `
+      <div style="padding:30px;text-align:center">
+        No product found.
+      </div>
+      `;
 
     return;
   }
@@ -1133,7 +1169,8 @@ function loadOrder(){
 }
 
 
-/* PRODUCT */
+/* ================= PRODUCT ================= */
+
 function renderProduct(){
 
   const p = buyNow;
@@ -1151,16 +1188,18 @@ function renderProduct(){
     price * quantity;
 
   const discount =
-    Math.max(0,(oldPrice-price) * quantity);
+    Math.max(
+      0,
+      (oldPrice - price) * quantity
+    );
 
-  const delivery =
-    subtotal >= 999 ? 0 : 0;
+  const delivery = 0;
 
   const total =
     subtotal + delivery;
 
 
-  let image =
+  const image =
     p.image ||
     p.imageUrl ||
     (p.images && p.images[0]) ||
@@ -1172,7 +1211,7 @@ function renderProduct(){
     <div class="product">
 
       <img
-        class="product-img"
+        class="product-image"
         src="${image}"
         onerror="this.style.display='none'"
       >
@@ -1180,12 +1219,23 @@ function renderProduct(){
       <div class="product-info">
 
         <div class="product-name">
-          ${escapeHTML(p.name || p.title || "Product")}
+          ${escapeHTML(
+            p.name ||
+            p.title ||
+            "Product"
+          )}
         </div>
 
-        <div class="product-variant">
-          ${p.color ? "Color: " + escapeHTML(p.color) : ""}
-          ${p.size ? " | Size: " + escapeHTML(p.size) : ""}
+        <div class="variant">
+
+          ${p.color
+            ? "Color: " + escapeHTML(p.color)
+            : ""}
+
+          ${p.size
+            ? " | Size: " + escapeHTML(p.size)
+            : ""}
+
         </div>
 
         <div class="product-price">
@@ -1193,6 +1243,7 @@ function renderProduct(){
         </div>
 
       </div>
+
 
       <div class="qty">
 
@@ -1222,32 +1273,38 @@ function renderProduct(){
     "- ₹" + discount.toLocaleString("en-IN");
 
   document.getElementById("delivery").textContent =
-    delivery === 0 ? "₹0" : "₹" + delivery;
+    "₹0";
 
   document.getElementById("total").textContent =
     "₹" + total.toLocaleString("en-IN");
 
   document.getElementById("itemCount").textContent =
-    quantity + (quantity === 1 ? " item" : " items");
+    quantity +
+    (quantity === 1 ? " item" : " items");
 
 }
 
 
-/* QUANTITY */
+/* ================= QUANTITY ================= */
+
 function changeQty(change){
 
   if(!buyNow) return;
 
-  let qty =
-    Number(buyNow.quantity || buyNow.qty || 1);
+  let quantity =
+    Number(
+      buyNow.quantity ||
+      buyNow.qty ||
+      1
+    );
 
-  qty += change;
+  quantity += change;
 
-  if(qty < 1){
-    qty = 1;
+  if(quantity < 1){
+    quantity = 1;
   }
 
-  buyNow.quantity = qty;
+  buyNow.quantity = quantity;
 
   localStorage.setItem(
     "sayonmart_buy_now",
@@ -1259,34 +1316,41 @@ function changeQty(change){
 }
 
 
-/* SAVE ADDRESS */
+/* ================= CONTINUE ================= */
+
 function continueToPayment(){
 
   if(!buyNow){
 
     alert("Product not found.");
-
     return;
+
   }
 
 
   const name =
-    document.getElementById("name").value.trim();
+    document.getElementById("name")
+    .value.trim();
 
   const phone =
-    document.getElementById("phone").value.trim();
+    document.getElementById("phone")
+    .value.trim();
 
   const house =
-    document.getElementById("house").value.trim();
+    document.getElementById("house")
+    .value.trim();
 
   const area =
-    document.getElementById("area").value.trim();
+    document.getElementById("area")
+    .value.trim();
 
   const city =
-    document.getElementById("city").value.trim();
+    document.getElementById("city")
+    .value.trim();
 
   const pin =
-    document.getElementById("pin").value.trim();
+    document.getElementById("pin")
+    .value.trim();
 
 
   if(!name){
@@ -1296,36 +1360,46 @@ function continueToPayment(){
     document.getElementById("name").focus();
 
     return;
+
   }
 
 
   if(!/^[0-9]{10}$/.test(phone)){
 
-    alert("Please enter a valid 10 digit mobile number.");
+    alert(
+      "Please enter a valid 10 digit mobile number."
+    );
 
     document.getElementById("phone").focus();
 
     return;
+
   }
 
 
   if(!house){
 
-    alert("Please enter your House / Flat / Building.");
+    alert(
+      "Please enter your House / Flat / Building."
+    );
 
     document.getElementById("house").focus();
 
     return;
+
   }
 
 
   if(!area){
 
-    alert("Please enter your Area / Locality.");
+    alert(
+      "Please enter your Area / Locality."
+    );
 
     document.getElementById("area").focus();
 
     return;
+
   }
 
 
@@ -1336,6 +1410,7 @@ function continueToPayment(){
     document.getElementById("city").focus();
 
     return;
+
   }
 
 
@@ -1346,6 +1421,7 @@ function continueToPayment(){
     document.getElementById("pin").focus();
 
     return;
+
   }
 
 
@@ -1359,13 +1435,15 @@ function continueToPayment(){
     pin;
 
 
-  /* SAVE OLD FORMAT TOO */
+  /* OLD FORMAT */
+
   buyNow.customerName = name;
   buyNow.phone = phone;
   buyNow.address = fullAddress;
 
 
-  /* SAVE NEW ADDRESS */
+  /* NEW ADDRESS */
+
   buyNow.deliveryAddress = {
 
     name:name,
@@ -1385,31 +1463,40 @@ function continueToPayment(){
   );
 
 
-  /* SAVE ADDRESS FOR NEXT TIME */
+  /* SAVE FOR NEXT TIME */
+
   localStorage.setItem(
     "sayonmart_saved_address",
-    JSON.stringify(buyNow.deliveryAddress)
+    JSON.stringify(
+      buyNow.deliveryAddress
+    )
   );
 
 
-  /* GO PAYMENT */
-  window.location.href = "payment.html";
+  /* PAYMENT */
+
+  window.location.href =
+    "payment.html";
 
 }
 
 
-/* LOAD SAVED ADDRESS */
+/* ================= SAVED ADDRESS ================= */
+
 function loadSavedAddress(){
 
   try{
 
     const saved =
-      localStorage.getItem("sayonmart_saved_address");
+      localStorage.getItem(
+        "sayonmart_saved_address"
+      );
 
     if(!saved) return;
 
     const address =
       JSON.parse(saved);
+
 
     document.getElementById("name").value =
       address.name || "";
@@ -1438,20 +1525,19 @@ function loadSavedAddress(){
 }
 
 
-/* LOCATION */
+/* ================= LOCATION ================= */
+
 function useLocation(){
 
   if(!navigator.geolocation){
 
-    alert("Location is not supported on this device.");
+    alert(
+      "Location is not supported on this device."
+    );
 
     return;
+
   }
-
-
-  alert(
-    "Location permission দিলে আপনার current location পাওয়া যাবে। Address দেওয়ার আগে location permission allow করুন।"
-  );
 
 
   navigator.geolocation.getCurrentPosition(
@@ -1461,7 +1547,7 @@ function useLocation(){
       document.getElementById("area").focus();
 
       alert(
-        "Location permission দেওয়া হয়েছে। এখন আপনার address details confirm করুন।"
+        "Location permission দেওয়া হয়েছে। আপনার address details confirm করুন।"
       );
 
     },
@@ -1479,26 +1565,30 @@ function useLocation(){
 }
 
 
-/* BACK */
+/* ================= BACK ================= */
+
 function goBack(){
 
-  if(document.referrer){
+  if(history.length > 1){
 
     history.back();
 
   }else{
 
-    window.location.href = "index.html";
+    window.location.href =
+      "index.html";
 
   }
 
 }
 
 
-/* SECURITY */
+/* ================= SECURITY ================= */
+
 function escapeHTML(text){
 
   return String(text)
+
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -1508,17 +1598,15 @@ function escapeHTML(text){
 }
 
 
-/* START */
+/* ================= START ================= */
+
 loadOrder();
 
 
-/* LANGUAGE SUPPORT */
 window.addEventListener(
   "languageChanged",
   function(){
-
     loadOrder();
-
   }
 );
 
