@@ -1,534 +1,877 @@
 <!DOCTYPE html>
-<html lang="bn">
-
+<html lang="en">
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>SayonMart Settings</title>
+<title>SayonMart - Settings</title>
 
 <style>
-
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  background:#f7f7f7;
-  color:#222;
-  padding-bottom:30px;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5f6f8;
+  color:#172033;
+  padding-bottom:75px;
 }
 
+/* HEADER */
 .header{
-  background:#fff;
-  padding:16px;
+  height:64px;
+  background:#ffd21c;
   display:flex;
   align-items:center;
-  gap:15px;
-  box-shadow:0 2px 10px rgba(0,0,0,.08);
+  padding:0 16px;
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:20;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
 }
 
 .back{
   border:0;
-  background:none;
+  background:transparent;
   font-size:28px;
+  cursor:pointer;
+  margin-right:10px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+}
+
+.logo span{
+  color:#111;
+}
+
+/* PROFILE */
+.profile{
+  background:white;
+  padding:20px 16px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  border-bottom:1px solid #eee;
+}
+
+.avatar{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#eee;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+  overflow:hidden;
+  border:2px solid #ffd21c;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.profile-info{
+  flex:1;
+}
+
+.profile-info h2{
+  margin:0 0 5px;
+  font-size:19px;
+}
+
+.profile-info p{
+  margin:3px 0;
+  color:#697386;
+  font-size:13px;
+}
+
+.edit{
+  margin-top:8px;
+  border:0;
+  background:#fff4bc;
+  padding:7px 14px;
+  border-radius:7px;
+  font-weight:bold;
   cursor:pointer;
 }
 
-.header h2{
-  color:#e91e63;
-  font-size:21px;
-}
-
-.container{
-  padding:15px;
-}
-
+/* SECTION */
 .section-title{
   font-size:14px;
-  color:#777;
-  margin:18px 5px 8px;
   font-weight:bold;
+  color:#667085;
+  padding:18px 16px 8px;
+  text-transform:uppercase;
 }
 
+/* MENU */
 .menu{
-  background:#fff;
-  border-radius:14px;
+  background:white;
+  margin:0 10px;
+  border-radius:12px;
   overflow:hidden;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  box-shadow:0 1px 5px rgba(0,0,0,.06);
 }
 
-.menu-item{
-  min-height:58px;
-  padding:12px 15px;
+.item{
+  min-height:64px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  padding:10px 14px;
   border-bottom:1px solid #eee;
   cursor:pointer;
 }
 
-.menu-item:last-child{
+.item:last-child{
   border-bottom:0;
 }
 
-.left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.menu-icon{
-  width:36px;
-  height:36px;
+.icon{
+  width:42px;
+  height:42px;
+  border-radius:11px;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#fff0f5;
-  border-radius:10px;
-  font-size:19px;
+  font-size:22px;
+  margin-right:13px;
+  background:#f2f6ff;
+}
+
+.item:nth-child(2) .icon{
+  background:#fff0f3;
+}
+
+.item:nth-child(3) .icon{
+  background:#eef8ff;
+}
+
+.item:nth-child(4) .icon{
+  background:#fff6df;
+}
+
+.item:nth-child(5) .icon{
+  background:#effaf1;
+}
+
+.item:nth-child(6) .icon{
+  background:#f3efff;
+}
+
+.item:nth-child(7) .icon{
+  background:#fff0e7;
+}
+
+.item:nth-child(8) .icon{
+  background:#eaf7ff;
+}
+
+.text{
+  flex:1;
+}
+
+.text strong{
+  display:block;
+  font-size:15px;
+  margin-bottom:3px;
+}
+
+.text small{
+  color:#7b8494;
+  font-size:12px;
 }
 
 .arrow{
-  font-size:25px;
-  color:#aaa;
+  color:#98a2b3;
+  font-size:22px;
+}
+
+/* ADMIN */
+.admin-box{
+  display:none;
 }
 
 .admin{
-  color:#e91e63;
-  font-weight:bold;
+  background:#111827;
+  color:white;
 }
 
+.admin .icon{
+  background:#ffd21c;
+}
+
+.admin .text small{
+  color:#cbd5e1;
+}
+
+/* LOGOUT */
 .logout{
-  margin-top:22px;
-  width:100%;
-  border:0;
-  background:#fff;
-  color:#e91e63;
-  padding:14px;
+  margin:18px 10px;
+  background:white;
   border-radius:12px;
-  font-size:16px;
+  padding:15px;
+  text-align:center;
+  color:#e53935;
   font-weight:bold;
   cursor:pointer;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  box-shadow:0 1px 5px rgba(0,0,0,.06);
 }
 
+/* VERSION */
 .version{
   text-align:center;
-  color:#999;
+  color:#98a2b3;
   font-size:12px;
-  margin-top:25px;
+  margin:15px;
 }
 
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:65px;
+  background:white;
+  border-top:1px solid #ddd;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:30;
+}
+
+.nav{
+  text-align:center;
+  color:#667085;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.nav div{
+  font-size:21px;
+  margin-bottom:3px;
+}
+
+.nav.active{
+  color:#e0ad00;
+  font-weight:bold;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  z-index:100;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal-box{
+  background:white;
+  width:100%;
+  max-width:500px;
+  border-radius:20px 20px 0 0;
+  padding:22px;
+}
+
+.modal-box h2{
+  margin-top:0;
+}
+
+.input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  margin-bottom:12px;
+  font-size:15px;
+}
+
+.save-btn{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:10px;
+  background:#ffd21c;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.close{
+  width:100%;
+  padding:12px;
+  border:0;
+  background:#eee;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+/* DESKTOP */
+@media(min-width:700px){
+  .menu,
+  .profile,
+  .logout{
+    max-width:700px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .section-title{
+    max-width:700px;
+    margin:auto;
+  }
+
+  .profile{
+    margin-top:15px;
+    border-radius:14px;
+  }
+}
 </style>
-
 </head>
-
 
 <body>
 
-
 <!-- HEADER -->
+<header class="header">
+  <button class="back" onclick="goBack()">‹</button>
 
-<div class="header">
+  <div class="logo">
+    🛍️ <span style="color:#e5a900;">Sayon</span>Mart
+  </div>
+</header>
 
-<button class="back"
-onclick="history.back()">
-‹
-</button>
 
-<h2>⚙️ Settings</h2>
+<!-- PROFILE -->
+<div class="profile">
+
+  <div class="avatar" id="avatar">
+    👤
+  </div>
+
+  <div class="profile-info">
+    <h2 id="userName">SayonMart User</h2>
+    <p id="userEmail">Login to your account</p>
+    <p id="userPhone"></p>
+
+    <button class="edit" onclick="openProfile()">
+      ✏️ Edit Profile
+    </button>
+  </div>
 
 </div>
-
-
-<div class="container">
 
 
 <!-- ACCOUNT -->
-
 <div class="section-title">
-My Account
+  My Account
 </div>
 
 <div class="menu">
 
-<div class="menu-item"
-onclick="location.href='notifications.html'">
+  <div class="item" onclick="openPage('orders.html')">
+    <div class="icon">📦</div>
+    <div class="text">
+      <strong>My Orders</strong>
+      <small>Track and view your orders</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
 
-<div class="left">
 
-<span class="menu-icon">👤</span>
+  <div class="item" onclick="openPage('wishlist.html')">
+    <div class="icon">❤️</div>
+    <div class="text">
+      <strong>Wishlist</strong>
+      <small>Your saved products</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
 
-<span>Profile</span>
+
+  <div class="item" onclick="openPage('address.html')">
+    <div class="icon">📍</div>
+    <div class="text">
+      <strong>Manage Addresses</strong>
+      <small>Delivery addresses</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="openPage('coupons.html')">
+    <div class="icon">🎟️</div>
+    <div class="text">
+      <strong>Coupons & Offers</strong>
+      <small>Save more with great deals</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="openPage('referral.html')">
+    <div class="icon">🎁</div>
+    <div class="text">
+      <strong>Referral & Rewards</strong>
+      <small>Invite friends and earn rewards</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
+
+
+  <div class="item" onclick="openPage('payment.html')">
+    <div class="icon">💳</div>
+    <div class="text">
+      <strong>Payment Methods</strong>
+      <small>Manage your payment options</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
 
 </div>
 
-<span class="arrow">›</span>
 
-</div>
-
-
-<div class="menu-item"
-onclick="location.href='order.html'">
-
-<div class="left">
-
-<span class="menu-icon">📦</span>
-
-<span>My Orders</span>
-
-</div>
-
-<span class="arrow">›</span>
-
-</div>
-
-
-<div class="menu-item"
-onclick="location.href='payment.html'">
-
-<div class="left">
-
-<span class="menu-icon">💳</span>
-
-<span>Payment Methods</span>
-
-</div>
-
-<span class="arrow">›</span>
-
-</div>
-
-</div>
-
-
-
-<!-- ADMIN -->
-
+<!-- PREFERENCES -->
 <div class="section-title">
-Administration
+  Preferences
 </div>
 
 <div class="menu">
 
-
-<!-- ADMIN PANEL -->
-
-<div class="menu-item admin"
-id="adminPanel"
-onclick="location.href='admin.html'">
-
-<div class="left">
-
-<span class="menu-icon">⚙️</span>
-
-<span>Admin Panel</span>
-
-</div>
-
-<span class="arrow">›</span>
-
-</div>
+  <div class="item" onclick="openPage('notifications.html')">
+    <div class="icon">🔔</div>
+    <div class="text">
+      <strong>Notifications</strong>
+      <small>Orders, offers and updates</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
 
 
-<!-- ADMIN ORDERS -->
-
-<div class="menu-item admin"
-id="adminOrders"
-onclick="location.href='admin-orders.html'">
-
-<div class="left">
-
-<span class="menu-icon">📦</span>
-
-<span>Admin Orders</span>
+  <div class="item" onclick="openLanguage()">
+    <div class="icon">🌐</div>
+    <div class="text">
+      <strong>Language</strong>
+      <small id="languageText">English</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
 
 </div>
-
-<span class="arrow">›</span>
-
-</div>
-
-
-<!-- CONFIRM ORDERS -->
-
-<div class="menu-item admin"
-id="confirmOrders"
-onclick="location.href='confirm-orders.html'">
-
-<div class="left">
-
-<span class="menu-icon">✅</span>
-
-<span>Confirm Orders</span>
-
-</div>
-
-<span class="arrow">›</span>
-
-</div>
-
-
-</div>
-
-
-
-<!-- APP SETTINGS -->
-
-<div class="section-title">
-App Settings
-</div>
-
-<div class="menu">
-
-
-<div class="menu-item"
-onclick="changeLanguage()">
-
-<div class="left">
-
-<span class="menu-icon">🌐</span>
-
-<span>Language</span>
-
-</div>
-
-<span class="arrow">›</span>
-
-</div>
-
-
-<div class="menu-item"
-onclick="toggleDarkMode()">
-
-<div class="left">
-
-<span class="menu-icon">🌙</span>
-
-<span>Dark Mode</span>
-
-</div>
-
-<span id="darkSwitch">◯</span>
-
-</div>
-
-
-<div class="menu-item"
-onclick="toggleNotifications()">
-
-<div class="left">
-
-<span class="menu-icon">🔔</span>
-
-<span>Notifications</span>
-
-</div>
-
-<span id="notificationSwitch">🟢</span>
-
-</div>
-
-
-</div>
-
-
-
-<!-- PRIVACY -->
-
-<div class="section-title">
-Privacy & Security
-</div>
-
-<div class="menu">
-
-<div class="menu-item"
-onclick="alert('Privacy Policy শীঘ্রই আসছে।')">
-
-<div class="left">
-
-<span class="menu-icon">🔒</span>
-
-<span>Privacy Policy</span>
-
-</div>
-
-<span class="arrow">›</span>
-
-</div>
-
-
-<div class="menu-item"
-onclick="alert('Terms & Conditions শীঘ্রই আসছে।')">
-
-<div class="left">
-
-<span class="menu-icon">📄</span>
-
-<span>Terms & Conditions</span>
-
-</div>
-
-<span class="arrow">›</span>
-
-</div>
-
-</div>
-
 
 
 <!-- SUPPORT -->
-
 <div class="section-title">
-Support
+  Support & Security
 </div>
 
 <div class="menu">
 
-<div class="menu-item"
-onclick="alert('Help & Support শীঘ্রই আসছে।')">
-
-<div class="left">
-
-<span class="menu-icon">🎧</span>
-
-<span>Help & Support</span>
-
-</div>
-
-<span class="arrow">›</span>
-
-</div>
+  <div class="item" onclick="openPage('help.html')">
+    <div class="icon">❓</div>
+    <div class="text">
+      <strong>Help & Support</strong>
+      <small>Get help with your order</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
 
 
-<div class="menu-item"
-onclick="alert('Contact Us শীঘ্রই আসছে।')">
-
-<div class="left">
-
-<span class="menu-icon">📞</span>
-
-<span>Contact Us</span>
-
-</div>
-
-<span class="arrow">›</span>
-
-</div>
+  <div class="item" onclick="openPage('privacy.html')">
+    <div class="icon">🔒</div>
+    <div class="text">
+      <strong>Privacy & Security</strong>
+      <small>Protect your account</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
 
 
-<div class="menu-item"
-onclick="alert('SayonMart Shopping App')">
-
-<div class="left">
-
-<span class="menu-icon">ⓘ</span>
-
-<span>About SayonMart</span>
+  <div class="item" onclick="openPage('contact.html')">
+    <div class="icon">📞</div>
+    <div class="text">
+      <strong>Contact Us</strong>
+      <small>Talk to SayonMart support</small>
+    </div>
+    <div class="arrow">›</div>
+  </div>
 
 </div>
 
-<span class="arrow">›</span>
+
+<!-- ADMIN -->
+<div class="admin-box" id="adminBox">
+
+  <div class="section-title">
+    Admin
+  </div>
+
+  <div class="menu">
+
+    <div class="item admin" onclick="openPage('admin.html')">
+      <div class="icon">⚙️</div>
+      <div class="text">
+        <strong>Admin Panel</strong>
+        <small>Manage SayonMart</small>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+
+
+    <div class="item admin" onclick="openPage('admin-orders.html')">
+      <div class="icon">📋</div>
+      <div class="text">
+        <strong>Manage Orders</strong>
+        <small>Confirm and manage orders</small>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+
+  </div>
 
 </div>
-
-</div>
-
 
 
 <!-- LOGOUT -->
-
-<button class="logout"
-onclick="logout()">
-
-🚪 Logout
-
-</button>
-
+<div class="logout" onclick="logout()">
+  🚪 Logout
+</div>
 
 <div class="version">
-SayonMart v1.0.0
+  SayonMart v1.0
 </div>
 
 
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+  <div class="nav" onclick="openPage('index.html')">
+    <div>⌂</div>
+    Home
+  </div>
+
+  <div class="nav" onclick="openPage('products.html')">
+    <div>▦</div>
+    Categories
+  </div>
+
+  <div class="nav" onclick="openPage('wishlist.html')">
+    <div>♡</div>
+    Wishlist
+  </div>
+
+  <div class="nav" onclick="openPage('cart.html')">
+    <div>🛒</div>
+    Cart
+  </div>
+
+  <div class="nav active">
+    <div>👤</div>
+    Profile
+  </div>
+
 </div>
 
+
+<!-- PROFILE MODAL -->
+<div class="modal" id="profileModal">
+
+  <div class="modal-box">
+
+    <h2>Edit Profile</h2>
+
+    <input
+      class="input"
+      id="editName"
+      placeholder="Full Name"
+    >
+
+    <input
+      class="input"
+      id="editPhone"
+      placeholder="Phone Number"
+      type="tel"
+    >
+
+    <button class="save-btn" onclick="saveProfile()">
+      Save Profile
+    </button>
+
+    <button class="close" onclick="closeProfile()">
+      Cancel
+    </button>
+
+  </div>
+
+</div>
 
 
 <script type="module">
 
-import { auth }
-from "./firebase.js";
+import { auth } from "./firebase.js";
 
 import {
   onAuthStateChanged,
+  updateProfile,
   signOut
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-/* তোমার Admin UID */
-
-const ADMIN_UID =
-"fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
+/* ADMIN UID */
+const ADMIN_UID = "fqQpbMgWScgUbu5Vco4dJ6WuBVL2";
 
 
-/* Login check */
+/* OPEN PAGE */
+window.openPage = function(page){
 
-onAuthStateChanged(auth,(user)=>{
+  window.location.href = page;
 
-  const adminPanel =
-  document.getElementById("adminPanel");
-
-  const adminOrders =
-  document.getElementById("adminOrders");
-
-  const confirmOrders =
-  document.getElementById("confirmOrders");
+};
 
 
-  if(user && user.uid === ADMIN_UID){
+/* BACK */
+window.goBack = function(){
 
-    /* Admin হলে ৩টিই দেখাবে */
-
-    adminPanel.style.display="flex";
-
-    adminOrders.style.display="flex";
-
-    confirmOrders.style.display="flex";
-
+  if(history.length > 1){
+    history.back();
   }else{
+    window.location.href = "index.html";
+  }
 
-    /* Customer হলে লুকানো থাকবে */
+};
 
-    adminPanel.style.display="none";
 
-    adminOrders.style.display="none";
+/* AUTH */
+onAuthStateChanged(auth, (user)=>{
 
-    confirmOrders.style.display="none";
+  if(!user){
+
+    document.getElementById("userName").textContent =
+      "Guest User";
+
+    document.getElementById("userEmail").textContent =
+      "Please login to your account";
+
+    return;
+  }
+
+
+  /* NAME */
+  document.getElementById("userName").textContent =
+    user.displayName || "SayonMart User";
+
+
+  /* EMAIL */
+  document.getElementById("userEmail").textContent =
+    user.email || "";
+
+
+  /* PHONE */
+  document.getElementById("userPhone").textContent =
+    user.phoneNumber || "";
+
+
+  /* PHOTO */
+  if(user.photoURL){
+
+    document.getElementById("avatar").innerHTML =
+      `<img src="${user.photoURL}" alt="Profile">`;
+
+  }
+
+
+  /* ADMIN */
+  if(user.uid === ADMIN_UID){
+
+    document.getElementById("adminBox").style.display =
+      "block";
 
   }
 
 });
 
 
+/* EDIT PROFILE */
+window.openProfile = function(){
+
+  const user = auth.currentUser;
+
+  if(!user){
+
+    alert("Please login first.");
+    window.location.href = "login.html";
+    return;
+
+  }
+
+
+  document.getElementById("editName").value =
+    user.displayName || "";
+
+  document.getElementById("editPhone").value =
+    user.phoneNumber || "";
+
+  document.getElementById("profileModal").style.display =
+    "flex";
+
+};
+
+
+/* CLOSE PROFILE */
+window.closeProfile = function(){
+
+  document.getElementById("profileModal").style.display =
+    "none";
+
+};
+
+
+/* SAVE PROFILE */
+window.saveProfile = async function(){
+
+  const user = auth.currentUser;
+
+  if(!user) return;
+
+
+  const name =
+    document.getElementById("editName").value.trim();
+
+
+  if(!name){
+
+    alert("Please enter your name.");
+    return;
+
+  }
+
+
+  try{
+
+    await updateProfile(user,{
+      displayName:name
+    });
+
+
+    localStorage.setItem(
+      "sayonmart_phone",
+      document.getElementById("editPhone").value.trim()
+    );
+
+
+    document.getElementById("userName").textContent =
+      name;
+
+
+    document.getElementById("userPhone").textContent =
+      document.getElementById("editPhone").value.trim();
+
+
+    closeProfile();
+
+
+    alert("Profile updated successfully!");
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Profile update failed.");
+
+  }
+
+};
+
+
+/* LANGUAGE */
+window.openLanguage = function(){
+
+  const current =
+    localStorage.getItem("sayonmart_language") || "English";
+
+
+  const choice =
+    prompt(
+      "Choose Language:\n\n1 = English\n2 = বাংলা\n3 = हिन्दी",
+      current === "English" ? "1" :
+      current === "Bangla" ? "2" : "3"
+    );
+
+
+  if(choice === "1"){
+
+    localStorage.setItem(
+      "sayonmart_language",
+      "English"
+    );
+
+    document.getElementById("languageText").textContent =
+      "English";
+
+  }
+
+  else if(choice === "2"){
+
+    localStorage.setItem(
+      "sayonmart_language",
+      "Bangla"
+    );
+
+    document.getElementById("languageText").textContent =
+      "বাংলা";
+
+  }
+
+  else if(choice === "3"){
+
+    localStorage.setItem(
+      "sayonmart_language",
+      "Hindi"
+    );
+
+    document.getElementById("languageText").textContent =
+      "हिन्दी";
+
+  }
+
+};
+
+
+/* SHOW SAVED LANGUAGE */
+const savedLanguage =
+  localStorage.getItem("sayonmart_language");
+
+
+if(savedLanguage === "Bangla"){
+
+  document.getElementById("languageText").textContent =
+    "বাংলা";
+
+}
+
+else if(savedLanguage === "Hindi"){
+
+  document.getElementById("languageText").textContent =
+    "हिन्दी";
+
+}
+
 
 /* LOGOUT */
-
 window.logout = async function(){
 
   const ok =
-  confirm("আপনি কি Logout করতে চান?");
+    confirm("Are you sure you want to logout?");
+
 
   if(!ok) return;
 
@@ -537,17 +880,13 @@ window.logout = async function(){
 
     await signOut(auth);
 
-    localStorage.removeItem("user");
-
-    localStorage.removeItem("cart");
-
-    location.href="login.html";
+    window.location.href = "login.html";
 
   }catch(error){
 
-    alert("Logout হয়নি। আবার চেষ্টা করুন।");
-
     console.error(error);
+
+    alert("Logout failed.");
 
   }
 
@@ -555,77 +894,5 @@ window.logout = async function(){
 
 </script>
 
-
-
-<script>
-
-
-/* LANGUAGE */
-
-function changeLanguage(){
-
-  alert(
-  "Language: বাংলা / English / हिन्दी"
-  );
-
-}
-
-
-/* DARK MODE */
-
-function toggleDarkMode(){
-
-  if(
-    document.body.style.background ===
-    "rgb(17, 17, 17)"
-  ){
-
-    document.body.style.background="#f7f7f7";
-
-    document.body.style.color="#222";
-
-    document.getElementById("darkSwitch")
-    .innerText="◯";
-
-  }else{
-
-    document.body.style.background="#111";
-
-    document.body.style.color="#fff";
-
-    document.getElementById("darkSwitch")
-    .innerText="🟢";
-
-  }
-
-}
-
-
-/* NOTIFICATIONS */
-
-function toggleNotifications(){
-
-  const sw =
-  document.getElementById(
-  "notificationSwitch"
-  );
-
-
-  if(sw.innerText==="🟢"){
-
-    sw.innerText="⚪";
-
-  }else{
-
-    sw.innerText="🟢";
-
-  }
-
-}
-
-</script>
-
-
 </body>
-
 </html>
